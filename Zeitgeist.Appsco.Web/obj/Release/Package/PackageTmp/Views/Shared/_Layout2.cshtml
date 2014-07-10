@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/Landing/css/LandingStyle.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        @*@RenderSection("head", required: false)*@
+        <div class="row">
+            <div><center><img src="~/Content/Landing/images/Logo%20ProdActive.png" /></center></div>
+            <div class="col-lg-6 mod1" style="height:10px"></div><div class="col-lg-6 mod3" style="height:10px"></div>
+        </div>  
+    </header>
+    <div id="body" class="Bod row">
+        @RenderSection("featured", required: false)
+        <section >
+            @RenderBody()
+        </section>
+        <div>
+            <div class="gray col-lg-12">
+                <center>
+                    <svg width="250" height="50">
+                        <text x="10" y="40" font-family="impact" font-size="40px" fill="white">Está por Llegar</text>
+                    </svg>
+                </center>
+            </div>
+            @*@RenderSection("foot", required: false)*@
+        </div>
+    </div>
+    <footer>
+        <div class="modal-footer">
+            <div>
+                <center>
+                    <p>&copy; @DateTime.Now.Year - StarWalk Apps.co</p>
+                </center>
+            </div>
+        </div>
+    </footer>    
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/bootstrap.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

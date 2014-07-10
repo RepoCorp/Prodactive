@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{0BAECA4B-3B37-42D5-8C27-174CDDFE133D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mobile", "Mobile", "{E7CE4980-DDB5-485D-BB60-A624B231AD87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zeitgeist.Appsco.Web", "Zeitgeist.Appsco.Web\Zeitgeist.Appsco.Web.csproj", "{13EA3C28-A342-4EF1-9001-9E06FD147145}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zeitgeist.Appsco.Web.Tests", "Zeitgeist.Appsco.Web.Tests\Zeitgeist.Appsco.Web.Tests.csproj", "{6AE45A7F-8583-4863-A3F6-8E8506C0B472}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{13EA3C28-A342-4EF1-9001-9E06FD147145}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13EA3C28-A342-4EF1-9001-9E06FD147145}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13EA3C28-A342-4EF1-9001-9E06FD147145}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13EA3C28-A342-4EF1-9001-9E06FD147145}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AE45A7F-8583-4863-A3F6-8E8506C0B472}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AE45A7F-8583-4863-A3F6-8E8506C0B472}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AE45A7F-8583-4863-A3F6-8E8506C0B472}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AE45A7F-8583-4863-A3F6-8E8506C0B472}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{13EA3C28-A342-4EF1-9001-9E06FD147145} = {0BAECA4B-3B37-42D5-8C27-174CDDFE133D}
+		{6AE45A7F-8583-4863-A3F6-8E8506C0B472} = {0BAECA4B-3B37-42D5-8C27-174CDDFE133D}
+	EndGlobalSection
+EndGlobal

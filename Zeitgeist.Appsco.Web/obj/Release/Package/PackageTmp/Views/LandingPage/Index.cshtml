@@ -1,0 +1,55 @@
+﻿@model Zeitgeist.Appsco.Web.Models.LandingData
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<div class="row" style="height:700px">
+    <div class="col-lg-3" style="top:200px;height:50px;margin-left: 20%;">
+        <div class="row mod22">
+            <svg width="450" height="50">
+                <text x="50" y="45" font-family="impact" font-size="40px" fill="white">¡Activa Tu Gente!</text>
+            </svg>
+        </div>
+        <div class="row mod22" style="margin-top:10px;">
+            <center>
+                <svg width="450" height="180">
+                    <!--height="190"-->
+                    <text x="50" y="50" font-family="impact" font-size="30px" fill="white">Vive nuevos retos,prepárate</text>
+                    <text x="20" y="85" font-family="impact" font-size="30px" fill="white">para cumplir tus metas en salud,</text>
+                    <text x="80" y="115" font-family="impact" font-size="30px" fill="white">rendimiento y vitalidad.</text>
+                </svg>
+            </center>
+        </div>
+    </div>
+    <div class="col-lg-1" style="top:200px;">
+        <svg width="450" height="250">
+            <polyline points="10,0  10,250  100,125 10,0" style=" fill:rgba(147, 147, 147, 0.4);" /><!--stroke:#006600;-->
+        </svg>
+    </div>
+    <div class="col-lg-3 gray" style="top:250px;height:150px;" >
+        <center>
+            <svg width="450" height="50">
+                <text x="30" y="30" font-family="impact" font-size="20px" fill="white">¡Inscríbete da el primer paso, empieza ya!</text>
+            </svg>
+            @using (Html.BeginForm("Save", "LandingPage", FormMethod.Post, new { role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">@@</div>
+                        @Html.TextBoxFor(model => model.Email, new { placeholder = "Email", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+                </div>
+                <div class="form-group">
+                                <input class="btn btn-default" type="submit" value="Inscribete" />
+                </div>
+            }
+        </center>        
+    </div>
+
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
