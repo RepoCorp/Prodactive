@@ -5,59 +5,59 @@
   </assembly>
   <members>
     <member name="T:System.Net.Http.RtcRequestFactory">
-      <summary>Representa la clase que se usa para crear elementos <see cref="T:System.Net.Http.HttpRequestMessage" /> especiales para utilizarlos con la infraestructura de notificación en segundo plano Real-Time-Communications (RTC).</summary>
+      <summary>Represents the class that is used to create special <see cref="T:System.Net.Http.HttpRequestMessage" /> for use with the Real-Time-Communications (RTC) background notification infrastructure.</summary>
     </member>
     <member name="M:System.Net.Http.RtcRequestFactory.Create(System.Net.Http.HttpMethod,System.Uri)">
-      <summary>Crea un objeto <see cref="T:System.Net.Http.HttpRequestMessage" /> especial para utilizarlo con la infraestructura de notificaciones en segundo plano Real-Time-Communications (RTC).</summary>
-      <returns>Devuelva <see cref="T:System.Net.Http.HttpRequestMessage" />. Un mensaje de solicitud HTTP para usarse con la infraestructura de notificación en segundo plano RTC.</returns>
-      <param name="method">Método HTTP.</param>
-      <param name="uri">URI al que se envía la solicitud.</param>
+      <summary>Creates a special <see cref="T:System.Net.Http.HttpRequestMessage" /> for use with the Real-Time-Communications (RTC) background notification infrastructure.</summary>
+      <returns>Returns <see cref="T:System.Net.Http.HttpRequestMessage" />.An HTTP request message for use with the RTC background notification infrastructure.</returns>
+      <param name="method">The HTTP method.</param>
+      <param name="uri">The Uri the request is sent to.</param>
     </member>
     <member name="T:System.Net.Http.WebRequestHandler">
-      <summary>Proporciona características específicas de escritorio no disponibles para las aplicaciones de la Tienda Windows u otros entornos. </summary>
+      <summary>Provides desktop-specific features not available to Windows Store apps or other environments. </summary>
     </member>
     <member name="M:System.Net.Http.WebRequestHandler.#ctor">
-      <summary>Inicializa una nueva instancia de la clase <see cref="T:System.Net.Http.WebRequestHandler" />.</summary>
+      <summary>Initializes a new instance of the <see cref="T:System.Net.Http.WebRequestHandler" /> class.</summary>
     </member>
     <member name="P:System.Net.Http.WebRequestHandler.AllowPipelining">
-      <summary>Obtiene o establece un valor que indica si se debe canalizar la solicitud en el recurso de Internet.</summary>
-      <returns>Devuelva <see cref="T:System.Boolean" />. Es true si la solicitud debe canalizarse; de lo contrario, es false. De manera predeterminada, es true.</returns>
+      <summary> Gets or sets a value that indicates whether to pipeline the request to the Internet resource.</summary>
+      <returns>Returns <see cref="T:System.Boolean" />.true if the request should be pipelined; otherwise, false. The default is true. </returns>
     </member>
     <member name="P:System.Net.Http.WebRequestHandler.AuthenticationLevel">
-      <summary>Obtiene o establece un valor que indica el nivel de autenticación y de suplantación utilizados para esta solicitud.</summary>
-      <returns>Devuelva <see cref="T:System.Net.Security.AuthenticationLevel" />. Combinación bit a bit de los valores de <see cref="T:System.Net.Security.AuthenticationLevel" />. El valor predeterminado es <see cref="F:System.Net.Security.AuthenticationLevel.MutualAuthRequested" />.</returns>
+      <summary>Gets or sets a value indicating the level of authentication and impersonation used for this request.</summary>
+      <returns>Returns <see cref="T:System.Net.Security.AuthenticationLevel" />.A bitwise combination of the <see cref="T:System.Net.Security.AuthenticationLevel" /> values.  The default value is <see cref="F:System.Net.Security.AuthenticationLevel.MutualAuthRequested" />.</returns>
     </member>
     <member name="P:System.Net.Http.WebRequestHandler.CachePolicy">
-      <summary>Obtiene o establece la directiva de caché para esta solicitud.</summary>
-      <returns>Devuelva <see cref="T:System.Net.Cache.RequestCachePolicy" />. Un objeto <see cref="T:System.Net.Cache.RequestCachePolicy" /> que define una directiva de caché. El valor predeterminado es <see cref="P:System.Net.WebRequest.DefaultCachePolicy" />.</returns>
+      <summary>Gets or sets the cache policy for this request.</summary>
+      <returns>Returns <see cref="T:System.Net.Cache.RequestCachePolicy" />.A <see cref="T:System.Net.Cache.RequestCachePolicy" /> object that defines a cache policy. The default is <see cref="P:System.Net.WebRequest.DefaultCachePolicy" />.</returns>
     </member>
     <member name="P:System.Net.Http.WebRequestHandler.ClientCertificates">
-      <summary>Obtiene o establece la colección de certificados de seguridad asociados a esta solicitud.</summary>
-      <returns>Devuelva <see cref="T:System.Security.Cryptography.X509Certificates.X509CertificateCollection" />. Colección de certificados de seguridad asociados a esta solicitud.</returns>
+      <summary>Gets or sets the collection of security certificates that are associated with this request.</summary>
+      <returns>Returns <see cref="T:System.Security.Cryptography.X509Certificates.X509CertificateCollection" />.The collection of security certificates associated with this request.</returns>
     </member>
     <member name="P:System.Net.Http.WebRequestHandler.ContinueTimeout">
-      <summary>Obtiene o establece la cantidad de tiempo, en milisegundos, que la aplicación esperará para "100 continue" desde el servidor antes de cargar datos.</summary>
-      <returns>Devuelva <see cref="T:System.TimeSpan" />. La cantidad de tiempo, en milisegundos, que la aplicación esperará para "100 continue" desde el servidor antes de cargar datos. El valor predeterminado es 350 milisegundos.</returns>
+      <summary>Gets or sets the amount of time, in milliseconds, the application will wait for 100-continue from the server before uploading data.</summary>
+      <returns>Returns <see cref="T:System.TimeSpan" />.The amount of time, in milliseconds, the application will wait for 100-continue from the server before uploading data. The default value is 350 milliseconds.</returns>
     </member>
     <member name="P:System.Net.Http.WebRequestHandler.ImpersonationLevel">
-      <summary>Obtiene o establece el nivel de suplantación para la solicitud actual.</summary>
-      <returns>Devuelva <see cref="T:System.Security.Principal.TokenImpersonationLevel" />. Nivel de suplantación para la solicitud. El valor predeterminado es <see cref="F:System.Security.Principal.TokenImpersonationLevel.Delegation" />.</returns>
+      <summary>Gets or sets the impersonation level for the current request.</summary>
+      <returns>Returns <see cref="T:System.Security.Principal.TokenImpersonationLevel" />.The impersonation level for the request. The default is <see cref="F:System.Security.Principal.TokenImpersonationLevel.Delegation" />.</returns>
     </member>
     <member name="P:System.Net.Http.WebRequestHandler.MaxResponseHeadersLength">
-      <summary>Obtiene o establece la longitud máxima permitida de los encabezados de respuesta.</summary>
-      <returns>Devuelva <see cref="T:System.Int32" />. La longitud en kilobytes (1024 bytes) de los encabezados de respuesta.</returns>
+      <summary>Gets or sets the maximum allowed length of the response headers.</summary>
+      <returns>Returns <see cref="T:System.Int32" />.The length, in kilobytes (1024 bytes), of the response headers.</returns>
     </member>
     <member name="P:System.Net.Http.WebRequestHandler.ReadWriteTimeout">
-      <summary>Obtiene o establece un tiempo de espera, en milisegundos, al escribir una solicitud o leer una respuesta de un servidor.</summary>
-      <returns>Devuelva <see cref="T:System.Int32" />. El número de milisegundos antes de que se agote el tiempo de espera de la operación de lectura o escritura. El valor predeterminado es 300.000 milisegundos (5 minutos).</returns>
+      <summary>Gets or sets a time-out in milliseconds when writing a request to or reading a response from a server.</summary>
+      <returns>Returns <see cref="T:System.Int32" />.The number of milliseconds before the writing or reading times out. The default value is 300,000 milliseconds (5 minutes). </returns>
     </member>
     <member name="P:System.Net.Http.WebRequestHandler.ServerCertificateValidationCallback">
-      <summary>Obtiene o establece un método de devolución de llamada para validar el certificado de servidor.</summary>
-      <returns>Devuelve <see cref="T:System.Net.Security.RemoteCertificateValidationCallback" />. Un método de devolución de llamada para validar el certificado de servidor.</returns>
+      <summary>Gets or sets a callback method to validate the server certificate.</summary>
+      <returns>Returns <see cref="T:System.Net.Security.RemoteCertificateValidationCallback" />.A callback method to validate the server certificate.</returns>
     </member>
     <member name="P:System.Net.Http.WebRequestHandler.UnsafeAuthenticatedConnectionSharing">
-      <summary>Obtiene o establece un valor que indica si se permite el uso compartido de las conexiones de alta velocidad autenticadas por NTLM.</summary>
-      <returns>Devuelva <see cref="T:System.Boolean" />. Es true para mantener abiertas las conexiones autenticadas; en caso contrario, es false.</returns>
+      <summary>Gets or sets a value that indicates whether to allow high-speed NTLM-authenticated connection sharing.</summary>
+      <returns>Returns <see cref="T:System.Boolean" />.true to keep the authenticated connection open; otherwise, false.</returns>
     </member>
   </members>
 </doc>

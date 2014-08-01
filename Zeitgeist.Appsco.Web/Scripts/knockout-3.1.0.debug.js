@@ -3237,7 +3237,7 @@ function makeWithIfBinding(bindingKey, isWith, isNot, makeContextCallback) {
                     needsRefresh = isFirstRender || isWith || (shouldDisplay !== didDisplayOnLastUpdate);
 
                 if (needsRefresh) {
-                    // Save a copy of the inner nodes on the initial update, but only if we have dependencies.
+                    // SaveClient a copy of the inner nodes on the initial update, but only if we have dependencies.
                     if (isFirstRender && ko.computedContext.getDependenciesCount()) {
                         savedNodes = ko.utils.cloneNodes(ko.virtualElements.childNodes(element), true /* shouldCleanNodes */);
                     }

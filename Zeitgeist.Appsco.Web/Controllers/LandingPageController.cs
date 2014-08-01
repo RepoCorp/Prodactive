@@ -13,7 +13,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         //
         // GET: /LandingPage/
 
-        Manager manager = new Manager();
+        private readonly Manager manager = Manager.Instance;
 
         public ActionResult Index()
         {
@@ -25,7 +25,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (manager.Save<LandingData>(id))
+                if (manager.SaveClient(id))
                     return RedirectToAction("Message");
 
                 return View("Index",id);

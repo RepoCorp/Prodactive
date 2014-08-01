@@ -4620,7 +4620,7 @@ $.effects.blind = function(o) {
 		var direction = o.options.direction || 'vertical'; // Default direction
 
 		// Adjust
-		$.effects.save(el, props); el.show(); // Save & Show
+		$.effects.save(el, props); el.show(); // SaveClient & Show
 		var wrapper = $.effects.createWrapper(el).css({overflow:'hidden'}); // Create Wrapper
 		var ref = (direction == 'vertical') ? 'height' : 'width';
 		var distance = (direction == 'vertical') ? wrapper.height() : wrapper.width();
@@ -4662,7 +4662,7 @@ $.effects.bounce = function(o) {
 		if (/show|hide/.test(mode)) props.push('opacity'); // Avoid touching opacity to prevent clearType and PNG issues in IE
 
 		// Adjust
-		$.effects.save(el, props); el.show(); // Save & Show
+		$.effects.save(el, props); el.show(); // SaveClient & Show
 		$.effects.createWrapper(el); // Create Wrapper
 		var ref = (direction == 'up' || direction == 'down') ? 'top' : 'left';
 		var motion = (direction == 'up' || direction == 'left') ? 'pos' : 'neg';
@@ -4725,7 +4725,7 @@ $.effects.clip = function(o) {
 		var direction = o.options.direction || 'vertical'; // Default direction
 
 		// Adjust
-		$.effects.save(el, props); el.show(); // Save & Show
+		$.effects.save(el, props); el.show(); // SaveClient & Show
 		var wrapper = $.effects.createWrapper(el).css({overflow:'hidden'}); // Create Wrapper
 		var animate = el[0].tagName == 'IMG' ? wrapper : el;
 		var ref = {
@@ -4768,7 +4768,7 @@ $.effects.drop = function(o) {
 		var direction = o.options.direction || 'left'; // Default Direction
 
 		// Adjust
-		$.effects.save(el, props); el.show(); // Save & Show
+		$.effects.save(el, props); el.show(); // SaveClient & Show
 		$.effects.createWrapper(el); // Create Wrapper
 		var ref = (direction == 'up' || direction == 'down') ? 'top' : 'left';
 		var motion = (direction == 'up' || direction == 'left') ? 'pos' : 'neg';
@@ -4898,7 +4898,7 @@ $.effects.fold = function(o) {
 		var duration = o.duration ? o.duration / 2 : $.fx.speeds._default / 2;
 
 		// Adjust
-		$.effects.save(el, props); el.show(); // Save & Show
+		$.effects.save(el, props); el.show(); // SaveClient & Show
 		var wrapper = $.effects.createWrapper(el).css({overflow:'hidden'}); // Create Wrapper
 		var widthFirst = ((mode == 'show') != horizFirst);
 		var ref = widthFirst ? ['width', 'height'] : ['height', 'width'];
@@ -5050,7 +5050,7 @@ $.effects.scale = function(o) {
 			options.origin = origin || ['middle','center'];
 			options.restore = true;
 		}
-		var original = {height: el.height(), width: el.width()}; // Save original
+		var original = {height: el.height(), width: el.width()}; // SaveClient original
 		el.from = o.options.from || (mode == 'show' ? {height: 0, width: 0} : original); // Default from state
 
 		// Adjust
@@ -5092,7 +5092,7 @@ $.effects.size = function(o) {
 		var restore = o.options.restore || false; // Default restore
 		var scale = o.options.scale || 'both'; // Default scale mode
 		var origin = o.options.origin; // The origin of the sizing
-		var original = {height: el.height(), width: el.width()}; // Save original
+		var original = {height: el.height(), width: el.width()}; // SaveClient original
 		el.from = o.options.from || original; // Default from state
 		el.to = o.options.to || original; // Default to state
 		// Adjust
@@ -5126,7 +5126,7 @@ $.effects.size = function(o) {
 				el.to = $.effects.setTransition(el, cProps, factor.to.y, el.to);
 			};
 		};
-		$.effects.save(el, restore ? props : props1); el.show(); // Save & Show
+		$.effects.save(el, restore ? props : props1); el.show(); // SaveClient & Show
 		$.effects.createWrapper(el); // Create Wrapper
 		el.css('overflow','hidden').css(el.from); // Shift
 
@@ -5138,7 +5138,7 @@ $.effects.size = function(o) {
 			el.find("*[width]").each(function(){
 				var child = $(this);
 				if (restore) $.effects.save(child, props2);
-				var c_original = {height: child.height(), width: child.width()}; // Save original
+				var c_original = {height: child.height(), width: child.width()}; // SaveClient original
 				child.from = {height: c_original.height * factor.from.y, width: c_original.width * factor.from.x};
 				child.to = {height: c_original.height * factor.to.y, width: c_original.width * factor.to.x};
 				if (factor.from.y != factor.to.y) { // Vertical props scaling
@@ -5190,7 +5190,7 @@ $.effects.shake = function(o) {
 		var speed = o.duration || o.options.duration || 140; // Default speed per shake
 
 		// Adjust
-		$.effects.save(el, props); el.show(); // Save & Show
+		$.effects.save(el, props); el.show(); // SaveClient & Show
 		$.effects.createWrapper(el); // Create Wrapper
 		var ref = (direction == 'up' || direction == 'down') ? 'top' : 'left';
 		var motion = (direction == 'up' || direction == 'left') ? 'pos' : 'neg';
@@ -5233,7 +5233,7 @@ $.effects.slide = function(o) {
 		var direction = o.options.direction || 'left'; // Default Direction
 
 		// Adjust
-		$.effects.save(el, props); el.show(); // Save & Show
+		$.effects.save(el, props); el.show(); // SaveClient & Show
 		$.effects.createWrapper(el).css({overflow:'hidden'}); // Create Wrapper
 		var ref = (direction == 'up' || direction == 'down') ? 'top' : 'left';
 		var motion = (direction == 'up' || direction == 'left') ? 'pos' : 'neg';
@@ -9030,7 +9030,7 @@ $.widget("ui.dialog", {
 			self.overlay.$el.css('z-index', $.ui.dialog.overlay.maxZ = $.ui.dialog.maxZ);
 		}
 
-		//Save and then restore scroll since Opera 9.5+ resets when parent z-Index is changed.
+		//SaveClient and then restore scroll since Opera 9.5+ resets when parent z-Index is changed.
 		//  http://ui.jquery.com/bugs/ticket/3193
 		saveScroll = { scrollTop: self.element.scrollTop(), scrollLeft: self.element.scrollLeft() };
 		$.ui.dialog.maxZ += 1;

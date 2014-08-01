@@ -1,0 +1,17 @@
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\bin\Debug\ProdactiveMovil.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\bin\Debug\ProdactiveMovil.pdb
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\bin\Debug\ProdactiveMovil.dll.mdb
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\bin\Debug\ProdactiveMovil.ProdactiveMovil.apk
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\bin\Debug\ProdactiveMovil.ProdactiveMovil-Signed.apk
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\bin\Debug\ServiceStack.Client.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\bin\Debug\ServiceStack.Interfaces.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\bin\Debug\ServiceStack.Pcl.Android.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\bin\Debug\ServiceStack.Text.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\obj\Debug\ProdactiveMovil.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\obj\Debug\ProdactiveMovil.pdb
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\obj\Debug\android\bin\ProdactiveMovil.ProdactiveMovil.apk
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\obj\Debug\res\layout\main.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\obj\Debug\res\values\strings.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\obj\Debug\res\drawable\icon.png
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\obj\Debug\R.cs.flag
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\obj\Debug\uploadflags.txt

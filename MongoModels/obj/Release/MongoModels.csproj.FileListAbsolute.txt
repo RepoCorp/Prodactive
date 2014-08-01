@@ -1,0 +1,7 @@
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\MongoModels\bin\Release\MongoModels.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\MongoModels\bin\Release\MongoModels.pdb
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\MongoModels\bin\Release\MongoDB.Bson.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\MongoModels\bin\Release\MongoDB.Bson.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\MongoModels\obj\Release\MongoModels.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\MongoModels\obj\Release\MongoModels.pdb
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\MongoModels\obj\Release\MongoModels.csprojResolveAssemblyReference.cache

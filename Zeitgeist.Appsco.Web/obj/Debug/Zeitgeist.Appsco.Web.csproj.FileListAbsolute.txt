@@ -1,138 +1,281 @@
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Zeitgeist.Appsco.Web.dll.config
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Zeitgeist.Appsco.Web.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Zeitgeist.Appsco.Web.pdb
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Antlr3.Runtime.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.AspNet.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.Core.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OAuth.Consumer.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OAuth.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OpenId.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\EntityFramework.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Data.Edm.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Data.OData.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Web.Infrastructure.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Web.WebPages.OAuth.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Newtonsoft.Json.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Common.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Interfaces.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.OrmLite.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.OrmLite.SqlServer.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Redis.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.ServiceInterface.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Text.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Net.Http.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Net.Http.Formatting.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Net.Http.WebRequest.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Spatial.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Helpers.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Http.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Http.OData.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Http.WebHost.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Mvc.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Optimization.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Razor.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.WebPages.Deployment.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.WebPages.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.WebPages.Razor.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\WebGrease.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\WebMatrix.Data.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\WebMatrix.WebData.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Common.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Interfaces.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Redis.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Text.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\EntityFramework.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Newtonsoft.Json.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Net.Http.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Net.Http.Formatting.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Net.Http.WebRequest.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Helpers.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Http.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Http.WebHost.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Mvc.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Razor.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.WebPages.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.WebPages.Deployment.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.WebPages.Razor.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\WebMatrix.Data.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Web.WebPages.OAuth.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\WebMatrix.WebData.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.AspNet.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.Core.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OAuth.Consumer.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OAuth.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OpenId.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Http.OData.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Data.Edm.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Data.OData.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Spatial.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\EntityFramework.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Net.Http.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Net.Http.Formatting.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Net.Http.WebRequest.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.Helpers.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.Http.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.Http.WebHost.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.Mvc.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.Optimization.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.Razor.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.WebPages.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.WebPages.Deployment.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.WebPages.Razor.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\WebMatrix.Data.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\Microsoft.Web.WebPages.OAuth.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\WebMatrix.WebData.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.Http.OData.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\de\Microsoft.Data.Edm.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\Microsoft.Data.Edm.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\fr\Microsoft.Data.Edm.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\it\Microsoft.Data.Edm.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ja\Microsoft.Data.Edm.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ko\Microsoft.Data.Edm.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ru\Microsoft.Data.Edm.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-Hans\Microsoft.Data.Edm.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-Hant\Microsoft.Data.Edm.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\de\Microsoft.Data.OData.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\Microsoft.Data.OData.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\fr\Microsoft.Data.OData.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\it\Microsoft.Data.OData.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ja\Microsoft.Data.OData.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ko\Microsoft.Data.OData.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ru\Microsoft.Data.OData.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-Hans\Microsoft.Data.OData.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-Hant\Microsoft.Data.OData.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\de\System.Spatial.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Spatial.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\fr\System.Spatial.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\it\System.Spatial.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ja\System.Spatial.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ko\System.Spatial.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ru\System.Spatial.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-Hans\System.Spatial.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-Hant\System.Spatial.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\obj\Debug\Zeitgeist.Appsco.Web.csprojResolveAssemblyReference.cache
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\obj\Debug\Zeitgeist.Appsco.Web.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\obj\Debug\Zeitgeist.Appsco.Web.pdb
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Mono.Security.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Npgsql.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.OrmLite.PostgreSQL.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Npgsql.xml
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\de\Npgsql.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\Npgsql.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\fi\Npgsql.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\fr\Npgsql.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ja\Npgsql.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-CN\Npgsql.resources.dll
-c:\users\d\documents\visual studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.FluentValidation.Mvc3.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Zeitgeist.Appsco.Web.dll.config
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Zeitgeist.Appsco.Web.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Zeitgeist.Appsco.Web.pdb
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Antlr3.Runtime.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.AspNet.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.Core.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OAuth.Consumer.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OAuth.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OpenId.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\EntityFramework.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\log4net.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Data.Edm.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Data.OData.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Web.WebPages.OAuth.dll
 C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\MongoDB.Bson.dll
 C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\MongoDB.Driver.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Mono.Security.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Newtonsoft.Json.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Npgsql.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Common.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Interfaces.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.OrmLite.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.OrmLite.PostgreSQL.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.OrmLite.SqlServer.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Redis.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.ServiceInterface.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Text.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Net.Http.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Net.Http.Formatting.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Net.Http.WebRequest.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Spatial.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Helpers.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Http.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Http.OData.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Http.WebHost.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Mvc.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Optimization.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Razor.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Routing.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.WebPages.Deployment.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.WebPages.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.WebPages.Razor.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\WebGrease.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\WebMatrix.Data.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\WebMatrix.WebData.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\log4net.xml
 C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\MongoDB.Bson.xml
 C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\MongoDB.Driver.xml
-C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Routing.dll
-C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\log4net.dll
-C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\log4net.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Npgsql.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Common.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Interfaces.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Redis.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Text.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\EntityFramework.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Newtonsoft.Json.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Net.Http.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Net.Http.Formatting.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Net.Http.WebRequest.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Helpers.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Http.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Http.WebHost.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Mvc.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Razor.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.WebPages.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.WebPages.Deployment.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.WebPages.Razor.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\WebMatrix.Data.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Web.WebPages.OAuth.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\WebMatrix.WebData.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.AspNet.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.Core.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OAuth.Consumer.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OAuth.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OpenId.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Http.OData.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Data.Edm.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Data.OData.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Spatial.xml
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\de\Npgsql.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\Npgsql.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\fi\Npgsql.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\fr\Npgsql.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ja\Npgsql.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-CN\Npgsql.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\EntityFramework.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Net.Http.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Net.Http.Formatting.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Net.Http.WebRequest.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.Helpers.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.Http.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.Http.WebHost.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.Mvc.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.Optimization.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.Razor.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.WebPages.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\WebMatrix.Data.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\Microsoft.Web.WebPages.OAuth.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\WebMatrix.WebData.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.Http.OData.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\de\Microsoft.Data.Edm.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\Microsoft.Data.Edm.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\fr\Microsoft.Data.Edm.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\it\Microsoft.Data.Edm.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ja\Microsoft.Data.Edm.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ko\Microsoft.Data.Edm.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ru\Microsoft.Data.Edm.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-Hans\Microsoft.Data.Edm.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-Hant\Microsoft.Data.Edm.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\de\Microsoft.Data.OData.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\Microsoft.Data.OData.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\fr\Microsoft.Data.OData.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\it\Microsoft.Data.OData.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ja\Microsoft.Data.OData.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ko\Microsoft.Data.OData.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ru\Microsoft.Data.OData.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-Hans\Microsoft.Data.OData.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-Hant\Microsoft.Data.OData.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\de\System.Spatial.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Spatial.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\fr\System.Spatial.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\it\System.Spatial.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ja\System.Spatial.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ko\System.Spatial.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ru\System.Spatial.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-Hans\System.Spatial.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-Hant\System.Spatial.resources.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\obj\Debug\Zeitgeist.Appsco.Web.csprojResolveAssemblyReference.cache
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\obj\Debug\Zeitgeist.Appsco.Web.dll
+C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\obj\Debug\Zeitgeist.Appsco.Web.pdb
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\obj\Debug\Zeitgeist.Appsco.Web.csprojResolveAssemblyReference.cache
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Zeitgeist.Appsco.Web.dll.config
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Zeitgeist.Appsco.Web.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Zeitgeist.Appsco.Web.pdb
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\AjaxControlToolkit.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Antlr3.Runtime.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.AspNet.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.Core.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OAuth.Consumer.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OAuth.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OpenId.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\EntityFramework.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\FluentMongo.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\log4net.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Data.Edm.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Data.OData.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Web.Infrastructure.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Web.WebPages.OAuth.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\MongoDB.Bson.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\MongoDB.Driver.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\MongoModels.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\MongoProviders.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Mono.Security.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Newtonsoft.Json.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Npgsql.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Common.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Interfaces.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.OrmLite.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.OrmLite.PostgreSQL.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.OrmLite.SqlServer.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Redis.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.ServiceInterface.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Text.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Net.Http.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Net.Http.Formatting.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Net.Http.WebRequest.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Spatial.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Helpers.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Http.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Http.OData.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Http.WebHost.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Mvc.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Optimization.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Razor.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Routing.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.WebPages.Deployment.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.WebPages.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.WebPages.Razor.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\WebGrease.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\WebMatrix.Data.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\WebMatrix.WebData.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\MongoProviders.pdb
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\MongoModels.pdb
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\AjaxControlToolkit.pdb
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\log4net.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\MongoDB.Bson.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\MongoDB.Driver.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Npgsql.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Common.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Interfaces.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Redis.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ServiceStack.Text.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\EntityFramework.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Newtonsoft.Json.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Net.Http.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Net.Http.Formatting.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Net.Http.WebRequest.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Helpers.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Http.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Http.WebHost.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Mvc.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Razor.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.WebPages.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.WebPages.Deployment.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.WebPages.Razor.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\WebMatrix.Data.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Web.WebPages.OAuth.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\WebMatrix.WebData.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.AspNet.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.Core.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OAuth.Consumer.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OAuth.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OpenId.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Web.Http.OData.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Data.Edm.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Microsoft.Data.OData.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\System.Spatial.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\de\Npgsql.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\Npgsql.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\fi\Npgsql.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\fr\Npgsql.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ja\Npgsql.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-CN\Npgsql.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\EntityFramework.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Net.Http.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Net.Http.Formatting.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Net.Http.WebRequest.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.Helpers.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.Http.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.Http.WebHost.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.Mvc.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.Optimization.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.Razor.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.WebPages.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.WebPages.Deployment.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.WebPages.Razor.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\WebMatrix.Data.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\Microsoft.Web.WebPages.OAuth.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\WebMatrix.WebData.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Web.Http.OData.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\de\Microsoft.Data.Edm.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\Microsoft.Data.Edm.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\fr\Microsoft.Data.Edm.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\it\Microsoft.Data.Edm.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ja\Microsoft.Data.Edm.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ko\Microsoft.Data.Edm.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ru\Microsoft.Data.Edm.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-Hans\Microsoft.Data.Edm.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-Hant\Microsoft.Data.Edm.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\de\Microsoft.Data.OData.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\Microsoft.Data.OData.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\fr\Microsoft.Data.OData.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\it\Microsoft.Data.OData.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ja\Microsoft.Data.OData.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ko\Microsoft.Data.OData.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ru\Microsoft.Data.OData.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-Hans\Microsoft.Data.OData.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-Hant\Microsoft.Data.OData.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\de\System.Spatial.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\es\System.Spatial.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\fr\System.Spatial.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\it\System.Spatial.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ja\System.Spatial.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ko\System.Spatial.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ru\System.Spatial.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-Hans\System.Spatial.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-Hant\System.Spatial.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\obj\Debug\Zeitgeist.Appsco.Web.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\obj\Debug\Zeitgeist.Appsco.Web.pdb

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,6 +7,7 @@ using System.Data.Entity;
 using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.UI.WebControls.WebParts;
 
 namespace Zeitgeist.Appsco.Web.Models
 {
@@ -73,6 +75,13 @@ namespace Zeitgeist.Appsco.Web.Models
 
     public class RegisterModel
     {
+
+        public RegisterModel()
+        {
+            DatosPersonales = new Persona();
+
+        }
+
         [Required]
         [Display(Name = "Nombre de usuario")]
         public string UserName { get; set; }
@@ -87,6 +96,25 @@ namespace Zeitgeist.Appsco.Web.Models
         [Display(Name = "Confirmar contraseña")]
         [Compare("Password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Pregunta Secreta")]
+        public string PasswordQuestion { get; set; }
+
+        [Required]
+        [Display(Name = "Respuesta Pregunta Secreta")]
+        [StringLength(100, ErrorMessage = "El número de caracteres de {0}.")]
+        public string PasswordAnswers { get; set; }
+
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Correo")]
+        public string Email { get; set; }
+
+        public Persona DatosPersonales { get; set; }
+
+
+
     }
 
     public class ExternalLogin

@@ -1,0 +1,22 @@
+﻿@model MongoModels.Invitacion
+
+@{
+    ViewBag.Title = "AceptarReto";
+}
+
+<h2>AceptarReto</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Invitacion</legend>
+        
+        @Html.HiddenFor(model=>model.LigaId)
+        @Html.HiddenFor(model=>model.Mail)
+        <p>
+            <input type="submit" value="Aceptar Reto" class="btn btn-info" />
+        </p>
+    </fieldset>
+}

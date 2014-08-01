@@ -1,0 +1,41 @@
+﻿@model MongoModels.Liga
+
+@using (Html.BeginForm("Create", "Liga", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Liga</legend>
+        <ol id="login_l">
+            <li>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, new { @class = "col-sm-3 control-label no-padding-right", @for = "Name" })
+                    <div class="col-sm-9">
+                            @Html.EditorFor(model => model.Name, new { @class = "col-xs-10 col-sm-7", @autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Plan, new { @class = "col-sm-3 control-label no-padding-right", @for = "Plan" })
+                    <div class="col-sm-9">
+
+                        @Html.DropDownListFor(m => m.Plan, (SelectList)ViewBag.Tipo, "--Seleccione el Tipo de Liga--", new { @class = "input col-xs-10 col-sm-7" })
+                        @Html.ValidationMessageFor(model => model.Plan)
+                    </div>
+
+                </div>
+            <li></li>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-info" />
+            </div>
+            </li>
+        </ol>
+</fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,0 +1,82 @@
+﻿@model MongoModels.Reto
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Reto</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Division)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(m => m.Division, (SelectList)ViewBag.Divisiones, "--Seleccione la division--", new { @class = "input col-xs-10 col-sm-7" })
+            @Html.ValidationMessageFor(model => model.Division)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FechaInicio)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FechaInicio)
+            @Html.ValidationMessageFor(model => model.FechaInicio)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FechaFin)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FechaFin)
+            @Html.ValidationMessageFor(model => model.FechaFin)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Tipo)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Tipo)
+            @Html.ValidationMessageFor(model => model.Tipo)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsActivo)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IsActivo)
+            @Html.ValidationMessageFor(model => model.IsActivo)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Premio)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Premio)
+            @Html.ValidationMessageFor(model => model.Premio)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section scripts{
+    
+    <script>
+        $(function() {
+            $('#FechaInicio').datepicker({ format: "yyyy/mm/dd" });
+            $('#FechaFin').datepicker({ format: "yyyy/mm/dd" });
+        })
+    </script>
+}

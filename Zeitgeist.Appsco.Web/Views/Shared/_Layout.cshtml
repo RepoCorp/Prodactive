@@ -1,49 +1,225 @@
 ﻿<!DOCTYPE html>
-<html lang="es">
-    <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta charset="utf-8" />
-        <title>@ViewBag.Title - Mi aplicación ASP.NET MVC</title>
-        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <meta name="viewport" content="width=device-width" />
-        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
-    </head>
-    <body>
-        <header>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("su logotipo aquí", "Index", "Home")</p>
-                </div>
-                <div class="float-right">
-                    <section id="login">
-                        @Html.Partial("_LoginPartial")
-                    </section>
-                    <nav>
-                        <ul id="menu">
-                            <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                            <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </header>
-        <div id="body">
-            @RenderSection("featured", required: false)
-            <section class="content-wrapper main-content clear-fix">
-                @RenderBody()
-            </section>
-        </div>
-        <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET MVC</p>
-                </div>
-            </div>
-        </footer>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>Prodactive</title>
 
-        @Scripts.Render("~/bundles/jquery")
-        @RenderSection("scripts", required: false)
-    </body>
+    <meta name="description" content="overview &amp; stats" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <!-- bootstrap & fontawesome -->
+
+    <link href="~/Content/template/assets/css/bootstrap.min.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="../assets/css/bootstrap.min.css" />*@
+
+    <link rel="stylesheet" href="~/Content/template/assets/css/font-awesome.min.css" />
+    <!-- page specific plugin styles -->
+    <!-- text fonts -->
+    <link rel="stylesheet" href="~/Content/template/assets/css/ace-fonts.css" />
+    <!-- ace styles -->
+
+    <link id="main-ace-style" href="~/Content/template/assets/css/ace.min.css" rel="stylesheet" />
+    <link href="~/Content/template/assets/css/ace-skins.min.css" rel="stylesheet" />
+    <link href="~/Content/template/assets/css/ace-rtl.min.css" rel="stylesheet" />
+    
+    <!-- inline styles related to this page -->
+    <!-- ace settings handler -->
+    
+    <script src="~/Scripts/jquery-2.1.1.js"></script>
+    @*<script src="~/Content/template/assets/js/jquery.min.js"></script>*@
+    <script src="~/Content/template/assets/js/ace-extra.min.js"></script>
+    
+    <script src="~/Scripts/jquery-ui-1.8.24.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/knockout-3.1.0.js"></script>
+    <script src="~/Scripts/Home/registro.js"></script>
+    <script type="text/javascript">
+        if ('ontouchstart' in document.documentElement) document.write("<script src='~/Content/template/assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+    </script>
+
+    <script src="~/Content/template/assets/js/bootstrap.min.js"></script>
+    <script src="~/Content/template/assets/js/date-time/bootstrap-datepicker.min.js"></script>
+
+    <style>
+        ol li {
+            list-style: none;
+        }
+
+        .col-centered {
+            float: none;
+            margin: 0 auto;
+        }
+        .footer-content {
+            background-color: cornflowerblue;
+        }
+        #login, #login a, #login ul li a 
+        {
+            color: cadetblue;
+        }
+    </style>
+</head>
+
+<body class="no-skin">
+
+    @RenderSection("featured", required: false)
+    <!-- #section:basics/navbar.layout -->
+    <div id="navbar" class="navbar navbar-default">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('navbar', 'fixed');
+            } catch (e) { }
+        </script>
+
+        <div class="navbar-container" id="navbar-container">
+            <!-- #section:basics/sidebar.mobile.toggle -->
+            <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler">
+                <span class="sr-only">Toggle sidebar</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- /section:basics/sidebar.mobile.toggle -->
+            <div class="navbar-header">
+                <!-- pull-left-->
+                <!-- #section:basics/navbar.layout.brand -->
+                <a href="#" class="navbar-brand">
+                    <small>
+                        <i class="fa fa-leaf"></i>
+                        <img src="../../Content/Landing/images/logo.png" alt="" width="500px;" />
+                    </small>
+                </a>
+
+                <!-- /section:basics/navbar.layout.brand -->
+                <!-- #section:basics/navbar.toggle -->
+                <!-- /section:basics/navbar.toggle -->
+            </div>
+
+            <!-- #section:basics/navbar.dropdown -->
+            <!-- OJO USER TOOLS-->
+
+            <div class="navbar-buttons navbar-header pull-right" role="navigation">
+                <ul class="nav ace-nav">
+                    <!-- #section:basics/navbar.user_menu -->
+                    <li class="light-blue">
+                        
+                        <section id="login">
+                            @Html.Partial("_LoginPartial")
+                        </section>
+                    </li>
+
+                    <!-- /section:basics/navbar.user_menu -->
+                </ul>
+            </div>
+
+            <!-- OJO USER TOOLS-->
+            <!-- /section:basics/navbar.dropdown -->
+        </div><!-- /.navbar-container -->
+    </div>
+
+    <!-- /section:basics/navbar.layout -->
+    <div class="main-container" id="main-container">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('main-container', 'fixed');
+            } catch (e) { }
+        </script>
+
+        <!-- fin aside-->
+        <!-- ASIDE -->
+        @Html.Partial("_Menu")
+        <!-- ASIDE -->
+        <!-- /section:basics/sidebar -->
+        <div class="main-content">
+            <!-- #section:basics/content.breadcrumbs -->
+            @RenderSection("breadcrumbs", required: false)
+
+            <!-- /section:basics/content.breadcrumbs -->
+            <div class="page-content">
+                <div class="page-content-area">
+                    <div id="page-header" class="page-header">
+                        <h1>
+                            Dashboard
+                            <small>
+                                <i class="ace-icon fa fa-angle-double-right"></i>
+                                overview &amp; stats
+                            </small>
+                        </h1>
+                    </div><!-- /.page-header -->
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <!-- PAGE CONTENT BEGINS -->
+
+                            <div class="row">
+                                <div class="space-6"></div>
+                                <div id="load_content">
+                                    @RenderBody()
+                                </div>
+
+                            </div><!-- /.row -->
+                            <!-- #section:custom/extra.hr -->
+                            <!-- PAGE CONTENT ENDS -->
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.page-content-area -->
+
+
+            </div><!-- /.page-content -->
+        </div><!-- /.main-content -->
+
+    </div><!-- /.main-container -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <!-- #section:basics/footer -->
+            <div class="footer-content">
+                <span class="bigger-120">
+                    <span class="blue bolder">Prodactive</span>
+                    &copy; 2014
+                </span>
+
+                &nbsp; &nbsp;
+                <span class="action-buttons">
+                    <a href="#">
+                        <i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
+                    </a>
+
+                    <a href="#">
+                        <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
+                    </a>
+
+                    <a href="#">
+                        <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
+                    </a>
+                </span>
+            </div>
+
+            <!-- /section:basics/footer -->
+        </div>
+    </footer>
+
+    <!-- basic scripts -->
+
+    <script src="~/Scripts/site.js"></script>
+    <!-- page specific plugin scripts -->
+    <!--[if lte IE 8]>
+      <script src="../assets/js/excanvas.min.js"></script>
+    <![endif]-->
+    <script src="~/Content/template/assets/js/jquery-ui.custom.min.js"></script>
+    <script src="~/Content/template/assets/js/jquery.ui.touch-punch.min.js"></script>
+    <script src="~/Content/template/assets/js/jquery.easypiechart.min.js"></script>
+    <script src="~/Content/template/assets/js/jquery.sparkline.min.js"></script>
+    <!-- ace scripts -->
+    <script src="~/Content/template/assets/js/ace-elements.min.js"></script>
+    <script src="~/Content/template/assets/js/ace.min.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/countdown.js"></script>
+    <script src="~/Scripts/moment-countdown.js"></script>
+    @RenderSection("scripts", required: false)
+
+
+
+</body>
 </html>

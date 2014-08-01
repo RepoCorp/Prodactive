@@ -1,0 +1,12 @@
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\console\bin\Debug\console.exe.config
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\console\bin\Debug\console.exe
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\console\bin\Debug\console.pdb
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\console\bin\Debug\MongoDB.Bson.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\console\bin\Debug\MongoDB.Driver.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\console\bin\Debug\MongoModels.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\console\bin\Debug\MongoModels.pdb
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\console\bin\Debug\MongoDB.Bson.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\console\bin\Debug\MongoDB.Driver.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\console\obj\Debug\console.csprojResolveAssemblyReference.cache
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\console\obj\Debug\console.exe
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\console\obj\Debug\console.pdb

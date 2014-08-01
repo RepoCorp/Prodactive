@@ -6,9 +6,18 @@
 body {
  
 }
+.app {
+    background-color: red;
+    width: 100px;
+    height: 50px;
+}
+
+
 .Bod{
-    background-size: 100%;
-       background-image:url('../images/landing page fondo.jpg');
+    background-size: 90%;
+       /*background-image:url('../images/landing page fondo.jpg');*/
+       background-image:url('../images/Backg_landing.png');
+       
 }
 
 .gray {

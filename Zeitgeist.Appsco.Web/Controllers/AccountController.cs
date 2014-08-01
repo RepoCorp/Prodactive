@@ -1,22 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
+using Microsoft.Ajax.Utilities;
 using Microsoft.Web.WebPages.OAuth;
+using ServiceStack.Logging;
 using WebMatrix.WebData;
+using Zeitgeist.Appsco.Web.App_Start;
 using Zeitgeist.Appsco.Web.Filters;
 using Zeitgeist.Appsco.Web.Models;
+using System.Web.Security;
+
 
 namespace Zeitgeist.Appsco.Web.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
+    //[InitializeSimpleMembership]
     public class AccountController : Controller
     {
+        
         //
         // GET: /Account/Login
 
@@ -35,11 +42,42 @@ namespace Zeitgeist.Appsco.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
-            {
-                return RedirectToLocal(returnUrl);
-            }
+            //if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            //{
+            //    return RedirectToLocal(returnUrl);
+            //}
 
+            //// Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
+            //ModelState.AddModelError("", "El nombre de usuario o la contraseña especificados son incorrectos.");
+            //return View(model);
+
+            //if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            if (ModelState.IsValid && Membership.ValidateUser(model.UserName, model.Password))
+            {
+                FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                Session.Add("UserId", model.UserName);
+                //FormsAuthentication.RedirectFromLoginPage(model.UserName,model.RememberMe);
+
+                if (System.Web.Security.Roles.IsUserInRole("administrator"))
+                {
+                    if (returnUrl != null)
+                        return RedirectToLocal(returnUrl);            
+
+                    return RedirectToAction("Panel", "Manage");
+                }
+                else
+                {
+                    if (System.Web.Security.Roles.IsUserInRole("coach"))
+                    {
+                        if (returnUrl != null)
+                            return RedirectToLocal(returnUrl);            
+
+                        return RedirectToAction("Index", "Coach");
+                    }
+                    
+                }
+                return RedirectToLocal(returnUrl);    
+            }
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
             ModelState.AddModelError("", "El nombre de usuario o la contraseña especificados son incorrectos.");
             return View(model);
@@ -52,8 +90,12 @@ namespace Zeitgeist.Appsco.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            WebSecurity.Logout();
+            //WebSecurity.Logout();
 
+            //return RedirectToAction("Index", "Home");
+
+            FormsAuthentication.SignOut();
+            Session.Abandon();
             return RedirectToAction("Index", "Home");
         }
 
@@ -61,8 +103,25 @@ namespace Zeitgeist.Appsco.Web.Controllers
         // GET: /Account/Register
 
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult Register(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
+            List<SelectListItem> lst = new List<SelectListItem>();
+            lst.Add(new SelectListItem() { Text = "Nombre de tu primera Mascota", Value = "Nombre de tu primera Mascota" });
+            lst.Add(new SelectListItem() { Text = "Marca de tu primer Vehiculo", Value = "Marca de tu primer Vehiculo" });
+            lst.Add(new SelectListItem() { Text = "Nombre de tu Padre", Value = "Nombre de tu Padre" });
+            lst.Add(new SelectListItem() { Text = "Nombre de tu Madre", Value = "Nombre de tu Madre" });
+            lst.Add(new SelectListItem() { Text = "Mes de Nacimiento de tu hijo/hija", Value = "Mes de Nacimiento de tu hijo/hija" });
+            SelectList sl = new SelectList(lst, "Value", "Text");
+            ViewBag.Questions = sl;
+
+            List<SelectListItem> lst2= new List<SelectListItem>();
+            lst2.Add(new SelectListItem() { Text = "Masculino", Value = "M" });
+            lst2.Add(new SelectListItem() { Text = "Femenino", Value = "F" });
+
+            SelectList sl2 = new SelectList(lst2, "Value", "Text");
+            ViewBag.Sexo   = sl2;
+
             return View();
         }
 
@@ -72,16 +131,43 @@ namespace Zeitgeist.Appsco.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult Register(RegisterModel model, string returnUrl)
         {
+          
             if (ModelState.IsValid)
             {
                 // Intento de registrar al usuario
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    MembershipCreateStatus status;
+                    Membership.CreateUser(model.UserName, model.Password, model.Email, model.PasswordQuestion, model.PasswordAnswers, true, out status);
+                    //WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                    //WebSecurity.Login(model.UserName, model.Password);
+
+                    if (status == MembershipCreateStatus.Success)
+                    {
+
+                        Manager m = Manager.Instance;
+                        
+                        model.DatosPersonales.Cuentas.Add(model.UserName,model.Email);
+                        if (m.SavePersona(model.DatosPersonales))
+                        {
+                            System.Web.Security.Roles.AddUserToRole(model.UserName, "atleta");
+                            FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
+                            if (returnUrl != null)
+                                return RedirectToLocal(returnUrl);
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            Membership.DeleteUser(model.UserName);
+                            ModelState.AddModelError("", "Error al guardar los datos.");
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", ErrorCodeToString(status));
+                    }
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -132,11 +218,12 @@ namespace Zeitgeist.Appsco.Web.Controllers
                 : message == ManageMessageId.SetPasswordSuccess ? "Su contraseña se ha establecido."
                 : message == ManageMessageId.RemoveLoginSuccess ? "El inicio de sesión externo se ha quitado."
                 : "";
-            ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            ViewBag.HasLocalPassword = false;// OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.ReturnUrl = Url.Action("Manage");
+            
             return View();
         }
-
+        
         //
         // POST: /Account/Manage
 
@@ -310,7 +397,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         [ChildActionOnly]
         public ActionResult RemoveExternalLogins()
         {
-            ICollection<OAuthAccount> accounts = OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name);
+            ICollection<OAuthAccount> accounts = new Collection<OAuthAccount>();// OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name);
             List<ExternalLogin> externalLogins = new List<ExternalLogin>();
             foreach (OAuthAccount account in accounts)
             {
@@ -324,7 +411,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
                 });
             }
 
-            ViewBag.ShowRemoveButton = externalLogins.Count > 1 || OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            ViewBag.ShowRemoveButton = externalLogins.Count > 1 || false;//OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             return PartialView("_RemoveExternalLoginsPartial", externalLogins);
         }
 
@@ -403,5 +490,20 @@ namespace Zeitgeist.Appsco.Web.Controllers
             }
         }
         #endregion
+
+        [AllowAnonymous]
+        public ActionResult Roles()
+        {
+
+            //System.Web.Security.Roles.CreateRole("atleta");
+            //System.Web.Security.Roles.CreateRole("entrenador");
+
+            //if (!System.Web.Security.Roles.RoleExists("administrator"))
+            //{
+            //    System.Web.Security.Roles.CreateRole("administrator");
+            //}
+            System.Web.Security.Roles.AddUserToRole("ddo88", "administrator");
+            return Json("{ok:true}", JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -1,0 +1,13 @@
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\App2\bin\Debug\App2.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\App2\bin\Debug\App2.pdb
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\App2\bin\Debug\App2.dll.mdb
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\App2\bin\Debug\App2.App2.apk
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\App2\bin\Debug\App2.App2-Signed.apk
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\App2\obj\Debug\App2.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\App2\obj\Debug\App2.pdb
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\App2\obj\Debug\android\bin\App2.App2.apk
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\App2\obj\Debug\res\layout\main.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\App2\obj\Debug\res\values\strings.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\App2\obj\Debug\res\drawable\icon.png
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\App2\obj\Debug\R.cs.flag
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\App2\obj\Debug\uploadflags.txt

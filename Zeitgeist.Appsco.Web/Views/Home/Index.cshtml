@@ -1,45 +1,250 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Index";
 }
-@section featured {
-    <section class="featured">
-        <div class="content-wrapper">
-            <hgroup class="title">
-                <h1>@ViewBag.Title.</h1>
-                <h2>@ViewBag.Message</h2>
-            </hgroup>
-            <p>
-                To learn more about ASP.NET MVC visit
-                <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-                The page features <mark>videos, tutorials, and samples</mark> to help you get the most from ASP.NET MVC.
-                If you have any questions about ASP.NET MVC visit
-                <a href="http://forums.asp.net/1146.aspx/1?MVC" title="ASP.NET MVC Forum">our forums</a>.
-            </p>
+
+<style>
+    .ui-progressbar {
+        position: relative;
+    }
+
+    .progress-label {
+        position: absolute;
+        left: 50%;
+        top: 4px;
+        font-weight: bold;
+        text-shadow: 1px 1px 0 #fff;
+    }
+</style>
+<div id="countdownTimer"></div>
+<div id="progressbar"><div class="progress-label"></div></div>
+<!-- #section:pages/dashboard.infobox -->
+<div class="infobox infobox-green">
+    @*<div class="infobox-icon">
+        <i class="ace-icon fa fa-comments"></i>
+    </div>*@
+
+    <div class="infobox-data">
+        <span class="infobox-data-number">
+            <div id="progreso" class="easy-pie-chart percentage" data-percent="@ViewBag.Progreso" data-color="#D15B47">
+                <span class="percent">@ViewBag.Progreso</span>%
+            </div>
+        </span>
+        @*<div class="infobox-content">Progreso en el Reto</div>*@
+    </div>
+
+    <!-- #section:pages/dashboard.infobox.stat -->
+    <div class="stat stat-success">Progreso</div>
+
+    <!-- /section:pages/dashboard.infobox.stat -->
+</div>
+
+<div class="infobox infobox-blue">
+    <div class="infobox-icon">
+        <i class="ace-icon fa fa-twitter"></i>
+    </div>
+
+    <div class="infobox-data">
+        <span class="infobox-data-number">11</span>
+        <div class="infobox-content">new followers</div>
+    </div>
+
+    <div class="badge badge-success">
+        +32%
+        <i class="ace-icon fa fa-arrow-up"></i>
+    </div>
+</div>
+
+<div class="infobox infobox-pink">
+    <div class="infobox-icon">
+        <i class="ace-icon fa fa-shopping-cart"></i>
+    </div>
+
+    <div class="infobox-data">
+        <span class="infobox-data-number">8</span>
+        <div class="infobox-content">new orders</div>
+    </div>
+    <div class="stat stat-important">4%</div>
+</div>
+
+<div class="infobox infobox-red">
+    <div class="infobox-icon">
+        <i class="ace-icon fa fa-flask"></i>
+    </div>
+
+    <div class="infobox-data">
+        <span class="infobox-data-number">7</span>
+        <div class="infobox-content">experiments</div>
+    </div>
+</div>
+
+<div class="infobox infobox-orange2">
+    <!-- #section:pages/dashboard.infobox.sparkline -->
+    <div class="infobox-chart">
+        <span class="sparkline" data-values="196,128,202,177,154,94,100,170,224"></span>
+    </div>
+
+    <!-- /section:pages/dashboard.infobox.sparkline -->
+    <div class="infobox-data">
+        <span class="infobox-data-number">6,251</span>
+        <div class="infobox-content">pageviews</div>
+    </div>
+
+    <div class="badge badge-success">
+        7.2%
+        <i class="ace-icon fa fa-arrow-up"></i>
+    </div>
+</div>
+
+<div class="infobox infobox-blue2">
+    <div class="infobox-progress">
+        <!-- #section:pages/dashboard.infobox.easypiechart -->
+        <div class="easy-pie-chart percentage" data-percent="42" data-size="46">
+            <span class="percent">42</span>%
         </div>
-    </section>
-}
-<h3>We suggest the following:</h3>
-<ol class="round">
-    <li class="one">
-        <h5>Getting Started</h5>
-        ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-        enables a clean separation of concerns and that gives you full control over markup
-        for enjoyable, agile development. ASP.NET MVC includes many features that enable
-        fast, TDD-friendly development for creating sophisticated applications that use
-        the latest web standards.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245151">Learn more…</a>
-    </li>
 
-    <li class="two">
-        <h5>Add NuGet packages and jump-start your coding</h5>
-        NuGet makes it easy to install and update free libraries and tools.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245153">Learn more…</a>
-    </li>
+        <!-- /section:pages/dashboard.infobox.easypiechart -->
+    </div>
 
-    <li class="three">
-        <h5>Find Web Hosting</h5>
-        You can easily find a web hosting company that offers the right mix of features
-        and price for your applications.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245157">Learn more…</a>
-    </li>
-</ol>
+    <div class="infobox-data">
+        <span class="infobox-text">traffic used</span>
+
+        <div class="infobox-content">
+            <span class="bigger-110">~</span>
+            58GB remaining
+        </div>
+    </div>
+</div>
+
+<!-- /section:pages/dashboard.infobox -->
+<div class="space-6"></div>
+
+<!-- #section:pages/dashboard.infobox.dark -->
+<div class="infobox infobox-green infobox-small infobox-dark">
+    <div class="infobox-progress">
+        <!-- #section:pages/dashboard.infobox.easypiechart -->
+        <div class="easy-pie-chart percentage" data-percent="61" data-size="39">
+            <span class="percent">61</span>%
+        </div>
+
+        <!-- /section:pages/dashboard.infobox.easypiechart -->
+    </div>
+
+    <div class="infobox-data">
+        <div class="infobox-content">Task</div>
+        <div class="infobox-content">Completion</div>
+    </div>
+</div>
+
+<div class="infobox infobox-blue infobox-small infobox-dark">
+    <!-- #section:pages/dashboard.infobox.sparkline -->
+    <div class="infobox-chart">
+        <span class="sparkline" data-values="3,4,2,3,4,4,2,2"></span>
+    </div>
+
+    <!-- /section:pages/dashboard.infobox.sparkline -->
+    <div class="infobox-data">
+        <div class="infobox-content">Earnings</div>
+        <div class="infobox-content">$32,000</div>
+    </div>
+</div>
+
+<div class="infobox infobox-grey infobox-small infobox-dark">
+    <div class="infobox-icon">
+        <i class="ace-icon fa fa-download"></i>
+    </div>
+
+    <div class="infobox-data">
+        <div class="infobox-content">Downloads</div>
+        <div class="infobox-content">1,205</div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        var progressLabel = $(".progress-label"),
+            progressbar = $("#progressbar");
+
+        progressbar.progressbar({
+            value: @ViewBag.Progreso ,
+            create: function (event, ui) {
+                $(this).addClass('progress progress-striped active')
+                    .children(0).addClass('progress-bar progress-bar-success');
+                progressLabel.text=progressbar.progressbar("value") + "%";
+            },
+            change: function () {
+                //progressLabel.text(progressbar.progressbar("value") + "%");
+            }, complete: function () {
+                //progressLabel.text("Complete!");
+            }
+        });
+
+        var oldie = /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase());
+        
+        //$('.easy-pie-chart.percentage').each(function () {
+        $('#progreso').each(function () {
+            $(this).easyPieChart({
+                barColor: '#00F', //$(this).data('color'),
+                trackColor: '#0F0',
+                scaleColor: false,
+                lineCap: 'round',
+                lineWidth: 8,
+                animate: oldie ? false : 1000,
+                size: 50
+            }).css('color', $(this).data('color'));
+        });
+
+        //var time = 7200;
+        //var duration = moment.duration(time * 1000, 'milliseconds');
+        var interval = 1000;
+
+        setInterval(countdown, interval);
+
+        function countdown() {
+            var now = moment(), // get the current moment
+            // May 28, 2013 @@ 12:00AM
+            then = moment('@ViewBag.FechaCierre'),
+            // get the difference from now to then in ms
+            //ms = then.diff(now, 'milliseconds', true);
+            // If you need years, uncomment this line and make sure you add it to the concatonated phrase
+            /*
+            years = Math.floor(moment.duration(ms).asYears());
+            then = then.subtract('years', years);
+            */
+            // update the duration in ms
+            ms = then.diff(now, 'milliseconds', true);
+            // get the duration as months and round down
+            months = Math.floor(moment.duration(ms).asMonths());
+
+            // subtract months from the original moment (not sure why I had to offset by 1 day)
+            then = then.subtract('months', months).subtract('days', 1);
+            // update the duration in ms
+            ms = then.diff(now, 'milliseconds', true);
+            days = Math.floor(moment.duration(ms).asDays());
+
+            then = then.subtract('days', days);
+            // update the duration in ms
+            ms = then.diff(now, 'milliseconds', true);
+            hours = Math.floor(moment.duration(ms).asHours());
+
+            then = then.subtract('hours', hours);
+            // update the duration in ms
+            ms = then.diff(now, 'milliseconds', true);
+            minutes = Math.floor(moment.duration(ms).asMinutes());
+
+            then = then.subtract('minutes', minutes);
+            // update the duration in ms
+            ms = then.diff(now, 'milliseconds', true);
+            seconds = Math.floor(moment.duration(ms).asSeconds());
+            // concatonate the variables
+            if (months == 0) {
+                diff = '<strong>Fin del Reto en : </strong><span class="num">' + days + '</span> dias - <span class="num">' + hours + '</span> horas - <span class="num">' + minutes + '</span> minutos - <span class="num">' + seconds + '</span> segundos.';
+            } else {
+                diff = '<strong>Fin del Reto en :</strong><span class="num">' + months + '</span> meses - <span class="num">' + days + '</span> dias - <span class="num">' + hours + '</span> horas - <span class="num">' + minutes + '</span> minutos - <span class="num">' + seconds + '</span> segundos.';
+            }
+            
+            $('#countdownTimer').html(diff);
+        }
+        
+    });
+</script>

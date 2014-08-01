@@ -1,0 +1,38 @@
+﻿@model MongoModels.Liga
+
+@{
+    ViewBag.Title = "Delete";
+}
+<h3>Desea Eliminar la liga?, despues de eliminar los datos no se pueden recuperar.</h3>
+
+<fieldset>
+    <legend>Liga</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Owner)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Owner)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Plan)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Plan)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" class="btn btn-info"/> |
+        @Html.ActionLink("Volver", "Index")
+    </p>
+}

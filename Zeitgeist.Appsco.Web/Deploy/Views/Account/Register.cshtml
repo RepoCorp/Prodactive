@@ -1,37 +1,181 @@
 ﻿@model Zeitgeist.Appsco.Web.Models.RegisterModel
 @{
-    ViewBag.Title = "Registrarse";
+    ViewBag.Title = "Registrate para aceptar el reto";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>Cree una cuenta nueva.</h2>
-</hgroup>
-
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
-
-    <fieldset>
-        <legend>Formulario de registro</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.ConfirmPassword)
-                @Html.PasswordFor(m => m.ConfirmPassword)
-            </li>
-        </ol>
-        <input type="submit" value="Registrarse" />
-    </fieldset>
+<style>
+       .col-centered{
+    float: none;
+    margin: 0 auto;
 }
+    /*#form_register {
+        background-color: cadetblue;
 
+    }*/
+     ol#datos_cuenta li, 
+     ol#datos_personales li {
+         list-style: none;
+     }
+
+     .field-validation-error {
+         background-color: coral;
+     }
+</style>
+<section id="register_sec">
+    <div id="form_register" class="col-lg-5 col-centered">
+        @*<hgroup class="title">
+            <h2>@ViewBag.Title.</h2>
+        </hgroup>*@
+
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+
+            <fieldset>
+                <legend><h3>@ViewBag.Title</h3></legend>
+                <ol id="datos_cuenta">
+                    <div class="form-group">
+                        <h3 class="col-sm-3 control-label no-padding-right">Paso 1/2</h3>
+                    </div>
+                    <li>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.UserName, new { @class = "col-sm-3 control-label no-padding-right", @for = "UserName" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "col-xs-10 col-sm-7" })
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "col-sm-3 control-label no-padding-right", @for = "Password" })
+                            <div class="col-sm-9">
+                                @Html.PasswordFor(m => m.Password, new { @class = "col-xs-10 col-sm-7" })
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-sm-3 control-label no-padding-right", @for = "ConfirmPassword" })
+                            <div class="col-sm-9">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "col-xs-10 col-sm-7" })
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email, new { @class = "col-sm-3 control-label no-padding-right", @for = "Email" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "col-xs-10 col-sm-7" })
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.PasswordQuestion, new { @class = "col-sm-3 control-label no-padding-right", @for = "PasswordQuestion" })
+                            <div class="col-sm-9">
+                                @Html.DropDownListFor(m => m.PasswordQuestion, (SelectList)ViewBag.Questions, "--Seleccione la pregunta secreta--", new { @class = "input col-xs-10 col-sm-7" })
+                            </div>
+                        </div>
+
+                    </li>
+                    <li>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.PasswordAnswers, new { @class = "col-sm-3 control-label no-padding-right", @for = "PasswordAnswers" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(m => m.PasswordAnswers, new { @class = "col-xs-10 col-sm-7" })
+                            </div>
+                        </div>
+                    <li>
+                        <div class="form-group">
+                            <div class="col-sm-3 control-label no-padding-right">
+                                <button id="btnNext" class="btn btn-primary"> Siguiente</button>
+                            </div>
+
+                        </div>
+                    </li>
+                </ol>
+
+                <ol id="datos_personales">
+                    <div class="form-group">
+                        <h3 class="col-sm-3 control-label no-padding-right">Paso 2/2</h3>
+                    </div>
+                    <li>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.DatosPersonales.Identificacion, new { @class = "col-sm-3 control-label no-padding-right", @for = "Identificacion" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(m => m.DatosPersonales.Identificacion, new { @class = "col-xs-10 col-sm-7" })
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.DatosPersonales.Nombre, new { @class = "col-sm-3 control-label no-padding-right", @for = "Nombre" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(m => m.DatosPersonales.Nombre, new { @class = "col-xs-10 col-sm-7" })
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.DatosPersonales.Apellido, new { @class = "col-sm-3 control-label no-padding-right", @for = "Apellido" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(m => m.DatosPersonales.Apellido, new { @class = "col-xs-10 col-sm-7" })
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.DatosPersonales.FechaNacimiento, new { @class = "col-sm-3 control-label no-padding-right", @for = "FechaNacimiento" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(m => m.DatosPersonales.FechaNacimiento, new { @class = "col-xs-10 col-sm-7" })
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.DatosPersonales.Peso, new { @class = "col-sm-3 control-label no-padding-right", @for = "Peso" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(m => m.DatosPersonales.Peso, new { @class = "col-xs-10 col-sm-7" })
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.DatosPersonales.Estatura, new { @class = "col-sm-3 control-label no-padding-right", @for = "Estatura" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(m => m.DatosPersonales.Estatura, new { @class = "col-xs-10 col-sm-7" })
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.DatosPersonales.Sexo, new { @class = "col-sm-3 control-label no-padding-right", @for = "Sexo" })
+                            <div class="col-sm-9">
+                                @Html.DropDownListFor(m => m.DatosPersonales.Sexo, (SelectList)ViewBag.Sexo, "--Seleccione su sexo--", new { @class = "input col-xs-10 col-sm-7" })
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-group">
+                            <div class="col-sm-6 control-label">
+
+                                <button id="btnBack" class="btn btn-primary">Volver</button>
+                                <input id="submit" type="submit" value="Registrarse" class="btn btn-info" />
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+
+            </fieldset>
+        }
+
+    </div>
+</section>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/Account/register.js"></script>
+
 }
+
+
