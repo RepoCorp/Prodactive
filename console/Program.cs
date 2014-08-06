@@ -102,19 +102,19 @@ namespace console
 
             //////necesito el id de los miembros
             /// 
-            var l= Database.GetCollection<Liga>("liga").FindOne();
-            Division d = new Division()
-            {
-                LigaId = l.Id,
-                Name = "Hombre Vs Mujeres",
-                Equipos = new Collection<Equipo>()
-                {
-                    new Equipo() {Name = "A", Miembros = new Collection<string>().ToArray()},
-                    new Equipo() {Name = "B", Miembros = new Collection<string>().ToArray()}
-                }
-            };
+            //var l= Database.GetCollection<Liga>("liga").FindOne();
+            //Division d = new Division()
+            //{
+            //    LigaId = l.Id,
+            //    Name = "Hombre Vs Mujeres",
+            //    Equipos = new Collection<Equipo>()
+            //    {
+            //        new Equipo() {Name = "A", Miembros = new Collection<string>().ToArray()},
+            //        new Equipo() {Name = "B", Miembros = new Collection<string>().ToArray()}
+            //    }
+            //};
 
-            Database.GetCollection<Division>("division").Save(d);
+            //Database.GetCollection<Division>("division").Save(d);
             //////necesito el id de la division
             //////necesito el id del owner
             //Liga l = new Liga()
@@ -151,20 +151,21 @@ namespace console
             //Database.GetCollection<Deporte>("deporte").Save(d1);
             //Database.GetCollection<Deporte>("deporte").Save(d2);
             //Database.GetCollection<Deporte>("deporte").Save(d3);
-            //var a = Database.GetCollection<Division>("division").FindOne();
-            //var dic = new Dictionary<string, int>();
-            //dic.Add("Caminar",20000);
-            //Reto r1 = new Reto()
-            //{
-            //    Division    = a.Id,
-            //    FechaInicio = DateTime.Now,
-            //    FechaFin    = DateTime.Now.AddDays(5),
-            //    IsActivo    = true,
-            //    Deportes = dic
-            //};
+            var a = Database.GetCollection<Division>("division").FindOne();
+            var dic = new Dictionary<string, int>();
+            dic.Add("Caminar",20000);
+            Reto r1 = new Reto()
+            {
+                Owner    = "ddo88",
+                Division = a.Id,
+                FechaInicio = DateTime.Now,
+                FechaFin = DateTime.Now.AddDays(5),
+                IsActivo = true,
+                Deportes = dic
+            };
 
             
-            //Database.GetCollection<Reto>("reto").Save(r1);
+            Database.GetCollection<Reto>("reto").Save(r1);
             //int i = 0;
         }
     }

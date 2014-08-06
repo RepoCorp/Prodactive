@@ -1,6 +1,8 @@
-﻿using System.Web.Security;
+﻿using System.Threading.Tasks;
+using System.Web.Security;
 using Microsoft.Ajax.Utilities;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoModels;
 using ServiceStack;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
@@ -28,22 +30,27 @@ namespace Zeitgeist.Appsco.Web.Api
 
         public LoginResponse Any(Login login)
         {
-            bool rt=
-            Membership.ValidateUser(login.User, login.Pass);
+            bool rt = Membership.ValidateUser(login.User, login.Pass);
 
             Manager m = Manager.Instance;
-            var w=m.GetDatosUsuario(login.User);
+            var t1= Task.Factory.StartNew(() =>
+            {
+                return m.GetDatosUsuario(login.User);
+            });
 
-
+            var t2 =Task.Factory.StartNew(() => { return m.GetReto(login.User);});
+            
+            var w = t1.Result;
+            var r = t2.Result;
+            
             return new LoginResponse()
             {
+
                 Message = "OK",
-                State = true,
-                User=login.User,
-                Nombre = w.Nombre,
-                Apellido = w.Apellido,
-                Peso = w.Peso,
-                Estatura = w.Estatura
+                State   = true,
+                User    = login.User,
+                Persona = w,
+                Reto    = r
             };
         }
     }
@@ -91,13 +98,8 @@ namespace Zeitgeist.Appsco.Web.Api
 
     public class LoginResponse : ResponseService, IReturn<Login>
     {
-        public string User      { get; set; }
-        public string Nombre    { get; set; }
-        public string Apellido  { get; set; }
-        public string Edad      { get; set; }
-        public string Sexo      { get; set; }
-        public double Peso      { get; set; }
-        public double Estatura  { get; set; }
- 
+        public Persona Persona { get; set; }
+        public Reto    Reto    { get; set; }
+        public string  User    { get; set; }
     }
 }

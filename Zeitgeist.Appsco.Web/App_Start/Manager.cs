@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Caching;
 using FluentMongo.Linq;
 using Microsoft.Win32;
 using MongoDB.Bson;
@@ -52,10 +55,32 @@ namespace Zeitgeist.Appsco.Web.App_Start
         
         private MongoCollection<T> GetCollection<T>(string collection)
         {
-            var a = Database.GetCollection<T>(collection);
-            return a;
+            if (HttpRuntime.Cache[collection] == null)
+            {
+                var a = Database.GetCollection<T>(collection);
+                insert(collection,a);
+                return a;
+            }
+            return HttpRuntime.Cache[collection] as MongoCollection<T>;
+
         }
 
+        private void insert(string key, object obj)
+        {
+            HttpRuntime.Cache.Insert(
+                /* key */ key,
+                /* value */ obj,
+                /* dependencies */ null,
+                /* absoluteExpiration */ Cache.NoAbsoluteExpiration,
+                /* slidingExpiration */ Cache.NoSlidingExpiration,
+                /* priority */ CacheItemPriority.NotRemovable,
+                /* onRemoveCallback */ null);
+        }
+        public void RemoveCache(string key)
+        {
+            if (HttpRuntime.Cache[key] != null)
+                HttpRuntime.Cache.Remove(key);
+        }
 
         private bool Save<T>(T item,string collection)
         {
@@ -85,21 +110,23 @@ namespace Zeitgeist.Appsco.Web.App_Start
 
         public Persona GetDatosUsuario(string user)
         {
+            Stopwatch sw= new Stopwatch();
+            sw.Start();
+            Persona p= new Persona();
             try
             {
-                var wr2 = GetCollection<Persona>(Settings.Default.ColeccionPersona).FindAll();
-                var wr =
-                    GetCollection<Persona>(Settings.Default.ColeccionPersona).Find(Query.EQ("Cuentas.k", user));              
-                
-                if (wr != null)
-                    return wr.First();
+                //var wr2 = GetCollection<Persona>(Settings.Default.ColeccionPersona).FindAll();
+                var wr =GetCollection<Persona>(Settings.Default.ColeccionPersona).Find(Query.EQ("Cuentas.k", user));
 
+                if (wr != null)
+                    p= wr.First();
             }
             catch (Exception ex)
             {
             }
-            
-            return new Persona();
+            sw.Stop();
+            string s = sw.ElapsedMilliseconds.ToString();
+            return p;
 
         }
         
@@ -244,6 +271,54 @@ namespace Zeitgeist.Appsco.Web.App_Start
             if(l.Count==0)
                 return new List<Reto>();
             return l;
+        }
+
+        internal Reto GetReto(string user)
+        {
+            List<Reto> retos = GetRetosActivos();
+            if (retos.Count == 0)
+                retos = GetUltimosReto();
+            foreach (var reto in retos)
+            {
+               List<Division> d= GetCollection<Division>(Settings.Default.ColeccionDivision).Find(Query.And(new[]
+                {
+                    Query.EQ("_id", new ObjectId(reto.Division)),
+                    Query.EQ("Equipos.Miembros", user)
+                })).ToList();
+                if (d.Count>0)
+                    return reto;
+            }
+            return new Reto();
+        }
+
+        private List<Reto> GetUltimosReto()
+        {
+            var query =
+                (from a in GetCollection<Reto>(Settings.Default.ColeccionRetos).AsQueryable()
+                    orderby a.FechaFin descending
+                    select a).Take(50);
+            return query.ToList();
+        }
+
+        internal List<Reto> GetRetosActivos()
+        {
+            List<Reto> retos = GetCollection<Reto>(Settings.Default.ColeccionRetos).Find(Query.EQ("IsActivo", true)).ToList();
+            if (retos.Count > 0)
+                return retos;
+            return new List<Reto>();
+        }
+
+        internal bool UpdateReto(Reto reto)
+        {
+            var wr=GetCollection<Reto>(Settings.Default.ColeccionRetos)
+                .Update(Query.EQ("_id", new ObjectId(reto.Id)), Update.Replace(reto));
+            if (wr.Ok)
+            {
+                RemoveCache(Settings.Default.ColeccionRetos);
+                return true;
+            }
+            
+            return false;
         }
     }
 

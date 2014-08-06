@@ -4,7 +4,7 @@
     <parameterEntry kind="ProviderPath" scope="IisApp" match="^E:\\D\\Documentos\\Empresa\\Proyectos\\Prodactive\\Src\\Zeitgeist\.Appsco\\Zeitgeist\.Appsco\.Web\\obj\\Release\\Package\\PackageTmp$" />
     <parameterEntry kind="ProviderPath" scope="setAcl" match="^E:\\D\\Documentos\\Empresa\\Proyectos\\Prodactive\\Src\\Zeitgeist\.Appsco\\Zeitgeist\.Appsco\.Web\\obj\\Release\\Package\\PackageTmp$" />
   </parameter>
-  <parameter name="db-Web.config Connection String" description="" value="mongodb://prodactive:pr0d4ct1v3@kratos.zeitgeist.com.co:27017/prodactive" tags="">
+  <parameter name="db-Web.config Connection String" description="" value="mongodb://prodactive:pr0d4ct1v3@23.253.98.86:27017/prodactive" tags="">
     <parameterEntry kind="XmlFile" scope="E:\\D\\Documentos\\Empresa\\Proyectos\\Prodactive\\Src\\Zeitgeist\.Appsco\\Zeitgeist\.Appsco\.Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='db']/@connectionString" />
   </parameter>
   <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." value="Data Source=(LocalDb)\v11.0;Initial Catalog=aspnet-Zeitgeist.Appsco.Web-20140628005511;Integrated Security=SSPI;AttachDBFilename=|DataDirectory|\aspnet-Zeitgeist.Appsco.Web-20140628005511.mdf" tags="SqlConnectionString">

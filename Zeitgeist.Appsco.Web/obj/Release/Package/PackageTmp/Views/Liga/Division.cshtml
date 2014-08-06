@@ -1,0 +1,43 @@
+﻿@using MongoModels
+@using WebGrease.Css.Extensions
+@model IEnumerable<MongoModels.Division>
+@{
+    ViewBag.Title = "Division";
+}
+<h2>Division</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>
+            Nombre Equipo
+        </th>
+        <th>
+            Grupo
+        </th>
+        <th>
+            
+        </th>
+    </tr>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @foreach (var a in item.Equipos)
+            {
+                <span>@Html.DisplayFor(elm => a.Name)</span><br />
+            }   
+            
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

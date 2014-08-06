@@ -115,19 +115,28 @@ namespace Zeitgeist.Appsco.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("mongodb://prodactive:pr0d4ct1v3@23.253.98.86:27017/prodactive")]
-        public string ConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("invitaciones")]
+        public string ColeccionInvitaciones {
             get {
-                return ((string)(this["ConnectionString"]));
+                return ((string)(this["ColeccionInvitaciones"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("invitaciones")]
-        public string ColeccionInvitaciones {
+        [global::System.Configuration.DefaultSettingValueAttribute("mongodb://prodactive:pr0d4ct1v3@23.253.98.86:27017/prodactive")]
+        public string Setting {
             get {
-                return ((string)(this["ColeccionInvitaciones"]));
+                return ((string)(this["Setting"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("mongodb://prodactive:pr0d4ct1v3@23.253.98.86:27017/prodactive")]
+        public string ConnectionString {
+            get {
+                return ((string)(this["ConnectionString"]));
             }
         }
     }

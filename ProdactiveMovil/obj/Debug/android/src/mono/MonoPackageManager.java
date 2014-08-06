@@ -71,6 +71,7 @@ class MonoPackageManager_Resources {
 		"ServiceStack.Interfaces.dll",
 		"ServiceStack.Pcl.Android.dll",
 		"ServiceStack.Text.dll",
+		"Xamarin.Android.Support.v4.dll",
 		"System.Collections.Concurrent.dll",
 		"System.Collections.dll",
 		"System.ComponentModel.Annotations.dll",
@@ -120,5 +121,5 @@ class MonoPackageManager_Resources {
 	};
 	public static final String[] Dependencies = new String[]{
 	};
-	public static final String ApiPackageName = "Mono.Android.Platform.ApiLevel_15";
+	public static final String ApiPackageName = "Mono.Android.Platform.ApiLevel_12";
 }

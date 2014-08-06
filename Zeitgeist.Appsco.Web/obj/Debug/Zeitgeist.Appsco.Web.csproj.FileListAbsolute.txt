@@ -135,7 +135,6 @@ C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Apps
 C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\obj\Debug\Zeitgeist.Appsco.Web.csprojResolveAssemblyReference.cache
 C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\obj\Debug\Zeitgeist.Appsco.Web.dll
 C:\Users\D\Documents\Visual Studio 2013\Projects\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\obj\Debug\Zeitgeist.Appsco.Web.pdb
-E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\obj\Debug\Zeitgeist.Appsco.Web.csprojResolveAssemblyReference.cache
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Zeitgeist.Appsco.Web.dll.config
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Zeitgeist.Appsco.Web.dll
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\Zeitgeist.Appsco.Web.pdb
@@ -189,8 +188,10 @@ E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Apps
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\WebGrease.dll
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\WebMatrix.Data.dll
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\WebMatrix.WebData.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ZeitGeist.Tools.dll
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\MongoProviders.pdb
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\MongoModels.pdb
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ZeitGeist.Tools.pdb
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\AjaxControlToolkit.pdb
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\log4net.xml
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\MongoDB.Bson.xml
@@ -277,5 +278,6 @@ E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Apps
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\ru\System.Spatial.resources.dll
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-Hans\System.Spatial.resources.dll
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\bin\zh-Hant\System.Spatial.resources.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\obj\Debug\Zeitgeist.Appsco.Web.csprojResolveAssemblyReference.cache
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\obj\Debug\Zeitgeist.Appsco.Web.dll
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\Zeitgeist.Appsco.Web\obj\Debug\Zeitgeist.Appsco.Web.pdb

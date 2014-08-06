@@ -11,3 +11,4 @@ E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\App2\obj\Debug
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\App2\obj\Debug\res\drawable\icon.png
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\App2\obj\Debug\R.cs.flag
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\App2\obj\Debug\uploadflags.txt
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\App2\obj\Debug\App2.csprojResolveAssemblyReference.cache

@@ -1,0 +1,2 @@
+App2.MainActivity;app2.MainActivity
+App2.MainActivity.HybridWebViewClient;app2.MainActivity_HybridWebViewClient

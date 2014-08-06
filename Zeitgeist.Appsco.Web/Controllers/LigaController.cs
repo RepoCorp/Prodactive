@@ -22,7 +22,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
             return View(ls);
         }
 
-        public ActionResult AceptarReto(string id)
+        public ActionResult AceptarInvitacionLiga(string id)
         {
             ViewBag.IdLiga = id;
             Invitacion inv = new Invitacion() {LigaId = id, Estado = true, Mail = "prueba@123.com"};
@@ -30,7 +30,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult AceptarReto(Invitacion invitacion)
+        public ActionResult AceptarInvitacionLiga(Invitacion invitacion)
         {
 
             if (manager.AddUserToleague(invitacion.LigaId, User.Identity.Name))
@@ -154,7 +154,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
                 /*
                  * 
                  */
-                string message = "<b>soy una invitacion</b><a href=\"http://localhost:58640/Account/Login?ReturnUrl=%2fLiga%2fAceptarReto%2f" + invitacion.LigaId + "\">prodactive</a>";
+                string message = "<b>soy una invitacion</b><a href=\"http://localhost:58640/Account/Login?ReturnUrl=%2fLiga%2fAceptarInvitacionLiga%2f" + invitacion.LigaId + "\">prodactive</a>";
                 mc.Send(invitacion.Mail, "Te han invitado a pertenecer a una liga", message);
                 TempData["MessageInvitacion"] =
                     "El usuario ya existe en la plataforma, se ha enviado un correo de invitación para pertencer a la liga.";
@@ -168,7 +168,8 @@ namespace Zeitgeist.Appsco.Web.Controllers
                 if (manager.SaveInvitacion(invitacion))
                 {
                     //enviar mail
-                    mc.Send(invitacion.Mail, "Invitacion Prodactive", "<b>Hola</b>");
+                    string message = "<b>soy una invitacion</b><a href=\"http://localhost:58640/Account/Login?ReturnUrl=%2fLiga%2fAceptarInvitacionLiga%2f" + invitacion.LigaId + "\">prodactive</a>";
+                    mc.Send(invitacion.Mail, "Invitacion Prodactive", message);
                     TempData["MessageInvitacion"] =
                         "El usuario no existe en la plataforma, se enviado un correo de invitacion para ingresar en la plataforma.";
                     return RedirectToAction("Index");

@@ -50,7 +50,10 @@ namespace ProdactiveMovil
 			public const int Icon = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int monoandroidsplash = 2130837505;
+			public const int logo = 2130837505;
+			
+			// aapt resource value: 0x7f020002
+			public const int monoandroidsplash = 2130837506;
 			
 			static Drawable()
 			{
@@ -65,26 +68,44 @@ namespace ProdactiveMovil
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060006
-			public const int btnLogin = 2131099654;
+			// aapt resource value: 0x7f060009
+			public const int btnIniciarReto = 2131099657;
 			
-			// aapt resource value: 0x7f060004
-			public const int lblPass = 2131099652;
+			// aapt resource value: 0x7f060008
+			public const int btnLogin = 2131099656;
 			
 			// aapt resource value: 0x7f060001
-			public const int lblUser = 2131099649;
+			public const int imageView1 = 2131099649;
 			
-			// aapt resource value: 0x7f060000
-			public const int linearLayout1 = 2131099648;
+			// aapt resource value: 0x7f060006
+			public const int lblPass = 2131099654;
 			
 			// aapt resource value: 0x7f060003
-			public const int linearLayout2 = 2131099651;
-			
-			// aapt resource value: 0x7f060005
-			public const int txtPass = 2131099653;
+			public const int lblUser = 2131099651;
 			
 			// aapt resource value: 0x7f060002
-			public const int txtUser = 2131099650;
+			public const int linearLayout1 = 2131099650;
+			
+			// aapt resource value: 0x7f060005
+			public const int linearLayout2 = 2131099653;
+			
+			// aapt resource value: 0x7f060000
+			public const int linearLayout3 = 2131099648;
+			
+			// aapt resource value: 0x7f06000a
+			public const int linearLayout4 = 2131099658;
+			
+			// aapt resource value: 0x7f06000c
+			public const int txtCalorias = 2131099660;
+			
+			// aapt resource value: 0x7f06000b
+			public const int txtPasos = 2131099659;
+			
+			// aapt resource value: 0x7f060007
+			public const int txtPass = 2131099655;
+			
+			// aapt resource value: 0x7f060004
+			public const int txtUser = 2131099652;
 			
 			static Id()
 			{
@@ -101,6 +122,9 @@ namespace ProdactiveMovil
 			
 			// aapt resource value: 0x7f030000
 			public const int Main = 2130903040;
+			
+			// aapt resource value: 0x7f030001
+			public const int Reto = 2130903041;
 			
 			static Layout()
 			{
@@ -120,6 +144,213 @@ namespace ProdactiveMovil
 			
 			// aapt resource value: 0x7f040000
 			public const int Hello = 2130968576;
+			
+			// aapt resource value: 0x7f040003
+			public const int about = 2130968579;
+			
+			// aapt resource value: 0x7f040004
+			public const int about_title = 2130968580;
+			
+			// aapt resource value: 0x7f04003b
+			public const int awesome = 2130968635;
+			
+			// aapt resource value: 0x7f040039
+			public const int awesome_title = 2130968633;
+			
+			// aapt resource value: 0x7f040023
+			public const int cadence = 2130968611;
+			
+			// aapt resource value: 0x7f040024
+			public const int cadence0 = 2130968612;
+			
+			// aapt resource value: 0x7f04002b
+			public const int cadence0_km = 2130968619;
+			
+			// aapt resource value: 0x7f040025
+			public const int cadence1 = 2130968613;
+			
+			// aapt resource value: 0x7f04002c
+			public const int cadence1_km = 2130968620;
+			
+			// aapt resource value: 0x7f040026
+			public const int cadence2 = 2130968614;
+			
+			// aapt resource value: 0x7f04002d
+			public const int cadence2_km = 2130968621;
+			
+			// aapt resource value: 0x7f040027
+			public const int cadence3 = 2130968615;
+			
+			// aapt resource value: 0x7f04002e
+			public const int cadence3_km = 2130968622;
+			
+			// aapt resource value: 0x7f040028
+			public const int cadence4 = 2130968616;
+			
+			// aapt resource value: 0x7f04002f
+			public const int cadence4_km = 2130968623;
+			
+			// aapt resource value: 0x7f040029
+			public const int cadence5 = 2130968617;
+			
+			// aapt resource value: 0x7f040030
+			public const int cadence5_km = 2130968624;
+			
+			// aapt resource value: 0x7f04002a
+			public const int cadence6 = 2130968618;
+			
+			// aapt resource value: 0x7f040031
+			public const int cadence6_km = 2130968625;
+			
+			// aapt resource value: 0x7f040010
+			public const int calories = 2130968592;
+			
+			// aapt resource value: 0x7f040011
+			public const int calories_short = 2130968593;
+			
+			// aapt resource value: 0x7f040005
+			public const int category_general_preferences = 2130968581;
+			
+			// aapt resource value: 0x7f040006
+			public const int category_notifications_preferences = 2130968582;
+			
+			// aapt resource value: 0x7f04000f
+			public const int completed = 2130968591;
+			
+			// aapt resource value: 0x7f04001e
+			public const int copyright = 2130968606;
+			
+			// aapt resource value: 0x7f04001a
+			public const int created_by = 2130968602;
+			
+			// aapt resource value: 0x7f04001b
+			public const int created_by_summary = 2130968603;
+			
+			// aapt resource value: 0x7f040020
+			public const int created_with = 2130968608;
+			
+			// aapt resource value: 0x7f040021
+			public const int created_with_summary = 2130968609;
+			
+			// aapt resource value: 0x7f040042
+			public const int custom_step_goal = 2130968642;
+			
+			// aapt resource value: 0x7f040018
+			public const int enhanced = 2130968600;
+			
+			// aapt resource value: 0x7f040019
+			public const int enhanced_summary = 2130968601;
+			
+			// aapt resource value: 0x7f040036
+			public const int goal_double = 2130968630;
+			
+			// aapt resource value: 0x7f040035
+			public const int goal_full = 2130968629;
+			
+			// aapt resource value: 0x7f040034
+			public const int goal_half = 2130968628;
+			
+			// aapt resource value: 0x7f040037
+			public const int goal_update = 2130968631;
+			
+			// aapt resource value: 0x7f04003a
+			public const int high_score = 2130968634;
+			
+			// aapt resource value: 0x7f040038
+			public const int high_score_title = 2130968632;
+			
+			// aapt resource value: 0x7f04001c
+			public const int inspired_by = 2130968604;
+			
+			// aapt resource value: 0x7f04001d
+			public const int inspired_by_summary = 2130968605;
+			
+			// aapt resource value: 0x7f040013
+			public const int kilometeres = 2130968595;
+			
+			// aapt resource value: 0x7f040033
+			public const int menu_history = 2130968627;
+			
+			// aapt resource value: 0x7f040002
+			public const int menu_settings = 2130968578;
+			
+			// aapt resource value: 0x7f04003d
+			public const int menu_share = 2130968637;
+			
+			// aapt resource value: 0x7f040012
+			public const int miles = 2130968594;
+			
+			// aapt resource value: 0x7f040045
+			public const int month = 2130968645;
+			
+			// aapt resource value: 0x7f040032
+			public const int no_history = 2130968626;
+			
+			// aapt resource value: 0x7f040043
+			public const int no_step_sensor = 2130968643;
+			
+			// aapt resource value: 0x7f040009
+			public const int notifications_accumulative = 2130968585;
+			
+			// aapt resource value: 0x7f04000a
+			public const int notifications_accumulative_summary = 2130968586;
+			
+			// aapt resource value: 0x7f040007
+			public const int notifications_progress = 2130968583;
+			
+			// aapt resource value: 0x7f040008
+			public const int notifications_progress_summary = 2130968584;
+			
+			// aapt resource value: 0x7f040022
+			public const int ok = 2130968610;
+			
+			// aapt resource value: 0x7f04000e
+			public const int percent_complete = 2130968590;
+			
+			// aapt resource value: 0x7f040040
+			public const int review_app = 2130968640;
+			
+			// aapt resource value: 0x7f040041
+			public const int review_app_summary = 2130968641;
+			
+			// aapt resource value: 0x7f04003c
+			public const int share_steps_on = 2130968636;
+			
+			// aapt resource value: 0x7f04003e
+			public const int share_steps_today = 2130968638;
+			
+			// aapt resource value: 0x7f04003f
+			public const int share_steps_total = 2130968639;
+			
+			// aapt resource value: 0x7f04000b
+			public const int steps = 2130968587;
+			
+			// aapt resource value: 0x7f04000c
+			public const int steps_cap = 2130968588;
+			
+			// aapt resource value: 0x7f04000d
+			public const int today = 2130968589;
+			
+			// aapt resource value: 0x7f040046
+			public const int total = 2130968646;
+			
+			// aapt resource value: 0x7f04001f
+			public const int version = 2130968607;
+			
+			// aapt resource value: 0x7f040044
+			public const int week = 2130968644;
+			
+			// aapt resource value: 0x7f040014
+			public const int weight_kg = 2130968596;
+			
+			// aapt resource value: 0x7f040015
+			public const int weight_lbs = 2130968597;
+			
+			// aapt resource value: 0x7f040016
+			public const int weight_title_kg = 2130968598;
+			
+			// aapt resource value: 0x7f040017
+			public const int weight_title_lbs = 2130968599;
 			
 			static String()
 			{

@@ -20,7 +20,7 @@ namespace MongoModels
         public DateTime FechaFin { get; set; }
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
         public IDictionary<string,int> Deportes { get; set; }
-        public string Tipo { get; set; }
+        public string Tipo   { get; set; }
         public bool IsActivo { get; set; }
         public string Premio { get; set; }
 

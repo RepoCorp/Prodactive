@@ -255,6 +255,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Manage\Orquestrator.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Estadisticas.cs" />
     <Compile Include="Models\LandingData.cs" />
@@ -264,6 +265,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="Site.master.cs">
       <DependentUpon>Site.master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1255,7 +1257,6 @@
     <Content Include="Scripts\flot\jquery.flot.min.js.map">
       <DependentUpon>jquery.flot.min.js</DependentUpon>
     </Content>
-    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\flot\excanvas.js" />
     <Content Include="Scripts\flot\excanvas.min.js" />
     <Content Include="Scripts\flot\jquery.colorhelpers.js" />
@@ -1291,14 +1292,18 @@
     <Content Include="Scripts\flot\jquery.flot.time.js" />
     <Content Include="Scripts\flot\jquery.flot.time.min.js" />
     <Content Include="Scripts\Home\registro.js" />
-    <Content Include="Scripts\jquery-2.1.1.js" />
-    <Content Include="Scripts\jquery-2.1.1.min.js" />
-    <Content Include="Scripts\jquery-2.1.1.min.map" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Scripts\jquery-ui-1.8.24.min.js.map">
+      <DependentUpon>jquery-ui-1.8.24.min.js</DependentUpon>
+    </Content>
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -1422,14 +1427,13 @@
     <Content Include="Views\Liga\Delete.cshtml" />
     <Content Include="Views\Liga\Edit.cshtml" />
     <Content Include="Views\Liga\EnviarInvitacion.cshtml" />
-    <Content Include="Views\Liga\AceptarReto.cshtml" />
+    <Content Include="Views\Liga\AceptarInvitacionLiga.cshtml" />
     <Content Include="Views\Liga\Division.cshtml" />
     <Content Include="Views\Reto\Create.cshtml" />
     <Content Include="Views\Reto\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Manage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

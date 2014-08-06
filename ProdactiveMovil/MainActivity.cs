@@ -1,5 +1,6 @@
 ﻿using System;
-
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.Runtime;
@@ -9,6 +10,7 @@ using Android.OS;
 using Java.IO;
 using ProdactiveMovil.ModelServicio;
 using ServiceStack;
+using ServiceStack.Text;
 
 namespace ProdactiveMovil
 {
@@ -33,7 +35,7 @@ namespace ProdactiveMovil
              txtUser = FindViewById<EditText>(Resource.Id.txtUser);
              txtPass = FindViewById<EditText>(Resource.Id.txtPass);
 
-             client = new JsvServiceClient("http://localhost:58640/api/");
+             client = new JsvServiceClient("http://prodactive.co/api/");
             //Anadir Servicio
 
             btnLogin.Click += btnLogin_Click;
@@ -42,20 +44,27 @@ namespace ProdactiveMovil
 
         void btnLogin_Click(object sender, EventArgs e)
         {
-            ServiceL      sl = new ServiceL();
-            LoginResponse lr = client.Send<LoginResponse>(
-                                new Login() { User = txtUser.Text, Pass = txtPass.Text });
+            //#if DEBUG
+            //    LoginResponse lr = new LoginResponse() {User = "ddo88", State = true, Message = ""};
+            //#else
+                LoginResponse lr = client.Send<LoginResponse>(new Login() { User = txtUser.Text, Pass = txtPass.Text });
+            //#endif
+
+
+            if (lr.State)
+            {
+                //termino esta tarea
+                Finish();
+                Task.Factory.StartNew(()=>
+                {
+                    Intent intent = new Intent(this, typeof(RetoActivity));
+                    intent.PutExtra("UserData", JsonSerializer.SerializeToString(lr, typeof(LoginResponse)));
+                    StartActivity(intent);
+                });
+            }
             int i = 0;
         }
     }
 
-    public class ServiceL
-    {
-        public string Login(string User, string Pass)
-        {
-            return "";
-
-        }
-    }
 }
 

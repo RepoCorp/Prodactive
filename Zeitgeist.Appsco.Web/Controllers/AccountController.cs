@@ -123,7 +123,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
             ViewBag.Sexo   = sl2;
 
             return View();
-        }
+        }   
 
         //
         // POST: /Account/Register

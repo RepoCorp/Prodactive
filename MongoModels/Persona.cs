@@ -35,7 +35,7 @@ namespace MongoModels
 
         
         [Required]
-        [Display(Name = "Fecha De Nacimiento")]
+        [Display(Name = "Fecha De Nacimiento", Prompt = "dd/mm/yyyy")]
         public DateTime FechaNacimiento { get; set; }
 
         [Required]

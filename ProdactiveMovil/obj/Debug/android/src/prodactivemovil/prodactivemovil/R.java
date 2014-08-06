@@ -12,23 +12,100 @@ public final class R {
     }
     public static final class drawable {
         public static final int icon=0x7f020000;
-        public static final int monoandroidsplash=0x7f020001;
+        public static final int logo=0x7f020001;
+        public static final int monoandroidsplash=0x7f020002;
     }
     public static final class id {
-        public static final int btnLogin=0x7f060006;
-        public static final int lblPass=0x7f060004;
-        public static final int lblUser=0x7f060001;
-        public static final int linearLayout1=0x7f060000;
-        public static final int linearLayout2=0x7f060003;
-        public static final int txtPass=0x7f060005;
-        public static final int txtUser=0x7f060002;
+        public static final int btnIniciarReto=0x7f060009;
+        public static final int btnLogin=0x7f060008;
+        public static final int imageView1=0x7f060001;
+        public static final int lblPass=0x7f060006;
+        public static final int lblUser=0x7f060003;
+        public static final int linearLayout1=0x7f060002;
+        public static final int linearLayout2=0x7f060005;
+        public static final int linearLayout3=0x7f060000;
+        public static final int linearLayout4=0x7f06000a;
+        public static final int txtCalorias=0x7f06000c;
+        public static final int txtPasos=0x7f06000b;
+        public static final int txtPass=0x7f060007;
+        public static final int txtUser=0x7f060004;
     }
     public static final class layout {
         public static final int main=0x7f030000;
+        public static final int reto=0x7f030001;
     }
     public static final class string {
         public static final int ApplicationName=0x7f040001;
         public static final int Hello=0x7f040000;
+        public static final int about=0x7f040003;
+        public static final int about_title=0x7f040004;
+        public static final int awesome=0x7f04003b;
+        public static final int awesome_title=0x7f040039;
+        public static final int cadence=0x7f040023;
+        public static final int cadence0=0x7f040024;
+        public static final int cadence0_km=0x7f04002b;
+        public static final int cadence1=0x7f040025;
+        public static final int cadence1_km=0x7f04002c;
+        public static final int cadence2=0x7f040026;
+        public static final int cadence2_km=0x7f04002d;
+        public static final int cadence3=0x7f040027;
+        public static final int cadence3_km=0x7f04002e;
+        public static final int cadence4=0x7f040028;
+        public static final int cadence4_km=0x7f04002f;
+        public static final int cadence5=0x7f040029;
+        public static final int cadence5_km=0x7f040030;
+        public static final int cadence6=0x7f04002a;
+        public static final int cadence6_km=0x7f040031;
+        public static final int calories=0x7f040010;
+        public static final int calories_short=0x7f040011;
+        public static final int category_general_preferences=0x7f040005;
+        public static final int category_notifications_preferences=0x7f040006;
+        public static final int completed=0x7f04000f;
+        public static final int copyright=0x7f04001e;
+        public static final int created_by=0x7f04001a;
+        public static final int created_by_summary=0x7f04001b;
+        public static final int created_with=0x7f040020;
+        public static final int created_with_summary=0x7f040021;
+        public static final int custom_step_goal=0x7f040042;
+        public static final int enhanced=0x7f040018;
+        public static final int enhanced_summary=0x7f040019;
+        public static final int goal_double=0x7f040036;
+        public static final int goal_full=0x7f040035;
+        public static final int goal_half=0x7f040034;
+        public static final int goal_update=0x7f040037;
+        public static final int high_score=0x7f04003a;
+        public static final int high_score_title=0x7f040038;
+        public static final int inspired_by=0x7f04001c;
+        public static final int inspired_by_summary=0x7f04001d;
+        public static final int kilometeres=0x7f040013;
+        public static final int menu_history=0x7f040033;
+        public static final int menu_settings=0x7f040002;
+        public static final int menu_share=0x7f04003d;
+        public static final int miles=0x7f040012;
+        public static final int month=0x7f040045;
+        public static final int no_history=0x7f040032;
+        public static final int no_step_sensor=0x7f040043;
+        public static final int notifications_accumulative=0x7f040009;
+        public static final int notifications_accumulative_summary=0x7f04000a;
+        public static final int notifications_progress=0x7f040007;
+        public static final int notifications_progress_summary=0x7f040008;
+        public static final int ok=0x7f040022;
+        public static final int percent_complete=0x7f04000e;
+        public static final int review_app=0x7f040040;
+        public static final int review_app_summary=0x7f040041;
+        public static final int share_steps_on=0x7f04003c;
+        public static final int share_steps_today=0x7f04003e;
+        public static final int share_steps_total=0x7f04003f;
+        public static final int steps=0x7f04000b;
+        public static final int steps_cap=0x7f04000c;
+        public static final int today=0x7f04000d;
+        public static final int total=0x7f040046;
+        public static final int version=0x7f04001f;
+        public static final int week=0x7f040044;
+        public static final int weight_kg=0x7f040014;
+        public static final int weight_lbs=0x7f040015;
+        public static final int weight_title_kg=0x7f040016;
+        public static final int weight_title_lbs=0x7f040017;
     }
     public static final class style {
         public static final int Mono_Android_Theme_Splash=0x7f050000;

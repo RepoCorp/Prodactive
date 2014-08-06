@@ -1,0 +1,5 @@
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ZeitGeist.Tools\bin\Debug\ZeitGeist.Tools.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ZeitGeist.Tools\bin\Debug\ZeitGeist.Tools.pdb
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ZeitGeist.Tools\obj\Debug\ZeitGeist.Tools.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ZeitGeist.Tools\obj\Debug\ZeitGeist.Tools.pdb
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ZeitGeist.Tools\obj\Debug\ZeitGeist.Tools.csprojResolveAssemblyReference.cache

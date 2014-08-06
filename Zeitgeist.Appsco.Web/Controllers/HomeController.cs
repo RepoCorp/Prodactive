@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Routing;
+using AjaxControlToolkit;
 using MongoModels;
 using Newtonsoft.Json;
 using Zeitgeist.Appsco.Web.App_Start;
+using Zeitgeist.Appsco.Web.Manage;
 using Zeitgeist.Appsco.Web.Models;
 
 namespace Zeitgeist.Appsco.Web.Controllers
@@ -13,6 +18,14 @@ namespace Zeitgeist.Appsco.Web.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+        private Orquestrator orquestrator;
+        protected override void Initialize(RequestContext requestContext)
+        {
+            if (orquestrator == null)
+                orquestrator = Orquestrator.Instance;
+
+            base.Initialize(requestContext);
+        }
 
         private Manager manager = Manager.Instance;
 
@@ -20,23 +33,39 @@ namespace Zeitgeist.Appsco.Web.Controllers
         public ActionResult Index()
         {
 
-            var reto = manager.GetReto();
-            var estadisticas = manager.GetEstadisticasUsuarioReto(User.Identity.Name,reto.Id);
-            var totalPasos=estadisticas.Sum(x => x.CantidadPasos);
-            var totalReto=reto.Deportes["Caminar"];
+            var reto                = manager.GetReto(User.Identity.Name);
+            if (reto.Id == null)
+            {
+                ViewBag.RetoActivo = false;
+                ViewBag.Reto = reto;
+                ViewBag.FechaCierre = DateTime.Now.AddDays(-2);   
+            }
+            else
+            {
+                ViewBag.RetoActivo = reto.IsActivo;
+                ViewBag.FechaCierre = reto.FechaFin;
+                ViewBag.Reto = reto;
 
-            ViewBag.TotalPasos = totalPasos;
-            ViewBag.Progreso = Math.Round((double)(totalPasos*100)/totalReto); 
-            ViewBag.NumeroDias = estadisticas.Count();
-            ViewBag.Reto = reto;
-            ViewBag.FechaCierre = reto.FechaFin.ToString("yyyy-MM-dd");
-            ViewBag.Estadisticas = estadisticas;
-            //reto.Deportes.Where(x=>x)
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-            //Persona p = manager.GetDatosUsuario(User.Identity.Name);
-            //manager.GetTotalRegistrosReto(User.Identity.Name);
+                var estadisticas = manager.GetEstadisticasUsuarioReto(User.Identity.Name, reto.Id);
+                var totalPasos = estadisticas.Sum(x => x.CantidadPasos);
+                var totalReto = reto.Deportes["Caminar"];
+
+                ViewBag.TotalPasos = totalPasos;
+                ViewBag.Progreso = Math.Round((double)(totalPasos * 100) / totalReto);
+                ViewBag.NumeroDias = estadisticas.Count();
+                //.ToString("yyyy-MM-dd");
+                ViewBag.Estadisticas = estadisticas;
+
+                if (reto.IsActivo)
+                    ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+                else
+                    ViewBag.Message = "El Reto ha finalizado.";
+            }
             return View();
+        
         }
+
+
         [OutputCache(Duration = 15)]
         public ActionResult GetStats()
         {

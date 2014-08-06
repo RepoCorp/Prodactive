@@ -32,11 +32,14 @@
     <Setting Name="ColeccionRegistro" Type="System.String" Scope="Application">
       <Value Profile="(Default)">registro</Value>
     </Setting>
-    <Setting Name="ConnectionString" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">mongodb://prodactive:pr0d4ct1v3@23.253.98.86:27017/prodactive</Value>
-    </Setting>
     <Setting Name="ColeccionInvitaciones" Type="System.String" Scope="Application">
       <Value Profile="(Default)">invitaciones</Value>
+    </Setting>
+    <Setting Name="Setting" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">mongodb://prodactive:pr0d4ct1v3@23.253.98.86:27017/prodactive</Value>
+    </Setting>
+    <Setting Name="ConnectionString" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">mongodb://prodactive:pr0d4ct1v3@23.253.98.86:27017/prodactive</Value>
     </Setting>
   </Settings>
 </SettingsFile>
