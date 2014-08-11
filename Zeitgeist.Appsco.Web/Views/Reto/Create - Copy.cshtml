@@ -1,0 +1,107 @@
+﻿@model MongoModels.Reto
+
+@{
+    ViewBag.Title = "Reto";
+}
+@section pagename{
+    Creación de Reto
+    <small>
+        <i class="ace-icon fa fa-angle-double-right"></i>
+        Creación de Retos.
+    </small>
+}
+<div class="col-lg-6">
+
+    @using (Html.BeginForm("Create", "Reto", FormMethod.Post, new { @class = "form form-horizontal" })){
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <ol>
+                <li>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Division, new { @for = "Division", @class = "col-sm-3 control-label no-padding-right" })
+                        <div class="col-sm-9">
+                            @Html.DropDownListFor(m => m.Division, (SelectList)ViewBag.Divisiones, "--Seleccione la division--", new { @class = "input col-xs-10 col-sm-7 form-control" })
+                            @Html.ValidationMessageFor(model => model.Division)
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FechaInicio, new { @for = "FechaInicio", @class = "col-sm-3 control-label no-padding-right" })
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(model => model.FechaInicio, new { @class = "col-xs-10 col-sm-7 form-control" })
+                            @Html.ValidationMessageFor(model => model.FechaInicio)
+                        </div>
+                    </div>
+
+                </li>
+                <li>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FechaFin, new { @for = "FechaFin", @class = "col-sm-3 control-label no-padding-right" })
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(model => model.FechaFin, new { @class = "col-xs-10 col-sm-7 form-control" })
+                            @Html.ValidationMessageFor(model => model.FechaFin)
+                        </div>
+                    </div>
+
+                </li>
+                <li>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Tipo, new { @for = "Tipo", @class = "col-sm-3 control-label no-padding-right" })
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(model => model.Tipo, new { @class = "col-xs-10 col-sm-7 form-control" })
+                            @Html.ValidationMessageFor(model => model.Tipo)
+                        </div>
+
+                    </div>
+
+                </li>
+                <li>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IsActivo, new { @for = "IsActivo", @class = "col-sm-3 control-label no-padding-right" })
+                        <div class="col-sm-9">
+                            <!-- , new { @@class = "col-xs-10 col-sm-7 form-control" } -->
+                            @Html.CheckBoxFor(model => model.IsActivo, new { @class="checkbox"})
+                            @Html.ValidationMessageFor(model => model.IsActivo)
+                        </div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Premio, new { @for = "Premio", @class = "col-sm-3 control-label no-padding-right" })
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(model => model.Premio, new { @class = "col-xs-10 col-sm-7 form-control" })
+                            @Html.ValidationMessageFor(model => model.Premio)
+                        </div>
+                    </div>
+
+                </li>
+                <li>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-info" />
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        @Html.ActionLink("Atrás", "Index")
+                    </div>
+
+                </li>
+            </ol>
+        </fieldset>
+    }
+</div>    
+
+
+@section scripts{
+    
+    <script>
+        $(function() {
+            $('#FechaInicio').datepicker({ format: "yyyy/mm/dd" });
+            $('#FechaFin').datepicker({ format: "yyyy/mm/dd" });
+        })
+    </script>
+}

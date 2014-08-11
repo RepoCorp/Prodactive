@@ -7,7 +7,7 @@
 
     <meta name="description" content="overview &amp; stats" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic' rel='stylesheet' type='text/css'>
     <!-- bootstrap & fontawesome -->
 
     <link href="~/Content/template/assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -36,11 +36,13 @@
             margin: 0 auto;
         }
         .footer-content {
-            background-color: cornflowerblue;
+            /*background-color: cornflowerblue;*/
+            background-color: #03899C;
         }
         #login, #login a, #login ul li a 
         {
-            color: cadetblue;
+            /*color: cadetblue;*/
+            color: #03899C;
         }
     </style>
     
@@ -139,11 +141,7 @@
                 <div class="page-content-area">
                     <div id="page-header" class="page-header">
                         <h1>
-                            Dashboard
-                            <small>
-                                <i class="ace-icon fa fa-angle-double-right"></i>
-                                overview &amp; stats
-                            </small>
+                            @RenderSection("pagename",required:false)
                         </h1>
                     </div><!-- /.page-header -->
 
@@ -173,24 +171,24 @@
         <div class="footer-inner">
             <!-- #section:basics/footer -->
             <div class="footer-content">
-                <span class="bigger-120">
-                    <span class="blue bolder">Prodactive</span>
+                <span class="bigger-120" style="color:white;">
+                    <span class="bolder" >Prodactive</span>
                     &copy; 2014
                 </span>
 
                 &nbsp; &nbsp;
                 <span class="action-buttons">
-                    <a href="#">
+                    <a href="https://twitter.com/beprodactive" target="_black">
                         <i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
                     </a>
 
-                    <a href="#">
+                    <a href="https://www.facebook.com/prodactive.co" target="_black">
                         <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
                     </a>
 
-                    <a href="#">
-                        <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
-                    </a>
+                    @*<a href="#">
+            <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
+        </a>*@
                 </span>
             </div>
 
@@ -205,8 +203,7 @@
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script src="~/Scripts/knockout-3.1.0.js"></script>
-
-    <script src="~/Scripts/Home/registro.js"></script>
+    <script src="~/Scripts/underscore-min.js"></script>
     <script type="text/javascript">
         if ('ontouchstart' in document.documentElement) document.write("<script src='~/Content/template/assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
     </script>

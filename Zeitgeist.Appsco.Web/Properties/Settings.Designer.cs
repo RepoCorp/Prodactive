@@ -139,5 +139,14 @@ namespace Zeitgeist.Appsco.Web.Properties {
                 return ((string)(this["ConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("registro_progreso")]
+        public string ColeccionRegistroProgreso {
+            get {
+                return ((string)(this["ColeccionRegistroProgreso"]));
+            }
+        }
     }
 }

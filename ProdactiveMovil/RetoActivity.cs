@@ -1,19 +1,19 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
+using Android.Net;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
-using Org.W3c.Dom;
+using ProdactiveMovil.Database;
 using ProdactiveMovil.Helpers;
 using ProdactiveMovil.ModelServicio;
+using ProdactiveMovil.ModelServicio.SQLite;
 using ProdactiveMovil.Services;
+using ServiceStack;
 using ServiceStack.Text;
+using SQLite.Net.Platform.XamarinAndroid;
 
 namespace ProdactiveMovil
 {
@@ -21,14 +21,21 @@ namespace ProdactiveMovil
     public class RetoActivity : Activity
     {
         int count = 1;
-        private StepServiceBinder binder;
+
+        private StepServiceBinder       binder;
+        private StepServiceConnection   serviceConnection;
         
-        private StepServiceConnection serviceConnection;
         private bool firstRun = true;
         private bool registered;
+        
         private Handler handler;
-        public bool IsBound { get; set; }
-        public StepServiceBinder Binder
+
+        public bool              IsBound
+        {
+            get; 
+            set;
+        }
+        public StepServiceBinder Binder 
         {
             get { return binder; }
             set
@@ -51,34 +58,48 @@ namespace ProdactiveMovil
         }
 
         private TextView tv;
+        private TextView tcalorias;
 
         private double StepLength = 0;
+        private double BodyWeight = 0;
 
+        private Int64 pasosUltimaActualizacion = 0;
+        private Int64 contPasos=0;
 
+        private System.Threading.Timer Reporte;
+
+        private LoginResponse lr;
+
+        #region calorias
+
+        private static double METRIC_RUNNING_FACTOR = 1.02784823;
+        private static double IMPERIAL_RUNNING_FACTOR = 0.75031498;
+
+        private static double METRIC_WALKING_FACTOR = 0.708;
+        private static double IMPERIAL_WALKING_FACTOR = 0.517;
+
+        private double mCalories         = 0;
+        private double mCaloriesAnterior = 0;
+
+        #endregion
+
+        private Manager manager;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
-            
-            LoginResponse lr = JsonSerializer.DeserializeFromString<LoginResponse>(Intent.GetStringExtra("UserData"));
+            var t=Task.Factory.StartNew(() =>
+            {
+                manager = Manager.GetInstance(new SQLitePlatformAndroid(),
+                new JsvServiceClient("http://prodactive.co/api"),
+                System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal),
+                    "prodactive.db"));
+            });
+            lr = JsonSerializer.DeserializeFromString<LoginResponse>(Intent.GetStringExtra("UserData"));
 
             var estatura = lr.Persona.Estatura*100;
-            if (lr.Persona.Sexo == "M")
-            {
-                if(estatura!=0)
-                    StepLength = estatura*0.415;
-                else
-                    StepLength = 78;
-            }
-            else
-            {
-                if(estatura==0)
-                    StepLength = estatura * 0.413;
-                else
-                    StepLength = 70;
-            }
-            
+            GetStepLength(lr, estatura);
+            BodyWeight = lr.Persona.Peso;
             
 
             string s = "UserData";
@@ -91,11 +112,18 @@ namespace ProdactiveMovil
 
             //Button Cerrar = FindViewById<Button>(Resource.Id.button1);
             tv = FindViewById<TextView>(Resource.Id.txtPasos);
+            tcalorias = FindViewById<TextView>(Resource.Id.txtCalorias);
+            
 
+            //verificar si ya acepte el reto....
             button.Click += delegate
             {
-                StartStepService();
-                Toast.MakeText(this, "El reto ha comenzado. La aplicación iniciará el conteo de pasos", ToastLength.Long);
+                if (lr.Reto.IsActivo)
+                {
+                    StartStepService();
+                    Toast.MakeText(this, "El reto ha comenzado. La aplicación iniciará el conteo de pasos", ToastLength.Long);
+                    Reporte.Change(30000, 1000*60*1);
+                }
             };
             //Cerrar.Click += (sender, e) =>
             //{
@@ -103,9 +131,31 @@ namespace ProdactiveMovil
 
             //};
             handler = new Handler();
-            
+            t.Wait();
+
+            Reporte = new System.Threading.Timer(EnviarReportePasos);
+
 
         }
+
+        private void GetStepLength(LoginResponse lr, double estatura)
+        {
+            if (lr.Persona.Sexo == "M")
+            {
+                if (estatura != 0)
+                    StepLength = estatura*0.415;
+                else
+                    StepLength = 78;
+            }
+            else
+            {
+                if (estatura == 0)
+                    StepLength = estatura*0.413;
+                else
+                    StepLength = 70;
+            }
+        }
+
         protected override void OnStop()
         {
             base.OnStop();
@@ -196,10 +246,16 @@ namespace ProdactiveMovil
                 steps = Binder.StepService.StepsToday;
                 showWaring = binder.StepService.WarningState;
             }
+
+            mCalories += (BodyWeight *  METRIC_WALKING_FACTOR //(mIsRunning ? METRIC_RUNNING_FACTOR : METRIC_WALKING_FACTOR))
+                // Distance:
+                * StepLength // centimeters
+                / 100000.0); // centimeters/kilometer
+            contPasos = steps;
             RunOnUiThread(() =>
             {
-                tv.Text = String.Format("Numero Pasos Dia de Hoy {0}", steps);
-                
+                tv.Text = String.Format(" Pasos {0}  ", steps);
+                tcalorias.Text = String.Format("Calorias {0} ", Math.Floor(mCalories));
                 //progressView.SetStepCount(steps);
 
                 //stepCount.Text = Utils.FormatSteps(steps);
@@ -243,6 +299,36 @@ namespace ProdactiveMovil
                 this.Title = Utils.DateString;
             });
         }
+
+        private void EnviarReportePasos(object o)
+        {
+            if (pasosUltimaActualizacion == 0)
+                pasosUltimaActualizacion = contPasos;
+
+            if (mCaloriesAnterior == 0)
+                mCaloriesAnterior = mCalories;
+
+            ReporteSql rep = new ReporteSql();  
+            rep.Calorias    = mCaloriesAnterior - mCalories;
+            rep.Pasos       = pasosUltimaActualizacion - contPasos;
+            rep.UserName    = lr.User;
+            rep.Fecha       = DateTime.Now;
+            rep.IdReto      = lr.Reto.Id;
+
+            bool sw = false;
+            //if (rep.Pasos > 0)
+                if (isOnline())
+                    sw = manager.SendReporte(rep);
+                else
+                    sw = (manager.SaveReporte(rep) > 0 ? true : false);
+
+            if (sw)
+            {
+                pasosUltimaActualizacion = contPasos;
+                mCaloriesAnterior        = mCalories;
+            }
+        }
+
         private void StartStepService()
         {
 
@@ -259,6 +345,17 @@ namespace ProdactiveMovil
             });
             
         }
-        
+
+
+        public bool isOnline()
+        {
+            ConnectivityManager cm = (ConnectivityManager) GetSystemService(Context.ConnectivityService);
+            NetworkInfo netInfo = cm.ActiveNetworkInfo;
+            if (netInfo != null && netInfo.IsConnected)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

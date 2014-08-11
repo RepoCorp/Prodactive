@@ -1,11 +1,16 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
+@section pagename{
+    @ViewBag.Title
+    <small>
+        <i class="ace-icon fa fa-angle-double-right"></i>
+    </small>
+}
+@*<hgroup class="title">
+   
     <h2>@ViewBag.Message</h2>
-</hgroup>
+</hgroup>*@
 
 <article>
     <p>

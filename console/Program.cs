@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
 
 using MongoModels;
 
-using MongoDB.Bson;
 using MongoDB.Driver;
-using MongoDB.Driver.Builders;
-using MongoDB.Driver.Linq;
+using ServiceStack;
 
+using System.Threading;
 namespace console
 {
     class Program
@@ -21,16 +17,50 @@ namespace console
         static void Main(string[] args)
         {
 
-            string _connectionString = "mongodb://prodactive:pr0d4ct1v3@23.253.98.86:27017/prodactive";
+            System.Threading.Timer t = new System.Threading.Timer((o) =>
+            {
+                
+                System.Console.WriteLine("Paso -");
+            });
 
-            //string bd = _connectionString.Substring(_connectionString.LastIndexOf('/')+1, _connectionString.Length - (_connectionString.LastIndexOf('/') + 1));
+            t.Change(30000, 1000*60*1);
 
-            MongoClient mc = new MongoClient(_connectionString);
-            var server = mc.GetServer();
-            Database = server.GetDatabase("prodactive");
-            Seed();
-            Console.ReadLine();
-            //Test();
+
+            while (Console.ReadLine() != "q")
+            {
+                Thread.Sleep(1000);
+                Console.WriteLine("finalizo?");
+            }
+
+            //var r = new JsvServiceClient("http://localhost:58640/api");
+            //var rr = new RegistroProgreso()
+            //{
+            //    UserName = "ddo88",
+            //    Fecha = DateTime.Now,
+            //    IdReto = "",
+            //    Calorias = 125,
+            //    Pasos = 5000
+            //};
+            //try
+            //{
+            //    var resul = r.Send<ResponseRegistroProgreso>(rr);
+            //}
+            //catch (Exception ex)
+            //{
+            //    int i = 0;
+            //}
+
+
+            //string _connectionString = "mongodb://prodactive:pr0d4ct1v3@23.253.98.86:27017/prodactive";
+
+            ////string bd = _connectionString.Substring(_connectionString.LastIndexOf('/')+1, _connectionString.Length - (_connectionString.LastIndexOf('/') + 1));
+
+            //MongoClient mc = new MongoClient(_connectionString);
+            //var server = mc.GetServer();
+            //Database = server.GetDatabase("prodactive");
+            //Seed();
+            //Console.ReadLine();
+            ////Test();
         }
 
         private static void Test()
@@ -170,5 +200,25 @@ namespace console
         }
     }
 
+    [Route("/RegistroProgreso")]
+    public class RegistroProgreso
+    {
+        public string Id { get; set; }
+        public string UserName { get; set; }
+        public Int64 Pasos { get; set; }
+        public double Calorias { get; set; }
+        public DateTime Fecha { get; set; }
+        public string IdReto { get; set; }
+    }
+    public class ResponseRegistroProgreso : ResponseService, IReturn<RegistroProgreso>
+    {
+
+    }
+
+    public class ResponseService
+    {
+        public string Message { get; set; }
+        public bool State { get; set; }
+    }
    
 }

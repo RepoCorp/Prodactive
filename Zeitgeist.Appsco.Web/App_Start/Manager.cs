@@ -320,6 +320,24 @@ namespace Zeitgeist.Appsco.Web.App_Start
             
             return false;
         }
+
+        public bool SaveRegistroProgreso(RegistroProgreso reg)
+        {
+            return Save(reg, Settings.Default.ColeccionRegistroProgreso);
+        }
+
+        internal bool SaveReto(Reto r)
+        {
+            return Save(r, Settings.Default.ColeccionRetos);
+        }
+
+        internal Reto GetRetoById(string id)
+        {
+            var wr = GetCollection<Reto>(Settings.Default.ColeccionRetos).AsQueryable().Where(x=>x.Id==id).FirstOrDefault();
+            if (wr != null)
+                return wr;
+            return new Reto();
+        }
     }
 
    

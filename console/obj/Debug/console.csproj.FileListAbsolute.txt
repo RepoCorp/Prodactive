@@ -10,3 +10,7 @@ E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\console\bin\De
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\console\obj\Debug\console.csprojResolveAssemblyReference.cache
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\console\obj\Debug\console.exe
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\console\obj\Debug\console.pdb
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\console\bin\Debug\ServiceStack.Client.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\console\bin\Debug\ServiceStack.Interfaces.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\console\bin\Debug\ServiceStack.Pcl.Net45.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\console\bin\Debug\ServiceStack.Text.dll

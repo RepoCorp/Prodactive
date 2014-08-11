@@ -3,6 +3,9 @@ E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\packages\Servi
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\packages\ServiceStack.Interfaces.Pcl.4.0.23\lib\portable-wp80+sl5+net40+win8+monotouch+monoandroid\ServiceStack.Interfaces.dll
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\packages\ServiceStack.Client.Pcl.4.0.23\lib\MonoAndroid\ServiceStack.Pcl.Android.dll
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\packages\ServiceStack.Text.Pcl.4.0.23\lib\portable-net45+win8+monotouch+monoandroid\ServiceStack.Text.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\packages\SQLite.Net.Async-PCL.2.3.0\lib\portable-net4+sl5+netcore45+wp8+MonoAndroid1+MonoTouch1\SQLite.Net.Async.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\packages\SQLite.Net-PCL.2.3.0\lib\portable-net4+sl5+netcore45+wp8+MonoAndroid1+MonoTouch1\SQLite.Net.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\packages\SQLite.Net.Platform.XamarinAndroid.2.3.0\lib\MonoAndroid\SQLite.Net.Platform.XamarinAndroid.dll
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Dev\SupportV4\Xamarin.Android.Support.v4.dll
 C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\MonoAndroid\v1.0\Facades\System.Collections.Concurrent.dll
 C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\MonoAndroid\v1.0\Facades\System.Collections.dll

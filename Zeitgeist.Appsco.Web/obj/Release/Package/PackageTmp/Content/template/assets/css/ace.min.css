@@ -74,7 +74,7 @@ body {
         margin: 0 8px;
         font-size: 24px;
         font-weight: lighter;
-        color: #2679b5;
+        color: #03899C;
     }
 
         .page-header h1 small {
@@ -6379,7 +6379,8 @@ button.btn:active {
 }
 
 .badge-success, .label-success {
-    background-color: #82af6f !important;
+    background-color: #70E500 !important;/*#82af6f !important;*/
+    font-weight:bold;
 }
 
 .badge-danger, .badge-important, .label-danger, .label-important {
@@ -7665,7 +7666,7 @@ label.inline {
 }
 
 input[type=color], input[type=date], input[type=datetime-local], input[type=datetime], input[type=email], input[type=month], input[type=number], input[type=password], input[type=search], input[type=tel], input[type=text], input[type=time], input[type=url], input[type=week], textarea {
-    border-radius: 0 !important;
+    /*border-radius: 0 !important;*/
     color: #858585;
     background-color: #fff;
     border: 1px solid #d5d5d5;
@@ -10904,7 +10905,7 @@ td .lbl, th .lbl {
 }
 
 .progress-bar-success {
-    background-color: #59a84b;
+    background-color: #70E500;/* #59a84b;*/
 }
 
 .progress-striped .progress-bar-success {
@@ -10914,7 +10915,7 @@ td .lbl, th .lbl {
 }
 
 .progress-bar-warning {
-    background-color: #f2bb46;
+    background-color:#FF7A00; /*#f2bb46;*/
 }
 
 .progress-striped .progress-bar-warning {
@@ -10924,7 +10925,7 @@ td .lbl, th .lbl {
 }
 
 .progress-bar-pink {
-    background-color: #d6487e;
+    background-color:#E1004C; /*#d6487e;*/
 }
 
 .progress-striped .progress-bar-pink {
@@ -11385,15 +11386,15 @@ td .lbl, th .lbl {
     }
 
     .infobox > .stat.stat-success {
-        color: #77C646;
+        color: #70E500;
     }
 
         .infobox > .stat.stat-success:before {
-            background-color: #77C646;
+            background-color: #70E500;
         }
 
         .infobox > .stat.stat-success:after {
-            border-bottom-color: #77C646;
+            border-bottom-color: #70E500;
         }
 
     .infobox > .stat.stat-important {

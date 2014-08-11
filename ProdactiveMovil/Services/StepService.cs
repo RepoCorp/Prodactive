@@ -72,7 +72,7 @@ namespace ProdactiveMovil.Services
             Log.Debug("STEPSERVICE", "Start command result called, incoming startup");
             #endif
 
-            var alarmManager = ((AlarmManager)ApplicationContext.GetSystemService(Context.AlarmService));
+            var alarmManager = ((AlarmManager)ApplicationContext.GetSystemService(AlarmService));
             var intent2 = new Intent(this, typeof(StepService));
             intent2.PutExtra("warning", WarningState);
             var stepIntent = PendingIntent.GetService(ApplicationContext, 10, intent2, PendingIntentFlags.UpdateCurrent);
@@ -80,7 +80,7 @@ namespace ProdactiveMovil.Services
             // effect
             // -> restart service every 60 mins
             alarmManager.Set(AlarmType.Rtc, Java.Lang.JavaSystem.CurrentTimeMillis() + 1000 * 60 * 60, stepIntent);
-
+            
             var warning = false;
             if (intent != null)
                 warning = intent.GetBooleanExtra("warning", false);
@@ -159,7 +159,7 @@ namespace ProdactiveMovil.Services
 
             var sensorManager = (SensorManager)GetSystemService(Context.SensorService);
             var sensor = sensorManager.GetDefaultSensor(sensorType);
-
+            
             //get faster why not, nearly fast already and when
             //sensor gets messed up it will be better
             sensorManager.RegisterListener(this, sensor, SensorDelay.Normal);

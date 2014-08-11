@@ -2,7 +2,15 @@
     ViewBag.Title = "Index";
 //    Layout = "~/_Layout.cshtml";
 }
+@section pagename
+{
+    Tablero
+    <small>
+        <i class="ace-icon fa fa-angle-double-right"></i>
+        visión general y las estadísticas
+    </small>
 
+}
 <style>
     .ui-progressbar {
         position: relative;
@@ -39,7 +47,9 @@
     <!-- /section:pages/dashboard.infobox.stat -->
 </div>
 
-<div class="infobox infobox-blue">
+
+
+@*<div class="infobox infobox-blue">
     <div class="infobox-icon">
         <i class="ace-icon fa fa-twitter"></i>
     </div>
@@ -114,13 +124,18 @@
             58GB remaining
         </div>
     </div>
-</div>
+</div>*@
+
+
+
 
 <!-- /section:pages/dashboard.infobox -->
 <div class="space-6"></div>
 
 <!-- #section:pages/dashboard.infobox.dark -->
-<div class="infobox infobox-green infobox-small infobox-dark">
+
+
+@*<div class="infobox infobox-green infobox-small infobox-dark">
     <div class="infobox-progress">
         <!-- #section:pages/dashboard.infobox.easypiechart -->
         <div class="easy-pie-chart percentage" data-percent="61" data-size="39">
@@ -158,7 +173,9 @@
         <div class="infobox-content">Downloads</div>
         <div class="infobox-content">1,205</div>
     </div>
-</div>
+</div>*@
+
+
 <div id="msgBox" style="display:none" class="ui-dialog">
     <p style="padding: 7px;">
         @ViewBag.Message
@@ -191,8 +208,10 @@
             //$('.easy-pie-chart.percentage').each(function () {
             $('#progreso').each(function () {
                 $(this).easyPieChart({
-                    barColor: '#00F', //$(this).data('color'),
-                    trackColor: '#0F0',
+                    //barColor: '#00F', //$(this).data('color'),
+                    //trackColor: '#0F0',
+                    barColor: '#FF7A00', 
+                    trackColor: '#70E500',
                     scaleColor: false,
                     lineCap: 'round',
                     lineWidth: 8,
@@ -277,7 +296,7 @@
                     },
                     hide: {
                         effect: "explode",
-                        duration: 1000
+                        duration: 500
                     }
                 });
             }, 2000);

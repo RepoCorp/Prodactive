@@ -1,5 +1,0 @@
-E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\MovilLib\bin\Release\MovilLib.dll
-E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\MovilLib\bin\Release\MovilLib.pdb
-E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\MovilLib\obj\Release\MovilLib.csprojResolveAssemblyReference.cache
-E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\MovilLib\obj\Release\MovilLib.dll
-E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\MovilLib\obj\Release\MovilLib.pdb

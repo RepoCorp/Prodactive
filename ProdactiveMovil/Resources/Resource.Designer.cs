@@ -28,6 +28,8 @@ namespace ProdactiveMovil
 		{
 			global::ServiceStack.Pcl.Android.Resource.String.ApplicationName = global::ProdactiveMovil.Resource.String.ApplicationName;
 			global::ServiceStack.Pcl.Android.Resource.String.Hello = global::ProdactiveMovil.Resource.String.Hello;
+			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.ApplicationName = global::ProdactiveMovil.Resource.String.ApplicationName;
+			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.Hello = global::ProdactiveMovil.Resource.String.Hello;
 		}
 		
 		public partial class Attribute

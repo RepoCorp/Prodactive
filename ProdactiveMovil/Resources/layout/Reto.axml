@@ -30,7 +30,7 @@
             android:id="@+id/btnIniciarReto" />
     </LinearLayout>
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
@@ -41,12 +41,14 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/txtPasos" />
+            android:id="@+id/txtPasos"
+            android:textSize="60px" />
         <TextView
             android:text="Calorias"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/txtCalorias" />
+            android:id="@+id/txtCalorias"
+            android:textSize="60px" />
     </LinearLayout>
 </LinearLayout>

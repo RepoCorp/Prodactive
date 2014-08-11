@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Web.Security;
 using Microsoft.Ajax.Utilities;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoModels;
 using ServiceStack;
@@ -53,6 +55,25 @@ namespace Zeitgeist.Appsco.Web.Api
                 Reto    = r
             };
         }
+
+        public ResponseRegistroProgreso Any(RegistroProgreso reg)
+        {
+            Manager m = Manager.Instance;
+
+            ResponseRegistroProgreso res= new ResponseRegistroProgreso();
+            if (m.SaveRegistroProgreso(reg))
+            {
+                res.State = true;
+                res.Message = "Se ha guardado con exito el registro.";
+            }
+            else
+            {
+                res.State = false;
+                res.Message = "Error al guardar el progreso.";
+            }
+            return res;
+
+        }
     }
     [Route("/recetas")]
     public class Recetas : IReturn<ResponseRecetas>
@@ -101,5 +122,21 @@ namespace Zeitgeist.Appsco.Web.Api
         public Persona Persona { get; set; }
         public Reto    Reto    { get; set; }
         public string  User    { get; set; }
+    }
+    [Route("/RegistroProgreso")]
+    public class RegistroProgreso
+    {
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
+        
+        public string   UserName { get; set; }
+        public Int64    Pasos    { get; set; }
+        public double   Calorias { get; set; }
+        public DateTime Fecha    { get; set; }
+        public string   IdReto   { get; set; }
+    }
+    public class ResponseRegistroProgreso: ResponseService,IReturn<RegistroProgreso>
+    {
+
     }
 }

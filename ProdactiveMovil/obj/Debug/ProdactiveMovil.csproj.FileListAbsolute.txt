@@ -18,3 +18,8 @@ E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovi
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\obj\Debug\res\drawable\logo.png
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\bin\Debug\Xamarin.Android.Support.v4.dll
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\obj\Debug\res\layout\reto.xml
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\bin\Debug\SQLite.Net.Async.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\bin\Debug\SQLite.Net.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\bin\Debug\SQLite.Net.Platform.XamarinAndroid.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\bin\Debug\dll\sqlite3.dll
+E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ProdactiveMovil\obj\Debug\ProdactiveMovil.csprojResolveAssemblyReference.cache

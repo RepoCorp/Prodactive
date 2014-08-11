@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using MongoModels;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Zeitgeist.Appsco.Web.App_Start;
 
 namespace Zeitgeist.Appsco.Web.Controllers
@@ -49,26 +51,42 @@ namespace Zeitgeist.Appsco.Web.Controllers
         // POST: /Reto/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(string dataSave)
         {
             try
             {
-                // TODO: Add insert logic here
+                var reto      = JsonConvert.DeserializeObject<dynamic>(dataSave);
+                Reto r        = new Reto();
+                r.IsActivo    = reto.isActivo;
+                r.FechaFin    = reto.fechaFin;
+                r.FechaInicio = reto.fechaInicio;
+                r.Division    = reto.division;
+                r.Premio      = reto.premio;
+                r.Tipo        = reto.tipo;
+                r.Owner       = User.Identity.Name;
+                string name   = reto.deportes[0].name;
+                string valor  = reto.deportes[0].valor;
 
-                return RedirectToAction("Index");
+                r.Deportes.Add(name, Convert.ToInt32(valor));
+                if (manager.SaveReto(r))
+                {
+                    return Json(new {Status = true, Message = "Has creado un nuevo reto."});
+                }
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                
             }
+            return Json(new { Status = true, Message = "error al guardar" });
         }
 
         //
         // GET: /Reto/Edit/5
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            Reto r = manager.GetRetoById(id);
+            return View(r);
         }
 
         //
@@ -113,6 +131,20 @@ namespace Zeitgeist.Appsco.Web.Controllers
             {
                 return View();
             }
+        }
+
+
+        [HttpPost]
+        public ActionResult GetDivisiones()
+        {
+            var query =manager.GetDivisiones(User.Identity.Name).Select(x=> new { Id=x.Id, Name= x.Name });
+            return Json(query, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult GetDeportes()
+        {
+            return Json(new {Name = "Caminar"}, JsonRequestBehavior.AllowGet);
         }
     }
 }

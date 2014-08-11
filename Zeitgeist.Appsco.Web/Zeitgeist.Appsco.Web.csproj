@@ -25,7 +25,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -1316,7 +1316,10 @@
     <Content Include="Scripts\moment-with-langs.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\Reto\reto.js" />
     <Content Include="Scripts\site.js" />
+    <Content Include="Scripts\underscore-min.js" />
+    <Content Include="Scripts\underscore.js" />
     <Content Include="Users\AccountRemoved.aspx" />
     <Content Include="Users\Admin\access_rules.aspx" />
     <Content Include="Users\Admin\Active_users.aspx" />
@@ -1431,6 +1434,9 @@
     <Content Include="Views\Liga\Division.cshtml" />
     <Content Include="Views\Reto\Create.cshtml" />
     <Content Include="Views\Reto\Index.cshtml" />
+    <Content Include="Views\Reto\Create - Copy.cshtml" />
+    <Content Include="Scripts\underscore-min.map" />
+    <Content Include="Views\Reto\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
