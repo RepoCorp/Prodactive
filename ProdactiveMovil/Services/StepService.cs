@@ -1,47 +1,48 @@
 using System;
 using System.ComponentModel;
+using System.Security.Cryptography;
 using Android.App;
 using Android.Content;
 using Android.Hardware;
 using Android.Support.V4.App;
 using Android.Util;
+using Java.Util;
 using ProdactiveMovil.Database;
 using ProdactiveMovil.Helpers;
 
 namespace ProdactiveMovil.Services
 {
     [Service(Enabled = true)]
-    [IntentFilter(new String[] { "com.refractored.mystepcounter.StepService" })]
+    [IntentFilter(new String[] {"com.refractored.mystepcounter.StepService"})]
     public class StepService : Service, ISensorEventListener, INotifyPropertyChanged
     {
 
         private static readonly string TAG = "com.refractored.mystepcounter.StepService";
 
+
+        private System.Timers.Timer t;
         #region varAcelerometer
 
-        private float       Limit           = 10;
-        private float[]     LastValues      = new float[3 * 2];
-        private float[]     Scale           = new float[2];
-        private float       YOffset;
+        private float Limit = 10;
+        private float[] LastValues = new float[3*2];
+        private float[] Scale = new float[2];
+        private float YOffset;
 
-        private float[]     LastDirections  = new float[3 * 2];
-        private float[][]   LastExtremes    = { new float[3 * 2], new float[3 * 2] };
-        private float[]     LastDiff        = new float[3 * 2];
-        private int         LastMatch       = -1;
+        private float[] LastDirections = new float[3*2];
+        private float[][] LastExtremes = {new float[3*2], new float[3*2]};
+        private float[] LastDiff = new float[3*2];
+        private int LastMatch = -1;
 
         #endregion
 
-        private bool        isRunning;
-        private Int64       stepsToday      = 0;
-        StepServiceBinder   binder;
-        Int64               newSteps        = 0;
-        Int64               lastSteps       = 0;
+        private bool isRunning;
+        private Int64 stepsToday = 0;
+        private StepServiceBinder binder;
+        private Int64 newSteps = 0;
+        private Int64 lastSteps = 0;
 
-        public bool WarningState
-        {
-            get;
-            set;
-        }
+        public bool WarningState { get; set; }
+
         public Int64 StepsToday
         {
             get { return stepsToday; }
@@ -60,13 +61,37 @@ namespace ProdactiveMovil.Services
         public StepService()
         {
             int h = 480; // TODO: remove this constant
-            YOffset = h * 0.5f;
-            Scale[0] = -(h * 0.5f * (1.0f / (SensorManager.StandardGravity * 2)));
-            Scale[1] = -(h * 0.5f * (1.0f / (SensorManager.MagneticFieldEarthMax)));
+            YOffset = h*0.5f;
+            Scale[0] = -(h*0.5f*(1.0f/(SensorManager.StandardGravity*2)));
+            Scale[1] = -(h*0.5f*(1.0f/(SensorManager.MagneticFieldEarthMax)));
+
+            //esto solo para simular pasos
+            t = new System.Timers.Timer(1000);
+            t.Elapsed += t_Elapsed;
+                
+        }
+
+        private void t_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            try
+            {
+                System.Random r = new System.Random(DateTime.Now.Millisecond);
+
+                AddSteps(lastSteps + 1);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
         }
 
         public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
         {
+            //solo para debug
+            t.Start();
+
+
             Console.WriteLine("StartCommand Called, setting alarm");
             #if DEBUG
             Log.Debug("STEPSERVICE", "Start command result called, incoming startup");
@@ -196,6 +221,7 @@ namespace ProdactiveMovil.Services
         }
         public void AddSteps(Int64 count)
         {
+            
             //if service rebooted or rebound then this will null out to 0, but count will still be since last boot.
             if (lastSteps == 0)
             {
@@ -205,6 +231,8 @@ namespace ProdactiveMovil.Services
             //calculate new steps
             newSteps = count - lastSteps;
 
+
+            Log.Info("Numero Pasos", String.Format("Pasos {0} - Pasos Anterior {1}", newSteps,lastSteps));
             //ensure we are never negative
             //if so, no worries as we are about to re-set the lastSteps to the
             //current count

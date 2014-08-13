@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Driver.Linq;
 using MongoModels;
 
 using MongoDB.Driver;
@@ -16,21 +19,6 @@ namespace console
 
         static void Main(string[] args)
         {
-
-            System.Threading.Timer t = new System.Threading.Timer((o) =>
-            {
-                
-                System.Console.WriteLine("Paso -");
-            });
-
-            t.Change(30000, 1000*60*1);
-
-
-            while (Console.ReadLine() != "q")
-            {
-                Thread.Sleep(1000);
-                Console.WriteLine("finalizo?");
-            }
 
             //var r = new JsvServiceClient("http://localhost:58640/api");
             //var rr = new RegistroProgreso()
@@ -51,13 +39,17 @@ namespace console
             //}
 
 
-            //string _connectionString = "mongodb://prodactive:pr0d4ct1v3@23.253.98.86:27017/prodactive";
+            string _connectionString = "mongodb://prodactive:pr0d4ct1v3@23.253.98.86:27017/prodactive";
 
             ////string bd = _connectionString.Substring(_connectionString.LastIndexOf('/')+1, _connectionString.Length - (_connectionString.LastIndexOf('/') + 1));
 
-            //MongoClient mc = new MongoClient(_connectionString);
-            //var server = mc.GetServer();
-            //Database = server.GetDatabase("prodactive");
+            MongoClient mc = new MongoClient(_connectionString);
+            var server = mc.GetServer();
+            Database = server.GetDatabase("prodactive");
+
+            var result = Database.GetCollection<RegistroProgreso>("registro_progreso").AsQueryable().Where(x=>x.UserName=="ddo88").ToList().Sum(x=>x.Pasos);
+                
+            int j = 0;
             //Seed();
             //Console.ReadLine();
             ////Test();
@@ -200,16 +192,7 @@ namespace console
         }
     }
 
-    [Route("/RegistroProgreso")]
-    public class RegistroProgreso
-    {
-        public string Id { get; set; }
-        public string UserName { get; set; }
-        public Int64 Pasos { get; set; }
-        public double Calorias { get; set; }
-        public DateTime Fecha { get; set; }
-        public string IdReto { get; set; }
-    }
+    
     public class ResponseRegistroProgreso : ResponseService, IReturn<RegistroProgreso>
     {
 
@@ -219,6 +202,19 @@ namespace console
     {
         public string Message { get; set; }
         public bool State { get; set; }
+    }
+
+    [Route("/RegistroProgreso")]
+    public class RegistroProgreso
+    {
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
+
+        public string UserName { get; set; }
+        public Int64 Pasos { get; set; }
+        public double Calorias { get; set; }
+        public DateTime Fecha { get; set; }
+        public string IdReto { get; set; }
     }
    
 }

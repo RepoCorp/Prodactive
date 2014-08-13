@@ -33,36 +33,34 @@ namespace Zeitgeist.Appsco.Web.Controllers
         public ActionResult Index()
         {
 
-            var reto                = manager.GetReto(User.Identity.Name);
+            var reto                 = manager.GetReto(User.Identity.Name);
             if (reto.Id == null)
             {
-                ViewBag.RetoActivo = false;
-                ViewBag.Reto = reto;
-                ViewBag.FechaCierre = DateTime.Now.AddDays(-2);   
+                ViewBag.RetoActivo   = false;
+                ViewBag.Reto         = reto;
+                ViewBag.FechaCierre  = DateTime.Now.AddDays(-2);   
             }
             else
             {
-                ViewBag.RetoActivo = reto.IsActivo;
-                ViewBag.FechaCierre = reto.FechaFin;
-                ViewBag.Reto = reto;
+                ViewBag.RetoActivo   = reto.IsActivo;
+                ViewBag.FechaCierre  = reto.FechaFin;
+                ViewBag.Reto         = reto;
 
-                var estadisticas = manager.GetEstadisticasUsuarioReto(User.Identity.Name, reto.Id);
-                var totalPasos = estadisticas.Sum(x => x.CantidadPasos);
-                var totalReto = reto.Deportes["Caminar"];
+                var estadisticas     = manager.GetEstadisticasUsuarioReto(User.Identity.Name, reto.Id);
+                var totalPasos       = estadisticas.Sum(x => x.CantidadPasos);
+                var totalReto        = reto.Deportes["Caminar"];
 
-                ViewBag.TotalPasos = totalPasos;
-                ViewBag.Progreso = Math.Round((double)(totalPasos * 100) / totalReto);
-                ViewBag.NumeroDias = estadisticas.Count();
-                //.ToString("yyyy-MM-dd");
+                ViewBag.TotalPasos   = totalPasos;
+                ViewBag.Progreso     = Math.Round((double)(totalPasos * 100) / totalReto);
+                ViewBag.NumeroDias   = estadisticas.Count();
                 ViewBag.Estadisticas = estadisticas;
 
                 if (reto.IsActivo)
-                    ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+                    ViewBag.Message  = "Modify this template to jump-start your ASP.NET MVC application.";
                 else
-                    ViewBag.Message = "El Reto ha finalizado.";
+                    ViewBag.Message  = "El Reto ha finalizado.";
             }
             return View();
-        
         }
 
 
@@ -91,19 +89,18 @@ namespace Zeitgeist.Appsco.Web.Controllers
         [HttpPost]
         public ActionResult Registro(string dataSave)
         {
-            var     q = JsonConvert.DeserializeObject<ICollection<Registro>>(dataSave);
-            Reto r=manager.GetReto();
-            string id = User.Identity.Name;
+            var     q   = JsonConvert.DeserializeObject<ICollection<Registro>>(dataSave);
+            Reto    r   = manager.GetReto();
+            string  id  = User.Identity.Name;
             foreach (var a in q)
             {
-                a.User = id;
-                a.retoId = r.Id;
+                a.User      = id;
+                a.retoId    = r.Id;
                 if (!manager.SaveRegistro(a))
                     break;
             }
 
             return Json(new {state = true, message = "ok"});
-            return View("Index");
         }
 
         public ActionResult About()
