@@ -1,1 +1,1 @@
-E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\App2\bin\Debug\App2.dll
+C:\Users\D\Source\Repos\Prodactive\App2\bin\Debug\App2.dll

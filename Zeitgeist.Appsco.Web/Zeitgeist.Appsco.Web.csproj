@@ -1447,10 +1447,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Forks\MongoProviders\MongoProviders\MongoProviders.csproj">
-      <Project>{b9c2c392-d01d-4382-bfbf-23cbee4259cb}</Project>
-      <Name>MongoProviders</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MongoModels\MongoModels.csproj">
       <Project>{12b93bf4-45e3-4d17-99fe-7843582b05de}</Project>
       <Name>MongoModels</Name>
@@ -1458,6 +1454,10 @@
     <ProjectReference Include="..\ZeitGeist.Tools\ZeitGeist.Tools.csproj">
       <Project>{82c83282-1b2f-4047-bbc8-0d75dd7c3e22}</Project>
       <Name>ZeitGeist.Tools</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\D\Documentos\Empresa\Forks\MongoProviders\MongoProviders\MongoProviders.csproj">
+      <Project>{b9c2c392-d01d-4382-bfbf-23cbee4259cb}</Project>
+      <Name>MongoProviders</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
