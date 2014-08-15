@@ -1424,6 +1424,7 @@
     <Content Include="Views\Home\Registro.cshtml" />
     <Content Include="Views\Shared\_Layoutt.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <None Include="Views\Account\Loginscshtml" />
     <Content Include="Views\Coach\Index.cshtml" />
     <Content Include="Views\Liga\Create.cshtml" />
     <Content Include="Views\Liga\Index.cshtml" />
