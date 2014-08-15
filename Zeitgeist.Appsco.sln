@@ -25,12 +25,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProdactiveMovil", "Prodacti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZeitGeist.Tools", "ZeitGeist.Tools\ZeitGeist.Tools.csproj", "{82C83282-1B2F-4047-BBC8-0D75DD7C3E22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoProviders", "E:\D\Documentos\Empresa\Forks\MongoProviders\MongoProviders\MongoProviders.csproj", "{B9C2C392-D01D-4382-BFBF-23CBEE4259CB}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AB437EA5-98B6-4909-B03E-9B6FD8FF59DE}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoProviders", "MongoProviders\MongoProviders.csproj", "{B9C2C392-D01D-4382-BFBF-23CBEE4259CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
