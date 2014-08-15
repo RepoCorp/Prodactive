@@ -50,8 +50,8 @@ namespace Zeitgeist.Appsco.Web
                 userRepository.CreateUserAuth(new UserAuth() { DisplayName = "Admin", Email = "admin@admin.com", FirstName = "pepe", LastName = "otro", UserName = usuario, PasswordHash = hash, Salt = salt }, pass);
                 
                 //Routes
-                //    .Add<Peticion>("/Peticion")
-                //    .Add<Peticion>("/Peticion/{A}");
+                //    .Add<ServiceStatus>("/ServiceStatus")
+                //    .Add<ServiceStatus>("/ServiceStatus/{A}");
             }
         }
 

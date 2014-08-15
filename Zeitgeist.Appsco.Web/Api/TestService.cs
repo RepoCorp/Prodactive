@@ -16,18 +16,9 @@ namespace Zeitgeist.Appsco.Web.Api
     public class TestService : Service
     {
 
-        public ResponsePeticion Any(Peticion peticion)
+        public ResponsePeticion Any(ServiceStatus serviceStatus)
         {
             return new ResponsePeticion() {Response = "ok"};
-        }
-
-        public ResponseRecetas Any(Recetas receta)
-        {
-            Manager m=Manager.Instance;
-            if (m.SaveReceta(receta))
-                return new ResponseRecetas() {Message = "Se ha Guardado con exito", State = true};
-
-            return new ResponseRecetas() { Message = "Error Al guardar", State = false };
         }
 
         public LoginResponse Any(Login login)
@@ -75,25 +66,12 @@ namespace Zeitgeist.Appsco.Web.Api
 
         }
     }
-    [Route("/recetas")]
-    public class Recetas : IReturn<ResponseRecetas>
-    {
-        [BsonId]
-        public string Name { get; set; }
-        public List<Detalle> Detalles { get; set; }
-
-    }
-
-    public class Detalle
-    {
-        public string Message { get; set; }
-        public int Value { get; set; }
-    }
-
-    public class ResponseRecetas : ResponseService
-    {
-        
-    }
+    
+    //public class Detalle
+    //{
+    //    public string Message { get; set; }
+    //    public int Value { get; set; }
+    //}
 
     public class ResponseService
     {
@@ -101,16 +79,18 @@ namespace Zeitgeist.Appsco.Web.Api
         public bool   State   { get; set; } 
     }
 
-
-    public class Peticion
+    [Route("/status")]
+    public class ServiceStatus
     {
-        public string  A { get; set; }
+        public string  Message { get; set; }
     }
-    public class ResponsePeticion : IReturn<Peticion>
+
+    public class ResponsePeticion : IReturn<ServiceStatus>
     {
         public string Response { get; set; }
     }
     [Route("/login")]
+    [Route("/login/{User}/{Pass}")]
     public class Login
     {
         public string User { get; set; }
@@ -124,16 +104,16 @@ namespace Zeitgeist.Appsco.Web.Api
         public string  User    { get; set; }
     }
     [Route("/RegistroProgreso")]
+    [Route("/RegistroProgreso/{UserName}/{Fecha}/{Pasos}/{Calorias}")]
     public class RegistroProgreso
     {
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
-        
+        public string   Id       { get; set; }
+        public DateTime Fecha    { get; set; }
         public string   UserName { get; set; }
         public Int64    Pasos    { get; set; }
         public double   Calorias { get; set; }
-        public DateTime Fecha    { get; set; }
-        public string   IdReto   { get; set; }
+        
     }
     public class ResponseRegistroProgreso: ResponseService,IReturn<RegistroProgreso>
     {

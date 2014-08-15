@@ -2,3 +2,8 @@ E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ZeitGeist.Tool
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ZeitGeist.Tools\bin\Release\ZeitGeist.Tools.pdb
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ZeitGeist.Tools\obj\Release\ZeitGeist.Tools.dll
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\ZeitGeist.Tools\obj\Release\ZeitGeist.Tools.pdb
+C:\Users\D\Source\Repos\Prodactive\ZeitGeist.Tools\bin\Release\ZeitGeist.Tools.dll
+C:\Users\D\Source\Repos\Prodactive\ZeitGeist.Tools\bin\Release\ZeitGeist.Tools.pdb
+C:\Users\D\Source\Repos\Prodactive\ZeitGeist.Tools\obj\Release\ZeitGeist.Tools.csprojResolveAssemblyReference.cache
+C:\Users\D\Source\Repos\Prodactive\ZeitGeist.Tools\obj\Release\ZeitGeist.Tools.dll
+C:\Users\D\Source\Repos\Prodactive\ZeitGeist.Tools\obj\Release\ZeitGeist.Tools.pdb

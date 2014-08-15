@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -8,6 +9,7 @@ using MongoModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Zeitgeist.Appsco.Web.App_Start;
+using Zeitgeist.Appsco.Web.Helpers;
 
 namespace Zeitgeist.Appsco.Web.Controllers
 {
@@ -25,28 +27,12 @@ namespace Zeitgeist.Appsco.Web.Controllers
             return View(retos);
         }
 
-        //
-        // GET: /Reto/Details/5
-
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
-
-        //
-        // GET: /Reto/Create
-
         public ActionResult Create()
         {
-            List<SelectListItem> lst = new List<SelectListItem>();
-            var result = Task.Factory.StartNew(() => { return manager.GetDivisiones(User.Identity.Name); });
-            foreach (var a in result.Result)
-                lst.Add(new SelectListItem() { Text = a.Name, Value = a.Id });
-            SelectList sl = new SelectList(lst, "Value", "Text");
-            ViewBag.Divisiones = sl;
+            var result = manager.GetDivisiones(User.Identity.Name);
+            ViewBag.Divisiones = Tools.GetSelectList<Division>(result, (x) => new ResultList { Name = x.Name, Value = x.Id }); ;
             return View();
         }
-
         //
         // POST: /Reto/Create
 
@@ -137,7 +123,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         [HttpPost]
         public ActionResult GetDivisiones()
         {
-            var query =manager.GetDivisiones(User.Identity.Name).Select(x=> new { Id=x.Id, Name= x.Name });
+            var query = manager.GetDivisiones(User.Identity.Name).Select(x=> new { Id=x.Id, Name= x.Name });
             return Json(query, JsonRequestBehavior.AllowGet);
         }
 
@@ -145,6 +131,27 @@ namespace Zeitgeist.Appsco.Web.Controllers
         public ActionResult GetDeportes()
         {
             return Json(new {Name = "Caminar"}, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        public class TipoReto
+        {
+            public string Name  { get; set; }
+            public string Value { get; set; }
+        }
+
+        
+        public ActionResult GetTipoReto()
+        {
+
+            List<TipoReto> list= new List<TipoReto>();
+            list.Add(new TipoReto() { Name = "Superando", Value = "Superando" });
+            list.Add(new TipoReto() { Name = "Primero En Cumplir", Value = "Primero" });
+            return Json(new {
+                
+            },JsonRequestBehavior.AllowGet)
+            ;
         }
     }
 }

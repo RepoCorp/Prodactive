@@ -95,10 +95,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
         {
             return Save(item,Settings.Default.ClientCollection);
         }
-        public bool SaveReceta  (Recetas item)
-        {
-            return Save(item, "Recetas");
-        }
+       
         public bool SavePersona (Persona p)
         {
             return Save(p, Settings.Default.ColeccionPersona);
