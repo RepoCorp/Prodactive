@@ -34,7 +34,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>MongoProvider.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>MongoProvider2.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MongoDB.Bson, Version=1.9.2.235, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MongoProvider.pfx" />
+    <None Include="MongoProvider2.pfx" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
