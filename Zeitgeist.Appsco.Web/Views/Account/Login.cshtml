@@ -57,26 +57,31 @@
                         <div class="position-relative">
                             <div id="login-box" class="login-box visible widget-box no-border">
                                 <div class="widget-body">
-                                    <div class="widget-main">
+                                    
+                                    <!-- Login -->
+                                    <div id="_login" class="widget-main">
                                         <h4 class="header blue lighter bigger">
                                             <i class="ace-icon fa fa-coffee green"></i>
                                             Please Enter Your Information
                                         </h4>
 
                                         <div class="space-6"></div>
-
-                                        <form>
+                                    <!-- ko with: login -->
+                                        <form id="loginform">
+                                            @Html.AntiForgeryToken()
                                             <fieldset>
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="text" class="form-control" placeholder="Username" />
+                                                        <input type="text" class="form-control" required placeholder="Username" data-bind="value: userName, text: userName" autofocus="autofocus" />
+                                                        <span data-bind='visible: userName.hasError, text: userName.validationMessage'> </span>
                                                         <i class="ace-icon fa fa-user"></i>
                                                     </span>
                                                 </label>
 
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="password" class="form-control" placeholder="Password" />
+                                                        <input type="password" class="form-control" required placeholder="Password" data-bind="value: password, text:password" />
+                                                        <span data-bind='visible: password.hasError, text: password.validationMessage'> </span>
                                                         <i class="ace-icon fa fa-lock"></i>
                                                     </span>
                                                 </label>
@@ -85,11 +90,11 @@
 
                                                 <div class="clearfix">
                                                     <label class="inline">
-                                                        <input type="checkbox" class="ace" />
+                                                        <input type="checkbox" data-bind="checked: rememberMe" class="ace" />
                                                         <span class="lbl"> Remember Me</span>
                                                     </label>
 
-                                                    <button type="button" class="width-35 pull-right btn btn-sm btn-primary">
+                                                    <button type="button" class="width-35 pull-right btn btn-sm btn-primary" data-bind="click: $root.submit">
                                                         <i class="ace-icon fa fa-key"></i>
                                                         <span class="bigger-110">Login</span>
                                                     </button>
@@ -98,26 +103,7 @@
                                                 <div class="space-4"></div>
                                             </fieldset>
                                         </form>
-
-                                        <div class="social-or-login center">
-                                            <span class="bigger-110">Or Login Using</span>
-                                        </div>
-
-                                        <div class="space-6"></div>
-
-                                        <div class="social-login center">
-                                            <a class="btn btn-primary">
-                                                <i class="ace-icon fa fa-facebook"></i>
-                                            </a>
-
-                                            <a class="btn btn-info">
-                                                <i class="ace-icon fa fa-twitter"></i>
-                                            </a>
-
-                                            <a class="btn btn-danger">
-                                                <i class="ace-icon fa fa-google-plus"></i>
-                                            </a>
-                                        </div>
+                                    <!-- /ko -->
                                     </div><!-- /.widget-main -->
 
                                     <div class="toolbar clearfix">
@@ -140,6 +126,7 @@
 
                             <div id="forgot-box" class="forgot-box widget-box no-border">
                                 <div class="widget-body">
+                                    <!-- Pilas esto es el proceso para recordar contraseña-->
                                     <div class="widget-main">
                                         <h4 class="header red lighter bigger">
                                             <i class="ace-icon fa fa-key"></i>
@@ -181,6 +168,7 @@
 
                             <div id="signup-box" class="signup-box widget-box no-border">
                                 <div class="widget-body">
+                                    <!-- Formulario de Registro -->
                                     <div class="widget-main">
                                         <h4 class="header green lighter bigger">
                                             <i class="ace-icon fa fa-users blue"></i>
@@ -245,7 +233,7 @@
                                             </fieldset>
                                         </form>
                                     </div>
-
+                                    <!-- Fin Formulario de Registro -->
                                     <div class="toolbar center">
                                         <a href="#" data-target="#login-box" class="back-to-login-link">
                                             <i class="ace-icon fa fa-arrow-left"></i>
@@ -283,8 +271,22 @@
         if ('ontouchstart' in document.documentElement) document.write("<script src='../assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
     </script>
 
+    <script src="~/Scripts/site.js"></script>
+    <script src="~/Scripts/knockout-3.1.0.js"></script>
+    <script src="~/Scripts/Model/KnockoutHelpers.js"></script>
+    <script src="~/Scripts/Model/login_model.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            var model = new zg.loginVM();
+            ko.applyBindings(model, document.getElementById("_login"));
+
+        });
+    </script>
+
     <!-- inline scripts related to this page -->
     <script type="text/javascript">
+
         jQuery(function ($) {
             $(document).on('click', '.toolbar a[data-target]', function (e) {
                 e.preventDefault();

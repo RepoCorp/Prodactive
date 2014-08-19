@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web.Security;
-using Microsoft.Ajax.Utilities;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoModels;
-using ServiceStack;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
-using System.Collections.Generic;
 using Zeitgeist.Appsco.Web.App_Start;
 
 namespace Zeitgeist.Appsco.Web.Api
 {
     public class TestService : Service
     {
+        public ResponsePrueba Any(Prueba peticion)
+        {
+            return new ResponsePrueba() {Fecha = DateTime.Now, Message = "", State = true};
+        }
 
         public ResponsePeticion Any(ServiceStatus serviceStatus)
         {
@@ -72,6 +73,16 @@ namespace Zeitgeist.Appsco.Web.Api
     //    public string Message { get; set; }
     //    public int Value { get; set; }
     //}
+    [Route("/prueba")]
+    public class Prueba
+    {
+
+    }
+
+    public class ResponsePrueba : ResponseService, IReturn<Prueba>
+    {
+        public DateTime Fecha { get; set; }
+    }
 
     public class ResponseService
     {

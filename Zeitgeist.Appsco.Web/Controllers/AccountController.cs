@@ -2,19 +2,16 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Transactions;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using DotNetOpenAuth.AspNet;
-using Microsoft.Ajax.Utilities;
 using Microsoft.Web.WebPages.OAuth;
-using ServiceStack.Logging;
+using Newtonsoft.Json;
 using WebMatrix.WebData;
 using Zeitgeist.Appsco.Web.App_Start;
-using Zeitgeist.Appsco.Web.Filters;
 using Zeitgeist.Appsco.Web.Models;
-using System.Web.Security;
 
 
 namespace Zeitgeist.Appsco.Web.Controllers
@@ -39,9 +36,11 @@ namespace Zeitgeist.Appsco.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginModel model, string returnUrl)
+        //[ValidateAntiForgeryToken]
+        public JsonResult Login(string dataSave, string returnUrl)
         {
+
+            LoginModel model = JsonConvert.DeserializeObject<LoginModel>(dataSave);
             //if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             //{
             //    return RedirectToLocal(returnUrl);
@@ -61,26 +60,37 @@ namespace Zeitgeist.Appsco.Web.Controllers
                 if (System.Web.Security.Roles.IsUserInRole("administrator"))
                 {
                     if (returnUrl != null)
-                        return RedirectToLocal(returnUrl);            
+                        return Json(new{success=true,redirect=returnUrl});
 
-                    return RedirectToAction("Panel", "Manage");
+
+                    var fullUrl = this.Url.Action("Panel", "Manage", new { id = 5 }, this.Request.Url.Scheme);
+                    return Json(new { success = true, redirect = fullUrl });            
+                    
                 }
                 else
                 {
                     if (System.Web.Security.Roles.IsUserInRole("coach"))
                     {
                         if (returnUrl != null)
-                            return RedirectToLocal(returnUrl);            
+                            return Json(new { success = true, redirect = returnUrl });
 
-                        return RedirectToAction("Index", "Coach");
+                        var fullUrl = this.Url.Action("Index", "Coach", new { id = 5 }, this.Request.Url.Scheme);
+                        return Json(new { success = true, redirect = fullUrl });            
                     }
                     
                 }
-                return RedirectToLocal(returnUrl);    
+                return Json(new { success = true, redirect = returnUrl });
             }
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
             ModelState.AddModelError("", "El nombre de usuario o la contraseña especificados son incorrectos.");
-            return View(model);
+            return Json(new { errors = GetErrorsFromModelState() });
+            
+            
+        }
+
+        private IEnumerable<string> GetErrorsFromModelState()
+        {
+            return ModelState.SelectMany(x => x.Value.Errors.Select(error => error.ErrorMessage));
         }
 
         //
@@ -131,9 +141,9 @@ namespace Zeitgeist.Appsco.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterModel model, string returnUrl)
+        public ActionResult Register(string dataSave, string returnUrl)
         {
-          
+            RegisterModel model = new RegisterModel();
             if (ModelState.IsValid)
             {
                 // Intento de registrar al usuario
@@ -290,92 +300,92 @@ namespace Zeitgeist.Appsco.Web.Controllers
         //
         // POST: /Account/ExternalLogin
 
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult ExternalLogin(string provider, string returnUrl)
-        {
-            return new ExternalLoginResult(provider, Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
-        }
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult ExternalLogin(string provider, string returnUrl)
+        //{
+        //    return new ExternalLoginResult(provider, Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
+        //}
 
         //
         // GET: /Account/ExternalLoginCallback
 
-        [AllowAnonymous]
-        public ActionResult ExternalLoginCallback(string returnUrl)
-        {
-            AuthenticationResult result = OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
-            if (!result.IsSuccessful)
-            {
-                return RedirectToAction("ExternalLoginFailure");
-            }
+        //[AllowAnonymous]
+        //public ActionResult ExternalLoginCallback(string returnUrl)
+        //{
+        //    AuthenticationResult result = OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
+        //    if (!result.IsSuccessful)
+        //    {
+        //        return RedirectToAction("ExternalLoginFailure");
+        //    }
 
-            if (OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))
-            {
-                return RedirectToLocal(returnUrl);
-            }
+        //    if (OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))
+        //    {
+        //        return RedirectToLocal(returnUrl);
+        //    }
 
-            if (User.Identity.IsAuthenticated)
-            {
-                // Si el usuario actual ha iniciado sesión, agregue la cuenta nueva
-                OAuthWebSecurity.CreateOrUpdateAccount(result.Provider, result.ProviderUserId, User.Identity.Name);
-                return RedirectToLocal(returnUrl);
-            }
-            else
-            {
-                // El usuario es nuevo, solicitar nombres de pertenencia deseados
-                string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
-                ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
-                ViewBag.ReturnUrl = returnUrl;
-                return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
-            }
-        }
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        // Si el usuario actual ha iniciado sesión, agregue la cuenta nueva
+        //        OAuthWebSecurity.CreateOrUpdateAccount(result.Provider, result.ProviderUserId, User.Identity.Name);
+        //        return RedirectToLocal(returnUrl);
+        //    }
+        //    else
+        //    {
+        //        // El usuario es nuevo, solicitar nombres de pertenencia deseados
+        //        string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
+        //        ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
+        //        ViewBag.ReturnUrl = returnUrl;
+        //        return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
+        //    }
+        //}
 
         //
         // POST: /Account/ExternalLoginConfirmation
 
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult ExternalLoginConfirmation(RegisterExternalLoginModel model, string returnUrl)
-        {
-            string provider = null;
-            string providerUserId = null;
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult ExternalLoginConfirmation(RegisterExternalLoginModel model, string returnUrl)
+        //{
+        //    string provider = null;
+        //    string providerUserId = null;
 
-            if (User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId))
-            {
-                return RedirectToAction("Manage");
-            }
+        //    if (User.Identity.IsAuthenticated || !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId))
+        //    {
+        //        return RedirectToAction("Manage");
+        //    }
 
-            if (ModelState.IsValid)
-            {
-                // Insertar un nuevo usuario en la base de datos
-                using (UsersContext db = new UsersContext())
-                {
-                    UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
-                    // Comprobar si el usuario ya existe
-                    if (user == null)
-                    {
-                        // Insertar el nombre en la tabla de perfiles
-                        db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
-                        db.SaveChanges();
+        //    if (ModelState.IsValid)
+        //    {
+        //        // Insertar un nuevo usuario en la base de datos
+        //        using (UsersContext db = new UsersContext())
+        //        {
+        //            UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
+        //            // Comprobar si el usuario ya existe
+        //            if (user == null)
+        //            {
+        //                // Insertar el nombre en la tabla de perfiles
+        //                db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
+        //                db.SaveChanges();
 
-                        OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
-                        OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
+        //                OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
+        //                OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
 
-                        return RedirectToLocal(returnUrl);
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("UserName", "El nombre de usuario ya existe. Escriba un nombre de usuario diferente.");
-                    }
-                }
-            }
+        //                return RedirectToLocal(returnUrl);
+        //            }
+        //            else
+        //            {
+        //                ModelState.AddModelError("UserName", "El nombre de usuario ya existe. Escriba un nombre de usuario diferente.");
+        //            }
+        //        }
+        //    }
 
-            ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
-            ViewBag.ReturnUrl = returnUrl;
-            return View(model);
-        }
+        //    ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
+        //    ViewBag.ReturnUrl = returnUrl;
+        //    return View(model);
+        //}
 
         //
         // GET: /Account/ExternalLoginFailure
