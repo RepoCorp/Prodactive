@@ -35,6 +35,8 @@
     <script src="../assets/js/html5shiv.js"></script>
     <script src="../assets/js/respond.min.js"></script>
     <![endif]-->
+
+    <link href="~/Content/cambios.css" rel="stylesheet" />
 </head>
 
 <body class="login-layout">
@@ -45,11 +47,13 @@
                     <div class="login-container">
                         <div class="center">
                             <h1>
-                                <i class="ace-icon fa fa-leaf green"></i>
+                                <!-- <i class="ace-icon fa fa-leaf green"></i>
                                 <span class="red">Ace</span>
-                                <span class="white" id="id-text2">Application</span>
+                                <span class="white" id="id-text2">Application</span>-->
+                                <img id="logo" src="~/Content/Landing/images/logo.png" class="Logo_ini" />
+
                             </h1>
-                            <h4 class="blue" id="id-company-text">&copy; Company Name</h4>
+                            <h4 class="mod3" id="id-company-text">! Activa tu gente ¡</h4>
                         </div>
 
                         <div class="space-6"></div>
@@ -60,10 +64,10 @@
                                     
                                     <!-- Login -->
                                     <div id="_login" class="widget-main">
-                                        <h4 class="header blue lighter bigger">
+                                        <h5 class="header blue lighter biggers">
                                             <i class="ace-icon fa fa-coffee green"></i>
-                                            Please Enter Your Information
-                                        </h4>
+                                            Por favor ingrese su información
+                                        </h5>
 
                                         <div class="space-6"></div>
                                     <!-- ko with: login -->
@@ -72,7 +76,7 @@
                                             <fieldset>
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="text" class="form-control" required placeholder="Username" data-bind="value: userName, text: userName" autofocus="autofocus" />
+                                                        <input type="text" class="form-control" required placeholder="Usuario" data-bind="value: userName, text: userName" autofocus="autofocus" />
                                                         <span data-bind='visible: userName.hasError, text: userName.validationMessage'> </span>
                                                         <i class="ace-icon fa fa-user"></i>
                                                     </span>
@@ -80,7 +84,7 @@
 
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="password" class="form-control" required placeholder="Password" data-bind="value: password, text:password" />
+                                                        <input type="password" class="form-control" required placeholder="Contraseña" data-bind="value: password, text:password" />
                                                         <span data-bind='visible: password.hasError, text: password.validationMessage'> </span>
                                                         <i class="ace-icon fa fa-lock"></i>
                                                     </span>
@@ -91,12 +95,12 @@
                                                 <div class="clearfix">
                                                     <label class="inline">
                                                         <input type="checkbox" data-bind="checked: rememberMe" class="ace" />
-                                                        <span class="lbl"> Remember Me</span>
+                                                        <span class="lbl"> Recordar mis datos</span>
                                                     </label>
 
                                                     <button type="button" class="width-35 pull-right btn btn-sm btn-primary" data-bind="click: $root.submit">
                                                         <i class="ace-icon fa fa-key"></i>
-                                                        <span class="bigger-110">Login</span>
+                                                        <span class="bigger-110">Ingresar</span>
                                                     </button>
                                                 </div>
 
@@ -110,13 +114,13 @@
                                         <div>
                                             <a href="#" data-target="#forgot-box" class="forgot-password-link">
                                                 <i class="ace-icon fa fa-arrow-left"></i>
-                                                I forgot my password
+                                                Olvide mi contraseña
                                             </a>
                                         </div>
 
                                         <div>
                                             <a href="#" data-target="#signup-box" class="user-signup-link">
-                                                I want to register
+                                                Quiero registrarme
                                                 <i class="ace-icon fa fa-arrow-right"></i>
                                             </a>
                                         </div>
@@ -172,42 +176,99 @@
                                     <div class="widget-main">
                                         <h4 class="header green lighter bigger">
                                             <i class="ace-icon fa fa-users blue"></i>
-                                            New User Registration
+                                             Registro
                                         </h4>
 
                                         <div class="space-6"></div>
-                                        <p> Enter your details to begin: </p>
+                                        <p> Ingresa tus datos de cuenta: </p>
 
                                         <form>
                                             <fieldset>
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="email" class="form-control" placeholder="Email" />
+                                                        <input type="text" class="form-control" placeholder="Usuario" />
+                                                        <i class="ace-icon fa fa-envelope"></i>
+                                                    </span>
+                                                </label>
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="password" class="form-control" placeholder="Contraseña" />
+                                                        <i class="ace-icon fa fa-envelope"></i>
+                                                    </span>
+                                                </label>
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="password" class="form-control" placeholder="Confirmar Contraseña" />
                                                         <i class="ace-icon fa fa-envelope"></i>
                                                     </span>
                                                 </label>
 
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="text" class="form-control" placeholder="Username" />
+                                                        <input type="email" class="form-control" placeholder="Correo" />
                                                         <i class="ace-icon fa fa-user"></i>
                                                     </span>
                                                 </label>
 
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="password" class="form-control" placeholder="Password" />
+                                                        <input type="text" class="form-control" placeholder="Pregunta Secreta" />
                                                         <i class="ace-icon fa fa-lock"></i>
                                                     </span>
                                                 </label>
 
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="password" class="form-control" placeholder="Repeat password" />
+                                                        <input type="text" class="form-control" placeholder="Respuesta pregunta secreta" />
                                                         <i class="ace-icon fa fa-retweet"></i>
                                                     </span>
                                                 </label>
 
+                                                <div class="space-6"></div>
+                                                <p> Ingresa tus datos personales: </p>
+
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="number" class="form-control" placeholder="Identificacion" />
+                                                        <i class="ace-icon fa fa-retweet"></i>
+                                                    </span>
+                                                </label>
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="text" class="form-control" placeholder="Nombres" />
+                                                        <i class="ace-icon fa fa-retweet"></i>
+                                                    </span>
+                                                </label>
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="text" class="form-control" placeholder="Apellidos" />
+                                                        <i class="ace-icon fa fa-retweet"></i>
+                                                    </span>
+                                                </label>
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="date"form-control" placeholder="Fecha de nacimiento" />
+                                                        <i class="ace-icon fa fa-retweet"></i>
+                                                    </span>
+                                                </label>
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="number" class="form-control" placeholder="Peso" />
+                                                        <i class="ace-icon fa fa-retweet"></i>
+                                                    </span>
+                                                </label>
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="number" class="form-control" placeholder="Estatura" />
+                                                        <i class="ace-icon fa fa-retweet"></i>
+                                                    </span>
+                                                </label>
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="text" class="form-control" placeholder="Sexo" />
+                                                        <i class="ace-icon fa fa-retweet"></i>
+                                                    </span>
+                                                </label>
                                                 <label class="block">
                                                     <input type="checkbox" class="ace" />
                                                     <span class="lbl">
@@ -237,7 +298,7 @@
                                     <div class="toolbar center">
                                         <a href="#" data-target="#login-box" class="back-to-login-link">
                                             <i class="ace-icon fa fa-arrow-left"></i>
-                                            Back to login
+                                            Volver a inicio de sesion
                                         </a>
                                     </div>
                                 </div><!-- /.widget-body -->
