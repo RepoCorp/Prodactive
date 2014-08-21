@@ -31,7 +31,7 @@
 
             <li class=active">
                 <a id="inicio" href="/Home/Index" data-url="/Home/GetStats">
-                    <i class="menu-icon fa "></i>
+                    <i class="menu-icon fa fa-desktop "></i>
                     <span class="menu-text">Inicio</span>
                 </a>
 
@@ -39,19 +39,29 @@
             </li>
             <li>
                 <a id="registro" href="/Home/Registro" data-url="/Home/Registro">
-                    <i class="menu-icon fa fa-angle-down"></i>
-                    <span class="menu-text"> Registro Progreso </span>
+                    <i class="menu-icon fa fa-pencil-square"></i>
+                    <span class="menu-text"> Retos </span>
                 </a>
                 <b class="arrow"></b>
             </li>
-
-            @if (System.Web.Security.Roles.IsUserInRole("administrator") || System.Web.Security.Roles.IsUserInRole("coach"))
-            {
-                <li class="">
+            <li>
+                <a id="registro" href="/Home/Registro" data-url="/Home/Registro">
+                    <i class="menu-icon fa fa-flag-checkered"></i>
+                    <span class="menu-text"> Estadisticas </span>
+                </a>
+                <b class="arrow"></b>
+            </li>
+            <li>
+                <a id="registro" href="/Home/Registro" data-url="/Home/Registro">
+                    <i class="menu-icon fa fa-gamepad"></i>
+                    <span class="menu-text"> Logros </span>
+                </a>
+                <b class="arrow"></b>
+            </li>
+            <li class="">
                     <a href="#" class="dropdown-toggle">
-                        <i class="menu-icon fa fa-pencil-square-o"></i>
-                        <span class="menu-text">Administracion</span>
-
+                    <i class="menu-icon fa fa-pencil-square-o"></i>
+                        <span class="menu-text">Tips</span>
                         <b class="arrow fa fa-angle-down"></b>
                     </a>
 
@@ -61,32 +71,51 @@
                         <li class="">
                             <a id="inicio" href="/Liga/Index" data-url="/Liga/Index">
                                 <i class="menu-icon fa fa-caret-right"></i>
-                                Liga
+                                Tips deporte
                             </a>
                             <b class="arrow"></b>
                         </li>
                         <li class="">
                             <a id="division" href="/Liga/Division" data-url="/Liga/Division">
                                 <i class="menu-icon fa fa-caret-right"></i>
-                                Division
+                                Tips salud
                             </a>
                             <b class="arrow"></b>
                         </li>
                         <li class="">
                             <a id="reto" href="/Reto/Index" data-url="/Reto/Index">
                                 <i class="menu-icon fa fa-caret-right"></i>
-                                Retos
+                                Tips alimento
                             </a>
                             <b class="arrow"></b>
                         </li>
                     </ul>
                 </li>
 
-            }
-
             <li>
+                <a id="registro" href="/Home/Registro" data-url="/Home/Registro">
+                    <i class="menu-icon fa fa-question"></i>
+                    <span class="menu-text"> FAC </span>
+                </a>
+                <b class="arrow"></b>
+            </li>
+            <li>
+                <a id="registro" href="/Home/Registro" data-url="/Home/Registro">
+                    <i class="menu-icon fa fa-calendar"></i>
+                    <span class="menu-text"> Calendario </span>
+                </a>
+                <b class="arrow"></b>
+            </li>
+            <li>
+                <a id="registro" href="/Home/Registro" data-url="/Home/Registro">
+                    <i class="menu-icon fa fa-picture-o"></i>
+                    <span class="menu-text"> Galeria </span>
+                </a>
+                <b class="arrow"></b>
+            </li>
+             <li>
                 <a id="about" href="/Home/About" data-url="/Home/About">
-                    <i class="menu-icon fa fa fa-angle-down"></i>
+                    <i class="menu-icon fa fa-exclamation"></i>
                     <span class="menu-text"> Acerca de </span>
                 </a>
                 <b class="arrow"></b>
