@@ -9,12 +9,17 @@ zg.Login = function () {
     this.userName   = ko.observable().extend({ required: "El campo usuario no puede estar vacio." });
     this.password   = ko.observable().extend({ required: "El campo contraseña no puede estar vacio." });
     this.rememberMe = ko.observable();
-    //this.__RequestVerificationToken = ko.observable();
+    
 };
 
 zg.Cuenta = function() {
     this.usuario = ko.observable();
     this.correo  = ko.observable();
+}
+
+zg.SelectItem = function(val,txt) {
+    this.value = ko.observable(val);
+    this.text  = ko.observable(txt);
 }
 
 zg.Persona = function() {
@@ -25,30 +30,35 @@ zg.Persona = function() {
     this.identificacion  = ko.observable();
     this.fechaNacimiento = ko.observable();
     this.sexo            = ko.observable();
-    this.cuentas         = ko.observableArray();
+    //this.cuentas         = ko.observableArray();
     this.peso            = ko.observable();
     this.estatura        = ko.observable();
 };
 
-zg.Registro = function() {
-    this.user             = ko.observable();
+zg.Register = function() {
+    this.userName         = ko.observable();
     this.password         = ko.observable();
     this.confirmPassword  = ko.observable();
     this.passwordQuestion = ko.observable();
-    this.questionAnswer   = ko.observable();
+    this.passwordAnswers   = ko.observable();
     this.email            = ko.observable();
-    //this.datosPersonales  = new zg.Persona();
+    this.datosPersonales  = new zg.Persona();
     //REV: ver como optimizar esta parte.....
-    this.id               = ko.observable();
-    this.tipo             = ko.observable();
-    this.nombre           = ko.observable();
-    this.apellido         = ko.observable();
-    this.identificacion   = ko.observable();
-    this.fechaNacimiento  = ko.observable();
-    this.sexo             = ko.observable();
-    this.cuentas          = ko.observableArray();
-    this.peso             = ko.observable();
-    this.estatura         = ko.observable();
+    ////this.id               = ko.observable();
+    //this.tipo             = ko.observable();
+    //this.nombre           = ko.observable();
+    //this.apellido         = ko.observable();
+    //this.identificacion   = ko.observable();
+    //this.fechaNacimiento  = ko.observable();
+    //this.sexo             = ko.observable();
+    //this.cuentas          = ko.observableArray();
+    //this.peso             = ko.observable();
+    //this.estatura         = ko.observable();
+    this.userAgreement = ko.observable();
+
+    this.enablePersonalData = ko.computed(function() {
+        return this.datosPersonales.tipo() === 'Natural';
+    },this);
 };
 
 
@@ -56,31 +66,7 @@ zg.Registro = function() {
 zg.loginVM = function () {
     var login = new zg.Login(),
         submit = function (elm) {
-            
-            var $form = $("#loginform");
-
-            // We check if jQuery.validator exists on the form
-            if (!$form.valid || $form.valid()) {
-                //$.post($form.attr('action'), $form.serializeArray())
-                $.post('/Account/Login', { dataSave: ko.toJSON(login) })
-                    .done(function (json) {
-                        json = json || {};
-
-                        // In case of success, we redirect to the provided URL or the same page.
-                        if (json.success) {
-                            window.location = json.redirect || location.href;
-                        } else if (json.errors) {
-                            displayErrors($form, json.errors);
-                        }
-                    })
-                    .error(function () {
-                        displayErrors($form, ['An unknown error happened.']);
-                    });
-            }
-
-            // Prevent the normal behavior since we opened the dialog
-            //e.preventDefault();
-
+            sendsubmit("#loginform", '/Account/Login', ko.toJSON(login));
         };
 
     return {
@@ -89,24 +75,36 @@ zg.loginVM = function () {
     };
 };
 
+zg.registerVM = function () {
+    
+    var register = new zg.Register(),
+        questions = ko.observableArray(),
+        submit = function (elm) {
+            //var a = ko.toJS2(register);
 
+            //register.datosPersonales.cuentas.push({ key: register.userName, value: register.email });
+            sendsubmit("#register-form", '/Account/Register', ko.toJSON(register));
+        },
+        reset    = function() {
+            register = new zg.Register();
+        };
+        $.post('/Account/Questions').done(function (json) 
+        {
+            _.forEach(json, function(item) {
+                questions.push( new zg.SelectItem(item,item));
+            });
+        questions.valueHasMutated();
 
-var getValidationSummaryErrors = function ($form) {
-    var errorSummary = $form.find('.validation-summary-errors, .validation-summary-valid');
-    return errorSummary;
+        });
+
+    return {
+        register : register ,
+        submit   : submit   ,
+        reset    : reset    ,
+        questions: questions
+    };
 };
 
-var displayErrors = function (form, errors) {
-    var errorSummary = getValidationSummaryErrors(form)
-        .removeClass('validation-summary-valid')
-        .addClass('validation-summary-errors');
-
-    var items = $.map(errors, function (error) {
-        return '<li>' + error + '</li>';
-    }).join('');
-
-    errorSummary.find('ul').empty().append(items);
-};
 
 /*submit
  * 

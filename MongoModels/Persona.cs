@@ -24,7 +24,7 @@ namespace MongoModels
         [Display(Name = "Nombres")]
         public string Nombre { get; set; }
         
-        [Required]
+        //[Required]
         [Display(Name = "Apellidos")]
         [BsonIgnoreIfNull]
         public string Apellido { get; set; }
@@ -34,12 +34,12 @@ namespace MongoModels
         public Int64 Identificacion { get; set; }
 
         
-        [Required]
-        [Display(Name = "Fecha De Nacimiento", Prompt = "dd/mm/yyyy")]
-        
+        //[Required]
+        [Display(Name = "Fecha De Nacimiento", Prompt = "yyyy/mm/dd")]
+        [BsonIgnoreIfNull]
         public DateTime FechaNacimiento { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name = "Sexo")]
         [BsonIgnoreIfNull]
         public string Sexo { get; set; }
@@ -59,5 +59,11 @@ namespace MongoModels
         [BsonRepresentation(BsonType.Double)]
         public Double Estatura { get; set; }
 
+    }
+
+    public enum TipoPersona
+    {
+        Natural, 
+        Juridica
     }
 }

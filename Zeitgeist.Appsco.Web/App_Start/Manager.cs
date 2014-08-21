@@ -5,9 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Caching;
+using System.Web.WebPages.Razor.Configuration;
+using DotNetOpenAuth.AspNet.Clients;
 using FluentMongo.Linq;
 using Microsoft.Win32;
 using MongoDB.Bson;
+using MongoDB.Bson.IO;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoModels;
@@ -100,10 +103,11 @@ namespace Zeitgeist.Appsco.Web.App_Start
         {
             return Save(p, Settings.Default.ColeccionPersona);
         }
-        public bool SaveRegistro(Registro registro)
-        {
-            return Save(registro, Settings.Default.ColeccionRegistro);
-        }
+        
+        //public bool SaveRegistro(Registro registro)
+        //{
+        //    return Save(registro, Settings.Default.ColeccionRegistro);
+        //}
 
         public Persona GetDatosUsuario(string user)
         {
@@ -134,23 +138,23 @@ namespace Zeitgeist.Appsco.Web.App_Start
                 return wr;
             return new Reto();
         }
-        internal List<Registro> GetEstadisticasUsuarioReto(string user,string reto)
-        {
-            var wc =
-                GetCollection<Registro>(Settings.Default.ColeccionRegistro)
-                    .AsQueryable()
-                    .Where(x => x.User == user && x.retoId == reto)
-                    .Select(x => x)
-                    .ToList();
-            if (wc != null)
-                return wc;
+        //internal List<Registro> GetEstadisticasUsuarioReto(string user,string reto)
+        //{
+        //    var wc =
+        //        GetCollection<Registro>(Settings.Default.ColeccionRegistro)
+        //            .AsQueryable()
+        //            .Where(x => x.User == user && x.retoId == reto)
+        //            .Select(x => x)
+        //            .ToList();
+        //    if (wc != null)
+        //        return wc;
             
-            return new List<Registro>();
+        //    return new List<Registro>();
 
-        }
+        //}
         internal List<Liga> GetLigas(string p)
         {
-            return GetCollection<Liga>(Settings.Default.ColeccionLiga).AsQueryable().Where(x => x.Owner == p).ToList();
+            return GetCollection<Liga>(Settings.Default.ColeccionLiga).AsQueryable().Where(x => x.Entrenador == p).ToList();
         }
         internal bool SaveLiga(Liga liga)
         {
@@ -198,9 +202,9 @@ namespace Zeitgeist.Appsco.Web.App_Start
                 var a     = p.Cuentas.Where(x => x.Value == invitacion.Mail).Select(x => x.Key).First();
 
                 if(l.Usuarios==null)
-                    l.Usuarios= new Dictionary<string, UsuarioLiga>();
+                    l.Usuarios= new Dictionary<string, string>();
 
-                l.Usuarios.Add(a, new UsuarioLiga() { Estado = true });
+                l.Usuarios.Add(a, invitacion.Mail);
                 WriteConcernResult wcr = GetCollection<Liga>(Settings.Default.ColeccionLiga).Update(
                     Query.EQ("_id",new ObjectId(l.Id)),
                     Update.Replace(l));
@@ -225,6 +229,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
                         .Find(Query.EQ("_id", new ObjectId(idLiga)))
                         .First();
 
+                Persona p = GetDatosUsuario(user);
                 Task.Factory.StartNew(() =>
                 {
                     return GetCollection<Invitacion>(Settings.Default.ColeccionInvitaciones)
@@ -233,9 +238,9 @@ namespace Zeitgeist.Appsco.Web.App_Start
                 
 
                 if (l.Usuarios == null)
-                    l.Usuarios = new Dictionary<string, UsuarioLiga>();
+                    l.Usuarios = new Dictionary<string, string>();
 
-                l.Usuarios.Add(user, new UsuarioLiga() { Estado = true });
+                l.Usuarios.Add(user, p.Cuentas["user"]);
                 WriteConcernResult wcr = GetCollection<Liga>(Settings.Default.ColeccionLiga).Update(
                     Query.EQ("_id", new ObjectId(l.Id)),
                     Update.Replace(l));
@@ -251,20 +256,24 @@ namespace Zeitgeist.Appsco.Web.App_Start
 
         public List<Division> GetDivisiones(string user)
         {
-            List<string> lst = GetLigas(user).Select(x => x.Id).ToList();
-            List<Division> divisiones=GetCollection<Division>(Settings.Default.ColeccionDivision)
-                .AsQueryable()
-                .Where(x => lst.Contains(x.LigaId))
-                .ToList();
-            if(divisiones.Count==0)
-                return new List<Division>();
+            List<Liga> lst = GetLigas(user).ToList();
+            var res = lst.Select(x => x.Divisiones.ToList());
+            int j = 0;
+            //List<Division> divisiones=GetCollection<Division>(Settings.Default.ColeccionDivision)
+            //    .AsQueryable()
+            //    .Where(x => lst.Contains(y=> y.Division.co))
+            //    .ToList();
+            //if(divisiones.Count==0)
+            
+                
+            return new List<Division>();
 
-            return divisiones;
+            //return divisiones;
         }
 
         public List<Reto> GetRetos(string user)
         {
-            List<Reto> l=GetCollection<Reto>(Settings.Default.ColeccionRetos).AsQueryable().Where(x => x.Owner == user).ToList();
+            List<Reto> l=GetCollection<Reto>(Settings.Default.ColeccionRetos).AsQueryable().Where(x => x.Entrenador == user).ToList();
             if(l.Count==0)
                 return new List<Reto>();
             return l;

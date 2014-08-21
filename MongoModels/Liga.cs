@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
@@ -6,47 +7,77 @@ using MongoDB.Bson.Serialization.Options;
 
 namespace MongoModels
 {
-
-    public class Invitacion
-    {
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
-        public string LigaId { get; set; }
-        [Required]
-        [DataType(DataType.EmailAddress)]
-        public string Mail   { get; set; }
-
-        public bool   Estado { get; set; }
-    }
-
+    
+    //version 2
     public class Liga
     {
+
+        public Liga()
+        {
+            Usuarios= new Dictionary<string, string>();
+            Divisiones= new Collection<string>();
+        }
+
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id    { get; set; }
-        public string Owner { get; set; }
+        
+        public string Entrenador { get; set; }
+        
         [Required]
-        public string Name  { get; set; }
+        public string Nombre  { get; set; }
+        
         [Required]
         [BsonDefaultValue("Freemium")]
         public string Plan  { get; set; }
+        
         public ICollection<string> Divisiones { get; set; }
 
+        //usuario y correo
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
-        public IDictionary<string, UsuarioLiga> Usuarios { get; set; }
+        public IDictionary<string,string> Usuarios { get; set; }
 
+        public int UsuariosAdmitidosPlan
+        {
+            get
+            {
+                if (Plan == "Freemium")
+                    return 5;
+                
+                return 50;
+            }
+        }
     }
 
-    public class UsuarioLiga
+    //public class UsuarioLiga
+    //{
+    //    public string AreaId { get; set; }
+    //    public bool   Estado { get; set; }
+    //}
+
+    //public class Area
+    //{
+    //    [BsonRepresentation(BsonType.ObjectId)]
+    //    public string Id { get; set; }
+    //    public string Name { get; set; }
+    //}
+    public enum PLan
     {
-        public string AreaId { get; set; }
-        public bool   Estado { get; set; }
+        Estandar,Freemium
     }
 
-    public class Area
+    public class Invitacion
     {
+
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-        public string Name { get; set; }
+        
+        public string LigaId { get; set; }
+       
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        public string Mail { get; set; }
+
+        public bool Estado { get; set; }
     }
 
 }
