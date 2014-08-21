@@ -58,7 +58,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
             {
                 Persona p = manager.GetDatosUsuario(User.Identity.Name);
 
-                l.Owner = p.Id;
+                l.Entrenador = User.Identity.Name;// p.Id;
                 return RedirectToAction("Panel");
                 //return RedirectoAction("Panel");    
 

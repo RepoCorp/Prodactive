@@ -49,11 +49,12 @@ namespace Zeitgeist.Appsco.Web.Controllers
                 r.Division    = reto.division;
                 r.Premio      = reto.premio;
                 r.Tipo        = reto.tipo;
-                r.Owner       = User.Identity.Name;
-                string name   = reto.deportes[0].name;
-                string valor  = reto.deportes[0].valor;
-
-                r.Deportes.Add(name, Convert.ToInt32(valor));
+                r.Entrenador  = User.Identity.Name;
+                //string name   = reto.deportes[0].name;
+                foreach (var name in reto.deportes)
+                {
+                    r.Deportes.Add(name);
+                }
                 if (manager.SaveReto(r))
                 {
                     return Json(new {Status = true, Message = "Has creado un nuevo reto."});

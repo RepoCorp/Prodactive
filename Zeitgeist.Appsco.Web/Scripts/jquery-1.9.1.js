@@ -616,8 +616,14 @@ jQuery.extend({
 	},
 
 	// args is for internal usage only
-	each: function( obj, callback, args ) {
-		var value,
+	each: function (obj, callback, args) {
+	    try {
+	        if (obj === undefined)
+	            return;
+	    } catch (e) {
+            var j = 0;
+	    }
+	    var value,
 			i = 0,
 			length = obj.length,
 			isArray = isArraylike( obj );

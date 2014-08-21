@@ -103,12 +103,8 @@
             <div class="navbar-buttons navbar-header pull-right" role="navigation">
                 <ul class="nav ace-nav">
                     <!-- #section:basics/navbar.user_menu -->
-                    <li class="light-blue">
-                        
-                        <section id="login">
-                            @Html.Partial("_LoginPartial")
-                        </section>
-                    </li>
+                    @Html.Partial("_LoginPartial")
+                    
 
                     <!-- /section:basics/navbar.user_menu -->
                 </ul>
@@ -144,22 +140,16 @@
                             @RenderSection("pagename",required:false)
                         </h1>
                     </div><!-- /.page-header -->
-
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <!-- PAGE CONTENT BEGINS -->
-
-                            <div class="row">
-                                <div class="space-6"></div>
-                                <div id="load_content">
-                                    @RenderBody()
-                                </div>
-
-                            </div><!-- /.row -->
-                            <!-- #section:custom/extra.hr -->
-                            <!-- PAGE CONTENT ENDS -->
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
+                
+                <!-- BODY BEGIN -->
+                    <div id="load_content">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <!-- #section:custom/extra.hr -->
+                        
+                        @RenderBody()
+                        <!-- PAGE CONTENT ENDS -->
+                    </div>
+                    <!-- BODY END -->
                 </div><!-- /.page-content-area -->
 
 

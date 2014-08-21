@@ -18,3 +18,23 @@
     //return the original observable
     return target;
 };
+
+
+ko.toJS2 = function (model) {
+    return JSON.parse(ko.toJSON(model, modelSerializer));
+}
+
+function modelSerializer(key, value) {
+    if (isSerializable(value))
+        return value;
+    else
+        return;
+}
+
+function isSerializable(object) {
+    if (object == null) return true;
+    if (typeof object == 'function') return false;
+    if (object.mappedProperties != null) return false;
+
+    return true;
+}

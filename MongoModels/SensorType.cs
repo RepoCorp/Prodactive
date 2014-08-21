@@ -1,9 +1,10 @@
 ﻿namespace MongoModels
 {
-    public enum SensorType
-    {
-        WalkCounter,
-        Speed,
-        Distance
-    }
+
+    //public enum SensorType
+    //{
+    //    WalkCounter,
+    //    Speed,
+    //    Distance
+    //}
 }

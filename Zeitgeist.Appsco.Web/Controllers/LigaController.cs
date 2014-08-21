@@ -66,7 +66,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
             try
             {
                 // TODO: Add insert logic here
-                liga.Owner = User.Identity.Name;
+                liga.Entrenador = User.Identity.Name;
                 if (manager.SaveLiga(liga))
                     return RedirectToAction("Index");
                 

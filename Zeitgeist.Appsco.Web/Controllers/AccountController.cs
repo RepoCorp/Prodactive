@@ -36,49 +36,41 @@ namespace Zeitgeist.Appsco.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [ValidateJsonAntiForgeryToken]
         //[ValidateAntiForgeryToken]
         public JsonResult Login(string dataSave, string returnUrl)
         {
-
+            if(String.IsNullOrEmpty(returnUrl))
+                returnUrl = this.Url.Action("Index", "Home", null, this.Request.Url.Scheme);
             LoginModel model = JsonConvert.DeserializeObject<LoginModel>(dataSave);
-            //if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
-            //{
-            //    return RedirectToLocal(returnUrl);
-            //}
-
-            //// Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
-            //ModelState.AddModelError("", "El nombre de usuario o la contraseña especificados son incorrectos.");
-            //return View(model);
-
-            //if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+        
             if (ModelState.IsValid && Membership.ValidateUser(model.UserName, model.Password))
             {
                 FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
                 Session.Add("UserId", model.UserName);
-                //FormsAuthentication.RedirectFromLoginPage(model.UserName,model.RememberMe);
+            
+                //if (System.Web.Security.Roles.IsUserInRole("administrator"))
+                //{
+                //    if (returnUrl != null)
+                //        return Json(new{success=true,redirect=returnUrl});
 
-                if (System.Web.Security.Roles.IsUserInRole("administrator"))
-                {
-                    if (returnUrl != null)
-                        return Json(new{success=true,redirect=returnUrl});
 
-
-                    var fullUrl = this.Url.Action("Panel", "Manage", new { id = 5 }, this.Request.Url.Scheme);
-                    return Json(new { success = true, redirect = fullUrl });            
+                //    var fullUrl = this.Url.Action("Panel", "Manage",null, this.Request.Url.Scheme);
+                //    return Json(new { success = true, redirect = fullUrl });            
                     
-                }
-                else
-                {
-                    if (System.Web.Security.Roles.IsUserInRole("coach"))
-                    {
-                        if (returnUrl != null)
-                            return Json(new { success = true, redirect = returnUrl });
+                //}
+                //else
+                //{
+                //    if (System.Web.Security.Roles.IsUserInRole("coach"))
+                //    {
+                //        if (returnUrl != null)
+                //            return Json(new { success = true, redirect = returnUrl });
 
-                        var fullUrl = this.Url.Action("Index", "Coach", new { id = 5 }, this.Request.Url.Scheme);
-                        return Json(new { success = true, redirect = fullUrl });            
-                    }
+                //        var fullUrl = this.Url.Action("Index", "Coach", new { id = 5 }, this.Request.Url.Scheme);
+                //        return Json(new { success = true, redirect = fullUrl });            
+                //    }
                     
-                }
+                //}
                 return Json(new { success = true, redirect = returnUrl });
             }
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
@@ -117,11 +109,6 @@ namespace Zeitgeist.Appsco.Web.Controllers
         {
             ViewBag.ReturnUrl = returnUrl;
             List<SelectListItem> lst = new List<SelectListItem>();
-            lst.Add(new SelectListItem() { Text = "Nombre de tu primera Mascota", Value = "Nombre de tu primera Mascota" });
-            lst.Add(new SelectListItem() { Text = "Marca de tu primer Vehiculo", Value = "Marca de tu primer Vehiculo" });
-            lst.Add(new SelectListItem() { Text = "Nombre de tu Padre", Value = "Nombre de tu Padre" });
-            lst.Add(new SelectListItem() { Text = "Nombre de tu Madre", Value = "Nombre de tu Madre" });
-            lst.Add(new SelectListItem() { Text = "Mes de Nacimiento de tu hijo/hija", Value = "Mes de Nacimiento de tu hijo/hija" });
             SelectList sl = new SelectList(lst, "Value", "Text");
             ViewBag.Questions = sl;
 
@@ -133,60 +120,98 @@ namespace Zeitgeist.Appsco.Web.Controllers
             ViewBag.Sexo   = sl2;
 
             return View();
-        }   
+        }
 
         //
         // POST: /Account/Register
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult Register(string dataSave, string returnUrl)
+        //[ValidateAntiForgeryToken]
+        public JsonResult Register(string dataSave, string returnUrl)
         {
-            RegisterModel model = new RegisterModel();
-            if (ModelState.IsValid)
+            try
             {
-                // Intento de registrar al usuario
-                try
+                if (dataSave == null)
                 {
-                    MembershipCreateStatus status;
-                    Membership.CreateUser(model.UserName, model.Password, model.Email, model.PasswordQuestion, model.PasswordAnswers, true, out status);
-                    //WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
-                    //WebSecurity.Login(model.UserName, model.Password);
+                    return Json(new { success = false });
+                    //return Json(new { success = true, redirect = fullUrl });     
+                }
+                if (String.IsNullOrEmpty(returnUrl))
+                    returnUrl = this.Url.Action("Index", "Home", null, this.Request.Url.Scheme);
 
-                    if (status == MembershipCreateStatus.Success)
+                var serializer = new JsonSerializerSettings()
+                {
+                    MissingMemberHandling = MissingMemberHandling.Ignore,
+                    CheckAdditionalContent = false
+                };
+                RegisterModel model = JsonConvert.DeserializeObject<RegisterModel>(dataSave,serializer);
+
+                if (ModelState.IsValid)
+                {
+                    // Intento de registrar al usuario
+                    try
                     {
+                        MembershipCreateStatus status;
+                        Membership.CreateUser(model.UserName, model.Password, model.Email, model.PasswordQuestion, model.PasswordAnswers, true, out status);
+                        //WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                        //WebSecurity.Login(model.UserName, model.Password);
 
-                        Manager m = Manager.Instance;
-                        
-                        model.DatosPersonales.Cuentas.Add(model.UserName,model.Email);
-                        if (m.SavePersona(model.DatosPersonales))
+                        if (status == MembershipCreateStatus.Success)
                         {
-                            System.Web.Security.Roles.AddUserToRole(model.UserName, "atleta");
-                            FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                            if (returnUrl != null)
-                                return RedirectToLocal(returnUrl);
-                            return RedirectToAction("Index", "Home");
+
+                            Manager m = Manager.Instance;
+
+                            model.DatosPersonales.Cuentas.Add(model.UserName, model.Email);
+                            if (m.SavePersona(model.DatosPersonales))
+                            {
+                                System.Web.Security.Roles.AddUserToRole(model.UserName, "atleta");
+                                FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
+
+                                return Json(new { success = true, redirect = returnUrl });
+
+                            }
+                            Membership.DeleteUser(model.UserName);
+                            ModelState.AddModelError("", "El nombre de usuario o la contraseña especificados son incorrectos.");
                         }
                         else
                         {
-                            Membership.DeleteUser(model.UserName);
-                            ModelState.AddModelError("", "Error al guardar los datos.");
+                            ModelState.AddModelError("", ErrorCodeToString(status));
                         }
                     }
-                    else
+                    catch (MembershipCreateUserException e)
                     {
-                        ModelState.AddModelError("", ErrorCodeToString(status));
+                        ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
                     }
                 }
-                catch (MembershipCreateUserException e)
-                {
-                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
-                }
             }
+            catch (Exception ex)
+            {
+
+            }
+         
+            return Json(new { errors = GetErrorsFromModelState() });
 
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
-            return View(model);
+            //return View(model);
+        }
+
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult Questions()
+        {
+            List<string> elm = new List<string>()
+            {
+                "Nombre de tu primera Mascota",
+                "Marca de tu primer Vehiculo",
+                "Nombre de tu Padre",
+                "Nombre de tu Madre",
+                "Mes de Nacimiento de tu hijo/hija"
+            };
+            
+            return Json(elm, JsonRequestBehavior.AllowGet);
         }
 
         //

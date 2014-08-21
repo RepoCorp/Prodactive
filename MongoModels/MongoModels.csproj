@@ -47,9 +47,10 @@
     <Compile Include="Deporte.cs" />
     <Compile Include="DetalleLogReto.cs" />
     <Compile Include="Division.cs" />
+    <Compile Include="EjecucionReto.cs" />
     <Compile Include="Equipo.cs" />
     <Compile Include="Liga.cs" />
-    <Compile Include="LogReto.cs" />
+    <Compile Include="LogEjercicio.cs" />
     <Compile Include="Persona.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reto.cs" />
