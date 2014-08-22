@@ -12,19 +12,19 @@
       <Value Profile="(Default)">persona</Value>
     </Setting>
     <Setting Name="ColeccionDeporte" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">deporte</Value>
+      <Value Profile="(Default)">Deportes</Value>
     </Setting>
     <Setting Name="ColeccionLiga" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">liga</Value>
+      <Value Profile="(Default)">Ligas</Value>
     </Setting>
     <Setting Name="ColeccionDivision" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">division</Value>
+      <Value Profile="(Default)">Divisiones</Value>
     </Setting>
     <Setting Name="ColeccionUsuarios" Type="System.String" Scope="Application">
       <Value Profile="(Default)">/webApp/users/</Value>
     </Setting>
     <Setting Name="ColeccionRetos" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">reto</Value>
+      <Value Profile="(Default)">Retos</Value>
     </Setting>
     <Setting Name="ColeccionRoles" Type="System.String" Scope="Application">
       <Value Profile="(Default)">/webApp/roles/</Value>
@@ -43,6 +43,12 @@
     </Setting>
     <Setting Name="ColeccionRegistroProgreso" Type="System.String" Scope="Application">
       <Value Profile="(Default)">registro_progreso</Value>
+    </Setting>
+    <Setting Name="CollectionLogEjercicio" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">LogEjercicio</Value>
+    </Setting>
+    <Setting Name="CollectionEquipos" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Equipos</Value>
     </Setting>
   </Settings>
 </SettingsFile>

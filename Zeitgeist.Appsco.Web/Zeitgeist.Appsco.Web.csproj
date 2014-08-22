@@ -1389,6 +1389,7 @@
     <Content Include="Scripts\flot\jquery.flot.threshold.min.js" />
     <Content Include="Scripts\flot\jquery.flot.time.js" />
     <Content Include="Scripts\flot\jquery.flot.time.min.js" />
+    <Content Include="Scripts\Home\index.js" />
     <Content Include="Scripts\Home\registro.js" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
@@ -1413,7 +1414,7 @@
     <Content Include="Scripts\knockout-3.1.0.js" />
     <Content Include="Scripts\Model\KnockoutHelpers.js" />
     <Content Include="Scripts\Model\login_model.js" />
-    <Content Include="Scripts\Model\Persona.js" />
+    <Content Include="Scripts\Model\Prodactive.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment-countdown.js" />
     <Content Include="Scripts\moment-with-langs.js" />

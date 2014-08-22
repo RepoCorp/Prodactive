@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Caching;
@@ -14,6 +15,7 @@ using MongoDB.Bson.IO;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoModels;
+using MongoProviders;
 using ServiceStack.Common;
 using WebMatrix.WebData;
 using Zeitgeist.Appsco.Web.Api;
@@ -343,6 +345,78 @@ namespace Zeitgeist.Appsco.Web.App_Start
             if (wr != null)
                 return wr;
             return new Reto();
+        }
+
+        public List<Liga> GetLeagueUserRegistered(string user)
+        {
+            try
+            {
+                var r=GetCollection<Liga>(Settings.Default.ColeccionLiga).Find(Query.EQ("Usuarios.k", user));
+                return r.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<Reto> GetRetosByIdLiga(string id)
+        {
+            try
+            {
+                return GetCollection<Reto>(Settings.Default.ColeccionRetos).Find(Query.EQ("Liga", id)).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<LogEjercicio> GetDatosRetoEquipo(ICollection<string> equipos, string name,Reto reto)
+        {
+                var r=GetCollection<Equipo>(Settings.Default.CollectionEquipos).Find(Query.And(new []
+                {
+                    Query.In("_id",new BsonArray(equipos.Select(x => new ObjectId(x)).ToList())),
+                    Query.EQ("Miembros", name)
+                })).ToList();
+                Equipo p= new Equipo();
+                if (r.Count > 0)
+                {
+                    p = r.First();
+                    return GetCollection<LogEjercicio>(Settings.Default.CollectionLogEjercicio).Find(Query.And(new[]
+                                                                                            { Query.In("Usuario", new BsonArray(p.Miembros)),
+                                                                                              Query.GTE("FechaHora", reto.FechaInicio),
+                                                                                              Query.LTE("FechaHora", reto.FechaFin)
+                                                                                             })).ToList();
+                }
+            return new List<LogEjercicio>();
+        }
+        public List<LogEjercicio> GetDatosRetoEquipo(ICollection<string> equipos,Reto reto)
+        {
+            
+            List<LogEjercicio> lst = new List<LogEjercicio>();
+            var r = GetCollection<Equipo>(Settings.Default.CollectionEquipos).Find(Query.In("_id",new BsonArray(equipos.Select(x => new ObjectId(x)).ToList()))).ToList();
+            foreach (var e in r)
+            {
+                var l= GetCollection<LogEjercicio>(Settings.Default.CollectionLogEjercicio).Find(Query.And(new []
+                                                                                            { Query.In("Usuario", new BsonArray(e.Miembros)),
+                                                                                              Query.GTE("FechaHora", reto.FechaInicio),
+                                                                                              Query.LTE("FechaHora", reto.FechaFin)
+                                                                                             })).ToList();
+                lst.AddRange(l);
+            }
+            return lst;
+        }
+
+        public List<LogEjercicio> GetLogEjercicioByIdReto(string id,string user)
+        {
+            Reto reto = GetRetoById(id);
+            var l = GetCollection<LogEjercicio>(Settings.Default.CollectionLogEjercicio).Find(Query.And(new[]
+                                                                                            { Query.EQ("Usuario",user),
+                                                                                              Query.GTE("FechaHora", reto.FechaInicio),
+                                                                                              Query.LTE("FechaHora", reto.FechaFin)
+                                                                                             })).ToList();
+            return l;
         }
     }
 

@@ -22,7 +22,7 @@ function loadPartialView(selector, divToload) {
 
 
 var send = function (url, type, data, callback) {
-    if (data === undefined) {
+    if (data === undefined || data ===null) {
         $.ajax({
             url: url,
             type: type,
@@ -52,10 +52,14 @@ var sendsubmit = function(selector, url, jsonData) {
         //$.post($form.attr('action'), $form.serializeArray())
 
         //$.post(url, { dataSave: jsonData })
-
         var headers = {};
         headers['__RequestVerificationToken'] = $(selector+' input[name="__RequestVerificationToken"]').val();
-        $.ajax({ url: url, data: { dataSave: jsonData }, type: "POST", headers: headers })
+        $.ajax({
+            url    : url,
+            data   : { dataSave: jsonData }, 
+            type   : "POST", 
+            headers: headers,
+            cache  :false })
             .done(function(json) {
                 json = json || {};
 
@@ -81,17 +85,56 @@ var getValidationSummaryErrors = function ($form) {
 };
 
 var displayErrors = function (form, errors) {
-    var errorSummary = getValidationSummaryErrors(form)
-        .removeClass('validation-summary-valid')
-        .addClass('validation-summary-errors');
 
-    var items = $.map(errors, function (error) {
-        return '<li>' + error + '</li>';
-    }).join('');
+    $("#dialog-message-text").empty();
+    for (var i = 0; i < errors.length; i++) {
+        $("#dialog-message-text").append("<p>"+errors[i]+"</p>");
+    }
+    
+    showDialog();
 
-    errorSummary.find('ul').empty().append(items);
+    //var errorSummary = getValidationSummaryErrors(form)
+    //    .removeClass('validation-summary-valid')
+    //    .addClass('validation-summary-errors');
+
+    //var items = $.map(errors, function (error) {
+    //    return '<li>' + error + '</li>';
+    //}).join('');
+
+    //errorSummary.find('ul').empty().append(items);
 };
 
+$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+    _title: function (title) {
+        var $title = this.options.title || '&nbsp;'
+        if (("title_html" in this.options) && this.options.title_html == true)
+            title.html($title);
+        else title.text($title);
+    }
+}));
+var showDialog = function() {
+    var dialog = $("#dialog-message").removeClass('hide').dialog({
+        modal: true,
+        title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-error'></i>Error</h4></div>",
+        title_html: true,
+        buttons: [
+            //{
+            //    text: "Cancel",
+            //    "class": "btn btn-xs",
+            //    click: function () {
+            //        $(this).dialog("close");
+            //    }
+            //},
+            {
+                text: "OK",
+                "class": "btn btn-primary btn-xs",
+                click: function () {
+                    $(this).dialog("close");
+                }
+            }
+        ]
+    });
+};
 
 
 //$(function() {

@@ -52,7 +52,7 @@ namespace Zeitgeist.Appsco.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("deporte")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Deportes")]
         public string ColeccionDeporte {
             get {
                 return ((string)(this["ColeccionDeporte"]));
@@ -61,7 +61,7 @@ namespace Zeitgeist.Appsco.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("liga")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Ligas")]
         public string ColeccionLiga {
             get {
                 return ((string)(this["ColeccionLiga"]));
@@ -70,7 +70,7 @@ namespace Zeitgeist.Appsco.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("division")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Divisiones")]
         public string ColeccionDivision {
             get {
                 return ((string)(this["ColeccionDivision"]));
@@ -88,7 +88,7 @@ namespace Zeitgeist.Appsco.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("reto")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Retos")]
         public string ColeccionRetos {
             get {
                 return ((string)(this["ColeccionRetos"]));
@@ -146,6 +146,24 @@ namespace Zeitgeist.Appsco.Web.Properties {
         public string ColeccionRegistroProgreso {
             get {
                 return ((string)(this["ColeccionRegistroProgreso"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("LogEjercicio")]
+        public string CollectionLogEjercicio {
+            get {
+                return ((string)(this["CollectionLogEjercicio"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Equipos")]
+        public string CollectionEquipos {
+            get {
+                return ((string)(this["CollectionEquipos"]));
             }
         }
     }
