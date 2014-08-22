@@ -166,5 +166,32 @@ namespace Zeitgeist.Appsco.Web.Properties {
                 return ((string)(this["CollectionEquipos"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("contacto@prodactive.co")]
+        public string mail {
+            get {
+                return ((string)(this["mail"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("@@gato01..")]
+        public string pass {
+            get {
+                return ((string)(this["pass"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Tips")]
+        public string CollectionTips {
+            get {
+                return ((string)(this["CollectionTips"]));
+            }
+        }
     }
 }

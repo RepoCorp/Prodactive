@@ -22,8 +22,15 @@ namespace Zeitgeist.Appsco.Web.Controllers
 
         public ActionResult Index()
         {
-            
-            List<Reto> retos = manager.GetRetos(User.Identity.Name);
+            List<Reto> retos = new List<Reto>();
+            if (HttpContext.Session != null)
+            {
+                string idLiga = (string) HttpContext.Session["IdLiga"];
+                if (String.IsNullOrEmpty(idLiga))
+                    return RedirectToAction("Index", "Home");
+                retos = manager.GetRetosByIdLiga(idLiga);
+            }else
+                retos = manager.GetRetos(User.Identity.Name);
             return View(retos);
         }
 

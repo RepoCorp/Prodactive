@@ -50,5 +50,14 @@
     <Setting Name="CollectionEquipos" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Equipos</Value>
     </Setting>
+    <Setting Name="mail" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">contacto@prodactive.co</Value>
+    </Setting>
+    <Setting Name="pass" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">@@gato01..</Value>
+    </Setting>
+    <Setting Name="CollectionTips" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Tips</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

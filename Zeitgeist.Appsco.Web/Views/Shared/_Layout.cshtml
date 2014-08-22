@@ -217,9 +217,19 @@
     <script src="~/Content/template/assets/js/ace.min.js"></script>
     <script src="~/Content/template/assets/js/flot/jquery.flot.min.js"></script>
     <script src="~/Content/template/assets/js/flot/jquery.flot.resize.min.js"></script>
+    <script src="~/Content/template/assets/js/flot/jquery.flot.time.js"></script>
     <script src="~/Scripts/moment.js"></script>
     <script src="~/Scripts/countdown.js"></script>
     <script src="~/Scripts/moment-countdown.js"></script>
+    <!--se añade modelo knocout desde aca -->
+    <script src="~/Scripts/Home/index.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var model = new zg.PageVM();
+            ko.applyBindings(model);
+        });
+    </script>
+
     @RenderSection("scripts", required: false)
 
 

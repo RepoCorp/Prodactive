@@ -36,6 +36,12 @@ zg.DetalleEjercicio = function () {
     this.pasos = ko.observable();
 }
 
+zg.Tips = function (tipo, mensaje, imageurl) {
+    this.tipo = ko.observable(tipo);
+    this.mensaje = ko.observable(mensaje);
+    this.linkImage = ko.observable(imageurl);
+}
+
 zg.Liga = function () {
     this.id = ko.observable();
     this.nombre = ko.observable();
@@ -62,6 +68,7 @@ zg.PageVM = function () {
     var Index    = new zg.Index(),
     ligas        = ko.observableArray(),
     detallesReto = ko.observableArray(),
+    tips         = ko.observableArray(),
     detallesEjercicio = ko.observableArray(),
     loadLigas = function() {
         send('/Home/GetLigas', "POST", null, function (data) {
@@ -78,14 +85,15 @@ zg.PageVM = function () {
                     Index.liga = a;
                     send('/Home/GetRetosByIdLiga/' + a.id(), "POST", null, function (response) {
                         var j = 0;
+                        detallesReto.removeAll();
                         _.each(response, function (Data) {
                             detallesReto.push(new zg.DetalleReto(Data.IdReto, Data.Name, Data.TotalUsuario, Data.TotalEquipo, Data.TotalReto, Data.PorcentajeTotalUsuario, Data.PorcentajeTotalEquipo, Data.PorcentajeTotalReto));
                             if (j === 0) {
                                 j++;
                                 send('/Home/GetLogEjerciciosByIdReto/' + Data.IdReto, "POST", null, function (res) {
                                     var l = [];
-                                    _.each(res, function (it) { l.push([it.dia,it.pasos]); });
-                                    $("#sales-charts").css({ 'width': '90%', 'min-height': '150px' });
+                                    _.each(res, function (it) { l.push([new Date(it.dia),it.pasos]); });
+                                    $("#sales-charts").css({ 'width': '90%', 'min-height': '350px' });
                                     var my_chart = $.plot("#sales-charts", [
                                    { label: "Pasos X dia", data: l }
                                    //,{ label: "Hosting", data: d2 }
@@ -96,9 +104,11 @@ zg.PageVM = function () {
                                             lines: { show: true },
                                             points: { show: true }
                                         },
-                                        //xaxis: {
-                                        //    tickLength: 1
-                                        //},
+                                        xaxis: {
+                                            mode: "time",
+                                            timeformat: "%Y/%m/%d",
+                                            ticks: res.length - 1,
+                                        },
                                         //yaxis: {
                                         //    ticks: 10,
                                         //    min: 0,
@@ -157,14 +167,70 @@ zg.PageVM = function () {
                 
             });
         });
+    },
+    loadDetalleLiga = function (item) {
+        send('/Home/GetRetosByIdLiga/' + item.id(), "POST", null, function (response) {
+            var j = 0;
+            detallesReto.removeAll();
+            _.each(response, function (Data) {
+                detallesReto.push(new zg.DetalleReto(Data.IdReto, Data.Name, Data.TotalUsuario, Data.TotalEquipo, Data.TotalReto, Data.PorcentajeTotalUsuario, Data.PorcentajeTotalEquipo, Data.PorcentajeTotalReto));
+                if (j === 0) {
+                    j++;
+                    send('/Home/GetLogEjerciciosByIdReto/' + Data.IdReto, "POST", null, function (res) {
+                        var l = [];
+                        _.each(res, function (it) { l.push([new Date(it.dia), it.pasos]); });
+                        $("#sales-charts").css({ 'width': '90%', 'min-height': '350px' });
+                        var my_chart = $.plot("#sales-charts", [
+                       { label: "Pasos X dia", data: l }
+                       //,{ label: "Hosting", data: d2 }
+                        ], {
+                            hoverable: true,
+                            shadowSize: 1,
+                            series: {
+                                lines: { show: true },
+                                points: { show: true }
+                            },
+                            xaxis: {
+                                mode: "time",
+                                timeformat: "%Y/%m/%d",
+                                ticks: res.length-1,
+                            },
+                            //yaxis: {
+                            //    ticks: 10,
+                            //    min: 0,
+                            //    max: 2,
+                            //    tickDecimals: 3
+                            //},
+                            grid: {
+                                backgroundColor: { colors: ["#fff", "#fff"] },
+                                borderWidth: 1,
+                                borderColor: '#555'
+                            }
+                        });
+                    });
+                  
+                }
+            });
+
+        });
+    },
+    loadTips = function() {
+        send('/Home/GetTips', "POST", null, function (data) {
+            _.each(data, function (item) {
+                tips.push(new zg.Tips(item.Tipo, item.Mensaje, item.LinkImage));
+            });
+        });
     };
     loadLigas();
+    loadTips();
 
     return {
         Index: Index,
-        ligas:ligas,
+        ligas: ligas,
         loadLigas: loadLigas,
-        detallesReto: detallesReto
+        loadDetalleLiga: loadDetalleLiga,
+        detallesReto: detallesReto,
+        tips: tips
     };
 };
 

@@ -255,6 +255,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\MailClass.cs" />
     <Compile Include="Helpers\Tools.cs" />
     <Compile Include="Manage\Orquestrator.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -803,6 +804,7 @@
     <Content Include="Content\template\assets\js\flot\jquery.flot.min.js" />
     <Content Include="Content\template\assets\js\flot\jquery.flot.pie.min.js" />
     <Content Include="Content\template\assets\js\flot\jquery.flot.resize.min.js" />
+    <Content Include="Content\template\assets\js\flot\jquery.flot.time.js" />
     <Content Include="Content\template\assets\js\fuelux\data\fuelux.tree-sample-demo-data.js" />
     <Content Include="Content\template\assets\js\fuelux\fuelux.spinner.min.js" />
     <Content Include="Content\template\assets\js\fuelux\fuelux.tree.min.js" />
@@ -1503,9 +1505,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Home\Aboust.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index2.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout3.cshtml" />

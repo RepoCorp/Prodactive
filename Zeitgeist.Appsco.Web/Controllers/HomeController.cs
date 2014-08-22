@@ -37,6 +37,10 @@ namespace Zeitgeist.Appsco.Web.Controllers
         public JsonResult GetLigas()
         {
             List<Liga> ligas = manager.GetLeagueUserRegistered(User.Identity.Name);
+
+            var httpSessionStateBase = this.HttpContext.Session;
+            if (httpSessionStateBase != null)
+                httpSessionStateBase["IdLiga"] = ligas.First().Id;
             return Json(ligas.Select(x => new {id = x.Id, nombre = x.Nombre, entrenador = x.Entrenador}));
         }
         
@@ -55,13 +59,18 @@ namespace Zeitgeist.Appsco.Web.Controllers
                 var l=manager.GetDatosRetoEquipo(a.Equipos,User.Identity.Name,a);
                 if (l.Count() > 0)
                 {
-                    int totalEquipo        = l.Sum(x => x.Conteo);//datos Equipo
-                    int totalPersona = l.Where(x => x.Usuario == User.Identity.Name).Sum(x => x.Conteo);//datos Personales
+                    int totalEquipo = l.Sum(x => x.Conteo); //datos Equipo
+                    int totalPersona = l.Where(x => x.Usuario == User.Identity.Name).Sum(x => x.Conteo);
+                        //datos Personales
                     Int64 totalReto = 0;
                     if (a.Tipo == TipoReto.Superando)
-                        manager.GetDatosRetoEquipo(a.Equipos, a);
+                    {
+                        //List<LogEjercicio> ls=manager.GetDatosRetoEquipo(a.Equipos, a);
+                        //ls.Distinct().
+                        //totalReto = 0;
+                    }
                     else
-                        totalReto = a.Meta;    
+                        totalReto = a.Meta;
                     DetalleReto dr = new DetalleReto()
                     {
                         IdReto = a.Id,
@@ -73,18 +82,43 @@ namespace Zeitgeist.Appsco.Web.Controllers
                         //PorcentajeTotalUsuario = ((double)totalPersona / (double)totalReto) * 100,
                         //PorcentajeTotalReto = 100
                     };
-                    lst.Add(dr);
+                   
+                lst.Add(dr);
                 }
                //datos equipo
             }
+            GetEmptyReto(ref lst);
             return Json(lst);
         }
+
+        private static void GetEmptyReto(ref List<DetalleReto> lst)
+        {
+            if (lst.Count == 0)
+            {
+                DetalleReto dr = new DetalleReto()
+                {
+                    IdReto = "",
+                    Name = "Sin Retos",
+                    TotalEquipo = 0,
+                    TotalReto = 0,
+                    TotalUsuario = 0,
+                };
+                lst.Add(dr);
+            }
+        }
         
+        [HttpPost]
+        public JsonResult GetTips()
+        {
+          List<Tips> lst =  manager.GetRandomTips();
+            return Json(lst);
+        }
+
         [HttpPost]
         public JsonResult GetLogEjerciciosByIdReto(string id)
         {
             int i = 0;
-            var lst = manager.GetLogEjercicioByIdReto(id, User.Identity.Name).Select(x => new { dia= i++, pasos= x.Conteo });
+            var lst = manager.GetLogEjercicioByIdReto(id, User.Identity.Name).Select(x => new { dia= x.FechaHora.ToString("yyyy-MM-dd"), pasos= x.Conteo });
             return Json(lst);
         }
 

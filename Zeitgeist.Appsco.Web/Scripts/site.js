@@ -44,8 +44,7 @@ var send = function (url, type, data, callback) {
 
 
 var sendsubmit = function(selector, url, jsonData) {
-
-
+    
     $form = $(selector);
     // We check if jQuery.validator exists on the form
     if (!$form.valid || $form.valid()) {

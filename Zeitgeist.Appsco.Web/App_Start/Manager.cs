@@ -281,6 +281,14 @@ namespace Zeitgeist.Appsco.Web.App_Start
             return l;
         }
 
+        public List<Reto> GetRetosByLiga(string idLiga)
+        {
+            List<Reto> l = GetCollection<Reto>(Settings.Default.ColeccionRetos).AsQueryable().Where(x => x.Id== idLiga).ToList();
+            if (l.Count == 0)
+                return new List<Reto>();
+            return l;
+        }
+
         internal Reto GetReto(string user)
         {
             List<Reto> retos = GetRetosActivos();
@@ -391,7 +399,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
                 }
             return new List<LogEjercicio>();
         }
-        public List<LogEjercicio> GetDatosRetoEquipo(ICollection<string> equipos,Reto reto)
+        public List<LogEjercicio> GetDatosRetoEquipo(ICollection<string> equipos, Reto reto)
         {
             
             List<LogEjercicio> lst = new List<LogEjercicio>();
@@ -417,6 +425,11 @@ namespace Zeitgeist.Appsco.Web.App_Start
                                                                                               Query.LTE("FechaHora", reto.FechaFin)
                                                                                              })).ToList();
             return l;
+        }
+
+        public List<Tips> GetRandomTips()
+        {
+            return GetCollection<Tips>(Settings.Default.CollectionTips).AsQueryable().Take(6).ToList();
         }
     }
 
