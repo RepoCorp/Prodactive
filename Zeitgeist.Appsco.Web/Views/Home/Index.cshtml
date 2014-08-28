@@ -83,7 +83,8 @@
                 <i class="ace-icon fa fa-certificate orange"></i>
                 Medallas
             </h4>
-            <img src="~/Content/Landing/images/medallas_prodactive.png" width="446px" />
+            <img src="~/Content/Landing/images/medallas_prodactive.png" width="446" />
+
         </div><!-- /.col -->
 
         <div class="col-sm-7">
@@ -426,7 +427,7 @@
 
                             <form class="form form-horizontal">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Tipo</label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Tipo de Reto</label>
                                     <div class="col-sm-9">
                                         <input type="text" id="form-field-1" disabled="disabled" data-bind="text:tipo,value:tipo" class="col-xs-10 col-sm-8" />
                                     </div>
@@ -516,15 +517,12 @@
                 <tr><td colspan="2"><h4>Detalles Equipo</h4></td></tr>
                 <tr><td>Equipo</td><td><span data-bind="text:equipo"></span></td></tr>
                 <tr><td>Puntos</td><td><span data-bind="text:puntosTotales"></span></td></tr>
-                <tr><td>Posicion</td><td><span data-bind="text:posicion"></span></td></tr>
+                <tr><td>Posicion</td><td><span data-bind="text:posicionText,css:posicionIcon"></span></td></tr>
                 <tr><td>Mejor</td><td><span data-bind="text:mejor"></span></td></tr>
                 <tr><td>Miembros</td><td><select multiple="multiple" data-bind="options: detalles,optionsText: function(item) { return item.usuario }"></select></td></tr>
             </table>
         </div>
         <div class="col-xs-6">
-            <!-- ko if: miEquipo -->
-            mi Equipo
-
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr><td>Usuario</td><td>Posicion</td><td>Total</td></tr>
@@ -533,7 +531,7 @@
                     <!-- ko foreach: detalles -->
                     <tr>
                         <td><span data-bind="text:usuario"></span></td>
-                        <td><span data-bind="text:posicion"></span></td>
+                        <td><span data-bind="text:posicionText,css:posicionIcon"></span></td>
                         <td><span data-bind="numeraltext:total"></span></td>
                     </tr>
                     <!-- /ko -->
@@ -541,7 +539,7 @@
 
             </table>
 
-            <!-- /ko -->
+            
         </div>
             <!-- /ko -->
 

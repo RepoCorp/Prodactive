@@ -139,11 +139,43 @@ zg.DetalleEquipo = function () {
     this.miEquipo = ko.observable();
     this.posicion = ko.observable();
     this.detalles = ko.observableArray([]);
+    this.posicionText = ko.computed(function () {
+        return this.posicion() + "°";
+    }, this);
+    this.posicionIcon = ko.computed(function () {
+        switch (this.posicion()) {
+            case 1:
+                return "label label-warning arrowed";
+            case 2:
+                return "label label-info arrowed";
+            case 3:
+                return "label label-success arrowed";
+            default:
+                return "label label-inverse arrowed";
+        }
+        return "";
+    }, this);
 };
 zg.DetalleMiembros = function () {
     this.usuario = ko.observable();
     this.total = ko.observable();
     this.posicion = ko.observable();
+    this.posicionText = ko.computed(function () {
+        return this.posicion() + "°";
+    }, this);
+    this.posicionIcon = ko.computed(function () {
+        switch (this.posicion()) {
+            case 1:
+                return "label label-warning arrowed";
+            case 2:
+                return "label label-info arrowed";
+            case 3:
+                return "label label-success arrowed";
+            default:
+                return "label label-inverse arrowed";
+        }
+        return "";
+    }, this);
 };
 
 
