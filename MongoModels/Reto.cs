@@ -10,16 +10,13 @@ namespace MongoModels
 {
     public class DetalleReto
     {
-        public string  IdReto { get; set; }
-        public string  Name { get; set; }
-        public int     TotalUsuario { get; set; }
-        public int     TotalEquipo { get; set; }
-        public Int64   TotalReto { get; set; }
-        //public double  PorcentajeTotalUsuario { get; set; }
-        //public double  PorcentajeTotalEquipo { get; set; }
-        //public int     PorcentajeTotalReto { get; set; }
-
-        
+        public string  IdReto         { get; set; }
+        public string  Name           { get; set; }
+        public int     TotalUsuario   { get; set; }
+        public int     TotalEquipo    { get; set; }
+        public Int64   TotalReto      { get; set; }
+        public int     PosicionEquipo { get; set; }
+     
     }
 
     public class Reto

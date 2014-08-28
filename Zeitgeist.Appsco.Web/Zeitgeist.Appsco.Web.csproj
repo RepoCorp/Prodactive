@@ -255,6 +255,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ExtensionMethods.cs" />
     <Compile Include="Helpers\MailClass.cs" />
     <Compile Include="Helpers\Tools.cs" />
     <Compile Include="Manage\Orquestrator.cs" />
@@ -1414,8 +1415,11 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-3.1.0.debug.js" />
     <Content Include="Scripts\knockout-3.1.0.js" />
+    <Content Include="Scripts\knockout.mapping-latest.debug.js" />
+    <Content Include="Scripts\knockout.mapping-latest.js" />
     <Content Include="Scripts\Model\KnockoutHelpers.js" />
     <Content Include="Scripts\Model\login_model.js" />
+    <Content Include="Scripts\Model\page.js" />
     <Content Include="Scripts\Model\Prodactive.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment-countdown.js" />
@@ -1423,6 +1427,8 @@
     <Content Include="Scripts\moment-with-langs.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\numeral\numeral.js" />
+    <Content Include="Scripts\numeral\numeral.min.js" />
     <Content Include="Scripts\Reto\reto.js" />
     <Content Include="Scripts\site.js" />
     <Content Include="Scripts\underscore-min.js" />
@@ -1538,10 +1544,11 @@
     <Content Include="Views\Liga\AceptarInvitacionLiga.cshtml" />
     <Content Include="Views\Liga\Division.cshtml" />
     <Content Include="Views\Reto\Create.cshtml" />
-    <Content Include="Views\Reto\Index.cshtml" />
     <Content Include="Views\Reto\Create - Copy.cshtml" />
     <Content Include="Scripts\underscore-min.map" />
     <Content Include="Views\Reto\Edit.cshtml" />
+    <Content Include="Views\Home\_IndexP.cshtml" />
+    <Content Include="Views\Home\IndexP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

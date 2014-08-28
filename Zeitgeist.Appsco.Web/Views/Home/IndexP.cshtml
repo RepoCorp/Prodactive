@@ -1,0 +1,389 @@
+﻿@{
+    ViewBag.Title = "Index";
+//    Layout = "~/_Layout.cshtml";
+}
+@section pagename
+{
+    Tablero
+    <small>
+        <i class="ace-icon fa fa-angle-double-right"></i>
+        visión general y las estadísticas
+    </small>
+
+}
+
+<div class="row">
+    <div class="col-sm-5">
+
+        <!-- Tabla Retos -->
+        <div class="widget-box transparent">
+            <div class="widget-header widget-header-flat">
+                <h4 class="widget-title lighter">
+                    <i class="ace-icon fa fa-star orange"></i>
+                    Retos
+                </h4>
+
+                <div class="widget-toolbar">
+                    <a href="#" data-action="collapse">
+                        <i class="ace-icon fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main no-padding">
+                    <table class="table table-bordered table-striped">
+                        <thead class="thin-border-bottom">
+                            <tr>
+                                <th style="width:25%">
+                                    <i class="ace-icon fa fa-caret-right blue"></i>Nombre
+                                </th>
+
+                                <th>
+                                    <i class="ace-icon fa fa-caret-right blue"></i>Puntos
+                                </th>
+
+                                <th class="hidden-480" style="width:20%">
+                                    <i class="ace-icon fa fa-caret-right blue"></i>Ranking
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody data-bind="foreach: detallesReto">
+                            <tr>
+                                <td data-bind="text:name"></td>
+
+                                <td>
+                                    <div class="progress">
+                                        <div data-bind="style: {width: porcentajeTotalUsuario()}, text:totalUsuario" class="progress-bar progress-bar-success"></div>
+                                        <div data-bind="style: {width: porcentajeTotalEquipo()},text:totalEquipo" class="progress-bar progress-bar-warning"></div>
+                                        <div data-bind="style: {width: porcentajeTotalReto()}" class="progress-bar progress-bar-grey"></div>
+
+                                    </div>
+                                </td>
+
+                                <td class="hidden-480">
+                                    <span class="label label-info arrowed-right arrowed-in">1°</span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div><!-- /.widget-main -->
+            </div><!-- /.widget-body -->
+        </div><!-- /.widget-box -->
+        <!-- Fin Tabla Retos-->
+
+    </div><!-- /.col -->
+
+    <div class="col-sm-7">
+        <div class="widget-box transparent">
+            <div class="widget-header widget-header-flat">
+                <h4 class="widget-title lighter">
+                    <i class="ace-icon fa fa-signal"></i>
+                    Resumen
+                </h4>
+
+                <div class="widget-toolbar">
+                    <a href="#" data-action="collapse">
+                        <i class="ace-icon fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main padding-4">
+                    <div id="sales-charts"></div>
+                </div><!-- /.widget-main -->
+            </div><!-- /.widget-body -->
+        </div><!-- /.widget-box -->
+    </div><!-- /.col -->
+</div><!-- /.row -->
+
+<div class="hr hr32 hr-dotted"></div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <!-- Tips -->
+        <div class="widget-box transparent" id="recent-box">
+            <div class="widget-header">
+                <h4 class="widget-title lighter smaller">
+                    <i class="ace-icon fa fa-rss orange"></i>Tips
+                </h4>
+
+                <div class="widget-toolbar no-border">
+                    <ul class="nav nav-tabs" id="recent-tab">
+                        <li class="active">
+                            <a data-toggle="tab" href="#task-tab">Alimentación</a>
+                        </li>
+
+                        <li>
+                            <a data-toggle="tab" href="#member-tab">Deporte</a>
+                        </li>
+
+                        <li>
+                            <a data-toggle="tab" href="#comment-tab">Salud</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main padding-4">
+                    <div class="tab-content padding-8">
+                        <div id="task-tab" class="tab-pane active">
+                            <h4 class="smaller lighter green">
+                                <i class="ace-icon fa fa-leaf"></i>
+                                Alimentación
+                            </h4>
+
+                            <!-- ko foreach: tips -->
+                            <!-- ko if: tipo()=="Alimentación" -->
+                            <!-- #section:pages/dashboard.tasks -->
+                            <div class="widget-box ui-sortable-handle">
+                                <div class="widget-header">
+                                    <h5 class="widget-title smaller" data-bind="text:tipo"></h5>
+                                    <div class="widget-toolbar">
+                                        <span class="label label-success">
+                                            <i class="ace-icon fa fa-arrow-up"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="widget-body">
+                                    <div class="widget-main padding-6">
+                                        <div class="alert alert-info" data-bind="text:mensaje"> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                            <!-- /ko -->
+                            <!-- /section:pages/dashboard.tasks -->
+                        </div>
+
+                        <div id="member-tab" class="tab-pane">
+                            <h4 class="smaller lighter orange">
+                                <i class="ace-icon fa fa-bullseye"></i>
+                                Deporte
+                            </h4>
+
+                            <!-- ko foreach: tips -->
+                            <!-- ko if: tipo()=="Deporte" -->
+                            <!-- #section:pages/dashboard.tasks -->
+                            <div class="widget-box ui-sortable-handle">
+                                <div class="widget-header">
+                                    <h5 class="widget-title smaller" data-bind="text:tipo"></h5>
+                                    <div class="widget-toolbar">
+                                        <span class="label label-success">
+                                            <i class="ace-icon fa fa-arrow-up"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="widget-body">
+                                    <div class="widget-main padding-6">
+                                        <div class="alert alert-info" data-bind="text:mensaje"> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                            <!-- /ko -->
+
+                        </div><!-- /.#member-tab -->
+
+                        <div id="comment-tab" class="tab-pane">
+                            <!-- #section:pages/dashboard.comments -->
+
+                            <h4 class="smaller lighter red">
+                                <i class="ace-icon fa fa-heart"></i>
+                                Salud
+                            </h4>
+
+                            <!-- ko foreach: tips -->
+                            <!-- ko if: tipo()=="Salud" -->
+                            <!-- #section:pages/dashboard.tasks -->
+                            <div class="widget-box ui-sortable-handle">
+                                <div class="widget-header">
+                                    <h5 class="widget-title smaller" data-bind="text:tipo"></h5>
+                                    <div class="widget-toolbar">
+                                        <span class="label label-success">
+                                            <i class="ace-icon fa fa-arrow-up"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="widget-body">
+                                    <div class="widget-main padding-6">
+                                        <div class="alert alert-info" data-bind="text:mensaje"> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                            <!-- /ko -->
+                            <!-- /section:pages/dashboard.comments -->
+                        </div>
+
+
+                    </div>
+                </div><!-- /.widget-main -->
+            </div><!-- /.widget-body -->
+
+
+        </div><!-- /.widget-box -->
+    </div><!-- /.col -->
+
+    <div class="col-sm-6">
+        <div class="widget-box">
+            <div class="widget-header">
+                <h4 class="widget-title lighter smaller">
+                    <i class="ace-icon fa fa-comment blue"></i>
+                    Chat
+                </h4>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main no-padding">
+                    <!-- #section:pages/dashboard.conversations -->
+                    <div class="dialogs">
+                        <div class="itemdiv dialogdiv">
+                            <div class="user">
+                                <img alt="Alexa's Avatar" src="~/Content/template/assets/avatars/avatar1.png" />
+                            </div>
+
+                            <div class="body">
+                                <div class="time">
+                                    <i class="ace-icon fa fa-clock-o"></i>
+                                    <span class="green">4 sec</span>
+                                </div>
+
+                                <div class="name">
+                                    <a href="#">catalinadelacuesta</a>
+                                </div>
+                                <div class="text">Alvaro, yo te acompañaría, pero te advierto que estoy en el equipo contrario!.</div>
+
+                                <div class="tools">
+                                    <a href="#" class="btn btn-minier btn-info">
+                                        <i class="icon-only ace-icon fa fa-share"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="itemdiv dialogdiv">
+                            <div class="user">
+                                <img alt="John's Avatar" src="~/Content/template/assets/avatars/avatar.png" />
+                            </div>
+
+                            <div class="body">
+                                <div class="time">
+                                    <i class="ace-icon fa fa-clock-o"></i>
+                                    <span class="blue">38 sec</span>
+                                </div>
+
+                                <div class="name">
+                                    <a href="#">restrepo.cafe</a>
+                                </div>
+                                <div class="text">Quien vive cerca al estadio para que nos encontremos por la noche y trotemos 1 hora juntos? Solo me da pereza, pero de pronto acompañado me animo.</div>
+
+                                <div class="tools">
+                                    <a href="#" class="btn btn-minier btn-info">
+                                        <i class="icon-only ace-icon fa fa-share"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="itemdiv dialogdiv">
+                            <div class="user">
+                                <img alt="Bob's Avatar" src="~/Content/template/assets/avatars/user.jpg" />
+                            </div>
+
+                            <div class="body">
+                                <div class="time">
+                                    <i class="ace-icon fa fa-clock-o"></i>
+                                    <span class="orange">2 min</span>
+                                </div>
+
+                                <div class="name">
+                                    <a href="#">sthejoker</a>
+                                    <span class="label label-info arrowed arrowed-in-right">admin</span>
+                                </div>
+                                <div class="text">Yo también visité a mi abuelita ayer, el problema fue que casi no encuentro parqueadero ;).</div>
+
+                                <div class="tools">
+                                    <a href="#" class="btn btn-minier btn-info">
+                                        <i class="icon-only ace-icon fa fa-share"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="itemdiv dialogdiv">
+                            <div class="user">
+                                <img alt="Jim's Avatar" src="~/Content/template/assets/avatars/avatar4.png" />
+                            </div>
+
+                            <div class="body">
+                                <div class="time">
+                                    <i class="ace-icon fa fa-clock-o"></i>
+                                    <span class="grey">3 min</span>
+                                </div>
+
+                                <div class="name">
+                                    <a href="#">ddo88</a>
+                                </div>
+                                <div class="text">No, si yo visito a mi mamá solo anoto 5 pasos, más bien voy donde mi abuelita que ella además me pone a hacer vueltas.</div>
+
+                                <div class="tools">
+                                    <a href="#" class="btn btn-minier btn-info">
+                                        <i class="icon-only ace-icon fa fa-share"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="itemdiv dialogdiv">
+                            <div class="user">
+                                <img alt="Alexa's Avatar" src="~/Content/template/assets/avatars/avatar1.png" />
+                            </div>
+
+                            <div class="body">
+                                <div class="time">
+                                    <i class="ace-icon fa fa-clock-o"></i>
+                                    <span class="green">4 min</span>
+                                </div>
+
+                                <div class="name">
+                                    <a href="#">catalinadelacuesta</a>
+                                </div>
+                                <div class="text">Ja! Ayer me fui caminando hasta donde mi mamá y con eso superé mis records. Conclusión: visitar a la mamá paga!! Jaja.</div>
+
+                                <div class="tools">
+                                    <a href="#" class="btn btn-minier btn-info">
+                                        <i class="icon-only ace-icon fa fa-share"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- /section:pages/dashboard.conversations -->
+                    <form>
+                        <div class="form-actions">
+                            <div class="input-group">
+                                <input placeholder="Type your message here ..." type="text" class="form-control" name="message" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-sm btn-info no-radius" type="button">
+                                        <i class="ace-icon fa fa-share"></i>
+                                        Send
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div><!-- /.widget-main -->
+            </div><!-- /.widget-body -->
+        </div><!-- /.widget-box -->
+    </div><!-- /.col -->
+</div><!-- /.row -->
+@section scripts{
+
+
+}

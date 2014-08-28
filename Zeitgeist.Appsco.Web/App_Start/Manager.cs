@@ -12,6 +12,7 @@ using FluentMongo.Linq;
 using Microsoft.Win32;
 using MongoDB.Bson;
 using MongoDB.Bson.IO;
+using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoModels;
@@ -19,6 +20,7 @@ using MongoProviders;
 using ServiceStack.Common;
 using WebMatrix.WebData;
 using Zeitgeist.Appsco.Web.Api;
+using Zeitgeist.Appsco.Web.Helpers;
 using Zeitgeist.Appsco.Web.Models;
 using Zeitgeist.Appsco.Web.Properties;
 
@@ -337,9 +339,9 @@ namespace Zeitgeist.Appsco.Web.App_Start
             return false;
         }
 
-        public bool SaveRegistroProgreso(RegistroProgreso reg)
+        public bool SaveRegistroProgreso(RequestLogEjercicio reg)
         {
-            return Save(reg, Settings.Default.ColeccionRegistroProgreso);
+            return Save(reg.ToLogEjercicio(), Settings.Default.CollectionLogEjercicio);
         }
 
         internal bool SaveReto(Reto r)
@@ -399,11 +401,11 @@ namespace Zeitgeist.Appsco.Web.App_Start
                 }
             return new List<LogEjercicio>();
         }
-        public List<LogEjercicio> GetDatosRetoEquipo(ICollection<string> equipos, Reto reto)
+        public List<LogEjercicio> GetDatosRetoEquipo(Reto reto)
         {
             
             List<LogEjercicio> lst = new List<LogEjercicio>();
-            var r = GetCollection<Equipo>(Settings.Default.CollectionEquipos).Find(Query.In("_id",new BsonArray(equipos.Select(x => new ObjectId(x)).ToList()))).ToList();
+            var r = GetEquipos(reto.Equipos);
             foreach (var e in r)
             {
                 var l= GetCollection<LogEjercicio>(Settings.Default.CollectionLogEjercicio).Find(Query.And(new []
@@ -427,9 +429,36 @@ namespace Zeitgeist.Appsco.Web.App_Start
             return l;
         }
 
+        public List<LogEjercicio> GetLogEjercicioByUserAndDates(string user, DateTime inicio, DateTime fin)
+        {
+            var l = GetCollection<LogEjercicio>(Settings.Default.CollectionLogEjercicio).Find(Query.And(new[]
+                                                                                            { Query.EQ("Usuario",user),
+                                                                                              Query.GTE("FechaHora", inicio),
+                                                                                              Query.LTE("FechaHora", fin)
+                                                                                             })).ToList();
+            return l;
+        }
+
         public List<Tips> GetRandomTips()
         {
             return GetCollection<Tips>(Settings.Default.CollectionTips).AsQueryable().Take(6).ToList();
+        }
+
+        public List<Equipo> GetEquipos(ICollection<string> equipos)
+        {
+            return GetCollection<Equipo>(Settings.Default.CollectionEquipos).Find(Query.In("_id", new BsonArray(equipos.Select(x => new ObjectId(x)).ToList()))).ToList();
+        }
+
+        public List<Persona> GetMiembrosEquipo(ICollection<string> miembros)
+        {
+            return GetCollection<Persona>(Settings.Default.ColeccionPersona).Find(Query.In("Cuentas.k",new BsonArray(miembros))).ToList();
+        }
+
+        public Division GetDivisionById(string division)
+        {
+            return GetCollection<Division>(Settings.Default.ColeccionDivision)
+                .Find(Query.EQ("_id", new ObjectId(division)))
+                .First();
         }
     }
 

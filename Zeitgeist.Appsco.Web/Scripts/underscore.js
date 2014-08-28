@@ -90,6 +90,27 @@
     return obj;
   };
 
+  var each2 = _.each2 = _.forEach2 = function (obj, iterator, context,doneCallback) {
+      if (obj == null) return obj;
+      if (nativeForEach && obj.forEach === nativeForEach) {
+          obj.forEach(iterator, context);
+      } else if (obj.length === +obj.length) {
+          for (var i = 0, length = obj.length; i < length; i++) {
+              if (iterator.call(context, obj[i], i, obj) === breaker) return;
+          }
+          if (doneCallback != null && typeof (doneCallback) === 'function')
+            doneCallback();
+      } else {
+          var keys = _.keys(obj);
+          for (var i = 0, length = keys.length; i < length; i++) {
+              if (iterator.call(context, obj[keys[i]], keys[i], obj) === breaker) return;
+          }
+          if (doneCallback != null && typeof (doneCallback) === 'function')
+              doneCallback();
+      }
+      return obj;
+  };
+
   // Return the results of applying the iterator to each element.
   // Delegates to **ECMAScript 5**'s native `map` if available.
   _.map = _.collect = function(obj, iterator, context) {

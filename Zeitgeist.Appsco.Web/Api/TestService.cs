@@ -25,17 +25,24 @@ namespace Zeitgeist.Appsco.Web.Api
         public LoginResponse Any(Login login)
         {
             bool rt = Membership.ValidateUser(login.User, login.Pass);
-
+            if (!rt)
+            {
+                return new LoginResponse()
+                {
+                    Message = "Verifique los Datos",
+                    State = false
+                };
+            }
             Manager m = Manager.Instance;
             var t1= Task.Factory.StartNew(() =>
             {
                 return m.GetDatosUsuario(login.User);
             });
 
-            var t2 =Task.Factory.StartNew(() => { return m.GetReto(login.User);});
+            //var t2 =Task.Factory.StartNew(() => { return m.GetReto(login.User);});
             
             var w = t1.Result;
-            var r = t2.Result;
+            //var r = t2.Result;
             
             return new LoginResponse()
             {
@@ -43,16 +50,16 @@ namespace Zeitgeist.Appsco.Web.Api
                 Message = "OK",
                 State   = true,
                 User    = login.User,
-                Persona = w,
-                Reto    = r
+                Persona = w
+              //  Reto    = r
             };
         }
 
-        public ResponseRegistroProgreso Any(RegistroProgreso reg)
+        public ResponseLogEjercicio Any(RequestLogEjercicio reg)
         {
             Manager m = Manager.Instance;
 
-            ResponseRegistroProgreso res= new ResponseRegistroProgreso();
+            ResponseLogEjercicio res = new ResponseLogEjercicio();
             if (m.SaveRegistroProgreso(reg))
             {
                 res.State = true;
@@ -111,23 +118,25 @@ namespace Zeitgeist.Appsco.Web.Api
     public class LoginResponse : ResponseService, IReturn<Login>
     {
         public Persona Persona { get; set; }
-        public Reto    Reto    { get; set; }
+        //public Reto    Reto    { get; set; }
         public string  User    { get; set; }
     }
-    [Route("/RegistroProgreso")]
-    [Route("/RegistroProgreso/{UserName}/{Fecha}/{Pasos}/{Calorias}")]
-    public class RegistroProgreso
+    [Route("/LogEjercicio")]
+    [Route("/LogEjercicio/{Usuario}/{FechaHora}/{Ubicacion}/{Conteo}/{Velocidad}")]
+    public class RequestLogEjercicio
     {
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string   Id       { get; set; }
-        public DateTime Fecha    { get; set; }
-        public string   UserName { get; set; }
-        public Int64    Pasos    { get; set; }
-        public double   Calorias { get; set; }
+        public string Usuario { get; set; }
+        public DateTime FechaHora { get; set; }
+        public string Ubicacion { get; set; }
+        public string Deporte { get; set; }
+        //este campo esta sujeto a cambios por ejemplo cambiarlo por un entero y manejar m/h 
+        public double Velocidad { get; set; }
+        public int Conteo { get; set; }
         
     }
-    public class ResponseRegistroProgreso: ResponseService,IReturn<RegistroProgreso>
+    public class ResponseLogEjercicio: ResponseService,IReturn<RequestLogEjercicio>
     {
+        
 
     }
 }

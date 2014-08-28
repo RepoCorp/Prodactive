@@ -42,6 +42,24 @@ var send = function (url, type, data, callback) {
     }
 };
 
+var sendRequestPartialView = function (url, type, data, callback) {
+    if (data === undefined || data === null) {
+        $.ajax({
+            url: url,
+            type: type,
+            success: callback
+        });
+    }
+    else {
+        $.ajax({
+            url: url,
+            type: type,
+            data: data,
+            success: callback
+        });
+    }
+};
+
 
 var sendsubmit = function(selector, url, jsonData) {
     
