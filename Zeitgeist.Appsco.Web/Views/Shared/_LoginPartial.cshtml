@@ -1,25 +1,25 @@
 ﻿<li class="grey">
     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
         <i class="ace-icon fa fa-tasks"></i>
-        <span class="badge badge-grey">4</span>
+        <!--span> class="badge badge-grey">4</!--span-->
     </a>
 
     <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
         <li class="dropdown-header">
             <i class="ace-icon fa fa-check"></i>
-            4 Tasks to complete
+            Ligas
         </li>
         <!-- ko foreach: ligas -->
         <li>
-            <a href="#" data-bind="click:$root.loadDetalleLiga">
+            <a href="#" data-bind="click: $root.selectLiga">
                 <div class="clearfix">
                     <span class="pull-left" data-bind="text:nombre"></span>
-                    <span class="pull-right">65%</span>
+                    <!--<span class="pull-right">65%</span>-->
                 </div>
 
-                <div class="progress progress-mini">
+                <!--div class="progress progress-mini">
                     <div style="width:65%" class="progress-bar"></div>
-                </div>
+                </div-->
             </a>
         </li>
         <!-- /ko-->
@@ -75,15 +75,17 @@
 <li class="purple">
     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
         <i class="ace-icon fa fa-bell icon-animated-bell"></i>
-        <span class="badge badge-important">8</span>
+        <!--
+        <span class="badge badge-important">8</span>-->
     </a>
 
     <ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
         <li class="dropdown-header">
             <i class="ace-icon fa fa-exclamation-triangle"></i>
-            8 Notifications
+            Notificaciones
         </li>
-
+        
+        <!--
         <li>
             <a href="#">
                 <div class="clearfix">
@@ -126,6 +128,8 @@
                 </div>
             </a>
         </li>
+        
+        -->
 
         <li class="dropdown-footer">
             <a href="#">
@@ -139,17 +143,19 @@
 <li class="green">
     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
         <i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
-        <span class="badge badge-success">5</span>
+        <!-- 
+        <span class="badge badge-success">5</span>-->
     </a>
 
     <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
         <li class="dropdown-header">
             <i class="ace-icon fa fa-envelope-o"></i>
-            5 Messages
+            Mensajes
         </li>
 
         <li class="dropdown-content">
             <ul class="dropdown-menu dropdown-navbar">
+                <!--
                 <li>
                     <a href="#">
                         <img src="~/Content/template/assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
@@ -166,7 +172,7 @@
                         </span>
                     </a>
                 </li>
-
+                
                 <li>
                     <a href="#">
                         <img src="~/Content/template/assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
@@ -234,12 +240,14 @@
                         </span>
                     </a>
                 </li>
+                
+                -->
             </ul>
         </li>
 
         <li class="dropdown-footer">
             <a href="inbox.html">
-                See all messages
+                Ver todos los mensajes
                 <i class="ace-icon fa fa-arrow-right"></i>
             </a>
         </li>

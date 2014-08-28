@@ -6,8 +6,8 @@
 
 var zg = zg || {};
 zg.Login = function () {
-    this.userName   = ko.observable().extend({ required: "El campo usuario no puede estar vacio." });
-    this.password   = ko.observable().extend({ required: "El campo contraseña no puede estar vacio." });
+    this.userName = ko.observable();//.extend({ required: "El campo usuario no puede estar vacio." });
+    this.password = ko.observable();//.extend({ required: "El campo contraseña no puede estar vacio." });
     this.rememberMe = ko.observable();
     
 };

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿<!DOCTYPE Html>
 <html lang="en">
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -102,7 +102,7 @@
             <!-- OJO USER TOOLS-->
 
             <div class="navbar-buttons navbar-header pull-right" role="navigation">
-                <ul class="nav ace-nav">
+                <ul id="menuSuperior" class="nav ace-nav">
                     <!-- #section:basics/navbar.user_menu -->
                     @Html.Partial("_LoginPartial")
                     
@@ -135,21 +135,17 @@
 
             <!-- /section:basics/content.breadcrumbs -->
             <div class="page-content">
-                <div class="page-content-area">
+                <div id="main" class="page-content-area">
                     <div id="page-header" class="page-header">
                         <h1>
                             @RenderSection("pagename",required:false)
                         </h1>
                     </div><!-- /.page-header -->
                 
-                <!-- BODY BEGIN -->
-                    <div id="load_content">
-                        <!-- PAGE CONTENT BEGINS -->
-                        <!-- #section:custom/extra.hr -->
+                    <!-- BODY BEGIN -->
+                    @RenderBody()
                         
-                        @RenderBody()
-                        <!-- PAGE CONTENT ENDS -->
-                    </div>
+                      
                     <!-- BODY END -->
                 </div><!-- /.page-content-area -->
 
@@ -194,6 +190,7 @@
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script src="~/Scripts/knockout-3.1.0.js"></script>
+    
     <script src="~/Scripts/underscore-min.js"></script>
     <script type="text/javascript">
         if ('ontouchstart' in document.documentElement) document.write("<script src='~/Content/template/assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
@@ -221,14 +218,19 @@
     <script src="~/Scripts/moment.js"></script>
     <script src="~/Scripts/countdown.js"></script>
     <script src="~/Scripts/moment-countdown.js"></script>
-    <!--se añade modelo knocout desde aca -->
-    <script src="~/Scripts/Home/index.js"></script>
-    <script type="text/javascript">
+    
+    <!--se añade modelo knockout desde aca -->
+    <script src="~/Scripts/numeral/numeral.js"></script>
+    <script src="~/Scripts/knockout.mapping-latest.debug.js"></script>
+    <script src="~/Scripts/Model/KnockoutHelpers.js"></script>
+    <!--script src="~/Scripts/Home/index.js"></script-->
+    <script src="~/Scripts/Model/page.js"></script>
+    @*<script type="text/javascript">
         $(function () {
             var model = new zg.PageVM();
             ko.applyBindings(model);
         });
-    </script>
+    </script>*@
 
     @RenderSection("scripts", required: false)
 

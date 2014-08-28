@@ -31,7 +31,7 @@
         <ul class="nav nav-list">
 
             <li class=active">
-                <a id="inicio" href="/Home/Index" data-url="/Home/GetStats">
+                <a id="inicio" data-bind="click:selectInicio" data-url="/Home/GetStats">
                     <i class="menu-icon fa fa-desktop "></i>
                     <span class="menu-text">Inicio</span>
                 </a>
@@ -39,11 +39,27 @@
                 <b class="arrow"></b>
             </li>
             <li>
-                <a id="registro" href="/Reto/Index" data-url="/Reto/Index">
+                <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-pencil-square"></i>
-                    <span class="menu-text"> Retos </span>
+                    <span class="menu-text">Retos</span>
+                    <b class="arrow fa fa-angle-down"></b>
                 </a>
                 <b class="arrow"></b>
+                
+                <ul class="submenu">
+                    <!-- ko foreach: retos -->    
+                    <li class="">
+                        <a id="inicio" data-bind="click:$root.selectReto">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            <span data-bind="text:name"></span>
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                    <!-- /ko -->
+                </ul>
+
+
+                    <!-- -->
             </li>
             <li>
                 <a id="registro" href="/Home/Registro" data-url="/Home/Registro">
