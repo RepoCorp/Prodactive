@@ -130,39 +130,9 @@ namespace Zeitgeist.Appsco.Web.Controllers
                         lst.Add(dr);
                     }
                     
-                    //lst.Add(dr);
+                
                 }
 
-                ////l
-                //if (l.Count() > 0)
-                //{
-                //    int totalEquipo = l.Sum(x => x.Conteo); //datos Equipo
-                //    int totalPersona = l.Where(x => x.Usuario == User.Identity.Name).Sum(x => x.Conteo);
-                //        //datos Personales
-                //    Int64 totalReto = 0;
-                //    if (a.Tipo == TipoReto.Superando)
-                //    {
-                //        //List<LogEjercicio> ls=manager.GetDatosRetoEquipo(a.Equipos, a);
-                //        //ls.Distinct().
-                //        //totalReto = 0;
-                //    }
-                //    else
-                //        totalReto = a.Meta;
-                //    DetalleReto dr = new DetalleReto()
-                //    {
-                //        IdReto = a.Id,
-                //        Name = a.Name,
-                //        TotalEquipo = totalEquipo,
-                //        TotalReto = totalReto,
-                //        TotalUsuario = totalPersona,
-                //        //PorcentajeTotalEquipo = ((double)totalEquipo / (double)totalReto) * 100,
-                //        //PorcentajeTotalUsuario = ((double)totalPersona / (double)totalReto) * 100,
-                //        //PorcentajeTotalReto = 100
-                //    };
-                   
-                //lst.Add(dr);
-                //}
-               //datos equipo
             }
             GetEmptyReto(ref lst);
             return Json(lst);
@@ -199,6 +169,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         {
             var l = manager.GetLogEjercicioByUserAndDates(User.Identity.Name, DateTime.Now.AddDays(-5), DateTime.Now)
                 .Select(x => new {Fecha = x.FechaHora.ToString("yyyy-MM-dd"), Pasos = x.Conteo, Deporte = x.Deporte})
+                .OrderBy(x=>x.Fecha)
                 .GroupBy(x => new {x.Fecha,x.Deporte})
                 .Select(x => new { fecha = x.Key.Fecha, pasos = x.Sum(y=>y.Pasos), deporte = x.Key.Deporte });
 
