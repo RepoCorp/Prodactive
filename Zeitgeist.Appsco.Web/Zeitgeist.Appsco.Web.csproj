@@ -591,6 +591,7 @@
     <Content Include="Content\Landing\images\landing_page_bg.jpg" />
     <Content Include="Content\Landing\images\LinkedIn_Icon.png" />
     <Content Include="Content\Landing\images\logo.png" />
+    <Content Include="Content\Landing\images\medallas_prodactive.png" />
     <Content Include="Content\Landing\images\Mensaje_teinf.png" />
     <Content Include="Content\Landing\images\Mensaje_teinf2.png" />
     <Content Include="Content\Landing\images\Twitter_Icon.png" />
