@@ -66,7 +66,7 @@
                                     <!-- Login -->
                                     <div id="_login" class="widget-main">
                                         <h5 class="header blue lighter biggers">
-                                            <i class="ace-icon fa fa-coffee green"></i>
+                                            <i class="ace-icon fa fa-user"></i>
                                             Por favor ingrese su información
                                         </h5>
 
@@ -102,7 +102,7 @@
                                                 <div class="clearfix">
                                                     <label class="inline">
                                                         <input type="checkbox" data-bind="checked: rememberMe" class="ace" />
-                                                        <span class="lbl">Recordar mis datos</span>
+                                                        <span class="lbl"> Recordar mis datos</span>
                                                     </label>
 
                                                     <button type="button" class="width-35 pull-right btn btn-sm btn-primary" data-bind="click: $root.submit">
@@ -181,11 +181,11 @@
                                 <div class="widget-body">
                                     <!-- Formulario de Registro -->
                                     <div class="widget-main">
-                                        <h4 class="header green lighter bigger">
-                                            <i class="ace-icon fa fa-users blue"></i>
-                                            Registro
-                                        </h4>
-
+                                        <h5 class="header blue lighter bigger">
+                                            <i class="ace-icon fa fa-user blue"></i>
+                                            Registro 
+                                        </h5>
+                                                                             
                                         <div class="space-6"></div>
                                         <p> Ingresa tus datos de cuenta: </p>
                                         <!-- ko with: register -->
@@ -195,19 +195,19 @@
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
                                                         <input required="required" type="text" class="form-control" data-bind="text:userName,value:userName" placeholder="Usuario" />
-                                                        <i class="ace-icon fa fa-envelope"></i>
+                                                        <i class="ace-icon fa fa-user"></i>
                                                     </span>
                                                 </label>
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
                                                         <input required="required" type="password" class="form-control" data-bind="text:password,value:password" placeholder="Contraseña" />
-                                                        <i class="ace-icon fa fa-envelope"></i>
+                                                        <i class="ace-icon fa fa-lock"></i>
                                                     </span>
                                                 </label>
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
                                                         <input required="required" type="password" class="form-control" data-bind="text:confirmPassword,value:confirmPassword" placeholder="Confirmar Contraseña" />
-                                                        <i class="ace-icon fa fa-envelope"></i>
+                                                        <i class="ace-icon fa fa-lock"></i>
                                                     </span>
                                                 </label>
                                                 <label class="block clearfix">
@@ -220,13 +220,13 @@
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
                                                         <input type="text" class="form-control" data-bind="text:passwordAnswers,value:passwordAnswers" placeholder="Respuesta pregunta secreta" />
-                                                        <i class="ace-icon fa fa-retweet"></i>
+                                                        <i class="ace-icon fa fa-question"></i>
                                                     </span>
                                                 </label>
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
                                                         <input type="email" class="form-control" data-bind="text:email,value:email" placeholder="Correo" />
-                                                        <i class="ace-icon fa fa-user"></i>
+                                                        <i class="ace-icon fa fa-envelope"></i>
                                                     </span>
                                                 </label>
 
@@ -234,7 +234,7 @@
 
                                                 <div class="space-6"></div>
                                                 <p> Ingresa tus datos personales: </p>
-                                                <label class="block clearfix">
+                                                <!--<label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
                                                         <select class="form-control" required="required" data-bind="value:datosPersonales.tipo">
                                                             <option value="" disabled selected>Seleccione Tipo de Persona</option>
@@ -244,44 +244,45 @@
                                                         @*<i class="ace-icon fa fa-retweet"></i>*@
                                                     </span>
                                                 </label>
+                                                    -->
 
                                                 
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
                                                         <input required="required" type="number" class="form-control" data-bind="text:datosPersonales.identificacion,value:datosPersonales.identificacion" placeholder="Identificacion" />
-                                                        <i class="ace-icon fa fa-retweet"></i>
+                                                        @*<i class="ace-icon fa fa-retweet"></i>*@
                                                     </span>
                                                 </label>
                                                 
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
                                                         <input required="required" type="text" class="form-control" data-bind="text:datosPersonales.nombre,value:datosPersonales.nombre" placeholder="Nombres" />
-                                                        <i class="ace-icon fa fa-retweet"></i>
+                                                        <i class="ace-icon fa fa-bars"></i>
                                                     </span>
                                                 </label>
-                                                <!-- ko if: enablePersonalData -->
+                                               
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
                                                         <input type="text" class="form-control" data-bind="text:datosPersonales.apellido,value:datosPersonales.apellido" placeholder="Apellidos" />
-                                                        <i class="ace-icon fa fa-retweet"></i>
+                                                        <i class="ace-icon fa fa-bars"></i>
                                                     </span>
                                                 </label>
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
                                                         <input type="date" class="form-control" data-bind="text:datosPersonales.fechaNacimiento,value:datosPersonales.fechaNacimiento" placeholder="Fecha de nacimiento" />
-                                                        <i class="ace-icon fa fa-retweet"></i>
+                                                        <i class="ace-icon fa fa-calendar"></i>
                                                     </span>
                                                 </label>
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
                                                         <input type="number" class="form-control" data-bind="text:datosPersonales.peso,valuedatosPersonales.peso" placeholder="Peso" />
-                                                        <i class="ace-icon fa fa-retweet"></i>
+                                                       <!-- <i class="ace-icon fa fa-retweet"></i> -->
                                                     </span>
                                                 </label>
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
                                                         <input type="number" class="form-control" data-bind="text:datosPersonales.estatura,value:datosPersonales.estatura" placeholder="Estatura" />
-                                                        <i class="ace-icon fa fa-retweet"></i>
+                                                        <!-- i class="ace-icon fa fa-retweet"></!--i> -->
                                                     </span>
                                                 </label>
                                                 <label class="block clearfix">
@@ -295,13 +296,13 @@
                                                         @*<i class="ace-icon fa fa-retweet"></i>*@
                                                     </span>
                                                 </label>
-                                                <!-- /ko -->
+                                              
 
                                                 <label class="block">
                                                     <input type="checkbox" data-bind="checked:userAgreement" class="ace" />
                                                     <span class="lbl">
-                                                        I accept the
-                                                        <a href="#">User Agreement</a>
+                                                        Acepto
+                                                        <a href="#">Acuerdo de usuario</a>
                                                     </span>
                                                 </label>
 
@@ -310,11 +311,11 @@
                                                 <div class="clearfix">
                                                     <button type="reset" class="width-30 pull-left btn btn-sm">
                                                         <i class="ace-icon fa fa-refresh"></i>
-                                                        <span class="bigger-110">Reset</span>
+                                                        <span class="bigger-110">Restablecer</span>
                                                     </button>
 
                                                     <button type="button" data-bind="click:$root.submit" class="width-65 pull-right btn btn-sm btn-success">
-                                                        <span class="bigger-110">Register</span>
+                                                        <span class="bigger-110">Registrar</span>
 
                                                         <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
                                                     </button>
