@@ -587,13 +587,16 @@
     <Content Include="Content\Landing\images\Backg_landing.png" />
     <Content Include="Content\Landing\images\Bumper.png" />
     <Content Include="Content\Landing\images\BumperG.png" />
+    <Content Include="Content\Landing\images\BumperG1.png" />
     <Content Include="Content\Landing\images\Facebook_Icon.png" />
     <Content Include="Content\Landing\images\landing_page_bg.jpg" />
     <Content Include="Content\Landing\images\LinkedIn_Icon.png" />
     <Content Include="Content\Landing\images\logo.png" />
+    <Content Include="Content\Landing\images\logo1.png" />
     <Content Include="Content\Landing\images\medallas_prodactive.png" />
     <Content Include="Content\Landing\images\Mensaje_teinf.png" />
     <Content Include="Content\Landing\images\Mensaje_teinf2.png" />
+    <Content Include="Content\Landing\images\TitleZeitgeists.png" />
     <Content Include="Content\Landing\images\Twitter_Icon.png" />
     <Content Include="Content\Landing\images\Web Icon1.png" />
     <Content Include="Content\Landing\images\Web Icon2.png" />
