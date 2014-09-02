@@ -60,9 +60,10 @@ namespace MongoModels
     //    public string Id { get; set; }
     //    public string Name { get; set; }
     //}
-    public enum PLan
+    public static class Plan
     {
-        Estandar,Freemium
+        public static string Estandar = "Estandar";
+        public static string Freemium = "Freemium";
     }
 
     public class Invitacion

@@ -8,6 +8,34 @@ namespace Zeitgeist.Appsco.Web
         // Para obtener más información acerca de Bundling, consulte http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/bundles/all").Include(
+                "~/Scripts/jquery-1.9.1.js",
+                "~/Scripts/jquery.unobtrusive-ajax.js",
+                "~/Content/template/assets/js/ace-extra.min.js",
+                "~/Scripts/jquery-ui-1.8.24.js",
+                "~/Scripts/jquery.validate.js",
+                "~/Scripts/jquery.validate.unobtrusive.js",
+                "~/Scripts/knockout-3.1.0.js",
+                "~/Scripts/underscore-min.js",
+                "~/Content/template/assets/js/bootstrap.min.js",
+                "~/Content/template/assets/js/date-time/bootstrap-datepicker.min.js",
+                "~/Content/template/assets/js/jquery-ui.custom.min.js",
+                "~/Content/template/assets/js/jquery-ui.min.js",
+                "~/Content/template/assets/js/jquery.ui.touch-punch.min.js",
+                "~/Content/template/assets/js/jquery.easypiechart.min.js",
+                "~/Content/template/assets/js/ace-elements.min.js",
+                "~/Content/template/assets/js/jquery.sparkline.min.js",
+                "~/Content/template/assets/js/ace.min.js",
+                "~/Scripts/moment.js",
+                "~/Scripts/countdown.js",
+                "~/Scripts/moment-countdown.js",
+                "~/Scripts/site.js",
+                "~/Scripts/numeral/numeral.js",
+                "~/Scripts/knockout.mapping-latest.debug.js",
+                "~/Scripts/Model/KnockoutHelpers.js"
+                ));
+
+    
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -38,6 +66,7 @@ namespace Zeitgeist.Appsco.Web
                         "~/Content/themes/base/jquery.ui.datepicker.css",
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
+            //BundleTable.EnableOptimizations = true;
         }
     }
 }

@@ -9,7 +9,6 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
-using System.Xml.Linq;
 
 public partial class LightBox_Default : System.Web.UI.Page
 {

@@ -1,0 +1,36 @@
+﻿
+@model MongoModels.Invitacion
+<div id="envio_invitacion">
+    @using (Ajax.BeginForm("EnvioInvitacion", "Liga", null, new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "envio_invitacion", LoadingElementId = "loading_animation", }, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <fieldset>
+            @*<legend>Invitacion</legend>*@
+            @Html.HiddenFor(model => model.LigaId)
+            <ol>
+                <li>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Mail)
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.Mail)
+                            @Html.ValidationMessageFor(model => model.Mail)
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="form-group">
+                        <p>
+                            <input type="submit" value="Enviar Invitación" class="btn btn-info" />
+                        </p>
+                    </div>
+                </li>
+            </ol>
+
+
+        </fieldset>
+    }
+</div>
+<div id="loading_animation" style="display:none;">
+    <i class="ace-icon fa fa-spinner fa-spin orange bigger-210"></i>
+</div>

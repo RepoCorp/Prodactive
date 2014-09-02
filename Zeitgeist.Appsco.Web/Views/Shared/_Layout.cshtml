@@ -107,7 +107,7 @@
                 <ul id="menuSuperior" class="nav ace-nav">
                     <!-- #section:basics/navbar.user_menu -->
                     @Html.Partial("_LoginPartial")
-                    
+
 
                     <!-- /section:basics/navbar.user_menu -->
                 </ul>
@@ -140,14 +140,17 @@
                 <div id="main" class="page-content-area">
                     <div id="page-header" class="page-header">
                         <h1>
-                            @RenderSection("pagename",required:false)
+                            @RenderSection("pagename", required: false)
                         </h1>
                     </div><!-- /.page-header -->
-                
                     <!-- BODY BEGIN -->
                     @RenderBody()
-                        
-                      
+
+                    <div id="dialog-message" class="hide">
+                        <p>
+                            <span id="dialog-message-text"></span>
+                        </p>
+                    </div><!-- #dialog-message -->
                     <!-- BODY END -->
                 </div><!-- /.page-content-area -->
 
@@ -161,7 +164,7 @@
             <!-- #section:basics/footer -->
             <div class="footer-content">
                 <span class="bigger-120" style="color:white;">
-                    <span class="bolder" >Prodactive</span>
+                    <span class="bolder">Prodactive</span>
                     &copy; 2014
                 </span>
 
@@ -176,8 +179,8 @@
                     </a>
 
                     @*<a href="#">
-            <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
-        </a>*@
+                            <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
+                        </a>*@
                 </span>
             </div>
 
@@ -185,57 +188,57 @@
         </div>
     </footer>
 
-    <!-- basic scripts -->
-    <script src="~/Scripts/jquery-1.9.1.js"></script>
+
+    @*basic scripts*@
+
+    <script src="~/Scripts/jquery-2.1.1.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Content/template/assets/js/ace-extra.min.js"></script>
     <script src="~/Scripts/jquery-ui-1.8.24.js" type="text/javascript"></script>
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script src="~/Scripts/knockout-3.1.0.js"></script>
-    
     <script src="~/Scripts/underscore-min.js"></script>
-    <script type="text/javascript">
-        if ('ontouchstart' in document.documentElement) document.write("<script src='~/Content/template/assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
-    </script>
+
     <script src="~/Content/template/assets/js/bootstrap.min.js"></script>
     <script src="~/Content/template/assets/js/date-time/bootstrap-datepicker.min.js"></script>
-
-
     <script src="~/Scripts/site.js"></script>
-    <!-- page specific plugin scripts -->
-    <!--[if lte IE 8]>
-      <script src="../assets/js/excanvas.min.js"></script>
-    <![endif]-->
-    <link href="~/Content/template/assets/css/jquery-ui.min.css" rel="stylesheet" />
+    @*-- page specific plugin scripts --*@
+    <script src="~/Content/template/assets/js/jquery-ui.min.js"></script>
     <script src="~/Content/template/assets/js/jquery-ui.custom.min.js"></script>
     <script src="~/Content/template/assets/js/jquery.ui.touch-punch.min.js"></script>
     <script src="~/Content/template/assets/js/jquery.easypiechart.min.js"></script>
     <script src="~/Content/template/assets/js/jquery.sparkline.min.js"></script>
-    <!-- ace scripts -->
+    @*-- ace scripts --*@
     <script src="~/Content/template/assets/js/ace-elements.min.js"></script>
     <script src="~/Content/template/assets/js/ace.min.js"></script>
-    <script src="~/Content/template/assets/js/flot/jquery.flot.min.js"></script>
-    <script src="~/Content/template/assets/js/flot/jquery.flot.resize.min.js"></script>
-    <script src="~/Content/template/assets/js/flot/jquery.flot.time.js"></script>
+    <!-- SignalR -->
+    <script src="~/Scripts/jquery.signalR-2.1.1.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <!-- /SignalR -->
+
+
     <script src="~/Scripts/moment.js"></script>
     <script src="~/Scripts/countdown.js"></script>
     <script src="~/Scripts/moment-countdown.js"></script>
-    
-    <!--se añade modelo knockout desde aca -->
+
+    @*@Scripts.Render("~/bundles/all")*@
+    <script src="~/Content/template/assets/js/flot/jquery.flot.min.js"></script>
+    <script src="~/Content/template/assets/js/flot/jquery.flot.resize.min.js"></script>
+    <script src="~/Content/template/assets/js/flot/jquery.flot.time.js"></script>
     <script src="~/Scripts/numeral/numeral.js"></script>
     <script src="~/Scripts/knockout.mapping-latest.debug.js"></script>
     <script src="~/Scripts/Model/KnockoutHelpers.js"></script>
-    <!--script src="~/Scripts/Home/index.js"></script-->
     <script src="~/Scripts/Model/page.js"></script>
-    @*<script type="text/javascript">
-        $(function () {
-            var model = new zg.PageVM();
-            ko.applyBindings(model);
-        });
-    </script>*@
+    <!--se añade modelo knockout desde aca -->
+    @*  *@
+    <script type="text/javascript">
+        if ('ontouchstart' in document.documentElement) document.write("<script src='~/Content/template/assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+    </script>
+
+
 
     @RenderSection("scripts", required: false)
-
 
 
 </body>

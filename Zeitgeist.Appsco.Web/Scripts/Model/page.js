@@ -23,7 +23,7 @@ function serializeReto(item) {
     return r;
 }
 function serializeLiga(item) {
-    return new zg.Liga(item.id, item.nombre, item.entrenador);
+    return new zg.Liga(item.id, item.nombre, item.entrenador, item.propia, item.invitacionesDisponibles);
 }
 function logEjercicio(item) {
     return new zg.DetalleEjercicio(item.fecha, item.pasos, item.deporte);
@@ -108,10 +108,12 @@ zg.Reto = function () {
     this.deportes = ko.observableArray();
     this.equipos = ko.observableArray();
 };
-zg.Liga = function (id, nombre, entrenador) {
+zg.Liga = function (id, nombre, entrenador, propia, invitacionesDisponibles) {
     this.id = ko.observable(id);
     this.nombre = ko.observable(nombre);
     this.entrenador = ko.observable(entrenador);
+    this.propia = ko.observable(propia);
+    this.invitacionesDisponibles = ko.observable(invitacionesDisponibles);
 };
 zg.Tips = function (tipo, mensaje, imageurl) {
     this.tipo = ko.observable(tipo);
@@ -183,12 +185,26 @@ zg.DetalleMiembros = function () {
 
 zg.InicioView = function (idLiga) {
 
-    this.detallesRetos = ko.observableArray();
+    this.detallesRetos      = ko.observableArray();
     this.detallesEjercicios = ko.observableArray();
-    this.tips = ko.observableArray();
-    this.selected = ko.observable(true);
-    this.label = ko.observable();
-    this.data = [];
+    this.tips               = ko.observableArray();
+    this.selected           = ko.observable(true);
+    this.label              = ko.observable();
+    this.data               = [];
+
+    //chat
+    this.mensaje = new zg.Mensaje("", "", "", new Date());
+    this.mensajes = ko.observableArray();
+    this.hub      = undefined;
+    
+    this.sendMessage = function (elm) {
+        if(elm.mensaje()!=="")
+        {
+            zg.model.viewInicio.hub.server.send(zg.model.menuSuperior.user(), elm.mensaje(), zg.model.menuSuperior.avatar(),new Date().toString());
+            elm.mensaje("");
+        }
+        
+    };
     //funciones descarga de la informacion
 
 };
@@ -216,6 +232,9 @@ zg.Menu = function (model) {
     };
 };
 zg.MenuSuperior = function (model) {
+    this.user = ko.observable();
+    this.avatar = ko.observable();
+
     this.liga = ko.observable();
     this.ligas = ko.observableArray();
     this.selectLiga = function (elm) {
@@ -224,14 +243,45 @@ zg.MenuSuperior = function (model) {
             zg.model.gdrbl(elm.id());
         }
     };
+    this.showEnvioInvitacion = function (elm) {
+
+        $.ajax({
+            url: "/Liga/EnvioInvitacion/" + elm.id(),
+            type: "Get"
+        }).success(function(response) {
+            $("#dialog-message-text").html(response);
+            var title = "Envio Invitación";
+            showDialog(response, title);
+        });
+
+        
+
+    };
+    this.urlAvatar = ko.computed(function() {
+        return "/Content/template/assets/avatars/" + this.avatar();
+    }, this);
 };
+
+zg.Mensaje = function (usuario,mensaje,avatar,fecha) {
+    this.usuario = ko.observable(usuario);
+    this.mensaje = ko.observable(mensaje);
+    this.avatar  = ko.observable(avatar);
+    this.fecha = ko.observable(fecha);
+    this.fechaCountdown = ko.computed(function () {
+        var result = countdown(this.fecha()).toString();
+        if (result === "")
+            result = countdown(new Date()).toString();
+        return result;
+    }, this);
+
+}
 
 zg.PageVM = function () {
     var menuSuperior = new zg.MenuSuperior(this),
-        menu = new zg.Menu(this),
-        viewInicio = new zg.InicioView(),
-        viewReto = new zg.RetoView();
-
+        menu         = new zg.Menu(this),
+        viewInicio   = new zg.InicioView(),
+        viewReto     = new zg.RetoView();
+        
     var load = function () {
         (function () {
             send('/Home/GetLigas', 'post', null, function (data) {
@@ -273,7 +323,13 @@ zg.PageVM = function () {
             });
 
         });
-    })();
+        })(),
+        (function() {
+            send('/Home/GetUserData', "POST", null, function (data) {
+                zg.model.menuSuperior.user(data.usuario);
+                zg.model.menuSuperior.avatar(data.avatar);
+            });
+        })();
 
     };
     var getRetosByLiga = function (idLiga) {
@@ -309,19 +365,16 @@ zg.PageVM = function () {
             
         });
     };
-
     var updateRetoViewSelected = function () {
         viewInicio.selected(false);
         viewReto.selected(true);
     };
-
     var updateInicioViewSelected = function () {
         viewReto.selected(false);
         viewInicio.selected(true);
         zg.model.chart(viewInicio.label, viewInicio.data);
 
     };
-
     function chart(name, dato) {
         $("#sales-charts").css({ 'width': '90%', 'min-height': '350px' });
         var my_chart = $.plot("#sales-charts",
@@ -369,7 +422,6 @@ zg.PageVM = function () {
         uivs: updateInicioViewSelected,
         cmdr: consultaMaestroDetalleReto,
         chart: chart
-        //,chartT:chartT
     };
 
 
@@ -377,14 +429,71 @@ zg.PageVM = function () {
 
 //se carga el modelo inicial
 $(function () {
+
+
     zg.model = new zg.PageVM();
-
     ko.applyBindings(zg.model.menu, document.getElementById("sidebar"));
-
     ko.applyBindings(zg.model.menuSuperior, document.getElementById("menuSuperior"));
-
     ko.applyBindings(zg.model.viewInicio, document.getElementById("home_content"));
-
     ko.applyBindings(zg.model.viewReto, document.getElementById("reto_content"));
 
+    //declaro la conexion con signal r
+    // Declare a proxy to reference the hub.
+    var chat = $.connection.Chat;
+    zg.model.viewInicio.hub = chat;
+    // Create a function that the hub can call to broadcast messages.
+    
+    chat.client.broadcastMessage = function (name, message, avatar,fecha) {
+        zg.model.viewInicio.mensajes.unshift(new zg.Mensaje(name, message, avatar, new Date(fecha)));
+        _.each(zg.model.viewInicio.mensajes(), function(elm) {
+            elm.fecha.valueHasMutated();
+        });
+
+        //zg.model.viewInicio.mensajes.push(new zg.Mensaje(name, message, avatar, new Date(fecha)));
+    };
+    // Get the user name and store it to prepend to messages.
+    // Set initial focus to message input box.
+    // Start the connection.
+
+    $.connection.hub.start().done(function () {
+        //$('#sendmessage').click(function () {
+        // Call the Send method on the hub.
+        console.log("conexion exitosa");
+        //  chat.server.registro("ddo88", "liga");
+        //});
+    });
+
+
+
 });
+
+
+
+var showDialog = function (htmlMessage,title) {
+
+    $("#dialog-message-text").html(htmlMessage);
+
+    var dialog = $("#dialog-message").removeClass('hide').dialog({
+        modal: true,
+        //title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-info'></i>"+title+"</h4></div>",
+        title: title,
+        title_html: false,
+        buttons: [
+            {
+                text: "Cancel",
+                "class": "btn btn-xs",
+                click: function () {
+                    $(this).dialog("close");
+                }
+            },
+            {
+                text: "OK",
+                "class": "btn btn-primary btn-xs",
+                click: function () {
+                    //$("#dialog-message-text form")[0].submit();
+                    $(this).dialog("close");
+                }
+            }
+        ]
+    });
+};

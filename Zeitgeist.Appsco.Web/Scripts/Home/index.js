@@ -34,6 +34,7 @@ zg.Liga = function () {
     this.id = ko.observable();
     this.nombre = ko.observable();
     this.entrenador = ko.observable();
+    this.propia = ko.observable();
 };
 zg.Reto = function () {
     this.id = ko.observable();
@@ -75,6 +76,7 @@ zg.PageVM = function () {
                     a.id(item.id);
                     a.nombre(item.nombre);
                     a.entrenador(item.entrenador);
+                    a.propia(item.propia);
                     ligas.push(a);
 
                     if (i === 0) {

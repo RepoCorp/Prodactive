@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Transactions;
 using System.Web.Mvc;
 using System.Web.Security;
-using Microsoft.Web.WebPages.OAuth;
+using MongoModels;
 using Newtonsoft.Json;
-using WebMatrix.WebData;
 using Zeitgeist.Appsco.Web.App_Start;
 using Zeitgeist.Appsco.Web.Models;
 
@@ -23,6 +18,8 @@ namespace Zeitgeist.Appsco.Web.Controllers
         
         //
         // GET: /Account/Login
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(AccountController));
+        private Manager manager = Manager.Instance;
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -167,6 +164,61 @@ namespace Zeitgeist.Appsco.Web.Controllers
                             {
                                 System.Web.Security.Roles.AddUserToRole(model.UserName, "atleta");
                                 FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
+                                
+                                Equipo eq= new Equipo();
+                                eq.Name = "Mi Equipo";
+                                eq.Miembros.Add(model.UserName);
+
+                                Division d = new Division();
+                                d.Name = "Individual";
+                                d.Descripcion = "Competencia Invidivual";
+
+                                Liga l = new Liga();
+                                l.Entrenador = model.UserName;
+                                l.Nombre = model.UserName;
+                                l.Plan = Plan.Freemium;
+                                l.Usuarios.Add(model.UserName, model.Email);
+
+                                if (manager.SaveEquipo(eq))
+                                {
+                                    d.Equipos.Add(eq.Id);
+                                    if (manager.SaveDivision(d))
+                                    {
+                                        l.Divisiones.Add(d.Id);
+                                        if (manager.SaveLiga(l))
+                                        {
+                                            log.Info(String.Format("Se ha creado con exito el usuario {0}",model.UserName));
+
+                                            Reto r= new Reto();
+                                            r.Deportes.Add("Caminar");
+                                            r.Entrenador = model.UserName;
+                                            r.FechaFin = new DateTime(2014, 12, 31);
+                                            r.FechaInicio = DateTime.Now;
+                                            r.Division = d.Id;
+                                            r.IsActivo = true;
+                                            r.Liga = l.Id;
+                                            r.Equipos.Add(eq.Id);
+                                            r.Tipo = TipoReto.RetoPropio;
+                                            r.Premio = "Superandote a ti mismo";
+                                            r.Name = "Reto Personal";
+                                            manager.SaveReto(r);
+                                        }
+                                    }
+                                }
+                                
+                                 
+                                //Stack<Func<bool>> pila = new Stack<Func<bool>>();
+                                //pila.Push(()=> { return manager.SaveLiga(l); } );
+                                //pila.Push(() => { return manager.SaveDivision(d); });
+                                //pila.Push(() => { return manager.SaveEquipo(eq); });
+
+                                //while (pila.Count > 0)
+                                //{
+                                //    if (pila.Pop()())
+                                //    {
+
+                                //    }
+                                //}
 
                                 return Json(new { success = true, redirect = returnUrl });
 
@@ -214,35 +266,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
             return Json(elm, JsonRequestBehavior.AllowGet);
         }
 
-        //
-        // POST: /Account/Disassociate
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Disassociate(string provider, string providerUserId)
-        {
-            string ownerAccount = OAuthWebSecurity.GetUserName(provider, providerUserId);
-            ManageMessageId? message = null;
-
-            // Desasociar la cuenta solo si el usuario que ha iniciado sesión es el propietario
-            if (ownerAccount == User.Identity.Name)
-            {
-                // Usar una transacción para evitar que el usuario elimine su última credencial de inicio de sesión
-                using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Serializable }))
-                {
-                    bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-                    if (hasLocalAccount || OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name).Count > 1)
-                    {
-                        OAuthWebSecurity.DeleteAccount(provider, providerUserId);
-                        scope.Complete();
-                        message = ManageMessageId.RemoveLoginSuccess;
-                    }
-                }
-            }
-
-            return RedirectToAction("Manage", new { Message = message });
-        }
-
+       
         //
         // GET: /Account/Manage
 
@@ -262,65 +286,65 @@ namespace Zeitgeist.Appsco.Web.Controllers
         //
         // POST: /Account/Manage
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Manage(LocalPasswordModel model)
-        {
-            bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-            ViewBag.HasLocalPassword = hasLocalAccount;
-            ViewBag.ReturnUrl = Url.Action("Manage");
-            if (hasLocalAccount)
-            {
-                if (ModelState.IsValid)
-                {
-                    // ChangePassword iniciará una excepción en lugar de devolver false en determinados escenarios de error.
-                    bool changePasswordSucceeded;
-                    try
-                    {
-                        changePasswordSucceeded = WebSecurity.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword);
-                    }
-                    catch (Exception)
-                    {
-                        changePasswordSucceeded = false;
-                    }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Manage(LocalPasswordModel model)
+        //{
+        //    bool hasLocalAccount = false;//OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+        //    ViewBag.HasLocalPassword = hasLocalAccount;
+        //    ViewBag.ReturnUrl = Url.Action("Manage");
+        //    if (hasLocalAccount)
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            // ChangePassword iniciará una excepción en lugar de devolver false en determinados escenarios de error.
+        //            bool changePasswordSucceeded;
+        //            try
+        //            {
+        //                changePasswordSucceeded = WebSecurity.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword);
+        //            }
+        //            catch (Exception)
+        //            {
+        //                changePasswordSucceeded = false;
+        //            }
 
-                    if (changePasswordSucceeded)
-                    {
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "La contraseña actual es incorrecta o la nueva contraseña no es válida.");
-                    }
-                }
-            }
-            else
-            {
-                // El usuario no dispone de contraseña local, por lo que debe quitar todos los errores de validación generados por un
-                // campo OldPassword
-                ModelState state = ModelState["OldPassword"];
-                if (state != null)
-                {
-                    state.Errors.Clear();
-                }
+        //            if (changePasswordSucceeded)
+        //            {
+        //                return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
+        //            }
+        //            else
+        //            {
+        //                ModelState.AddModelError("", "La contraseña actual es incorrecta o la nueva contraseña no es válida.");
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        // El usuario no dispone de contraseña local, por lo que debe quitar todos los errores de validación generados por un
+        //        // campo OldPassword
+        //        ModelState state = ModelState["OldPassword"];
+        //        if (state != null)
+        //        {
+        //            state.Errors.Clear();
+        //        }
 
-                if (ModelState.IsValid)
-                {
-                    try
-                    {
-                        WebSecurity.CreateAccount(User.Identity.Name, model.NewPassword);
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
-                    }
-                    catch (Exception)
-                    {
-                        ModelState.AddModelError("", String.Format("No se puede crear una cuenta local. Es posible que ya exista una cuenta con el nombre \"{0}\".", User.Identity.Name));
-                    }
-                }
-            }
+        //        if (ModelState.IsValid)
+        //        {
+        //            try
+        //            {
+        //                WebSecurity.CreateAccount(User.Identity.Name, model.NewPassword);
+        //                return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
+        //            }
+        //            catch (Exception)
+        //            {
+        //                ModelState.AddModelError("", String.Format("No se puede crear una cuenta local. Es posible que ya exista una cuenta con el nombre \"{0}\".", User.Identity.Name));
+        //            }
+        //        }
+        //    }
 
-            // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
-            return View(model);
-        }
+        //    // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
+        //    return View(model);
+        //}
 
         //
         // POST: /Account/ExternalLogin
@@ -414,7 +438,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
 
         //
         // GET: /Account/ExternalLoginFailure
-
+        /*
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {
@@ -448,7 +472,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
 
             ViewBag.ShowRemoveButton = externalLogins.Count > 1 || false;//OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             return PartialView("_RemoveExternalLoginsPartial", externalLogins);
-        }
+        }*/
 
         #region Aplicaciones auxiliares
         private ActionResult RedirectToLocal(string returnUrl)
@@ -470,22 +494,22 @@ namespace Zeitgeist.Appsco.Web.Controllers
             RemoveLoginSuccess,
         }
 
-        internal class ExternalLoginResult : ActionResult
-        {
-            public ExternalLoginResult(string provider, string returnUrl)
-            {
-                Provider = provider;
-                ReturnUrl = returnUrl;
-            }
+        //internal class ExternalLoginResult : ActionResult
+        //{
+        //    public ExternalLoginResult(string provider, string returnUrl)
+        //    {
+        //        Provider = provider;
+        //        ReturnUrl = returnUrl;
+        //    }
 
-            public string Provider { get; private set; }
-            public string ReturnUrl { get; private set; }
+        //    public string Provider { get; private set; }
+        //    public string ReturnUrl { get; private set; }
 
-            public override void ExecuteResult(ControllerContext context)
-            {
-                OAuthWebSecurity.RequestAuthentication(Provider, ReturnUrl);
-            }
-        }
+        //    public override void ExecuteResult(ControllerContext context)
+        //    {
+        //        OAuthWebSecurity.RequestAuthentication(Provider, ReturnUrl);
+        //    }
+        //}
 
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
         {

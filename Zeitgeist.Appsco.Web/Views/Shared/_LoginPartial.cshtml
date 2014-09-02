@@ -14,6 +14,11 @@
             <a href="#" data-bind="click: $root.selectLiga">
                 <div class="clearfix">
                     <span class="pull-left" data-bind="text:nombre"></span>
+                    <br/>
+                    <!-- ko if:propia -->
+                    <button data-bind="click:$root.showEnvioInvitacion" class="btn btn-sm btn-white btn-default btn-round">Enviar Invitacion<span class="pull-right badge badge-success" data-bind="text:invitacionesDisponibles"></span></button>
+                    
+                    <!-- /ko -->
                     <!--<span class="pull-right">65%</span>-->
                 </div>
 
@@ -23,45 +28,6 @@
             </a>
         </li>
         <!-- /ko-->
-
-        @*<li>
-            <a href="#">
-                <div class="clearfix">
-                    <span class="pull-left">Hardware Upgrade</span>
-                    <span class="pull-right">35%</span>
-                </div>
-
-                <div class="progress progress-mini">
-                    <div style="width:35%" class="progress-bar progress-bar-danger"></div>
-                </div>
-            </a>
-        </li>
-
-        <li>
-            <a href="#">
-                <div class="clearfix">
-                    <span class="pull-left">Unit Testing</span>
-                    <span class="pull-right">15%</span>
-                </div>
-
-                <div class="progress progress-mini">
-                    <div style="width:15%" class="progress-bar progress-bar-warning"></div>
-                </div>
-            </a>
-        </li>
-
-        <li>
-            <a href="#">
-                <div class="clearfix">
-                    <span class="pull-left">Bug Fixes</span>
-                    <span class="pull-right">90%</span>
-                </div>
-
-                <div class="progress progress-mini progress-striped active">
-                    <div style="width:90%" class="progress-bar progress-bar-success"></div>
-                </div>
-            </a>
-        </li>*@
 
         <li class="dropdown-footer">
             <a href="#">
@@ -144,7 +110,7 @@
     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
         <i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
         <!-- 
-        <span class="badge badge-success">5</span>-->
+            <span class="badge badge-success">5</span>-->
     </a>
 
     <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
@@ -156,92 +122,92 @@
         <li class="dropdown-content">
             <ul class="dropdown-menu dropdown-navbar">
                 <!--
-                <li>
-                    <a href="#">
-                        <img src="~/Content/template/assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
-                        <span class="msg-body">
-                            <span class="msg-title">
-                                <span class="blue">Alex:</span>
-                                Ciao sociis natoque penatibus et auctor ...
-                            </span>
+                    <li>
+                        <a href="#">
+                            <img src="~/Content/template/assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
+                            <span class="msg-body">
+                                <span class="msg-title">
+                                    <span class="blue">Alex:</span>
+                                    Ciao sociis natoque penatibus et auctor ...
+                                </span>
 
-                            <span class="msg-time">
-                                <i class="ace-icon fa fa-clock-o"></i>
-                                <span>a moment ago</span>
+                                <span class="msg-time">
+                                    <i class="ace-icon fa fa-clock-o"></i>
+                                    <span>a moment ago</span>
+                                </span>
                             </span>
-                        </span>
-                    </a>
-                </li>
+                        </a>
+                    </li>
                 
-                <li>
-                    <a href="#">
-                        <img src="~/Content/template/assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
-                        <span class="msg-body">
-                            <span class="msg-title">
-                                <span class="blue">Susan:</span>
-                                Vestibulum id ligula porta felis euismod ...
-                            </span>
+                    <li>
+                        <a href="#">
+                            <img src="~/Content/template/assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
+                            <span class="msg-body">
+                                <span class="msg-title">
+                                    <span class="blue">Susan:</span>
+                                    Vestibulum id ligula porta felis euismod ...
+                                </span>
 
-                            <span class="msg-time">
-                                <i class="ace-icon fa fa-clock-o"></i>
-                                <span>20 minutes ago</span>
+                                <span class="msg-time">
+                                    <i class="ace-icon fa fa-clock-o"></i>
+                                    <span>20 minutes ago</span>
+                                </span>
                             </span>
-                        </span>
-                    </a>
-                </li>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="#">
-                        <img src="~/Content/template/assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
-                        <span class="msg-body">
-                            <span class="msg-title">
-                                <span class="blue">Bob:</span>
-                                Nullam quis risus eget urna mollis ornare ...
-                            </span>
+                    <li>
+                        <a href="#">
+                            <img src="~/Content/template/assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
+                            <span class="msg-body">
+                                <span class="msg-title">
+                                    <span class="blue">Bob:</span>
+                                    Nullam quis risus eget urna mollis ornare ...
+                                </span>
 
-                            <span class="msg-time">
-                                <i class="ace-icon fa fa-clock-o"></i>
-                                <span>3:15 pm</span>
+                                <span class="msg-time">
+                                    <i class="ace-icon fa fa-clock-o"></i>
+                                    <span>3:15 pm</span>
+                                </span>
                             </span>
-                        </span>
-                    </a>
-                </li>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="#">
-                        <img src="~/Content/template/assets/avatars/avatar2.png" class="msg-photo" alt="Kate's Avatar" />
-                        <span class="msg-body">
-                            <span class="msg-title">
-                                <span class="blue">Kate:</span>
-                                Ciao sociis natoque eget urna mollis ornare ...
-                            </span>
+                    <li>
+                        <a href="#">
+                            <img src="~/Content/template/assets/avatars/avatar2.png" class="msg-photo" alt="Kate's Avatar" />
+                            <span class="msg-body">
+                                <span class="msg-title">
+                                    <span class="blue">Kate:</span>
+                                    Ciao sociis natoque eget urna mollis ornare ...
+                                </span>
 
-                            <span class="msg-time">
-                                <i class="ace-icon fa fa-clock-o"></i>
-                                <span>1:33 pm</span>
+                                <span class="msg-time">
+                                    <i class="ace-icon fa fa-clock-o"></i>
+                                    <span>1:33 pm</span>
+                                </span>
                             </span>
-                        </span>
-                    </a>
-                </li>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="#">
-                        <img src="~/Content/template/assets/avatars/avatar5.png" class="msg-photo" alt="Fred's Avatar" />
-                        <span class="msg-body">
-                            <span class="msg-title">
-                                <span class="blue">Fred:</span>
-                                Vestibulum id penatibus et auctor  ...
-                            </span>
+                    <li>
+                        <a href="#">
+                            <img src="~/Content/template/assets/avatars/avatar5.png" class="msg-photo" alt="Fred's Avatar" />
+                            <span class="msg-body">
+                                <span class="msg-title">
+                                    <span class="blue">Fred:</span>
+                                    Vestibulum id penatibus et auctor  ...
+                                </span>
 
-                            <span class="msg-time">
-                                <i class="ace-icon fa fa-clock-o"></i>
-                                <span>10:09 am</span>
+                                <span class="msg-time">
+                                    <i class="ace-icon fa fa-clock-o"></i>
+                                    <span>10:09 am</span>
+                                </span>
                             </span>
-                        </span>
-                    </a>
-                </li>
+                        </a>
+                    </li>
                 
-                -->
+                    -->
             </ul>
         </li>
 
@@ -253,6 +219,7 @@
         </li>
     </ul>
 </li>
+
 <li class="light-blue">
 
     
@@ -260,7 +227,8 @@
         {
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                 <i class="ace-icon fa fa-gears icon-animated-vertical"></i>
-                <span class="badge badge-success">@User.Identity.Name</span>
+                <span class="badge badge-success" data-bind="text:user"></span>
+                @*<span class="badge badge-success" data-bind="text:user">@User.Identity.Name</span>*@
             </a>
             <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
                 <li class="dropdown-header">
@@ -272,8 +240,8 @@
                     <ul class="dropdown-menu dropdown-navbar">
                         <li>
                             <a href="#">
-
-                                <img src="~/Content/template/assets/avatars/avatar2.png" class="msg-photo" alt="avatar" />
+                                <img data-bind="attr: { src: urlAvatar } " class="msg-photo" alt="avatar" />
+                                @*<img src="~/Content/template/assets/avatars/avatar2.png" class="msg-photo" alt="avatar" />*@
                                 <span class="msg-body">
                                     @*<span class="msg-title">
                                             <span class="blue">Alex:</span>

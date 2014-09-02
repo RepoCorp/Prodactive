@@ -2,23 +2,14 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Security;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Caching;
-using System.Web.WebPages.Razor.Configuration;
-using DotNetOpenAuth.AspNet.Clients;
 using FluentMongo.Linq;
-using Microsoft.Win32;
 using MongoDB.Bson;
-using MongoDB.Bson.IO;
-using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoModels;
-using MongoProviders;
-using ServiceStack.Common;
-using WebMatrix.WebData;
 using Zeitgeist.Appsco.Web.Api;
 using Zeitgeist.Appsco.Web.Helpers;
 using Zeitgeist.Appsco.Web.Models;
@@ -32,7 +23,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
         private static Manager _instance;
         private static object _mutex = new object();
         public MongoDatabase Database;
-
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(Manager));
         public static Manager Instance
         {
 			get {
@@ -163,6 +154,14 @@ namespace Zeitgeist.Appsco.Web.App_Start
         internal bool SaveLiga(Liga liga)
         {
             return Save(liga, Settings.Default.ColeccionLiga);
+        }
+        internal bool SaveEquipo(Equipo equipo)
+        {
+            return Save(equipo, Settings.Default.CollectionEquipos);
+        }
+        internal bool SaveDivision(Division division)
+        {
+            return Save(division, Settings.Default.ColeccionDivision);
         }
 
         public bool DeleteLiga(Liga liga)
@@ -403,10 +402,20 @@ namespace Zeitgeist.Appsco.Web.App_Start
         }
         public List<LogEjercicio> GetDatosRetoEquipo(Reto reto)
         {
-            
             List<LogEjercicio> lst = new List<LogEjercicio>();
             var r = GetEquipos(reto.Equipos);
-            foreach (var e in r)
+            Parallel.ForEach(r, (e) =>
+            {
+                var l = GetCollection<LogEjercicio>(Settings.Default.CollectionLogEjercicio).Find(Query.And(new[]
+                                                                                            { Query.In("Usuario", new BsonArray(e.Miembros)),
+                                                                                              Query.GTE("FechaHora", reto.FechaInicio),
+                                                                                              Query.LTE("FechaHora", reto.FechaFin)
+                                                                                             })).ToList();
+                lst.AddRange(l);
+            });
+
+
+            /*foreach (var e in r)
             {
                 var l= GetCollection<LogEjercicio>(Settings.Default.CollectionLogEjercicio).Find(Query.And(new []
                                                                                             { Query.In("Usuario", new BsonArray(e.Miembros)),
@@ -414,7 +423,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
                                                                                               Query.LTE("FechaHora", reto.FechaFin)
                                                                                              })).ToList();
                 lst.AddRange(l);
-            }
+            }*/
             return lst;
         }
 

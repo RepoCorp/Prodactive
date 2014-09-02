@@ -104,6 +104,16 @@ ko.bindingHandlers.percentvalue = {
     }
 };
 
+ko.bindingHandlers.countdown = {
+    init: function (element, valueAccessor, allBindingsAccessor) {
+        var value = valueAccessor();
+        $(element).text(countdown(value()).toString());
+    },
+    update: function (element, valueAccessor, allBindingsAccessor) {
+        var value = valueAccessor();
+        $(element).text(countdown(value()).toString());
+    }
+}
 
 /*
 ko.bindingHandlers.allowBindings = {

@@ -5,12 +5,11 @@ using System.Web.Routing;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
 using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.PostgreSQL;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 using ServiceStack.WebHost.Endpoints;
 using Zeitgeist.Appsco.Web.Api;
-
+using Zeitgeist.Appsco.Web.Helpers;
 
 
 namespace Zeitgeist.Appsco.Web
@@ -20,6 +19,8 @@ namespace Zeitgeist.Appsco.Web
 
     public class MvcApplication : System.Web.HttpApplication
     {
+
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(MvcApplication));
 
         public class ServicioAppHost : AppHostBase
         {
@@ -57,14 +58,16 @@ namespace Zeitgeist.Appsco.Web
 
         protected void Application_Start()
         {
+            Logger.Setup();
             AreaRegistration.RegisterAllAreas();
-
             //WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            RouteConfig .RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            AuthConfig.RegisterAuth();
+            AuthConfig  .RegisterAuth();
             new ServicioAppHost().Init();
+
+
             Application["OnlineUsers"] = 0;
         }
 
