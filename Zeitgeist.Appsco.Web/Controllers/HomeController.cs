@@ -64,101 +64,13 @@ namespace Zeitgeist.Appsco.Web.Controllers
         //[OutputCache(Location = OutputCacheLocation.Client, Duration = 60)]
         public JsonResult GetDetallesRetosByIdLiga(string id)
         {
-            Stopwatch sw= new Stopwatch();
-            sw.Start();
-            List<DetalleReto> lst= new List<DetalleReto>();
-            List<Reto> retos = manager.GetRetosByIdLiga(id);
-            //Puntos Individuales, Puntos Equipos, Puntos Lider o Meta
-            
-            foreach (var a in retos)
-            {
-                Task<List<Equipo>> t= Task.Factory.StartNew(() => manager.GetEquipos(a.Equipos));
-                
-                List<LogEjercicio> datos    =  manager.GetDatosRetoEquipo(a);
-                List<Equipo>       equipos  = t.Result;
-                int totalPersonal = 0;
-                Equipo miEquipo= new Equipo();
-                List<DetalleEquipo> team_detail= new List<DetalleEquipo>();
-                if (datos.Count > 0)
-                {
-                    Parallel.ForEach(equipos, (equipo) =>
-                    {
-                        DetalleEquipo detall = new DetalleEquipo();
-                        foreach (var miembro in equipo.Miembros)
-                        {
-
-                            //mis detalles personales
-                            if (User.Identity.Name == miembro)
-                            {
-                                detall.Total += totalPersonal = datos.Where(x => x.Usuario == miembro).Sum(x => x.Conteo);
-                                detall.MiEquipo = true;
-                            }
-                            else
-                            {
-                                detall.Total += datos.Where(x => x.Usuario == miembro).Sum(x => x.Conteo);
-                            }
-                        }
-                        detall.Equipo = equipo.Id;
-                        team_detail.Add(detall);
-                    });
-                    /*foreach (var equipo in equipos)
-                    {
-                        DetalleEquipo detall= new DetalleEquipo();
-                        foreach (var miembro in equipo.Miembros)
-                        {
-                            
-                            //mis detalles personales
-                            if (User.Identity.Name == miembro)
-                            {
-                                detall.Total    += totalPersonal= datos.Where(x => x.Usuario == miembro).Sum(x => x.Conteo);
-                                detall.MiEquipo  = true;
-                            }
-                            else
-                            {
-                                detall.Total += datos.Where(x => x.Usuario == miembro).Sum(x => x.Conteo);
-                            }
-                        }
-                        detall.Equipo = equipo.Id;
-                        team_detail.Add(detall);
-                    }*/
-                    int pos = 1;
-
-                    foreach (var detalleEquipo in team_detail.OrderByDescending(x => x.Total))
-                    {
-                        detalleEquipo.Posicion = pos++;
-                    }
-                    if (a.Tipo == TipoReto.Superando)
-                    {
-                        DetalleReto dr = new DetalleReto()
-                        {
-                            IdReto = a.Id,
-                            Name = a.Name,
-                            TotalEquipo    = team_detail.Where(x => x.MiEquipo).Sum(x => x.Total),
-                            PosicionEquipo = team_detail.Where(x => x.MiEquipo).Select(x => x.Posicion).First(),
-                            TotalReto      = team_detail.Where(x=>x.Posicion==1).Sum(x=>x.Total),
-                            TotalUsuario   = totalPersonal,
-                        };
-                        lst.Add(dr);
-                    }
-                    else
-                    {
-                        DetalleReto dr = new DetalleReto()
-                        {
-                            IdReto = a.Id,
-                            Name = a.Name,
-                            TotalEquipo    = team_detail.Where(x => x.MiEquipo).Sum(x => x.Total),
-                            PosicionEquipo = team_detail.Where(x => x.MiEquipo).Select(x => x.Posicion).First(),
-                            TotalReto      = a.Meta,
-                            TotalUsuario   = totalPersonal,
-                        };
-                        lst.Add(dr);
-                    }
-                }
-            }
+            //Stopwatch sw= new Stopwatch();
+            //sw.Start();
+            List<DetalleReto> lst = manager.GetDetallesRetosByLiga(id,User.Identity.Name);
             GetEmptyReto(ref lst);
-            sw.Stop();
-            var s = sw.ElapsedMilliseconds.ToString();
-            log.Info("Tiempo de ejecucion de la tarea "+s);
+            //sw.Stop();
+            //var s = sw.ElapsedMilliseconds.ToString();
+            //log.Info("Tiempo de ejecucion de la tarea "+s);
             return Json(lst);
         }
         
@@ -239,11 +151,5 @@ namespace Zeitgeist.Appsco.Web.Controllers
     }
 
 
-    public class DetalleEquipo
-    {
-        public string Equipo { get; set; }
-        public int    Total    { get; set; }
-        public int    Posicion { get; set; }
-        public bool MiEquipo { get; set; }
-    }
+    
 }

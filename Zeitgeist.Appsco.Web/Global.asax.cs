@@ -58,7 +58,7 @@ namespace Zeitgeist.Appsco.Web
 
         protected void Application_Start()
         {
-            Logger.Setup();
+            //Logger.Setup();
             AreaRegistration.RegisterAllAreas();
             //WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

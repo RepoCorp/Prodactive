@@ -200,10 +200,20 @@ zg.InicioView = function (idLiga) {
     this.sendMessage = function (elm) {
         if(elm.mensaje()!=="")
         {
-            zg.model.viewInicio.hub.server.send(zg.model.menuSuperior.user(), elm.mensaje(), zg.model.menuSuperior.avatar(),new Date().toString());
+            zg.model.viewInicio.hub.server.send(zg.model.menuSuperior.user(), elm.mensaje(), zg.model.menuSuperior.avatar());
             elm.mensaje("");
         }
-        
+    };
+
+    this.enterSend = function(elm, event) {
+        if (event.keyCode == 13) {
+            if (elm.mensaje() !== "") {
+                zg.model.viewInicio.hub.server.send(zg.model.menuSuperior.user(), elm.mensaje(), zg.model.menuSuperior.avatar());
+                elm.mensaje("");
+            }
+            
+        }
+        return true;
     };
     //funciones descarga de la informacion
 
@@ -273,6 +283,9 @@ zg.Mensaje = function (usuario,mensaje,avatar,fecha) {
             result = countdown(new Date()).toString();
         return result;
     }, this);
+    this.url = ko.computed(function () {
+        return "/Content/template/assets/avatars/" + this.avatar();
+    },this);
 
 }
 
@@ -445,10 +458,7 @@ $(function () {
     
     chat.client.broadcastMessage = function (name, message, avatar,fecha) {
         zg.model.viewInicio.mensajes.unshift(new zg.Mensaje(name, message, avatar, new Date(fecha)));
-        _.each(zg.model.viewInicio.mensajes(), function(elm) {
-            elm.fecha.valueHasMutated();
-        });
-
+        updateChatDate();
         //zg.model.viewInicio.mensajes.push(new zg.Mensaje(name, message, avatar, new Date(fecha)));
     };
     // Get the user name and store it to prepend to messages.
@@ -463,10 +473,17 @@ $(function () {
         //});
     });
 
-
+    setInterval(updateChatDate, 15000);
 
 });
 
+
+var updateChatDate=function()
+{
+    _.each(zg.model.viewInicio.mensajes(), function(elm) {
+        elm.fecha.valueHasMutated();
+    });
+};
 
 
 var showDialog = function (htmlMessage,title) {

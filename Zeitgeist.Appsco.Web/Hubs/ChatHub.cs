@@ -10,9 +10,9 @@ namespace Zeitgeist.Appsco.Web.Hubs
     {
         private Manager manager = Manager.Instance;
 
-        public void Send(string usuario, string mensaje,string avatar,string fecha)
+        public void Send(string usuario, string mensaje,string avatar)
         {
-            Clients.All.broadcastMessage(usuario, mensaje,avatar,fecha);
+            Clients.All.broadcastMessage(usuario, mensaje,avatar,DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
         }
 
         //public void Registro(string usuario, string liga)

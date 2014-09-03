@@ -17,14 +17,14 @@ using Zeitgeist.Appsco.Web.Properties;
 
 namespace Zeitgeist.Appsco.Web.App_Start
 {
-    public class Manager
+    internal class Manager
     {
 
-        private static Manager _instance;
-        private static object _mutex = new object();
-        public MongoDatabase Database;
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(Manager));
-        public static Manager Instance
+        internal static Manager _instance;
+        internal static object _mutex = new object();
+        internal MongoDatabase Database;
+        internal static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(Manager));
+        internal static Manager Instance
         {
 			get {
 			
@@ -43,7 +43,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
             
         }
         
-        private Manager()
+        internal Manager()
         {
             
             var client = new MongoClient(Settings.Default.ConnectionString);
@@ -51,7 +51,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
             Database   = server.GetDatabase(Settings.Default.Bd);
         }
         
-        private MongoCollection<T> GetCollection<T>(string collection)
+        internal MongoCollection<T> GetCollection<T>(string collection)
         {
             if (HttpRuntime.Cache[collection] == null)
             {
@@ -63,7 +63,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
 
         }
 
-        private void insert(string key, object obj)
+        internal void insert(string key, object obj)
         {
             HttpRuntime.Cache.Insert(
                 /* key */ key,
@@ -74,13 +74,13 @@ namespace Zeitgeist.Appsco.Web.App_Start
                 /* priority */ CacheItemPriority.NotRemovable,
                 /* onRemoveCallback */ null);
         }
-        public void RemoveCache(string key)
+        internal void RemoveCache(string key)
         {
             if (HttpRuntime.Cache[key] != null)
                 HttpRuntime.Cache.Remove(key);
         }
 
-        private bool Save<T>(T item,string collection)
+        internal bool Save<T>             (T item,string collection)
         {
             var wc = GetCollection<T>(collection).Save(item);
             if (wc.Ok)
@@ -88,23 +88,141 @@ namespace Zeitgeist.Appsco.Web.App_Start
 
             return false;
         }
-        
-        public bool SaveClient  (LandingData item)
+        internal bool SaveClient          (LandingData item)
         {
             return Save(item,Settings.Default.ClientCollection);
         }
-       
-        public bool SavePersona (Persona p)
+        internal bool SavePersona         (Persona p)
         {
             return Save(p, Settings.Default.ColeccionPersona);
         }
-        
-        //public bool SaveRegistro(Registro registro)
+        internal bool SaveLiga            (Liga liga)
+        {
+            return Save(liga, Settings.Default.ColeccionLiga);
+        }
+        internal bool SaveEquipo          (Equipo equipo)
+        {
+            return Save(equipo, Settings.Default.CollectionEquipos);
+        }
+        internal bool SaveDivision        (Division division)
+        {
+            return Save(division, Settings.Default.ColeccionDivision);
+        }
+        internal bool SaveRegistroProgreso(RequestLogEjercicio reg)
+        {
+            return Save(reg.ToLogEjercicio(), Settings.Default.CollectionLogEjercicio);
+        }
+        internal bool SaveInvitacion      (Invitacion invitacion)
+        {
+            return Save(invitacion, Settings.Default.ColeccionInvitaciones);
+        }
+        internal bool SaveReto            (Reto r)
+        {
+            return Save(r, Settings.Default.ColeccionRetos);
+        }
+        internal bool UpdateReto          (Reto reto)
+        {
+            var wr = GetCollection<Reto>(Settings.Default.ColeccionRetos)
+                .Update(Query.EQ("_id", new ObjectId(reto.Id)), Update.Replace(reto));
+            if (wr.Ok)
+            {
+                RemoveCache(Settings.Default.ColeccionRetos);
+                return true;
+            }
+
+            return false;
+        }
+
+
+
+        internal bool DeleteLiga(Liga liga)
+        {
+            WriteConcernResult wr = GetCollection<Liga>(Settings.Default.ColeccionLiga).Remove(Query.EQ("_id", new ObjectId(liga.Id)));
+            if (wr.Ok)
+                return true;
+            return false;
+        }
+
+        internal bool AddUserToleague(Invitacion invitacion)
+        {
+            try
+            {
+                
+                Task<Persona> tp = Task.Factory.StartNew(() => { return GetDatosUsuarioByMail(invitacion.Mail); });
+                Liga l = GetLigaById(invitacion.Id);
+                
+                Persona p = tp.Result;
+                var a = p.Cuentas.Where(x => x.Value == invitacion.Mail).Select(x => x.Key).First();
+
+                if (l.Usuarios == null)
+                    l.Usuarios = new Dictionary<string, string>();
+
+                l.Usuarios.Add(a, invitacion.Mail);
+                WriteConcernResult wcr = GetCollection<Liga>(Settings.Default.ColeccionLiga).Update(
+                    Query.EQ("_id", new ObjectId(l.Id)),
+                    Update.Replace(l));
+                if (wcr.Ok)
+                    return true;
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        internal bool AddUserToleague(string idLiga, string user)
+        {
+            /*
+             * añadir persona a un liga, tengo el mail, pero necesito el usuario, 
+             * tengo el usuario y lo guardo en la lista de usuarios pero no tengo el area
+             */
+            try
+            {
+
+                Persona p = GetDatosUsuario(user);
+                Task<Liga> t = Task.Factory.StartNew(() => { return GetLigaById(idLiga); });
+                Task r = Task.Factory.StartNew(() =>
+                {
+                    return GetCollection<Invitacion>(Settings.Default.ColeccionInvitaciones)
+                        .Update(Query.EQ("Cuentas.k", user), Update.Set("Estado", true));
+                });
+
+                Liga l = t.Result;
+                if (l.Usuarios == null)
+                    l.Usuarios = new Dictionary<string, string>();
+
+                l.Usuarios.Add(user, p.Cuentas["user"]);
+                WriteConcernResult wcr = GetCollection<Liga>(Settings.Default.ColeccionLiga).Update(
+                    Query.EQ("_id", new ObjectId(l.Id)),
+                    Update.Replace(l));
+
+                Task.WaitAll(new Task[] {r});
+                if (wcr.Ok)
+                    return true;
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        internal bool CorreoDisponible(string mail)
+        {
+
+            var a = GetCollection<Persona>(Settings.Default.ColeccionPersona).Find(Query.EQ("Cuentas.v", mail)).Count();
+            if (a == 0)
+                return true;
+            return false;
+        }
+
+
+        //internal bool SaveRegistro(Registro registro)
         //{
         //    return Save(registro, Settings.Default.ColeccionRegistro);
         //}
 
-        public Persona GetDatosUsuario(string user)
+        internal Persona  GetDatosUsuario(string user)
         {
             Stopwatch sw= new Stopwatch();
             sw.Start();
@@ -125,172 +243,48 @@ namespace Zeitgeist.Appsco.Web.App_Start
             return p;
 
         }
-        
-        internal Reto GetReto()
+        internal Persona  GetDatosUsuarioByMail(string mail)
+        {
+            Persona p = new Persona();
+            try
+            {
+                //var wr2 = GetCollection<Persona>(Settings.Default.ColeccionPersona).FindAll();
+                var wr = GetCollection<Persona>(Settings.Default.ColeccionPersona).Find(Query.EQ("Cuentas.v", mail));
+
+                if (wr != null)
+                    p = wr.First();
+            }
+            catch (Exception ex)
+            {
+                log.Error("Error al Buscar Datos de Usuario por Email",ex);
+            }
+            return p;
+        }
+        internal Reto     GetReto()
         {
             var wr = GetCollection<Reto>(Settings.Default.ColeccionRetos).AsQueryable().FirstOrDefault();
             if (wr != null)
                 return wr;
             return new Reto();
         }
-        //internal List<Registro> GetEstadisticasUsuarioReto(string user,string reto)
-        //{
-        //    var wc =
-        //        GetCollection<Registro>(Settings.Default.ColeccionRegistro)
-        //            .AsQueryable()
-        //            .Where(x => x.User == user && x.retoId == reto)
-        //            .Select(x => x)
-        //            .ToList();
-        //    if (wc != null)
-        //        return wc;
-            
-        //    return new List<Registro>();
-
-        //}
-        internal List<Liga> GetLigas(string p)
-        {
-            return GetCollection<Liga>(Settings.Default.ColeccionLiga).AsQueryable().Where(x => x.Entrenador == p).ToList();
-        }
-        internal bool SaveLiga(Liga liga)
-        {
-            return Save(liga, Settings.Default.ColeccionLiga);
-        }
-        internal bool SaveEquipo(Equipo equipo)
-        {
-            return Save(equipo, Settings.Default.CollectionEquipos);
-        }
-        internal bool SaveDivision(Division division)
-        {
-            return Save(division, Settings.Default.ColeccionDivision);
-        }
-
-        public bool DeleteLiga(Liga liga)
-        {
-            WriteConcernResult wr = GetCollection<Liga>(Settings.Default.ColeccionLiga).Remove(Query.EQ("_id",new ObjectId(liga.Id)));
-            if (wr.Ok)
-                return true;
-            return false;
-        }
-
-        public Liga GetLigaById(string id)
+        internal Liga     GetLigaById(string id)
         {
             return GetCollection<Liga>(Settings.Default.ColeccionLiga).AsQueryable().First(x => x.Id==id);
         }
-
-        internal bool SaveInvitacion(Invitacion invitacion)
+        internal Division GetDivisionById(string division)
         {
-            return Save(invitacion, Settings.Default.ColeccionInvitaciones);
+            return GetCollection<Division>(Settings.Default.ColeccionDivision)
+                .Find(Query.EQ("_id", new ObjectId(division)))
+                .First();
         }
-
-        public bool CorreoDisponible(string mail)
+        internal Reto     GetRetoById(string id)
         {
-
-           var a= GetCollection<Persona>(Settings.Default.ColeccionPersona).Find(Query.EQ("Cuentas.v", mail)).Count();
-            if (a == 0)
-                return true;
-            return false;
+            var wr = GetCollection<Reto>(Settings.Default.ColeccionRetos).AsQueryable().Where(x => x.Id == id).FirstOrDefault();
+            if (wr != null)
+                return wr;
+            return new Reto();
         }
-
-        public bool AddUserToleague(Invitacion invitacion)
-        {
-            /*
-             * añadir persona a un liga, tengo el mail, pero necesito el usuario, 
-             * tengo el usuario y lo guardo en la lista de usuarios pero no tengo el area
-             */
-            try
-            {
-                Task<Persona> tp=Task.Factory.StartNew(() => { return GetCollection<Persona>(Settings.Default.ColeccionPersona).Find(Query.EQ("Cuentas.v", invitacion.Mail)).First();});
-                Liga    l = GetCollection<Liga>(Settings.Default.ColeccionLiga).Find(Query.EQ("_id", new ObjectId(invitacion.LigaId))).First();
-                Persona p = tp.Result;
-                var a     = p.Cuentas.Where(x => x.Value == invitacion.Mail).Select(x => x.Key).First();
-
-                if(l.Usuarios==null)
-                    l.Usuarios= new Dictionary<string, string>();
-
-                l.Usuarios.Add(a, invitacion.Mail);
-                WriteConcernResult wcr = GetCollection<Liga>(Settings.Default.ColeccionLiga).Update(
-                    Query.EQ("_id",new ObjectId(l.Id)),
-                    Update.Replace(l));
-                if(wcr.Ok)
-                    return true;
-                return false;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
-        public bool AddUserToleague(string idLiga,string user)
-        {
-            /*
-             * añadir persona a un liga, tengo el mail, pero necesito el usuario, 
-             * tengo el usuario y lo guardo en la lista de usuarios pero no tengo el area
-             */
-            try
-            {
-                Liga l = GetCollection<Liga>(Settings.Default.ColeccionLiga)
-                        .Find(Query.EQ("_id", new ObjectId(idLiga)))
-                        .First();
-
-                Persona p = GetDatosUsuario(user);
-                Task.Factory.StartNew(() =>
-                {
-                    return GetCollection<Invitacion>(Settings.Default.ColeccionInvitaciones)
-                        .Update(Query.EQ("Cuentas.k", user), Update.Set("Estado", true));
-                });
-                
-
-                if (l.Usuarios == null)
-                    l.Usuarios = new Dictionary<string, string>();
-
-                l.Usuarios.Add(user, p.Cuentas["user"]);
-                WriteConcernResult wcr = GetCollection<Liga>(Settings.Default.ColeccionLiga).Update(
-                    Query.EQ("_id", new ObjectId(l.Id)),
-                    Update.Replace(l));
-                if (wcr.Ok)
-                    return true;
-                return false;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
-
-        public List<Division> GetDivisiones(string user)
-        {
-            List<Liga> lst = GetLigas(user).ToList();
-            var res = lst.Select(x => x.Divisiones.ToList());
-            int j = 0;
-            //List<Division> divisiones=GetCollection<Division>(Settings.Default.ColeccionDivision)
-            //    .AsQueryable()
-            //    .Where(x => lst.Contains(y=> y.Division.co))
-            //    .ToList();
-            //if(divisiones.Count==0)
-            
-                
-            return new List<Division>();
-
-            //return divisiones;
-        }
-
-        public List<Reto> GetRetos(string user)
-        {
-            List<Reto> l=GetCollection<Reto>(Settings.Default.ColeccionRetos).AsQueryable().Where(x => x.Entrenador == user).ToList();
-            if(l.Count==0)
-                return new List<Reto>();
-            return l;
-        }
-
-        public List<Reto> GetRetosByLiga(string idLiga)
-        {
-            List<Reto> l = GetCollection<Reto>(Settings.Default.ColeccionRetos).AsQueryable().Where(x => x.Id== idLiga).ToList();
-            if (l.Count == 0)
-                return new List<Reto>();
-            return l;
-        }
-
-        internal Reto GetReto(string user)
+        internal Reto     GetReto(string user)
         {
             List<Reto> retos = GetRetosActivos();
             if (retos.Count == 0)
@@ -308,7 +302,41 @@ namespace Zeitgeist.Appsco.Web.App_Start
             return new Reto();
         }
 
-        private List<Reto> GetUltimosReto()
+        internal      List<Liga>         GetLigas(string p)
+        {
+            return GetCollection<Liga>(Settings.Default.ColeccionLiga).AsQueryable().Where(x => x.Entrenador == p).ToList();
+        }
+        internal      List<Division>     GetDivisiones(string user)
+        {
+            List<Liga> lst = GetLigas(user).ToList();
+            var res = lst.Select(x => x.Divisiones.ToList());
+            int j = 0;
+            //List<Division> divisiones=GetCollection<Division>(Settings.Default.ColeccionDivision)
+            //    .AsQueryable()
+            //    .Where(x => lst.Contains(y=> y.Division.co))
+            //    .ToList();
+            //if(divisiones.Count==0)
+
+
+            return new List<Division>();
+
+            //return divisiones;
+        }
+        internal      List<Reto>         GetRetos(string user)
+        {
+            List<Reto> l = GetCollection<Reto>(Settings.Default.ColeccionRetos).AsQueryable().Where(x => x.Entrenador == user).ToList();
+            if (l.Count == 0)
+                return new List<Reto>();
+            return l;
+        }
+        internal      List<Reto>         GetRetosByLiga(string idLiga)
+        {
+            List<Reto> l = GetCollection<Reto>(Settings.Default.ColeccionRetos).AsQueryable().Where(x => x.Id == idLiga).ToList();
+            if (l.Count == 0)
+                return new List<Reto>();
+            return l;
+        }
+        internal      List<Reto>         GetUltimosReto()
         {
             var query =
                 (from a in GetCollection<Reto>(Settings.Default.ColeccionRetos).AsQueryable()
@@ -316,47 +344,14 @@ namespace Zeitgeist.Appsco.Web.App_Start
                     select a).Take(50);
             return query.ToList();
         }
-
-        internal List<Reto> GetRetosActivos()
+        internal      List<Reto>         GetRetosActivos()
         {
             List<Reto> retos = GetCollection<Reto>(Settings.Default.ColeccionRetos).Find(Query.EQ("IsActivo", true)).ToList();
             if (retos.Count > 0)
                 return retos;
             return new List<Reto>();
         }
-
-        internal bool UpdateReto(Reto reto)
-        {
-            var wr=GetCollection<Reto>(Settings.Default.ColeccionRetos)
-                .Update(Query.EQ("_id", new ObjectId(reto.Id)), Update.Replace(reto));
-            if (wr.Ok)
-            {
-                RemoveCache(Settings.Default.ColeccionRetos);
-                return true;
-            }
-            
-            return false;
-        }
-
-        public bool SaveRegistroProgreso(RequestLogEjercicio reg)
-        {
-            return Save(reg.ToLogEjercicio(), Settings.Default.CollectionLogEjercicio);
-        }
-
-        internal bool SaveReto(Reto r)
-        {
-            return Save(r, Settings.Default.ColeccionRetos);
-        }
-
-        internal Reto GetRetoById(string id)
-        {
-            var wr = GetCollection<Reto>(Settings.Default.ColeccionRetos).AsQueryable().Where(x=>x.Id==id).FirstOrDefault();
-            if (wr != null)
-                return wr;
-            return new Reto();
-        }
-
-        public List<Liga> GetLeagueUserRegistered(string user)
+        internal      List<Liga>         GetLeagueUserRegistered(string user)
         {
             try
             {
@@ -368,8 +363,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
                 throw ex;
             }
         }
-
-        public List<Reto> GetRetosByIdLiga(string id)
+        internal      List<Reto>         GetRetosByIdLiga(string id)
         {
             try
             {
@@ -380,8 +374,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
                 throw ex;
             }
         }
-
-        public List<LogEjercicio> GetDatosRetoEquipo(ICollection<string> equipos, string name,Reto reto)
+        internal      List<LogEjercicio> GetDatosRetoEquipo(ICollection<string> equipos, string name,Reto reto)
         {
                 var r=GetCollection<Equipo>(Settings.Default.CollectionEquipos).Find(Query.And(new []
                 {
@@ -400,7 +393,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
                 }
             return new List<LogEjercicio>();
         }
-        public List<LogEjercicio> GetDatosRetoEquipo(Reto reto)
+        internal      List<LogEjercicio> GetDatosRetoEquipo(Reto reto)
         {
             List<LogEjercicio> lst = new List<LogEjercicio>();
             var r = GetEquipos(reto.Equipos);
@@ -426,8 +419,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
             }*/
             return lst;
         }
-
-        public List<LogEjercicio> GetLogEjercicioByIdReto(string id,string user)
+        internal      List<LogEjercicio> GetLogEjercicioByIdReto(string id,string user)
         {
             Reto reto = GetRetoById(id);
             var l = GetCollection<LogEjercicio>(Settings.Default.CollectionLogEjercicio).Find(Query.And(new[]
@@ -437,8 +429,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
                                                                                              })).ToList();
             return l;
         }
-
-        public List<LogEjercicio> GetLogEjercicioByUserAndDates(string user, DateTime inicio, DateTime fin)
+        internal      List<LogEjercicio> GetLogEjercicioByUserAndDates(string user, DateTime inicio, DateTime fin)
         {
             var l = GetCollection<LogEjercicio>(Settings.Default.CollectionLogEjercicio).Find(Query.And(new[]
                                                                                             { Query.EQ("Usuario",user),
@@ -447,27 +438,89 @@ namespace Zeitgeist.Appsco.Web.App_Start
                                                                                              })).ToList();
             return l;
         }
-
-        public List<Tips> GetRandomTips()
+        internal      List<Tips>         GetRandomTips()
         {
             return GetCollection<Tips>(Settings.Default.CollectionTips).AsQueryable().Take(6).ToList();
         }
-
-        public List<Equipo> GetEquipos(ICollection<string> equipos)
+        internal      List<Equipo>       GetEquipos(ICollection<string> equipos)
         {
             return GetCollection<Equipo>(Settings.Default.CollectionEquipos).Find(Query.In("_id", new BsonArray(equipos.Select(x => new ObjectId(x)).ToList()))).ToList();
         }
-
-        public List<Persona> GetMiembrosEquipo(ICollection<string> miembros)
+        internal      List<Persona>      GetMiembrosEquipo(ICollection<string> miembros)
         {
             return GetCollection<Persona>(Settings.Default.ColeccionPersona).Find(Query.In("Cuentas.k",new BsonArray(miembros))).ToList();
         }
-
-        public Division GetDivisionById(string division)
+        internal      List<DetalleReto>  GetDetallesRetosByLiga(string id,string user)
         {
-            return GetCollection<Division>(Settings.Default.ColeccionDivision)
-                .Find(Query.EQ("_id", new ObjectId(division)))
-                .First();
+            List<DetalleReto> lst = new List<DetalleReto>();
+            List<Reto> retos = GetRetosByIdLiga(id);
+            //Puntos Individuales, Puntos Equipos, Puntos Lider o Meta
+
+            foreach (var a in retos)
+            {
+                Task<List<Equipo>> t = Task.Factory.StartNew(() => GetEquipos(a.Equipos));
+
+                List<LogEjercicio> datos = GetDatosRetoEquipo(a);
+                List<Equipo> equipos = t.Result;
+                int totalPersonal = 0;
+                Equipo miEquipo = new Equipo();
+                List<DetalleEquipo> team_detail = new List<DetalleEquipo>();
+                if (datos.Count > 0)
+                {
+                    Parallel.ForEach(equipos, (equipo) =>
+                    {
+                        DetalleEquipo detall = new DetalleEquipo();
+                        foreach (var miembro in equipo.Miembros)
+                        {
+
+                            //mis detalles personales
+                            if (user == miembro)
+                            {
+                                detall.Total += totalPersonal = datos.Where(x => x.Usuario == miembro).Sum(x => x.Conteo);
+                                detall.MiEquipo = true;
+                            }
+                            else
+                            {
+                                detall.Total += datos.Where(x => x.Usuario == miembro).Sum(x => x.Conteo);
+                            }
+                        }
+                        detall.Equipo = equipo.Id;
+                        team_detail.Add(detall);
+                    });
+                    int pos = 1;
+                    foreach (var detalleEquipo in team_detail.OrderByDescending(x => x.Total))
+                    {
+                        detalleEquipo.Posicion = pos++;
+                    }
+                    if (a.Tipo == TipoReto.Superando)
+                    {
+                        DetalleReto dr = new DetalleReto()
+                        {
+                            IdReto = a.Id,
+                            Name = a.Name,
+                            TotalEquipo = team_detail.Where(x => x.MiEquipo).Sum(x => x.Total),
+                            PosicionEquipo = team_detail.Where(x => x.MiEquipo).Select(x => x.Posicion).First(),
+                            TotalReto = team_detail.Where(x => x.Posicion == 1).Sum(x => x.Total),
+                            TotalUsuario = totalPersonal,
+                        };
+                        lst.Add(dr);
+                    }
+                    else
+                    {
+                        DetalleReto dr = new DetalleReto()
+                        {
+                            IdReto = a.Id,
+                            Name = a.Name,
+                            TotalEquipo = team_detail.Where(x => x.MiEquipo).Sum(x => x.Total),
+                            PosicionEquipo = team_detail.Where(x => x.MiEquipo).Select(x => x.Posicion).First(),
+                            TotalReto = a.Meta,
+                            TotalUsuario = totalPersonal,
+                        };
+                        lst.Add(dr);
+                    }
+                }
+            }
+            return lst;
         }
     }
 

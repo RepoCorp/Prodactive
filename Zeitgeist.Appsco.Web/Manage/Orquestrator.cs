@@ -56,6 +56,10 @@ namespace Zeitgeist.Appsco.Web.Manage
                         reto.IsActivo = false;
                         m.UpdateReto(reto);
                     }
+
+                    List<Equipo> lst = Manager.Instance.GetEquipos(reto.Equipos);
+
+
                 }
             });
         }

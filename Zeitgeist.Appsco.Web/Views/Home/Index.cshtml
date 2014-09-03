@@ -256,12 +256,12 @@
                         <div>
                              <span data-bind="text:usuario"></span>
                              <div class="input-group">
-                                <input placeholder="Type your message here ..." type="text" class="form-control" name="message" data-bind="text:mensaje,value:mensaje" />
+                                 <input placeholder="Type your message here ..." type="text" class="form-control" name="message" data-bind="text:mensaje,valueUpdate: 'afterkeydown',value:mensaje,event: { keypress: $root.enterSend}" />
                                 <span class="input-group-btn">
-                                <button class="btn btn-sm btn-info no-radius" type="button" data-bind="click:$root.sendMessage">
-                                    <i class="ace-icon fa fa-share"></i>
-                                    Send
-                                </button>
+                                    <button class="btn btn-sm btn-info no-radius" type="button" data-bind="click:$root.sendMessage">
+                                        <i class="ace-icon fa fa-share"></i>
+                                        Send
+                                    </button>
                                 </span>
                               </div>
                         </div>
@@ -270,7 +270,7 @@
                             <!-- ko foreach: mensajes -->
                             <div class="itemdiv dialogdiv">
                                 <div class="user">
-                                    <img alt="Alexa's Avatar" src="~/Content/template/assets/avatars/avatar1.png" />
+                                    <img alt="Alexa's Avatar" data-bind="attr: { src: url } "/>
                                 </div>
 
                                 <div class="body">

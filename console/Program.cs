@@ -115,12 +115,18 @@ namespace console
             //le.Usuario   = "ddo88";
             //le.Velocidad = 4;
             //Database.GetCollection<LogEjercicio>("LogEjercicio").Save(le);
-            IngresoTips();
+            //IngresoTips();
             
             Console.WriteLine("Todo Good");
             Console.ReadLine();
             ////Test();
         }
+
+        private static void IngresoLogros()
+        {
+            
+        }
+
 
         private static void IngresoTips()
         {

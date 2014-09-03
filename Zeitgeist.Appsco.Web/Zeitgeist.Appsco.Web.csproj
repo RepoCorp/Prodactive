@@ -82,6 +82,9 @@
       <HintPath>..\packages\mongocsharpdriver.1.9.2\lib\net35\MongoDB.Driver.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MongoProviders">
+      <HintPath>E:\D\Documentos\Empresa\Proyectos\Librerias\MongoProviders\bin\Debug\MongoProviders.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.5.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -188,6 +191,7 @@
     <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Manage\Orquestrator.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\DetalleEquipo.cs" />
     <Compile Include="Models\Estadisticas.cs" />
     <Compile Include="Models\LandingData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -475,6 +479,10 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\cambios.css" />
+    <Content Include="Content\deportes\bicicleta_ico.png" />
+    <Content Include="Content\deportes\caminar_ico.png" />
+    <Content Include="Content\deportes\correr_ico.png" />
+    <Content Include="Content\deportes\patinar_ico.png" />
     <Content Include="Content\Landing\assets\css\animate-custom.css" />
     <Content Include="Content\Landing\assets\css\bootstrap.css" />
     <Content Include="Content\Landing\assets\css\icomoon.css" />
@@ -531,6 +539,28 @@
     <Content Include="Content\Landing\images\Web Icon1.png" />
     <Content Include="Content\Landing\images\Web Icon2.png" />
     <Content Include="Content\Landing\images\Web Icon3.png" />
+    <Content Include="Content\medallas\1_participacion.png" />
+    <Content Include="Content\medallas\1_reto_grupal_ganado.png" />
+    <Content Include="Content\medallas\1_reto_grupal_perdido.png" />
+    <Content Include="Content\medallas\1_reto_individual_ganado.png" />
+    <Content Include="Content\medallas\1_reto_individual_perdido.png" />
+    <Content Include="Content\medallas\constancia_mes_x1.png" />
+    <Content Include="Content\medallas\constancia_mes_x2.png" />
+    <Content Include="Content\medallas\constancia_mes_x3.png" />
+    <Content Include="Content\medallas\constancia_sem_x1.png" />
+    <Content Include="Content\medallas\constancia_sem_x2.png" />
+    <Content Include="Content\medallas\constancia_sem_x3.png" />
+    <Content Include="Content\medallas\logros_dia_x20.png" />
+    <Content Include="Content\medallas\logro_dia_x10.png" />
+    <Content Include="Content\medallas\logro_dia_x5.png" />
+    <Content Include="Content\medallas\mas_constante.png" />
+    <Content Include="Content\medallas\mas_puntos_diarios.png" />
+    <Content Include="Content\medallas\mayor_crecimiento.png" />
+    <Content Include="Content\medallas\prodactivo.png" />
+    <Content Include="Content\medallas\retos_x10.png" />
+    <Content Include="Content\medallas\retos_x20.png" />
+    <Content Include="Content\medallas\retos_x5.png" />
+    <Content Include="Content\medallas\retos_x50.png" />
     <Content Include="Content\template\assets\avatars\avatar.png" />
     <Content Include="Content\template\assets\avatars\avatar1.png" />
     <Content Include="Content\template\assets\avatars\avatar2.png" />
@@ -1504,10 +1534,6 @@
     <ProjectReference Include="..\MongoModels\MongoModels.csproj">
       <Project>{12b93bf4-45e3-4d17-99fe-7843582b05de}</Project>
       <Name>MongoModels</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MongoProviders\MongoProviders.csproj">
-      <Project>{b9c2c392-d01d-4382-bfbf-23cbee4259cb}</Project>
-      <Name>MongoProviders</Name>
     </ProjectReference>
     <ProjectReference Include="..\ZeitGeist.Tools\ZeitGeist.Tools.csproj">
       <Project>{82c83282-1b2f-4047-bbc8-0d75dd7c3e22}</Project>
