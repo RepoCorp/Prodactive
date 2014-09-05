@@ -30,11 +30,16 @@ namespace MongoModels
     }
 
     //Falta Añadirle Medallas, para todos los retos...
-    public enum LogrosDiariosEnum
+    public static class LogrosDiarios
     {
-        MasPuntosEnElDia,
-        MayorCrecimiento,
-        MasConstante
+        public static string MasPuntosEnElDia = "Mas Puntos en el dia";
+        public static string MayorCrecimiento = "Mayor crecimiento";
+        public static string MasConstante     = "Más Constante";
+
+        public static string LogroMasConstante = "mas_constante.png";
+        public static string LogroMasPuntosDiarios = "mas_puntos_diarios.png";
+        public static string LogroMayorCrecimiento = "mayor_crecimiento.png";
+
     }
 
     public static class Logros
@@ -56,10 +61,7 @@ namespace MongoModels
         public static string LogroDiaX5 = "logro_dia_x5.png";
         public static string LogroDiaX10 = "logro_dia_x10.png";
         public static string LogroDiaX20 = "logro_dia_x20.png";
-        public static string LogroMasConstante = "mas_constante.png";
-        public static string LogroMasPuntosDiarios = "mas_puntos_diarios.png";
-        public static string LogroMayorCrecimiento = "mayor_crecimiento.png";
-        public static string LogroProdactivo       = "prodactivo.png";
+        public static string LogroProdactivo = "prodactivo.png";
 
 
         public static string RetoGanadoX5 = "retos_x5.png";

@@ -200,6 +200,7 @@ zg.InicioView = function (idLiga) {
     this.sendMessage = function (elm) {
         if(elm.mensaje()!=="")
         {
+            zg.model.viewReto.hub.
             zg.model.viewInicio.hub.server.send(zg.model.menuSuperior.user(), elm.mensaje(), zg.model.menuSuperior.avatar());
             elm.mensaje("");
         }
@@ -270,6 +271,7 @@ zg.MenuSuperior = function (model) {
     this.urlAvatar = ko.computed(function() {
         return "/Content/template/assets/avatars/" + this.avatar();
     }, this);
+    this.mensajes = ko.observableArray();
 };
 
 zg.Mensaje = function (usuario,mensaje,avatar,fecha) {
@@ -296,53 +298,53 @@ zg.PageVM = function () {
         viewReto     = new zg.RetoView();
         
     var load = function () {
-        (function () {
-            send('/Home/GetLigas', 'post', null, function (data) {
-                _.each(data, function (item, index) {
-                    menuSuperior.ligas.push(serializeLiga(item));
-                    if (index === 0) {
-                        var l = menuSuperior.ligas()[0];
-                        menuSuperior.liga = l;
-                        getRetosByLiga(l.id());
-                        getDetallesRetosByIdLiga(l.id());
-                    }
-                });
-            });
-        })(),
-        (function () {
-        send('/Home/GetLogEjerciciosByUser', "post", null, function (data) {
-
-            var caminar = [];
-            var d = _.where(data, { deporte: "Caminar" });
-            var s = d.length;
-            var i = 0;
-            _.each(d, function (item, index) {
-                caminar.push([new Date(item.fecha), item.pasos]);
-                i++;
-                if (i === s) {
-                    zg.model.chart("Caminar", caminar);
-                    zg.model.viewInicio.label = "Caminar";
-                    zg.model.viewInicio.data = caminar;
-                }
-            });
-
-        });
-    })(),
-        (function () {
-        send('/Home/GetTips', "POST", null, function (data) {
-            _.each(data, function (item) {
-                viewInicio.tips.push(new zg.Tips(item.Tipo, item.Mensaje, item.LinkImage));
-                viewInicio.tips.valueHasMutated();
-            });
-
-        });
-        })(),
         (function() {
+                send('/Home/GetLigas', 'post', null, function(data) {
+                    _.each(data, function(item, index) {
+                        menuSuperior.ligas.push(serializeLiga(item));
+                        if (index === 0) {
+                            var l = menuSuperior.ligas()[0];
+                            menuSuperior.liga = l;
+                            getRetosByLiga(l.id());
+                            getDetallesRetosByIdLiga(l.id());
+                        }
+                    });
+                });
+        })(),
+        (function () {
             send('/Home/GetUserData', "POST", null, function (data) {
                 zg.model.menuSuperior.user(data.usuario);
                 zg.model.menuSuperior.avatar(data.avatar);
+                registroUsuarioCHat();
             });
-        })();
+        })(),
+        (function() {
+            send('/Home/GetLogEjerciciosByUser', "post", null, function(data) {
+                var caminar = [];
+                var d = _.where(data, { deporte: "Caminar" });
+                var s = d.length;
+                var i = 0;
+                _.each(d, function(item, index) {
+                    caminar.push([new Date(item.fecha), item.pasos]);
+                    i++;
+                    if (i === s) {
+                    zg.model.chart("Caminar", caminar);
+                    zg.model.viewInicio.label = "Caminar";
+                    zg.model.viewInicio.data = caminar;
+                    }
+                });
+            });
+            })(),
+            (function() {
+                send('/Home/GetTips', "POST", null, function(data) {
+                    _.each(data, function(item) {
+                        viewInicio.tips.push(new zg.Tips(item.Tipo, item.Mensaje, item.LinkImage));
+                        viewInicio.tips.valueHasMutated();
+                    });
+
+                });
+            })();
+        
 
     };
     var getRetosByLiga = function (idLiga) {
@@ -367,10 +369,9 @@ zg.PageVM = function () {
         viewReto.reto(item);
     };
     var consultaMaestroDetalleReto = function (idReto) {
-        send('/Reto/MaestroDetalleReto/' + idReto, 'post', null, function (data) {
+        send('/Reto/MaestroDetalle/' + idReto, 'post', null, function (data) {
             try {
                 viewReto.maestroReto(serializeMaestroReto(data));
-          //      var a = ko.mapping.fromJS(data);
 
             } catch (e) {
                 var p = 0;
@@ -442,8 +443,7 @@ zg.PageVM = function () {
 
 //se carga el modelo inicial
 $(function () {
-
-
+    
     zg.model = new zg.PageVM();
     ko.applyBindings(zg.model.menu, document.getElementById("sidebar"));
     ko.applyBindings(zg.model.menuSuperior, document.getElementById("menuSuperior"));
@@ -457,25 +457,35 @@ $(function () {
     // Create a function that the hub can call to broadcast messages.
     
     chat.client.broadcastMessage = function (name, message, avatar,fecha) {
-        zg.model.viewInicio.mensajes.unshift(new zg.Mensaje(name, message, avatar, new Date(fecha)));
+        zg.model.viewInicio.mensajes.unshift(new zg.Mensaje(name, message, avatar, new Date()));
         updateChatDate();
-        //zg.model.viewInicio.mensajes.push(new zg.Mensaje(name, message, avatar, new Date(fecha)));
+
     };
+
+    chat.disconnected = function() {
+        console.log("se ha desconectado del servidor signalr");
+    };
+
+
+
     // Get the user name and store it to prepend to messages.
     // Set initial focus to message input box.
     // Start the connection.
 
     $.connection.hub.start().done(function () {
-        //$('#sendmessage').click(function () {
-        // Call the Send method on the hub.
         console.log("conexion exitosa");
-        //  chat.server.registro("ddo88", "liga");
+        // Call the Send method on the hub.
+        //chat.server.registro(zg.model.menuSuperior.user(), zg.model.menuSuperior.liga.id());
         //});
     });
 
     setInterval(updateChatDate, 15000);
 
 });
+
+var registroUsuarioCHat = function () {
+    zg.model.viewInicio.hub.server.registro(zg.model.menuSuperior.user(), zg.model.menuSuperior.liga.id());
+};
 
 
 var updateChatDate=function()

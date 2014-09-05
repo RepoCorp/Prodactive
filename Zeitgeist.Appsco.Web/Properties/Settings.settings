@@ -59,5 +59,8 @@
     <Setting Name="CollectionTips" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Tips</Value>
     </Setting>
+    <Setting Name="CollectionLogLogroDiario" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">LogLogroDiario</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

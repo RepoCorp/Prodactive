@@ -1,0 +1,144 @@
+﻿
+<div class="row">
+
+    <div class="col-xs-12">
+
+
+        <!-- ko with: reto -->
+
+        <h3 class="header smaller light-blue" data-bind="text:name"></h3>
+        <div class="col-xs-7">
+
+            <div class="widget-box transparent">
+                <!--
+                    <div class="widget-header widget-header-flat">
+
+                        <div class="widget-toolbar">
+                            <a href="#" data-action="collapse">
+                                <i class="ace-icon fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>-->
+
+                <div class="widget-body">
+                    <div class="widget-main no-padding">
+
+                        <form class="form form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Tipo de Reto</label>
+                                <div class="col-sm-9">
+                                    <input type="text" id="form-field-1" disabled="disabled" data-bind="text:tipo,value:tipo" class="col-xs-10 col-sm-8" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Meta</label>
+                                <div class="col-sm-9">
+                                    <input type="text" id="form-field-1" disabled="disabled" data-bind="numeraltext:meta,numeralvalue:meta" class="col-xs-10 col-sm-8" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Fecha Inicio</label>
+                                <div class="col-sm-9">
+                                    <input type="text" id="form-field-1" disabled="disabled" data-bind="date:fechaInicio,format:'YYYY/MM/DD'" class="col-xs-10 col-sm-8" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Fecha Fin</label>
+                                <div class="col-sm-9">
+                                    <input type="text" id="form-field-1" disabled="disabled" data-bind="date:fechaFin,format:'YYYY/MM/DD'" class="col-xs-10 col-sm-8" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Premio</label>
+                                <div class="col-sm-9">
+                                    <input type="text" id="form-field-1" disabled="disabled" data-bind="text:premio,value:premio" class="col-xs-10 col-sm-8" />
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div><!-- /.widget-main -->
+                </div><!-- /.widget-body -->
+            </div><!-- /.widget-box -->
+
+        </div>
+        <!-- /ko -->
+        <!-- ko with: maestroReto-->
+        <div class="col-xs-5">
+            <div class="widget-box widget-color-blue ui-sortable-handle">
+                <div class="widget-header">
+                    <h5 class="widget-title bigger lighter">
+                        <i class="ace-icon fa fa-table"></i>
+                        Detalle División
+                    </h5>
+                </div>
+                <div class="widget-body">
+                    <div class="widget-main no-padding">
+                        <br />
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Nombre Division</label>
+                                <div class="col-sm-9">
+                                    <input type="text" data-bind="text:name,value:name" id="form-field-1" disabled="disabled" class="col-xs-10 col-sm-5" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Descripcion</label>
+                                <div class="col-sm-9">
+                                    <textarea data-bind="text:descripcion,value:descripcion" disabled="disabled" class="col-xs-10 col-sm-5"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Equipos</label>
+                                <div class="col-sm-9">
+                                    <select data-bind="options: equipos,optionsText: function(item) { return item.equipo }, value:$parent.equipoSelected, optionsCaption: 'Seleccione el equipo...'"></select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- /ko-->
+        <div class="hr hr32 hr-dotted"></div>
+    </div>
+</div>
+<div class="row">
+    <!-- ko with: equipoSelected-->
+    <div class="col-xs-6">
+        <table class="table table-striped table-bordered">
+            <tr><td colspan="2"><h4>Detalles Equipo</h4></td></tr>
+            <tr><td>Equipo</td><td><span data-bind="text:equipo"></span></td></tr>
+            <tr><td>Puntos</td><td><span data-bind="text:puntosTotales"></span></td></tr>
+            <tr><td>Posicion</td><td><span data-bind="text:posicionText,css:posicionIcon"></span></td></tr>
+            <tr><td>Mejor</td><td><span data-bind="text:mejor"></span></td></tr>
+            <tr><td>Miembros</td><td><select multiple="multiple" data-bind="options: detalles,optionsText: function(item) { return item.usuario }"></select></td></tr>
+        </table>
+    </div>
+    <div class="col-xs-6">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr><td>Usuario</td><td>Posicion</td><td>Total</td></tr>
+            </thead>
+            <tbody>
+                <!-- ko foreach: detalles -->
+                <tr>
+                    <td><span data-bind="text:usuario"></span></td>
+                    <td><span data-bind="text:posicionText,css:posicionIcon"></span></td>
+                    <td><span data-bind="numeraltext:total"></span></td>
+                </tr>
+                <!-- /ko -->
+            </tbody>
+
+        </table>
+
+
+    </div>
+    <!-- /ko -->
+
+</div>

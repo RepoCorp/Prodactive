@@ -193,5 +193,14 @@ namespace Zeitgeist.Appsco.Web.Properties {
                 return ((string)(this["CollectionTips"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("LogLogroDiario")]
+        public string CollectionLogLogroDiario {
+            get {
+                return ((string)(this["CollectionLogLogroDiario"]));
+            }
+        }
     }
 }

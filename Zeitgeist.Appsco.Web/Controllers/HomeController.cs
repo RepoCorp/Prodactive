@@ -49,7 +49,10 @@ namespace Zeitgeist.Appsco.Web.Controllers
         [HttpPost]
         public ActionResult GetUserData()
         {
-            return Json(new { usuario = User.Identity.Name, avatar = "avatar2.png" });
+
+           List<Equipo> l=manager.GetEquiposByUser(User.Identity.Name);
+           l.Select(x => new {id = x.Id, equipo = x.Name});
+           return Json(new { usuario = User.Identity.Name, avatar = "avatar2.png" });
         }
 
         [HttpPost]
