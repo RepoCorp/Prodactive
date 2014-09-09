@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -8,6 +9,20 @@ namespace MongoModels
     /// <summary>
     /// caminata,carrera,eliptica,ciclismo,patinaje,natación,Largatijas,Abdominales,SaltoCuerda
     /// </summary>
+    /// 
+    
+    public class ChatElement
+    {
+         [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
+
+        public string Liga { get; set; }
+        public string User { get; set; }
+        public string Avatar { get; set; }
+        public string Message { get; set; }
+        public DateTime Fecha { get; set; }
+    }
+
     public class Deporte
     {
         [BsonRepresentation(BsonType.ObjectId)]

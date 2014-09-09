@@ -9,8 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mobile", "Mobile", "{E7CE49
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zeitgeist.Appsco.Web", "Zeitgeist.Appsco.Web\Zeitgeist.Appsco.Web.csproj", "{13EA3C28-A342-4EF1-9001-9E06FD147145}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zeitgeist.Appsco.Web.Tests", "Zeitgeist.Appsco.Web.Tests\Zeitgeist.Appsco.Web.Tests.csproj", "{6AE45A7F-8583-4863-A3F6-8E8506C0B472}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{5A63D3EC-D2CD-44A7-9A4D-BA4FA12AF759}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MongoDesign", "MongoDesign", "{475A320E-B7AE-40F2-8CAA-8F52E36643D9}"
@@ -31,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zeitgeist.Appsco.WebTests", "Zeitgeist.Appsco.WebTests\Zeitgeist.Appsco.WebTests.csproj", "{91F90C38-2221-41B8-998C-6C6D778652D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,10 +41,6 @@ Global
 		{13EA3C28-A342-4EF1-9001-9E06FD147145}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13EA3C28-A342-4EF1-9001-9E06FD147145}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13EA3C28-A342-4EF1-9001-9E06FD147145}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6AE45A7F-8583-4863-A3F6-8E8506C0B472}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6AE45A7F-8583-4863-A3F6-8E8506C0B472}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6AE45A7F-8583-4863-A3F6-8E8506C0B472}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6AE45A7F-8583-4863-A3F6-8E8506C0B472}.Release|Any CPU.Build.0 = Release|Any CPU
 		{23654922-5D2A-477F-99A3-272B367A3A7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{23654922-5D2A-477F-99A3-272B367A3A7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23654922-5D2A-477F-99A3-272B367A3A7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -69,13 +65,16 @@ Global
 		{82C83282-1B2F-4047-BBC8-0D75DD7C3E22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82C83282-1B2F-4047-BBC8-0D75DD7C3E22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82C83282-1B2F-4047-BBC8-0D75DD7C3E22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91F90C38-2221-41B8-998C-6C6D778652D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91F90C38-2221-41B8-998C-6C6D778652D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91F90C38-2221-41B8-998C-6C6D778652D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91F90C38-2221-41B8-998C-6C6D778652D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{13EA3C28-A342-4EF1-9001-9E06FD147145} = {0BAECA4B-3B37-42D5-8C27-174CDDFE133D}
-		{6AE45A7F-8583-4863-A3F6-8E8506C0B472} = {0BAECA4B-3B37-42D5-8C27-174CDDFE133D}
 		{23654922-5D2A-477F-99A3-272B367A3A7B} = {475A320E-B7AE-40F2-8CAA-8F52E36643D9}
 		{12B93BF4-45E3-4D17-99FE-7843582B05DE} = {0BAECA4B-3B37-42D5-8C27-174CDDFE133D}
 		{D6488A20-D348-4280-947B-8EEC8061B5ED} = {E7CE4980-DDB5-485D-BB60-A624B231AD87}

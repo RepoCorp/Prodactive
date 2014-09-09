@@ -133,16 +133,20 @@
         <!-- /section:basics/sidebar -->
         <div class="main-content">
             <!-- #section:basics/content.breadcrumbs -->
-            @RenderSection("breadcrumbs", required: false)
+            @{
+                Html.RenderPartial("~/Views/Shared/_breadcrumbs.cshtml");
+            }
+
+            @*@RenderSection("breadcrumbs", required: false)*@
 
             <!-- /section:basics/content.breadcrumbs -->
             <div class="page-content">
                 <div id="main" class="page-content-area">
-                    <div id="page-header" class="page-header">
-                        <h1>
-                            @RenderSection("pagename", required: false)
-                        </h1>
-                    </div><!-- /.page-header -->
+                    @{
+                        Html.RenderPartial("~/Views/Shared/_pagename.cshtml");
+                    }
+                    @*@RenderSection("pagename", required: false)*@
+                    
                     <!-- BODY BEGIN -->
                     @RenderBody()
 
@@ -155,9 +159,8 @@
                 </div><!-- /.page-content-area -->
 
 
-            </div><!-- /.page-content -->
-        </div><!-- /.main-content -->
-
+        </div><!-- /.page-content -->
+    </div><!-- /.main-content -->
     </div><!-- /.main-container -->
     <footer class="footer">
         <div class="footer-inner">
@@ -209,6 +212,7 @@
     <script src="~/Content/template/assets/js/jquery.ui.touch-punch.min.js"></script>
     <script src="~/Content/template/assets/js/jquery.easypiechart.min.js"></script>
     <script src="~/Content/template/assets/js/jquery.sparkline.min.js"></script>
+    <script src="~/Scripts/ddSlick.js"></script>
     @*-- ace scripts --*@
     <script src="~/Content/template/assets/js/ace-elements.min.js"></script>
     <script src="~/Content/template/assets/js/ace.min.js"></script>
@@ -242,4 +246,5 @@
 
 
 </body>
+
 </html>

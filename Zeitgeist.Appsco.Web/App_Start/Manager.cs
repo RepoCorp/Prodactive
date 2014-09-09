@@ -17,14 +17,14 @@ using Zeitgeist.Appsco.Web.Properties;
 
 namespace Zeitgeist.Appsco.Web.App_Start
 {
-    internal class Manager
+    public class Manager
     {
 
-        internal static Manager _instance;
-        internal static object _mutex = new object();
-        internal MongoDatabase Database;
-        internal static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(Manager));
-        internal static Manager Instance
+        public static Manager _instance;
+        public static object _mutex = new object();
+        public MongoDatabase Database;
+        public static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(Manager));
+        public static Manager Instance
         {
 			get {
 			
@@ -43,7 +43,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
             
         }
         
-        internal Manager()
+        public Manager()
         {
             
             var client = new MongoClient(Settings.Default.ConnectionString);
@@ -51,7 +51,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
             Database   = server.GetDatabase(Settings.Default.Bd);
         }
         
-        internal MongoCollection<T> GetCollection<T>(string collection)
+        public MongoCollection<T> GetCollection<T>(string collection)
         {
             if (HttpRuntime.Cache[collection] == null)
             {
@@ -63,7 +63,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
 
         }
 
-        internal void insert(string key, object obj)
+        public void insert(string key, object obj)
         {
             HttpRuntime.Cache.Insert(
                 /* key */ key,
@@ -74,13 +74,13 @@ namespace Zeitgeist.Appsco.Web.App_Start
                 /* priority */ CacheItemPriority.NotRemovable,
                 /* onRemoveCallback */ null);
         }
-        internal void RemoveCache(string key)
+        public void RemoveCache(string key)
         {
             if (HttpRuntime.Cache[key] != null)
                 HttpRuntime.Cache.Remove(key);
         }
 
-        internal bool Save<T>             (T item,string collection)
+        public bool Save<T>             (T item,string collection)
         {
             var wc = GetCollection<T>(collection).Save(item);
             if (wc.Ok)
@@ -88,39 +88,39 @@ namespace Zeitgeist.Appsco.Web.App_Start
 
             return false;
         }
-        internal bool SaveClient          (LandingData item)
+        public bool SaveClient          (LandingData item)
         {
             return Save(item,Settings.Default.ClientCollection);
         }
-        internal bool SavePersona         (Persona p)
+        public bool SavePersona         (Persona p)
         {
             return Save(p, Settings.Default.ColeccionPersona);
         }
-        internal bool SaveLiga            (Liga liga)
+        public bool SaveLiga            (Liga liga)
         {
             return Save(liga, Settings.Default.ColeccionLiga);
         }
-        internal bool SaveEquipo          (Equipo equipo)
+        public bool SaveEquipo          (Equipo equipo)
         {
             return Save(equipo, Settings.Default.CollectionEquipos);
         }
-        internal bool SaveDivision        (Division division)
+        public bool SaveDivision        (Division division)
         {
             return Save(division, Settings.Default.ColeccionDivision);
         }
-        internal bool SaveRegistroProgreso(RequestLogEjercicio reg)
+        public bool SaveRegistroProgreso(RequestLogEjercicio reg)
         {
             return Save(reg.ToLogEjercicio(), Settings.Default.CollectionLogEjercicio);
         }
-        internal bool SaveInvitacion      (Invitacion invitacion)
+        public bool SaveInvitacion      (Invitacion invitacion)
         {
             return Save(invitacion, Settings.Default.ColeccionInvitaciones);
         }
-        internal bool SaveReto            (Reto r)
+        public bool SaveReto            (Reto r)
         {
             return Save(r, Settings.Default.ColeccionRetos);
         }
-        internal bool UpdateReto          (Reto reto)
+        public bool UpdateReto          (Reto reto)
         {
             var wr = GetCollection<Reto>(Settings.Default.ColeccionRetos)
                 .Update(Query.EQ("_id", new ObjectId(reto.Id)), Update.Replace(reto));
@@ -135,7 +135,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
 
 
 
-        internal bool DeleteLiga(Liga liga)
+        public bool DeleteLiga(Liga liga)
         {
             WriteConcernResult wr = GetCollection<Liga>(Settings.Default.ColeccionLiga).Remove(Query.EQ("_id", new ObjectId(liga.Id)));
             if (wr.Ok)
@@ -143,7 +143,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
             return false;
         }
 
-        internal bool AddUserToleague(Invitacion invitacion)
+        public bool AddUserToleague(Invitacion invitacion)
         {
             try
             {
@@ -170,7 +170,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
                 return false;
             }
         }
-        internal bool AddUserToleague(string idLiga, string user)
+        public bool AddUserToleague(string idLiga, string user)
         {
             /*
              * añadir persona a un liga, tengo el mail, pero necesito el usuario, 
@@ -207,7 +207,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
             }
         }
 
-        internal bool CorreoDisponible(string mail)
+        public bool CorreoDisponible(string mail)
         {
 
             var a = GetCollection<Persona>(Settings.Default.ColeccionPersona).Find(Query.EQ("Cuentas.v", mail)).Count();
@@ -217,15 +217,13 @@ namespace Zeitgeist.Appsco.Web.App_Start
         }
 
 
-        //internal bool SaveRegistro(Registro registro)
+        //public bool SaveRegistro(Registro registro)
         //{
         //    return Save(registro, Settings.Default.ColeccionRegistro);
         //}
 
-        internal Persona  GetDatosUsuario(string user)
+        public Persona  GetDatosUsuario(string user)
         {
-            Stopwatch sw= new Stopwatch();
-            sw.Start();
             Persona p= new Persona();
             try
             {
@@ -238,12 +236,9 @@ namespace Zeitgeist.Appsco.Web.App_Start
             catch (Exception ex)
             {
             }
-            sw.Stop();
-            string s = sw.ElapsedMilliseconds.ToString();
             return p;
-
         }
-        internal Persona  GetDatosUsuarioByMail(string mail)
+        public Persona  GetDatosUsuarioByMail(string mail)
         {
             Persona p = new Persona();
             try
@@ -260,31 +255,31 @@ namespace Zeitgeist.Appsco.Web.App_Start
             }
             return p;
         }
-        internal Reto     GetReto()
+        public Reto     GetReto()
         {
             var wr = GetCollection<Reto>(Settings.Default.ColeccionRetos).AsQueryable().FirstOrDefault();
             if (wr != null)
                 return wr;
             return new Reto();
         }
-        internal Liga     GetLigaById(string id)
+        public Liga     GetLigaById(string id)
         {
             return GetCollection<Liga>(Settings.Default.ColeccionLiga).AsQueryable().First(x => x.Id==id);
         }
-        internal Division GetDivisionById(string division)
+        public Division GetDivisionById(string division)
         {
             return GetCollection<Division>(Settings.Default.ColeccionDivision)
                 .Find(Query.EQ("_id", new ObjectId(division)))
                 .First();
         }
-        internal Reto     GetRetoById(string id)
+        public Reto     GetRetoById(string id)
         {
             var wr = GetCollection<Reto>(Settings.Default.ColeccionRetos).AsQueryable().Where(x => x.Id == id).FirstOrDefault();
             if (wr != null)
                 return wr;
             return new Reto();
         }
-        internal Reto     GetReto(string user)
+        public Reto     GetReto(string user)
         {
             List<Reto> retos = GetRetosActivos();
             if (retos.Count == 0)
@@ -302,11 +297,11 @@ namespace Zeitgeist.Appsco.Web.App_Start
             return new Reto();
         }
 
-        internal      List<Liga>         GetLigas(string p)
+        public      List<Liga>         GetLigas(string p)
         {
             return GetCollection<Liga>(Settings.Default.ColeccionLiga).AsQueryable().Where(x => x.Entrenador == p).ToList();
         }
-        internal      List<Division>     GetDivisiones(string user)
+        public      List<Division>     GetDivisiones(string user)
         {
             List<Liga> lst = GetLigas(user).ToList();
             var res = lst.Select(x => x.Divisiones.ToList());
@@ -322,21 +317,29 @@ namespace Zeitgeist.Appsco.Web.App_Start
 
             //return divisiones;
         }
-        internal      List<Reto>         GetRetos(string user)
+        public      List<Reto>         GetRetos(string user)
         {
             List<Reto> l = GetCollection<Reto>(Settings.Default.ColeccionRetos).AsQueryable().Where(x => x.Entrenador == user).ToList();
             if (l.Count == 0)
                 return new List<Reto>();
             return l;
         }
-        internal      List<Reto>         GetRetosByLiga(string idLiga)
+        public      List<Reto>         GetRetosByLiga(string idLiga)
         {
-            List<Reto> l = GetCollection<Reto>(Settings.Default.ColeccionRetos).AsQueryable().Where(x => x.Id == idLiga).ToList();
+            List<Reto> l = GetCollection<Reto>(Settings.Default.ColeccionRetos).AsQueryable().Where(x => x.Liga == idLiga).ToList();
             if (l.Count == 0)
                 return new List<Reto>();
             return l;
         }
-        internal      List<Reto>         GetUltimosReto()
+        public List<Reto> GetRetosActivosByLiga(string idLiga)
+        {
+            List<Reto> l = GetCollection<Reto>(Settings.Default.ColeccionRetos).AsQueryable().Where(x => x.Liga == idLiga && x.IsActivo).ToList();
+            
+            if (l.Count == 0)
+                return new List<Reto>();
+            return l;
+        }
+        public      List<Reto>         GetUltimosReto()
         {
             var query =
                 (from a in GetCollection<Reto>(Settings.Default.ColeccionRetos).AsQueryable()
@@ -344,14 +347,14 @@ namespace Zeitgeist.Appsco.Web.App_Start
                     select a).Take(50);
             return query.ToList();
         }
-        internal      List<Reto>         GetRetosActivos()
+        public      List<Reto>         GetRetosActivos()
         {
             List<Reto> retos = GetCollection<Reto>(Settings.Default.ColeccionRetos).Find(Query.EQ("IsActivo", true)).ToList();
             if (retos.Count > 0)
                 return retos;
             return new List<Reto>();
         }
-        internal      List<Liga>         GetLeagueUserRegistered(string user)
+        public      List<Liga>         GetLeagueUserRegistered(string user)
         {
             try
             {
@@ -363,7 +366,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
                 throw ex;
             }
         }
-        internal      List<Reto>         GetRetosByIdLiga(string id)
+        public      List<Reto>         GetRetosByIdLiga(string id)
         {
             try
             {
@@ -374,12 +377,12 @@ namespace Zeitgeist.Appsco.Web.App_Start
                 throw ex;
             }
         }
-        internal      List<LogEjercicio> GetDatosRetoEquipo(ICollection<string> equipos, string name,Reto reto)
+        public      List<LogEjercicio> GetDatosRetoEquipo(ICollection<string> equipos, string usuario,Reto reto)
         {
                 var r=GetCollection<Equipo>(Settings.Default.CollectionEquipos).Find(Query.And(new []
                 {
                     Query.In("_id",new BsonArray(equipos.Select(x => new ObjectId(x)).ToList())),
-                    Query.EQ("Miembros", name)
+                    Query.EQ("Miembros", usuario)
                 })).ToList();
                 Equipo p= new Equipo();
                 if (r.Count > 0)
@@ -393,7 +396,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
                 }
             return new List<LogEjercicio>();
         }
-        internal      List<LogEjercicio> GetDatosRetoEquipo(Reto reto)
+        public      List<LogEjercicio> GetDatosRetoEquipo(Reto reto)
         {
             List<LogEjercicio> lst = new List<LogEjercicio>();
             var r = GetEquipos(reto.Equipos);
@@ -419,7 +422,25 @@ namespace Zeitgeist.Appsco.Web.App_Start
             }*/
             return lst;
         }
-        internal      List<LogEjercicio> GetLogEjercicioByIdReto(string id,string user)
+        public List<LogEjercicio> GetDatosRetoEquipoByDay(Reto reto,DateTime fecha)
+        {
+            List<LogEjercicio> lst = new List<LogEjercicio>();
+            var r = GetEquipos(reto.Equipos);
+            DateTime inicio = new DateTime(fecha.Year, fecha.Month, fecha.Day,  0,  0,  0);
+            DateTime fin    = new DateTime(fecha.Year, fecha.Month, fecha.Day, 23, 59, 59);
+            Parallel.ForEach(r, (e) =>
+            {
+                var l = GetCollection<LogEjercicio>(Settings.Default.CollectionLogEjercicio)
+                    .Find(Query.And(new[]
+                                    { Query.In("Usuario", new BsonArray(e.Miembros)),
+                                      Query.GTE("FechaHora", inicio),
+                                      Query.LTE("FechaHora", fin)
+                                    })).ToList();
+                lst.AddRange(l);
+            });
+            return lst;
+        }
+        public      List<LogEjercicio> GetLogEjercicioByIdReto(string id,string user)
         {
             Reto reto = GetRetoById(id);
             var l = GetCollection<LogEjercicio>(Settings.Default.CollectionLogEjercicio).Find(Query.And(new[]
@@ -429,7 +450,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
                                                                                              })).ToList();
             return l;
         }
-        internal      List<LogEjercicio> GetLogEjercicioByUserAndDates(string user, DateTime inicio, DateTime fin)
+        public      List<LogEjercicio> GetLogEjercicioByUserAndDates(string user, DateTime inicio, DateTime fin)
         {
             var l = GetCollection<LogEjercicio>(Settings.Default.CollectionLogEjercicio).Find(Query.And(new[]
                                                                                             { Query.EQ("Usuario",user),
@@ -438,19 +459,19 @@ namespace Zeitgeist.Appsco.Web.App_Start
                                                                                              })).ToList();
             return l;
         }
-        internal      List<Tips>         GetRandomTips()
+        public      List<Tips>         GetRandomTips()
         {
             return GetCollection<Tips>(Settings.Default.CollectionTips).AsQueryable().Take(6).ToList();
         }
-        internal      List<Equipo>       GetEquipos(ICollection<string> equipos)
+        public      List<Equipo>       GetEquipos(ICollection<string> equipos)
         {
             return GetCollection<Equipo>(Settings.Default.CollectionEquipos).Find(Query.In("_id", new BsonArray(equipos.Select(x => new ObjectId(x)).ToList()))).ToList();
         }
-        internal      List<Persona>      GetMiembrosEquipo(ICollection<string> miembros)
+        public      List<Persona>      GetMiembrosEquipo(ICollection<string> miembros)
         {
             return GetCollection<Persona>(Settings.Default.ColeccionPersona).Find(Query.In("Cuentas.k",new BsonArray(miembros))).ToList();
         }
-        internal      List<DetalleReto>  GetDetallesRetosByLiga(string id,string user)
+        public      List<DetalleReto>  GetDetallesRetosByLiga(string id,string user)
         {
             List<DetalleReto> lst = new List<DetalleReto>();
             List<Reto> retos = GetRetosByIdLiga(id);
@@ -521,6 +542,30 @@ namespace Zeitgeist.Appsco.Web.App_Start
                 }
             }
             return lst;
+        }
+
+        public List<Equipo> GetEquiposByUser(string user)
+        {
+            return GetCollection<Equipo>(Settings.Default.CollectionEquipos).Find(Query.EQ("Miembros", user)).ToList();
+        }
+
+        public bool SaveLogLogrosDiarios(LogLogrosDiarios ld)
+        {
+            return Save(ld, Settings.Default.CollectionLogLogroDiario);
+        }
+
+        internal bool SaveChat(ChatElement c)
+        {
+            return Save(c, Settings.Default.CollectionChat);
+        }
+
+        internal List<ChatElement> GetLastMessages(string idLiga)
+        {
+            return GetCollection<ChatElement>(Settings.Default.CollectionChat)
+                .Find(Query.EQ("Liga", idLiga))
+                .OrderByDescending(x => x.Fecha)
+                .Take(5)
+                .ToList();
         }
     }
 

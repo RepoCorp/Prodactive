@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Security;
@@ -9,13 +7,11 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Driver.Linq;
 using MongoModels;
 
 using MongoDB.Driver;
 using ServiceStack;
 
-using System.Threading;
 namespace console
 {
     public class PasoVel
