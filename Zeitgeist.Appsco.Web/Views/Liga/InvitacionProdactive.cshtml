@@ -1,0 +1,77 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <style type="text/css">
+        .art {
+            text-align: center;
+            font-size: 30px;
+            color: black;
+            font-family: 'Tw Cen MT';
+            margin: 35px 35px 35px 35px;
+        }
+
+        body {
+            background-image: url('../Content/Landing/images/fondo_body.png');
+            background-repeat: no-repeat;
+            background-position: 0% 82%;
+            background-size: 19%;
+        }
+
+        .bord {
+            border-radius: 20px 20px 0px 0px;
+        }
+
+        .bord2 {
+            border-radius: 0px 0px 20px 20px;
+        }
+
+        a:link, a:visited {
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #03899C;
+        }
+
+        .col {
+            color: white;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width" />
+    <title>InvitacionProdactive</title>
+</head>
+<body>
+    <div style="width:700px">
+        <section>
+            <img src="~/Content/invitaciones/Inv_liga.png" width="700px;" class="bord" />
+        </section>
+
+        <article class="art">
+            El atleta: <br /> <i style="color:#03899C"> @ViewBag.Remitente <br /> </i>
+            te ha invitado a ser mas ProdActivo.<br /><br />
+            Estamos encantados de que hagas parte de nuestra comunidad, seas una persona más activa y productiva.<br /><br />
+
+            <table width="400" cellspacing="15" cellpadding="5" border="0" bgcolor="#FF7A00" align="center">
+                <tr>
+                    <th bgcolor="#FF7A00">
+                        <b><a class="col" href="@ViewBag.Url">Haz clic y ProdActivate</a></b>
+                        </td>
+                </tr>
+            </table><br />
+        </article>
+
+        <article style="text-align:center; width:700px;font-size:30px;background-color:black;color:white;font-family:'Tw Cen MT'" class="bord2" ;>
+            Contactanos:
+            <a href="https://facebook.com/prodactive.co " target="_blank"><img src="~/Content/Landing/images/Facebook_Icon.png" style="margin-top:6px" width="30px"></a>
+            <a href="https://twitter.com/search?q=%40beprodactive&src=typd" target="_blank"><img src="~/Content/Landing/images/Twitter_Icon.png" style="margin-top:6px" width="30px"></a>
+            <a href="https://www.linkedin.com/company/3801616?trk=tyah&trkInfo=tarId%3A1409947717983%2Ctas%3Aprodactive%2Cidx%3A1-2-2" target="_blank"><img src="~/Content/Landing/images/LinkedIn_Icon.png" style="margin-top:6px" width="30px"></a>
+        </article>
+    </div>
+</body>
+
+</html>
