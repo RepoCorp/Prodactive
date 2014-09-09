@@ -17,8 +17,23 @@ namespace Zeitgeist.Appsco.Web.Hubs
         ConnectionMapping<string>  map= new ConnectionMapping<string>();
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(ChatHub));
 
-        public void Send(string usuario, string mensaje,string avatar)
+        public void Send(string usuario, string mensaje,string avatar,string liga)
         {
+            Task.Factory.StartNew(() =>
+            {
+                ChatElement c = new ChatElement()
+                {
+                    User = usuario,
+                    Message = mensaje,
+                    Avatar = avatar,
+                    Fecha = DateTime.Now,
+                    Liga = liga
+                };
+                if (manager.SaveChat(c))
+                {
+                }
+            });
+            
             Clients.All.broadcastMessage(usuario, mensaje,avatar,DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
         }
 
@@ -32,7 +47,17 @@ namespace Zeitgeist.Appsco.Web.Hubs
             List<Reto> retos= manager.GetRetosActivosByLiga(liga);
             log.Info(" "+lst.Count +" " +retos.Count );
             //Groups.Add()
-            Clients.All.broadcastMessage(usuario, "se ha registrado el usuario", "", DateTime.Now);
+            List<ChatElement> messages = manager.GetLastMessages(liga);
+            if (messages.Count > 0)
+            {
+                messages = messages.OrderBy(x => x.Fecha).ToList();
+                foreach (var elm in messages)
+                {
+                    Clients.Client(connection).broadcastMessage(elm.User, elm.Message, elm.Avatar, elm.Fecha.ToString("yyyy-MM-dd HH:mm:ss"));        
+                }
+            }
+            
+            //Clients.All.broadcastMessage(usuario, "se ha registrado el usuario", "", DateTime.Now);
         }
     }
 

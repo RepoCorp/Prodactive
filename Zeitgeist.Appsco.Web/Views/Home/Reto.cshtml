@@ -1,9 +1,6 @@
-﻿
-<div class="row">
-
+﻿<div class="row">
+    
     <div class="col-xs-12">
-
-
         <!-- ko with: reto -->
 
         <h3 class="header smaller light-blue" data-bind="text:name"></h3>
@@ -93,9 +90,9 @@
 
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1">Equipos</label>
-                                <div class="col-sm-9">
+                                <!--div class="col-sm-9">
                                     <select data-bind="options: equipos,optionsText: function(item) { return item.equipo }, value:$parent.equipoSelected, optionsCaption: 'Seleccione el equipo...'"></select>
-                                </div>
+                                </div-->
                             </div>
                         </form>
                     </div>
@@ -109,36 +106,57 @@
     </div>
 </div>
 <div class="row">
-    <!-- ko with: equipoSelected-->
-    <div class="col-xs-6">
+
+    <!-- ko with: maestroReto-->
+
+
+    
+    <div class="col-xs-10">
         <table class="table table-striped table-bordered">
-            <tr><td colspan="2"><h4>Detalles Equipo</h4></td></tr>
-            <tr><td>Equipo</td><td><span data-bind="text:equipo"></span></td></tr>
-            <tr><td>Puntos</td><td><span data-bind="text:puntosTotales"></span></td></tr>
-            <tr><td>Posicion</td><td><span data-bind="text:posicionText,css:posicionIcon"></span></td></tr>
-            <tr><td>Mejor</td><td><span data-bind="text:mejor"></span></td></tr>
-            <tr><td>Miembros</td><td><select multiple="multiple" data-bind="options: detalles,optionsText: function(item) { return item.usuario }"></select></td></tr>
-        </table>
-    </div>
-    <div class="col-xs-6">
-        <table class="table table-bordered table-striped">
             <thead>
-                <tr><td>Usuario</td><td>Posicion</td><td>Total</td></tr>
+                <tr><td>Posicion</td><td>Equipo</td><td>Puntos </td><td>Miembros</td></tr>
             </thead>
             <tbody>
-                <!-- ko foreach: detalles -->
+                <!-- ko  foreach: equipos -->
                 <tr>
-                    <td><span data-bind="text:usuario"></span></td>
-                    <td><span data-bind="text:posicionText,css:posicionIcon"></span></td>
-                    <td><span data-bind="numeraltext:total"></span></td>
+                    <td><span data-bind="text:posicionText, css:posicionIcon"></span></td>
+                    <td><span data-bind="text:equipo"></span></td>
+                    <td>
+                        <div class="progress">
+                            <div data-bind="style: {width: cssPuntosUsuario()}, numeraltext:puntosTotales" class="progress-bar progress-bar-success"></div>
+                            <div data-bind="style: {width: cssPuntosTotales() },text:puntosTotales" class="progress-bar progress-bar-warning"></div>
+                            <div style="width:100%;" class="progress-bar progress-bar-grey"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <!--<select data-bind="options: equipos,optionsText: function(item) { return item.equipo }, value:$parent.equipoSelected, optionsCaption: 'Seleccione el equipo...'"></select> -->
+                        <select class="dds">
+                            <!-- ko foreach: detalles-->
+                            <option data-bind="text:usuario,attr:{ 'data-imagesrc': posicionIcon}"></option>
+                            <!-- /ko -->
+                        </select>
+                    </td>
                 </tr>
                 <!-- /ko -->
             </tbody>
-
         </table>
-
-
     </div>
+    
+    <div class="col-xs-10">
+        <!-- ko  foreach: equipos -->
+            <!-- ko if: miEquipo -->
+            
+        <!-- ko foreach: detalles -->
+        <div>
+            <span data-bind="text:usuario"></span>
+        </div>
+        <!-- /ko -->
+            
+            
+            <!-- /ko-->
+        <!-- /ko -->
+    </div>
+
     <!-- /ko -->
 
 </div>

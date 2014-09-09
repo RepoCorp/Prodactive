@@ -202,5 +202,14 @@ namespace Zeitgeist.Appsco.Web.Properties {
                 return ((string)(this["CollectionLogLogroDiario"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Chat")]
+        public string CollectionChat {
+            get {
+                return ((string)(this["CollectionChat"]));
+            }
+        }
     }
 }

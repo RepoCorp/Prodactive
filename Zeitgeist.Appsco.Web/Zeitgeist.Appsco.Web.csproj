@@ -533,6 +533,9 @@
     <Content Include="Content\Landing\images\medallas_prodactive.png" />
     <Content Include="Content\Landing\images\Mensaje_teinf.png" />
     <Content Include="Content\Landing\images\Mensaje_teinf2.png" />
+    <Content Include="Content\Landing\images\rating.png" />
+    <Content Include="Content\Landing\images\rating2.png" />
+    <Content Include="Content\Landing\images\star_PNG1590.png" />
     <Content Include="Content\Landing\images\TitleZeitgeists.png" />
     <Content Include="Content\Landing\images\Twitter_Icon.png" />
     <Content Include="Content\Landing\images\wait.gif" />
@@ -1319,6 +1322,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Content Include="Scripts\countdown.js" />
+    <Content Include="Scripts\ddSlick.js" />
     <Content Include="Scripts\flot\jquery.flot.min.js.map">
       <DependentUpon>jquery.flot.min.js</DependentUpon>
     </Content>
@@ -1499,7 +1503,6 @@
     <Content Include="Users\Admin\MasterPage.master" />
     <Content Include="Site.master" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Estadisticas.cshtml" />
     <Content Include="Views\Manage\Panel.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
@@ -1521,7 +1524,12 @@
     <Content Include="Views\Home\_IndexP.cshtml" />
     <Content Include="Views\Liga\EnvioInvitacion.cshtml" />
     <Content Include="Views\Liga\_invitacion.cshtml" />
+    <Content Include="Views\Home\Retox.cshtml" />
     <Content Include="Views\Home\Reto.cshtml" />
+    <Content Include="Views\Home\Estadisticas.cshtml" />
+    <Content Include="Views\Home\Logros.cshtml" />
+    <Content Include="Views\Shared\_breadcrumbs.cshtml" />
+    <Content Include="Views\Shared\_pagename.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -74,6 +74,69 @@ namespace Zeitgeist.Appsco.Web.Controllers
 
         }
 
+        public JsonResult MaestroDetalle2(string id)
+        {
+
+            List<RetoXEquipo> det = new List<RetoXEquipo>();
+            Reto r = manager.GetRetoById(id);
+
+            Division d = manager.GetDivisionById(r.Division);
+            //con este obtengo lo de todos los equipos...
+            List<LogEjercicio> datos = manager.GetDatosRetoEquipo(r);
+
+
+            List<Equipo> equipos = manager.GetEquipos(r.Equipos);
+            foreach (var equipo in equipos)
+            {
+                RetoXEquipo de = new RetoXEquipo();
+                de.Equipo = equipo.Name;
+
+                List<Persona> miembros = manager.GetMiembrosEquipo(equipo.Miembros);
+                foreach (var miembro in miembros)
+                {
+                    string user = miembro.Cuentas.Keys.First();
+                    if (user == User.Identity.Name)
+                    {
+                        de.MiEquipo = true;
+                    }
+                    List<LogEjercicio> detalleMiembro = datos.Where(x => x.Usuario == user).ToList(); // manager.GetLogEjercicioByIdReto(r.Id, user);
+
+                    DetalleRetosXEquipo dre = new DetalleRetosXEquipo();
+                    dre.Usuario = user;
+                    de.PuntosTotales += dre.Total = detalleMiembro.Sum(x => x.Conteo);
+
+                    if (dre.Total > de.TotalMejor)
+                    {
+                        de.Mejor = user;
+                        de.TotalMejor = dre.Total;
+                    }
+                    de.Detalles.Add(dre);
+                }
+                int i = 1;
+                foreach (var a in de.Detalles.OrderByDescending(x => x.Total))
+                {
+                    a.Posicion = i++;
+                }
+
+                de.Detalles = de.Detalles.OrderBy(x => x.Posicion).ToList();
+                de.PorcentajePuntosTotales = ((double)de.PuntosTotales * 100) / (double)r.Meta;
+                det.Add(de);
+                
+            }
+            int pos = 1;
+            foreach (var team in det.OrderByDescending(x => x.PuntosTotales))
+            {
+                team.Posicion = pos++;
+                //if (!team.MiEquipo)
+                //{
+                //    team.Detalles= new List<DetalleRetosXEquipo>();
+                //}
+            }
+
+            return Json(new { name = d.Name, descripcion = d.Descripcion, equipos = det });
+
+        }
+
     }
     //nombrependiente de cambio
     public class RetoXEquipo
@@ -87,6 +150,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
 
         public string Equipo        { get; set; }
         public int    PuntosTotales { get; set; }
+        public double PorcentajePuntosTotales { get; set; }
         public string Mejor         { get; set; }
         public int    TotalMejor    { get; set; }
         public bool   MiEquipo      { get; set; }

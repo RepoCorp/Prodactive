@@ -553,6 +553,20 @@ namespace Zeitgeist.Appsco.Web.App_Start
         {
             return Save(ld, Settings.Default.CollectionLogLogroDiario);
         }
+
+        internal bool SaveChat(ChatElement c)
+        {
+            return Save(c, Settings.Default.CollectionChat);
+        }
+
+        internal List<ChatElement> GetLastMessages(string idLiga)
+        {
+            return GetCollection<ChatElement>(Settings.Default.CollectionChat)
+                .Find(Query.EQ("Liga", idLiga))
+                .OrderByDescending(x => x.Fecha)
+                .Take(5)
+                .ToList();
+        }
     }
 
    

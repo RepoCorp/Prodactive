@@ -37,16 +37,12 @@ function serializeDetalleMiembros(item) {
     return elm;
 }
 function serializeDetalleEquipo(item) {
-    var elm = new zg.DetalleEquipo();
-    elm.equipo(item.Equipo);
-    elm.puntosTotales(item.PuntosTotales);
-    elm.mejor(item.Mejor);
-    elm.totalMejor(item.TotalMejor);
-    elm.miEquipo(item.MiEquipo);
-    elm.posicion(item.Posicion);
-    for (var i = 0; i < item.Detalles.length; i++) {
-        elm.detalles.push(serializeDetalleMiembros(item.Detalles[i]));
-    }
+
+    var arreglo = [];
+    for (var i = 0; i < item.Detalles.length; i++)
+        arreglo.push(serializeDetalleMiembros(item.Detalles[i]));
+    
+    var elm = new zg.DetalleEquipo(item.Equipo, item.PuntosTotales, item.Mejor,item.TotalMejor, item.MiEquipo,item.Posicion, item.PorcentajePuntosTotales,arreglo);
     return elm;
 }
 function serializeMaestroReto(item) {
@@ -61,7 +57,7 @@ function serializeMaestroReto(item) {
 }
 
 //modelos
-zg.DetalleReto = function (id, name, total, equipo, reto, posicion) {
+zg.DetalleReto       = function (id, name, total, equipo, reto, posicion) {
     this.idReto = ko.observable(id);
     this.name = ko.observable(name);
     this.totalUsuario = ko.observable(total);
@@ -92,7 +88,7 @@ zg.DetalleReto = function (id, name, total, equipo, reto, posicion) {
     }, this);
     this.porcentajeTotalReto = ko.computed(function () { return (100 - ((this.totalEquipo() / this.totalReto()) - (this.totalUsuario() / this.totalReto()))) * "%"; }, this);
 };
-zg.Reto = function () {
+zg.Reto              = function () {
     this.id = ko.observable();
     this.name = ko.observable();
     this.liga = ko.observable();
@@ -108,39 +104,71 @@ zg.Reto = function () {
     this.deportes = ko.observableArray();
     this.equipos = ko.observableArray();
 };
-zg.Liga = function (id, nombre, entrenador, propia, invitacionesDisponibles) {
+zg.Liga              = function (id, nombre, entrenador, propia, invitacionesDisponibles) {
     this.id = ko.observable(id);
     this.nombre = ko.observable(nombre);
     this.entrenador = ko.observable(entrenador);
     this.propia = ko.observable(propia);
     this.invitacionesDisponibles = ko.observable(invitacionesDisponibles);
 };
-zg.Tips = function (tipo, mensaje, imageurl) {
+zg.Tips              = function (tipo, mensaje, imageurl) {
     this.tipo = ko.observable(tipo);
     this.mensaje = ko.observable(mensaje);
     this.linkImage = ko.observable(imageurl);
 };
-zg.DetalleEjercicio = function (fecha, pasos, deporte) {
+zg.DetalleEjercicio  = function (fecha, pasos, deporte) {
     this.fecha = ko.observable(fecha);
     this.pasos = ko.observable(pasos);
     this.deporte = ko.observable(deporte);
 };
+zg.Mensaje           = function (usuario, mensaje, avatar, fecha) {
+    this.usuario = ko.observable(usuario);
+    this.mensaje = ko.observable(mensaje);
+    this.avatar = ko.observable(avatar);
+    this.fecha = ko.observable(fecha);
+    this.fechaCountdown = ko.computed(function () {
+        var result = countdown(this.fecha()).toString();
+        if (result === "")
+            result = countdown(new Date()).toString();
+        return result;
+    }, this);
+    this.url = ko.computed(function () {
+        return "/Content/template/assets/avatars/" + this.avatar();
+    }, this);
 
+};
 //modelo detalle reto
-zg.MaestroReto = function () {
+zg.MaestroReto       = function () {
     this.name = ko.observable();
     this.descripcion = ko.observable();
     this.equipos = ko.observableArray([]);
     this.equipoSelected = ko.observable();
 };
-zg.DetalleEquipo = function () {
-    this.equipo = ko.observable();
-    this.puntosTotales = ko.observable();
-    this.mejor = ko.observable();
-    this.totalMejor = ko.observable();
-    this.miEquipo = ko.observable();
-    this.posicion = ko.observable();
-    this.detalles = ko.observableArray([]);
+zg.DetalleEquipo     = function (equipo,puntosTotales,mejor,totalMejor,miEquipo,posicion,porcentajePuntosTotales,detalles) {
+    this.equipo = ko.observable(equipo);
+    this.puntosTotales = ko.observable(puntosTotales);
+    this.mejor = ko.observable(mejor);
+    this.totalMejor = ko.observable(totalMejor);
+    this.miEquipo = ko.observable(miEquipo);
+    this.posicion = ko.observable(posicion);
+    this.porcentajePuntosTotales = ko.observable(porcentajePuntosTotales);
+    this.detalles = ko.observableArray(detalles);
+    this.puntosUsuario = ko.observable(0);
+    this.cssPuntosUsuario = ko.computed(function () {
+        if (this.miEquipo() == true) {
+            var r = _.find(this.detalles(), function (e) { return e.usuario() == zg.model.menuSuperior.user(); });
+            if (r !== undefined) {
+                this.puntosUsuario = ko.observable((r.total() * 100 / zg.model.menu.reto().meta()));
+                return this.puntosUsuario() + "%";
+            }
+            
+        }
+        else
+            return "0%";
+    }, this);
+    this.cssPuntosTotales = ko.computed(function() {
+        return (this.porcentajePuntosTotales() - this.puntosUsuario()) + "%";
+    }, this);
     this.posicionText = ko.computed(function () {
         return this.posicion() + "°";
     }, this);
@@ -158,7 +186,7 @@ zg.DetalleEquipo = function () {
         return "";
     }, this);
 };
-zg.DetalleMiembros = function () {
+zg.DetalleMiembros   = function () {
     this.usuario = ko.observable();
     this.total = ko.observable();
     this.posicion = ko.observable();
@@ -168,13 +196,13 @@ zg.DetalleMiembros = function () {
     this.posicionIcon = ko.computed(function () {
         switch (this.posicion()) {
             case 1:
-                return "label label-warning arrowed";
-            case 2:
-                return "label label-info arrowed";
-            case 3:
-                return "label label-success arrowed";
+                return "/Content/Landing/images/rating2.png";
+            //case 2:
+            //    return "label label-info arrowed";
+            //case 3:
+            //    return "label label-success arrowed";
             default:
-                return "label label-inverse arrowed";
+                return "";
         }
         return "";
     }, this);
@@ -183,7 +211,7 @@ zg.DetalleMiembros = function () {
 
 //------ VISTAS ---------//
 
-zg.InicioView = function (idLiga) {
+zg.InicioView       = function (idLiga) {
 
     this.detallesRetos      = ko.observableArray();
     this.detallesEjercicios = ko.observableArray();
@@ -200,8 +228,7 @@ zg.InicioView = function (idLiga) {
     this.sendMessage = function (elm) {
         if(elm.mensaje()!=="")
         {
-            zg.model.viewReto.hub.
-            zg.model.viewInicio.hub.server.send(zg.model.menuSuperior.user(), elm.mensaje(), zg.model.menuSuperior.avatar());
+            zg.model.viewInicio.hub.server.send(zg.model.menuSuperior.user(), elm.mensaje(), zg.model.menuSuperior.avatar(),zg.model.menuSuperior.liga.id());
             elm.mensaje("");
         }
     };
@@ -219,16 +246,28 @@ zg.InicioView = function (idLiga) {
     //funciones descarga de la informacion
 
 };
-zg.RetoView = function () {
+zg.RetoView         = function () {
     this.reto = ko.observable();
     this.selected    = ko.observable(false);
     this.maestroReto = ko.observable();
     this.equipoSelected = ko.observable();
 };
-zg.EstadisticasView = function() {
-   
+zg.EstadisticasView = function () {
+    this.selected = ko.observable(false);
 };
-zg.Menu = function (model) {
+zg.LogrosView       = function () {
+    this.selected = ko.observable(false);
+};
+
+zg.PageName         = function () {
+    this.title       = ko.observable();
+    this.description = ko.observable();
+};
+zg.Breadcrumbs      = function () {
+    this.view        = ko.observable();
+    this.description = ko.observable();
+};
+zg.Menu             = function (model) {
     this.reto = ko.observable().extend({ notify: 'always' });
     this.retos = ko.observableArray();
     this.selectReto = function (elm) {
@@ -237,12 +276,29 @@ zg.Menu = function (model) {
         zg.model.menu.reto(elm);
         //zg.model.viewReto.reto(elm);
         zg.model.cmdr(elm.id());
+        updateTitles("Reto", "Resumen reto", "Reto", "");
     };
     this.selectInicio = function () {
         zg.model.uivs();
+        updateTitles("Tablero", "Resumen General", "Home", "Dashboard");
+    };
+    this.selectEstadisticas = function() {
+        zg.model.uevs();
+        updateTitles("Estadisticas", "mi progreso personal", "Estadisticas", "");
+    };
+    this.selectLogros = function() {
+        zg.model.ulvs();
+        updateTitles("Logros", "Logros obtenidos", "Logros", "");
+    };
+
+    function updateTitles(title,description,view,descriptionView) {
+        zg.model.pageName.title(title);
+        zg.model.pageName.description(description);
+        zg.model.breadcrumbs.view(view);
+        zg.model.breadcrumbs.description(descriptionView);
     };
 };
-zg.MenuSuperior = function (model) {
+zg.MenuSuperior     = function (model) {
     this.user = ko.observable();
     this.avatar = ko.observable();
 
@@ -250,8 +306,11 @@ zg.MenuSuperior = function (model) {
     this.ligas = ko.observableArray();
     this.selectLiga = function (elm) {
         if (zg.model.menuSuperior.liga.id() !== elm.id()) {
+            zg.model.menuSuperior.liga = elm;
             zg.model.grbl(elm.id());
             zg.model.gdrbl(elm.id());
+            registroUsuarioCHat();
+            zg.model.menu.retos.valueHasMutated();
         }
     };
     this.showEnvioInvitacion = function (elm) {
@@ -274,28 +333,22 @@ zg.MenuSuperior = function (model) {
     this.mensajes = ko.observableArray();
 };
 
-zg.Mensaje = function (usuario,mensaje,avatar,fecha) {
-    this.usuario = ko.observable(usuario);
-    this.mensaje = ko.observable(mensaje);
-    this.avatar  = ko.observable(avatar);
-    this.fecha = ko.observable(fecha);
-    this.fechaCountdown = ko.computed(function () {
-        var result = countdown(this.fecha()).toString();
-        if (result === "")
-            result = countdown(new Date()).toString();
-        return result;
-    }, this);
-    this.url = ko.computed(function () {
-        return "/Content/template/assets/avatars/" + this.avatar();
-    },this);
-
-}
-
 zg.PageVM = function () {
-    var menuSuperior = new zg.MenuSuperior(this),
-        menu         = new zg.Menu(this),
-        viewInicio   = new zg.InicioView(),
-        viewReto     = new zg.RetoView();
+    var menuSuperior    = new zg.MenuSuperior(this),
+        menu            = new zg.Menu(this),
+        pageName        = new zg.PageName(),
+        breadcrumbs = new zg.Breadcrumbs(),
+        viewInicio      = new zg.InicioView(),
+        viewReto        = new zg.RetoView(),
+        viewEstadistica = new zg.EstadisticasView(),
+        viewLogros      = new zg.LogrosView();
+        
+    //carga Inicial
+    pageName.title("Tablero");
+    pageName.description("Resumen General");
+
+    breadcrumbs.view("Home");
+    breadcrumbs.description("Dashboard");
         
     var load = function () {
         (function() {
@@ -349,6 +402,7 @@ zg.PageVM = function () {
     };
     var getRetosByLiga = function (idLiga) {
         send('/Home/GetRetosByIdLiga/' + idLiga, 'post', null, function (response) {
+            menu.retos([]);
             _.each(response, function (it, index) {
                 menu.retos.push(serializeReto(it));
                 if (index === 0) {
@@ -369,10 +423,14 @@ zg.PageVM = function () {
         viewReto.reto(item);
     };
     var consultaMaestroDetalleReto = function (idReto) {
-        send('/Reto/MaestroDetalle/' + idReto, 'post', null, function (data) {
+        send('/Reto/MaestroDetalle2/' + idReto, 'post', null, function (data) {
             try {
                 viewReto.maestroReto(serializeMaestroReto(data));
-
+                $(".dds").ddslick({
+                    keepJSONItemsOnTop: true,
+                    imagePosition: "right",
+                    selectText: "Miembros del equipo"
+                });
             } catch (e) {
                 var p = 0;
             }
@@ -381,13 +439,31 @@ zg.PageVM = function () {
     };
     var updateRetoViewSelected = function () {
         viewInicio.selected(false);
+        viewEstadistica.selected(false);
+        viewLogros.selected(false);
+
         viewReto.selected(true);
     };
     var updateInicioViewSelected = function () {
         viewReto.selected(false);
+        viewEstadistica.selected(false);
+        viewLogros.selected(false);
+
         viewInicio.selected(true);
         zg.model.chart(viewInicio.label, viewInicio.data);
+    };
+    var updateEstadisticasViewSelected = function() {
+        viewInicio.selected(false);
+        viewReto.selected(false);
+        viewLogros.selected(false);
+        viewEstadistica.selected(true);
+    };
+    var updateLogrosViewSelected = function () {
+        viewInicio.selected(false);
+        viewReto.selected(false);
+        viewEstadistica.selected(false);
 
+        viewLogros.selected(true);
     };
     function chart(name, dato) {
         $("#sales-charts").css({ 'width': '90%', 'min-height': '350px' });
@@ -427,13 +503,23 @@ zg.PageVM = function () {
     return {
         menu: menu,
         menuSuperior: menuSuperior,
+        pageName: pageName,
+        breadcrumbs:breadcrumbs,
+
         viewInicio: viewInicio,
         viewReto: viewReto,
+        viewEstadistica: viewEstadistica,
+        viewLogros:viewLogros,
+
         grbl: getRetosByLiga,
         gdrbl: getDetallesRetosByIdLiga,
         urs: updateRetoSelect,
+
         urvs: updateRetoViewSelected,
         uivs: updateInicioViewSelected,
+        uevs: updateEstadisticasViewSelected,
+        ulvs: updateLogrosViewSelected,
+
         cmdr: consultaMaestroDetalleReto,
         chart: chart
     };
@@ -445,10 +531,20 @@ zg.PageVM = function () {
 $(function () {
     
     zg.model = new zg.PageVM();
-    ko.applyBindings(zg.model.menu, document.getElementById("sidebar"));
-    ko.applyBindings(zg.model.menuSuperior, document.getElementById("menuSuperior"));
-    ko.applyBindings(zg.model.viewInicio, document.getElementById("home_content"));
-    ko.applyBindings(zg.model.viewReto, document.getElementById("reto_content"));
+    ko.applyBindings(zg.model.menu,             document.getElementById("sidebar"));
+    ko.applyBindings(zg.model.menuSuperior,     document.getElementById("menuSuperior"));
+    ko.applyBindings(zg.model.viewInicio,       document.getElementById("home_content"));
+    ko.applyBindings(zg.model.viewReto,         document.getElementById("reto_content"));
+    ko.applyBindings(zg.model.viewEstadistica,  document.getElementById("estadisticas_content"));
+    ko.applyBindings(zg.model.viewLogros,       document.getElementById("logros_content"));
+
+    ko.applyBindings(zg.model.pageName,         document.getElementById("page-header"));
+    ko.applyBindings(zg.model.breadcrumbs,      document.getElementById("breadcrumbs"));
+    
+
+
+    //breadcrumbs
+    //page-header
 
     //declaro la conexion con signal r
     // Declare a proxy to reference the hub.
@@ -457,7 +553,7 @@ $(function () {
     // Create a function that the hub can call to broadcast messages.
     
     chat.client.broadcastMessage = function (name, message, avatar,fecha) {
-        zg.model.viewInicio.mensajes.unshift(new zg.Mensaje(name, message, avatar, new Date()));
+        zg.model.viewInicio.mensajes.unshift(new zg.Mensaje(name, message, avatar, new Date(fecha)));
         updateChatDate();
 
     };
@@ -481,22 +577,20 @@ $(function () {
 
     setInterval(updateChatDate, 15000);
 
+    
 });
 
 var registroUsuarioCHat = function () {
+
     zg.model.viewInicio.hub.server.registro(zg.model.menuSuperior.user(), zg.model.menuSuperior.liga.id());
 };
-
-
-var updateChatDate=function()
+var updateChatDate      =function()
 {
     _.each(zg.model.viewInicio.mensajes(), function(elm) {
         elm.fecha.valueHasMutated();
     });
 };
-
-
-var showDialog = function (htmlMessage,title) {
+var showDialog          = function (htmlMessage,title) {
 
     $("#dialog-message-text").html(htmlMessage);
 

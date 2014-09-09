@@ -2,15 +2,6 @@
     ViewBag.Title = "Index";
 //    Layout = "~/_Layout.cshtml";
 }
-@section pagename
-{
-    Tablero
-    <small>
-        <i class="ace-icon fa fa-angle-double-right"></i>
-        visión general y las estadísticas
-    </small>
-
-}
 
 <div id="home_content">
     <!-- ko if: selected -->
@@ -312,8 +303,15 @@
     <!-- /ko -->
 </div>
 
+<div id="estadisticas_content">
+    <!-- ko if: selected-->
+    @{ Html.RenderPartial("~/Views/Home/Estadisticas.cshtml"); }
+    <!-- /ko -->
+</div>
 
-@section scripts{
+<div id="logros_content">
+    <!-- ko if: selected-->
+    @{ Html.RenderPartial("~/Views/Home/Logros.cshtml"); }
+    <!-- /ko -->
+</div>
 
-
-    }
