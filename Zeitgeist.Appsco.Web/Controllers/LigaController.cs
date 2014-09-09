@@ -14,7 +14,7 @@ using ZeitGeist.Tools;
 
 namespace Zeitgeist.Appsco.Web.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class LigaController : Controller
     {
         //
@@ -183,6 +183,23 @@ namespace Zeitgeist.Appsco.Web.Controllers
             return PartialView("_invitacion");
         }
 
+
+        public ActionResult InvitacionProdactive()
+        {
+            ViewBag.Remitente = "usuario x";
+            ViewBag.Liga = "liga pruebas";
+            ViewBag.Url = "www.prodactive.co";
+            return View();
+        }
+
+
+        public ActionResult InvitacionLiga()
+        {
+            ViewBag.Remitente = "usuario x";
+            ViewBag.Liga = "liga pruebas";
+            ViewBag.Url = "www.prodactive.co";
+            return View();
+        }
         //public ActionResult Division()
         //{
         //    List<Division> list=manager.GetDivisiones(User.Identity.Name);

@@ -83,7 +83,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MongoProviders">
-      <HintPath>E:\D\Documentos\Empresa\Proyectos\Librerias\MongoProviders\bin\Debug\MongoProviders.dll</HintPath>
+      <HintPath>..\..\..\..\Desktop\ZEITGEIST\Convocatoria APPS.co\2014\prodactive web\MongoProviders.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.5.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -484,6 +484,7 @@
     <Content Include="Content\deportes\caminar_ico.png" />
     <Content Include="Content\deportes\correr_ico.png" />
     <Content Include="Content\deportes\patinar_ico.png" />
+    <Content Include="Content\invitaciones\Inv_liga.png" />
     <Content Include="Content\Landing\assets\css\animate-custom.css" />
     <Content Include="Content\Landing\assets\css\bootstrap.css" />
     <Content Include="Content\Landing\assets\css\icomoon.css" />
@@ -521,16 +522,19 @@
     <Content Include="Content\Landing\assets\js\retina.js" />
     <Content Include="Content\Landing\assets\js\smoothscroll.js" />
     <Content Include="Content\Landing\css\hover.css" />
+    <Content Include="Content\Landing\css\invitaciones.css" />
     <Content Include="Content\Landing\css\LandingStyle.css" />
     <Content Include="Content\Landing\images\Backg_landing.png" />
     <Content Include="Content\Landing\images\Bumper.png" />
     <Content Include="Content\Landing\images\BumperG.png" />
     <Content Include="Content\Landing\images\BumperG1.png" />
     <Content Include="Content\Landing\images\Facebook_Icon.png" />
+    <Content Include="Content\Landing\images\fondo_body.png" />
     <Content Include="Content\Landing\images\landing_page_bg.jpg" />
     <Content Include="Content\Landing\images\LinkedIn_Icon.png" />
     <Content Include="Content\Landing\images\logo.png" />
     <Content Include="Content\Landing\images\logo1.png" />
+    <Content Include="Content\Landing\images\Logo_blanco.png" />
     <Content Include="Content\Landing\images\medallas_prodactive.png" />
     <Content Include="Content\Landing\images\Mensaje_teinf.png" />
     <Content Include="Content\Landing\images\Mensaje_teinf2.png" />
