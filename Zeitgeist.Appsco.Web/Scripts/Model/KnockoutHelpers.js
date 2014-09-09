@@ -19,8 +19,48 @@
     return target;
 };
 
-ko.bindingHandlers.date = {
+ko.bindingHandlers.moment = {
+    init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+        var val = valueAccessor();
+        var date = moment(ko.utils.unwrapObservable(val));
+
+        var format = allBindingsAccessor().format || 'YYYY-MM-DD';
+
+        element.value = date.format(format);
+        //element.innerText = ;
+    },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+        var val = valueAccessor();
+        var date = moment(ko.utils.unwrapObservable(val));
+
+        var format = allBindingsAccessor().format || 'YYYY-MM-DD';
+
+        element.value = date.format(format);
+        //element.innerText = date.format(format);
+    }
+};
+
+ko.bindingHandlers.date = {
+    init:  function (element, valueAccessor, allBindingsAccessor) {
+        var value = valueAccessor();
+        var allBindings = allBindingsAccessor();
+        var valueUnwrapped = ko.utils.unwrapObservable(value);
+
+        // Date formats: http://momentjs.com/docs/#/displaying/format/
+        var pattern = allBindings.format || 'YYYY-MM-DD';
+
+        var output = "-";
+        if (valueUnwrapped !== null && valueUnwrapped !== undefined && (valueUnwrapped.length > 0 || typeof (valueUnwrapped) === typeof (new Date()))) {
+            output = moment(valueUnwrapped).format(pattern);
+        }
+
+        if ($(element).is("input") === true) {
+            $(element).val(output);
+        } else {
+            $(element).text(output);
+        }
+    },
+    update: function (element, valueAccessor, allBindingsAccessor) {
         var value = valueAccessor();
         var allBindings = allBindingsAccessor();
         var valueUnwrapped = ko.utils.unwrapObservable(value);
@@ -114,68 +154,6 @@ ko.bindingHandlers.countdown = {
         $(element).text(countdown(value()).toString());
     }
 }
-
-/*
-ko.bindingHandlers.allowBindings = {
-    init: function (elem, valueAccessor) {
-        // Let bindings proceed as normal *only if* my value is false
-        var shouldAllowBindings = ko.unwrap(valueAccessor());
-        return { controlsDescendantBindings: !shouldAllowBindings };
-    }
-};
-
-
-ko.bindingHandlers.subBinding = {
-    init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        var actualValue = valueAccessor();
-
-        ko.virtualElements.emptyNode(element);
-
-        var subViewModel = {};
-        subViewModel.subValue =
-            new ko.observable(ko.utils.unwrapObservable(actualValue) * 2);
-
-        var childBindingContext = bindingContext.createChildContext(viewModel);
-        ko.utils.extend(childBindingContext, subViewModel);
-
-        var getDomNodesFromHtml = function (html) {
-            var div = document.createElement('div');
-            div.innerHTML = html;
-            var elements = div.childNodes;
-            var arr = [];
-            for (var i = 0; i < elements.length; i++) {
-                arr.push(elements[i]);
-            }
-            return arr;
-        };
-
-        var html = '<p data-bind="text: subValue"></p>' +
-            '<pre data-bind="text: JSON.stringify(ko.toJS($data), null, 4)"></pre>';
-
-        ko.virtualElements.setDomNodeChildren(element, getDomNodesFromHtml(html));
-        ko.applyBindingsToDescendants(childBindingContext, element);
-
-        return { controlsDescendantBindings: true };
-    },
-    update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-    }
-};
-ko.virtualElements.allowedBindings.subBinding = true;
-
-
-ko.unapplyBindings = function ($node, remove) {
-    // unbind events
-    $node.find("*").each(function () {
-        $(this).unbind();
-    });
-
-    // Remove KO subscriptions and references
-    if (remove) {
-        ko.removeNode($node[0]);
-    } else {
-        ko.cleanNode($node[0]);
-    }
-}; */
 
 ko.toJS2 = function (model) {
     return JSON.parse(ko.toJSON(model, modelSerializer));

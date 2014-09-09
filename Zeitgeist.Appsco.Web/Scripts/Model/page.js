@@ -236,7 +236,7 @@ zg.InicioView       = function (idLiga) {
     this.enterSend = function(elm, event) {
         if (event.keyCode == 13) {
             if (elm.mensaje() !== "") {
-                zg.model.viewInicio.hub.server.send(zg.model.menuSuperior.user(), elm.mensaje(), zg.model.menuSuperior.avatar());
+                zg.model.viewInicio.hub.server.send(zg.model.menuSuperior.user(), elm.mensaje(), zg.model.menuSuperior.avatar(), zg.model.menuSuperior.liga.id());
                 elm.mensaje("");
             }
             
@@ -254,7 +254,26 @@ zg.RetoView         = function () {
 };
 zg.EstadisticasView = function () {
     this.selected = ko.observable(false);
+    this.form = new zg.Form();
+    this.find = function (elm) {
+        if (elm.to !== undefined && elm.from !== undefined)
+            zg.model.viewEstadistica.loadStatistics();
+    };
+    this.loadStatistics = function() {
+
+        if (zg.model.viewEstadistica.form.from() !== undefined && zg.model.viewEstadistica.form.to() != undefined)
+            send("/User/GetStatistics", "Post", { Search: ko.toJSON(zg.model.viewEstadistica.form) }, function (data) {
+            var i = 0;
+        });
+    };
+
+
 };
+
+zg.Form = function() {
+    this.from = ko.observable(new Date());
+    this.to   = ko.observable(new Date());
+}
 zg.LogrosView       = function () {
     this.selected = ko.observable(false);
 };
@@ -285,17 +304,30 @@ zg.Menu             = function (model) {
     this.selectEstadisticas = function() {
         zg.model.uevs();
         updateTitles("Estadisticas", "mi progreso personal", "Estadisticas", "");
+        loadDatePicker();
+        zg.model.viewEstadistica.loadStatistics();
     };
     this.selectLogros = function() {
         zg.model.ulvs();
         updateTitles("Logros", "Logros obtenidos", "Logros", "");
     };
 
+
     function updateTitles(title,description,view,descriptionView) {
         zg.model.pageName.title(title);
         zg.model.pageName.description(description);
         zg.model.breadcrumbs.view(view);
         zg.model.breadcrumbs.description(descriptionView);
+    };
+    function loadDatePicker() {
+        $.datepicker.setDefaults($.datepicker.regional['es']);
+        $(".datepicker").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            yearRange: '2013:2014',
+            dateFormat: 'yy-mm-dd'
+        });
     };
 };
 zg.MenuSuperior     = function (model) {
@@ -437,6 +469,7 @@ zg.PageVM = function () {
             
         });
     };
+
     var updateRetoViewSelected = function () {
         viewInicio.selected(false);
         viewEstadistica.selected(false);
@@ -465,6 +498,7 @@ zg.PageVM = function () {
 
         viewLogros.selected(true);
     };
+
     function chart(name, dato) {
         $("#sales-charts").css({ 'width': '90%', 'min-height': '350px' });
         var my_chart = $.plot("#sales-charts",
@@ -530,6 +564,7 @@ zg.PageVM = function () {
 //se carga el modelo inicial
 $(function () {
     
+
     zg.model = new zg.PageVM();
     ko.applyBindings(zg.model.menu,             document.getElementById("sidebar"));
     ko.applyBindings(zg.model.menuSuperior,     document.getElementById("menuSuperior"));
@@ -577,12 +612,24 @@ $(function () {
 
     setInterval(updateChatDate, 15000);
 
+    $(".datepicker").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        yearRange: '2013:2014',
+        dateFormat: 'yy-mm-dd'
+    });
+
     
 });
 
 var registroUsuarioCHat = function () {
-
-    zg.model.viewInicio.hub.server.registro(zg.model.menuSuperior.user(), zg.model.menuSuperior.liga.id());
+    try {
+        zg.model.viewInicio.hub.server.registro(zg.model.menuSuperior.user(), zg.model.menuSuperior.liga.id());
+    } catch (e) {
+        console.log("Errro", e);
+    }
+    
 };
 var updateChatDate      =function()
 {
@@ -617,4 +664,24 @@ var showDialog          = function (htmlMessage,title) {
             }
         ]
     });
+};
+
+
+
+$.datepicker.regional['es'] = {
+    closeText: 'Cerrar',
+    prevText: '<Ant',
+    nextText: 'Sig>',
+    currentText: 'Hoy',
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+    dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+    weekHeader: 'Sm',
+    dateFormat: 'yyyy/mm/dd',
+    firstDay: 1,
+    isRTL: false,
+    showMonthAfterYear: false,
+    yearSuffix: ''
 };

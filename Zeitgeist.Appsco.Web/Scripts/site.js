@@ -154,19 +154,3 @@ var showDialog = function() {
 };
 
 
-
-//$(function() {
-
-//    $("#inicio").on('click', function() {
-//        loadPartialView("#inicio", "#load_content");
-//    });
-//    $("#registro").on('click', function () {
-//        loadPartialView("#registro", "#load_content");
-//    });
-//    $("#about").on('click', function () {
-//        loadPartialView("#about", "#load_content");
-//    });
-
-//loadPartialView("#inicio", "#load_content");
-
-//});

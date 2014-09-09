@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using AjaxControlToolkit.HTMLEditor.Popups;
 using MongoModels;
 using ServiceStack.MiniProfiler;
@@ -151,6 +153,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         {
 
             MailClass mc = new MailClass(Settings.Default.mail, Settings.Default.pass, "smtp.gmail.com", 587);
+            //RenderViewToString("Liga","InvitacionLiga",)
 
             string body = "<span>{0}</span>";
             if (!manager.CorreoDisponible(invitacion.Mail))
@@ -185,5 +188,24 @@ namespace Zeitgeist.Appsco.Web.Controllers
         //    List<Division> list=manager.GetDivisiones(User.Identity.Name);
         //    return View(list);
         //}
+        class FakeController : ControllerBase { protected override void ExecuteCore() { } }
+        public static string RenderViewToString(string controllerName, string viewName, object viewData)
+        {
+            using (var writer = new StringWriter())
+            {
+                var routeData = new RouteData();
+                routeData.Values.Add("controller", controllerName);
+                var fakeControllerContext = new ControllerContext(new HttpContextWrapper(new HttpContext(new HttpRequest(null, "http://google.com", null), new HttpResponse(null))), routeData, new FakeController());
+                var razorViewEngine = new RazorViewEngine();
+                var razorViewResult = razorViewEngine.FindView(fakeControllerContext, viewName, "", false);
+
+                var viewContext = new ViewContext(fakeControllerContext, razorViewResult.View, new ViewDataDictionary(viewData), new TempDataDictionary(), writer);
+                razorViewResult.View.Render(viewContext, writer);
+                return writer.ToString();
+            }
+            return "";
+        }
     }
+
+    
 }

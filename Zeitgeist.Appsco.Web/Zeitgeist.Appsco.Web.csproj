@@ -177,6 +177,7 @@
     <Compile Include="Controllers\LigaController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RetoController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="exampleConfigs\Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1533,6 +1534,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
