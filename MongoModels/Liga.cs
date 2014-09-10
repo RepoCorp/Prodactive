@@ -77,7 +77,12 @@ namespace MongoModels
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Mail { get; set; }
-
+        [BsonIgnore]
+        public string Remitente { get; set; }
+        [BsonIgnore]
+        public string Url { get; set; }
+        [BsonIgnore]
+        public string LigaName { get; set; }
         public bool Estado { get; set; }
     }
 

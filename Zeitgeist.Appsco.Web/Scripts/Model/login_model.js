@@ -8,8 +8,9 @@ var zg = zg || {};
 zg.Login = function () {
     this.userName = ko.observable();//.extend({ required: "El campo usuario no puede estar vacio." });
     this.password = ko.observable();//.extend({ required: "El campo contraseña no puede estar vacio." });
-    this.rememberMe = ko.observable();
-    
+    this.rememberMe = ko.observable(false);
+    this.returnUrl = ko.observable();
+
 };
 
 zg.Cuenta = function() {
@@ -66,6 +67,7 @@ zg.Register = function() {
 zg.loginVM = function () {
     var login = new zg.Login(),
         submit = function (elm) {
+            login.returnUrl($("#returnUrl").val());
             sendsubmit("#loginform", '/Account/Login', ko.toJSON(login));
         };
 

@@ -5,13 +5,6 @@ E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\MongoModels\bi
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\MongoModels\obj\Debug\MongoModels.csprojResolveAssemblyReference.cache
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\MongoModels\obj\Debug\MongoModels.dll
 E:\D\Documentos\Empresa\Proyectos\Prodactive\Src\Zeitgeist.Appsco\MongoModels\obj\Debug\MongoModels.pdb
-C:\Users\D\Source\Repos\Prodactive\MongoModels\bin\Debug\MongoModels.dll
-C:\Users\D\Source\Repos\Prodactive\MongoModels\bin\Debug\MongoModels.pdb
-C:\Users\D\Source\Repos\Prodactive\MongoModels\bin\Debug\MongoDB.Bson.dll
-C:\Users\D\Source\Repos\Prodactive\MongoModels\bin\Debug\MongoDB.Bson.xml
-C:\Users\D\Source\Repos\Prodactive\MongoModels\obj\Debug\MongoModels.csprojResolveAssemblyReference.cache
-C:\Users\D\Source\Repos\Prodactive\MongoModels\obj\Debug\MongoModels.dll
-C:\Users\D\Source\Repos\Prodactive\MongoModels\obj\Debug\MongoModels.pdb
 C:\Users\Steven\Source\Repos\Prodactive\MongoModels\bin\Debug\MongoModels.dll
 C:\Users\Steven\Source\Repos\Prodactive\MongoModels\bin\Debug\MongoModels.pdb
 C:\Users\Steven\Source\Repos\Prodactive\MongoModels\bin\Debug\MongoDB.Bson.dll
@@ -19,3 +12,9 @@ C:\Users\Steven\Source\Repos\Prodactive\MongoModels\bin\Debug\MongoDB.Bson.xml
 C:\Users\Steven\Source\Repos\Prodactive\MongoModels\obj\Debug\MongoModels.csprojResolveAssemblyReference.cache
 C:\Users\Steven\Source\Repos\Prodactive\MongoModels\obj\Debug\MongoModels.dll
 C:\Users\Steven\Source\Repos\Prodactive\MongoModels\obj\Debug\MongoModels.pdb
+C:\Users\D\Source\Repos\Prodactive\MongoModels\bin\Debug\MongoModels.dll
+C:\Users\D\Source\Repos\Prodactive\MongoModels\bin\Debug\MongoModels.pdb
+C:\Users\D\Source\Repos\Prodactive\MongoModels\bin\Debug\MongoDB.Bson.dll
+C:\Users\D\Source\Repos\Prodactive\MongoModels\bin\Debug\MongoDB.Bson.xml
+C:\Users\D\Source\Repos\Prodactive\MongoModels\obj\Debug\MongoModels.dll
+C:\Users\D\Source\Repos\Prodactive\MongoModels\obj\Debug\MongoModels.pdb

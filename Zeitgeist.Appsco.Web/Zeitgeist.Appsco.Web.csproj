@@ -83,7 +83,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MongoProviders">
-      <HintPath>..\..\..\..\Desktop\ZEITGEIST\Convocatoria APPS.co\2014\prodactive web\MongoProviders.dll</HintPath>
+      <HintPath>E:\D\Documentos\Empresa\Proyectos\Librerias\MongoProviders\bin\Debug\MongoProviders.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.5.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -1522,6 +1522,8 @@
     <Content Include="Views\Liga\Edit.cshtml" />
     <Content Include="Views\Liga\AceptarInvitacionLiga.cshtml" />
     <Content Include="Views\Liga\Division.cshtml" />
+    <Content Include="Views\Liga\InvitacionLiga.cshtml" />
+    <Content Include="Views\Liga\InvitacionProdactive.cshtml" />
     <Content Include="Views\Reto\Create.cshtml" />
     <Content Include="Views\Reto\Create - Copy.cshtml" />
     <Content Include="Scripts\underscore-min.map" />
@@ -1538,6 +1540,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Logs\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>

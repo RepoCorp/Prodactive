@@ -17,9 +17,10 @@ namespace Zeitgeist.Appsco.Web.Controllers
     //[Authorize]
     public class LigaController : Controller
     {
-        //
-        // GET: /Liga/
+        
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(AccountController));
         private readonly Manager manager = Manager.Instance;
+        
         public ActionResult Index()
         {
             List<Liga> ls=manager.GetLigas(User.Identity.Name);
@@ -151,16 +152,18 @@ namespace Zeitgeist.Appsco.Web.Controllers
         [HttpPost]
         public ActionResult EnvioInvitacion(Invitacion invitacion)
         {
-
+            
             MailClass mc = new MailClass(Settings.Default.mail, Settings.Default.pass, "smtp.gmail.com", 587);
-            //RenderViewToString("Liga","InvitacionLiga",)
-
-            string body = "<span>{0}</span>";
+            invitacion.Remitente = User.Identity.Name;
+            invitacion.LigaName  = manager.GetLigaById(invitacion.LigaId).Nombre;
+            invitacion.Url       = "http://prodactive.co/Account/Login?ReturnUrl=%2fLiga%2fAceptarInvitacionLiga%2f" + invitacion.LigaId;
             if (!manager.CorreoDisponible(invitacion.Mail))
             {
-          
-                string message = "<b>soy una invitacion</b><a href=\"http://localhost:58640/Account/Login?ReturnUrl=%2fLiga%2fAceptarInvitacionLiga%2f" + invitacion.LigaId + "\">prodactive</a>";
-                mc.Send(invitacion.Mail, "Te han invitado a pertenecer a una liga", message);
+                string body = RenderViewToString("Liga", "InvitacionLiga", invitacion);
+                log.Info("Html invitacion");
+                log.Info(body);
+                //string message = "<b>soy una invitacion</b><a href=\"http://localhost:58640/Account/Login?ReturnUrl=%2fLiga%2fAceptarInvitacionLiga%2f" + invitacion.LigaId + "\">prodactive</a>";
+                mc.Send(invitacion.Mail, "Te han invitado a pertenecer a una liga", body);
                 TempData["MessageInvitacion"] = "El usuario ya existe en la plataforma, se ha enviado un correo de invitación para pertencer a la liga.";
 
             }
@@ -171,8 +174,12 @@ namespace Zeitgeist.Appsco.Web.Controllers
                     if (manager.SaveInvitacion(invitacion))
                     {
                         //enviar mail
-                        string message = "<b>soy una invitacion</b><a href=\"http://localhost:58640/Account/Login?ReturnUrl=%2fLiga%2fAceptarInvitacionLiga%2f" + invitacion.LigaId + "\">prodactive</a>";
-                        mc.Send(invitacion.Mail, "Invitacion Prodactive", message);
+                        string body = RenderViewToString( "Liga", "InvitacionLiga", invitacion);
+                        log.Info("Html invitacion");
+                        log.Info(body);
+                
+                        //string message = "<b>soy una invitacion</b><a href=\"http://localhost:58640/Account/Login?ReturnUrl=%2fLiga%2fAceptarInvitacionLiga%2f" + invitacion.LigaId + "\">prodactive</a>";
+                        mc.Send(invitacion.Mail, "Invitacion Prodactive", body);
                         TempData["MessageInvitacion"] = "El usuario no existe en la plataforma, se enviado un correo de invitacion para ingresar en la plataforma.";
                        
                     }
@@ -186,18 +193,17 @@ namespace Zeitgeist.Appsco.Web.Controllers
 
         public ActionResult InvitacionProdactive()
         {
-            ViewBag.Remitente = "usuario x";
-            ViewBag.Liga = "liga pruebas";
-            ViewBag.Url = "www.prodactive.co";
+         
             return View();
         }
 
 
         public ActionResult InvitacionLiga()
         {
-            ViewBag.Remitente = "usuario x";
-            ViewBag.Liga = "liga pruebas";
-            ViewBag.Url = "www.prodactive.co";
+            
+            ViewData["Remitente"] = "usuario x";
+            ViewData["Liga"]      = "liga pruebas";
+            ViewData["Url"]       = "www.prodactive.co";
             return View();
         }
         //public ActionResult Division()
@@ -214,9 +220,13 @@ namespace Zeitgeist.Appsco.Web.Controllers
                 routeData.Values.Add("controller", controllerName);
                 var fakeControllerContext = new ControllerContext(new HttpContextWrapper(new HttpContext(new HttpRequest(null, "http://google.com", null), new HttpResponse(null))), routeData, new FakeController());
                 var razorViewEngine = new RazorViewEngine();
-                var razorViewResult = razorViewEngine.FindView(fakeControllerContext, viewName, "", false);
-
+                //var razorViewResult = razorViewEngine.FindView(controller.ControllerContext, viewName, "", false);
+                //var viewContext = new ViewContext(controller.ControllerContext, razorViewResult.View, new ViewDataDictionary(viewData), new TempDataDictionary(), writer);
+                //fakeControllerContext.Controller.ViewData = (ViewDataDictionary) viewData;
+                var razorViewResult = razorViewEngine.FindView(fakeControllerContext, viewName,"", false);
+                
                 var viewContext = new ViewContext(fakeControllerContext, razorViewResult.View, new ViewDataDictionary(viewData), new TempDataDictionary(), writer);
+                
                 razorViewResult.View.Render(viewContext, writer);
                 return writer.ToString();
             }

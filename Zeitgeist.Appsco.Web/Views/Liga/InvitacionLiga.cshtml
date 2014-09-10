@@ -1,4 +1,5 @@
-﻿@{
+﻿@model MongoModels.Invitacion
+@{
     Layout = null;
 }
 
@@ -10,9 +11,20 @@
         .art{
             text-align:center;font-size:30px;color:black;font-family:'Tw Cen MT';margin:35px 35px 35px 35px;
 
+
+        }
+        .msg {
+            width: 320px;
+            border-spacing: 15px;
+            border: none;
+            background-color: #FF7A00;
+            margin: 0 auto;
+        }
+        .msg td {
+            padding: 5px;
         }
         body {
-            background-image: url('../Content/Landing/images/fondo_body.png');
+            background-image: url('http://prodactive.co/Content/Landing/images/fondo_body.png');
             background-repeat: no-repeat;
             background-position: 0% 82%;
             background-size: 19%;
@@ -20,6 +32,9 @@
 
         .bord {
             border-radius: 20px 20px 0px 0px;
+            -moz-border-radius: 20px 20px 0px 0px;
+            -ms-border-radius: 20px 20px 0px 0px;
+            -webkit-border-radius: 20px 20px 0px 0px;
         }
 
         .bord2 {
@@ -45,28 +60,30 @@
 <body>
     <div style="width:700px">
         <section>
-            <img src="~/Content/invitaciones/Inv_liga.png" width="700px;" class="bord" />
+            <img src="http://prodactive.co/Content/invitaciones/Inv_liga.png" width="700px;" class="bord" />
         </section>
 
         <article class="art">
-            ¡Es hora de ProdActivarte! El atleta: <br /> <i style="color:#03899C"> @ViewBag.Remitente <br /> </i>
-            te ha invitado a ser parte de la liga:   <br /> <i style="color:#03899C"> @ViewBag.Liga </i><br /><br />
-            Ponte a prueba y muestrale a @ViewBag.Remitente  que estás a la altura de su reto.<br /><br />
-
-            <table width="320" cellspacing="15" cellpadding="5" border="0" bgcolor="#FF7A00" align="center">
+            ¡Es hora de ProdActivarte! El atleta: <br /> <i style="color:#03899C"> @Model.Remitente <br /> </i>
+            te ha invitado a ser parte de la liga:   <br /> <i style="color:#03899C"> @Model.LigaName </i><br /><br />
+            Ponte a prueba y muestrale a @Model.Remitente que estás a la altura de su reto.<br /><br />
+            <table class="msg">
                 <tr>
-                    <th bgcolor="#FF7A00">
-                        <b><a class="col" href="@ViewBag.Url">Hacer parte de la liga</a></b>
-                        </td>
+                    <th>
+                        @*<b><a class="col" target="_blank" href="@TempData["Url"]">Hacer parte de la liga</a></b>*@
+                        <b><a class="col" target="_blank" href="@Model.Url">Hacer parte de la liga</a></b>
+                    </th>
                 </tr>
             </table><br />
         </article>
 
-        <article style="text-align:center; width:700px;font-size:30px;background-color:black;color:white;font-family:'Tw Cen MT'" class="bord2" ;>
+        <article style="text-align:center; width:700px;font-size:30px;background-color:black;color:white;font-family:'Tw Cen MT'" class="bord2">
             Contactanos:
-            <a href="https://facebook.com/prodactive.co " target="_blank"><img src="~/Content/Landing/images/Facebook_Icon.png" style="margin-top:6px" width="30px"></a>
-            <a href="https://twitter.com/search?q=%40beprodactive&src=typd" target="_blank"><img src="~/Content/Landing/images/Twitter_Icon.png" style="margin-top:6px" width="30px"></a>
-            <a href="https://www.linkedin.com/company/3801616?trk=tyah&trkInfo=tarId%3A1409947717983%2Ctas%3Aprodactive%2Cidx%3A1-2-2" target="_blank"><img src="~/Content/Landing/images/LinkedIn_Icon.png" style="margin-top:6px" width="30px"></a>
+            <a href="https://facebook.com/prodactive.co " target="_blank">
+                <img src="http://prodactive.co/Content/Landing/images/Facebook_Icon.png" style="margin-top:6px" width="30">
+            </a>
+            <a href="https://twitter.com/search?q=%40beprodactive&src=typd" target="_blank"><img src="http://prodactive.co/Content/Landing/images/Twitter_Icon.png" style="margin-top:6px" width="30px"></a>
+            <a href="https://www.linkedin.com/company/3801616?trk=tyah&trkInfo=tarId%3A1409947717983%2Ctas%3Aprodactive%2Cidx%3A1-2-2" target="_blank"><img src="http://prodactive.co/Content/Landing/images/LinkedIn_Icon.png" style="margin-top:6px" width="30px"></a>
         </article>
     </div>
 </body>

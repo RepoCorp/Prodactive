@@ -191,7 +191,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
                 if (l.Usuarios == null)
                     l.Usuarios = new Dictionary<string, string>();
 
-                l.Usuarios.Add(user, p.Cuentas["user"]);
+                l.Usuarios.Add(user, p.Cuentas[user]);
                 WriteConcernResult wcr = GetCollection<Liga>(Settings.Default.ColeccionLiga).Update(
                     Query.EQ("_id", new ObjectId(l.Id)),
                     Update.Replace(l));

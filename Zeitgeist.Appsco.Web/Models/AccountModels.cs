@@ -65,6 +65,8 @@ namespace Zeitgeist.Appsco.Web.Models
 
         [Display(Name = "¿Recordar cuenta?")]
         public bool RememberMe { get; set; }
+
+        public string ReturnUrl { get; set; }
     }
 
     public class RegisterModel

@@ -37,10 +37,11 @@ namespace Zeitgeist.Appsco.Web.Controllers
         //[ValidateAntiForgeryToken]
         public JsonResult Login(string dataSave, string returnUrl)
         {
-            if(String.IsNullOrEmpty(returnUrl))
-                returnUrl = this.Url.Action("Index", "Home", null, this.Request.Url.Scheme);
             LoginModel model = JsonConvert.DeserializeObject<LoginModel>(dataSave);
-        
+            returnUrl = model.ReturnUrl;
+            if (String.IsNullOrEmpty(returnUrl))
+                returnUrl = this.Url.Action("Index", "Home", null, this.Request.Url.Scheme);
+            
             if (ModelState.IsValid && Membership.ValidateUser(model.UserName, model.Password))
             {
                 FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);

@@ -81,6 +81,7 @@
                                         <form id="loginform">
                                             @Html.AntiForgeryToken()
                                             <fieldset>
+                                                <input id="returnUrl" type="hidden" value="@ViewBag.ReturnUrl"/>
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
                                                         <input type="text" class="form-control" required placeholder="Usuario" data-bind="value:userName,text:userName,valueUpdate:'afterkeydown'" autofocus="autofocus" />
