@@ -207,7 +207,10 @@ zg.DetalleMiembros   = function () {
         return "";
     }, this);
 };
-
+zg.Form              = function () {
+    this.from = ko.observable(new Date());
+    this.to = ko.observable(new Date());
+}
 
 //------ VISTAS ---------//
 
@@ -254,6 +257,7 @@ zg.RetoView         = function () {
 };
 zg.EstadisticasView = function () {
     this.selected = ko.observable(false);
+    this.data = [];
     this.form = new zg.Form();
     this.find = function (elm) {
         if (elm.to !== undefined && elm.from !== undefined)
@@ -263,17 +267,47 @@ zg.EstadisticasView = function () {
 
         if (zg.model.viewEstadistica.form.from() !== undefined && zg.model.viewEstadistica.form.to() != undefined)
             send("/User/GetStatistics", "Post", { Search: ko.toJSON(zg.model.viewEstadistica.form) }, function (data) {
-            var i = 0;
-        });
+                zg.model.viewEstadistica.data = [];
+                var caminar = [];
+                var d = _.where(data, { deporte: "Caminar" });
+                var s = d.length;
+                var i = 0;
+                _.each(d, function (item, index) {
+                    caminar.push([new Date(item.fecha), item.pasos]);
+                    i++;
+                    if (i === s) {
+                        //zg.model.chart("Caminar", caminar);
+                        zg.model.viewEstadistica.data.push({ label: "Caminar", data: caminar });
+                        zg.model.chart2("#estadistica-chart", zg.model.viewEstadistica.data);
+
+                    }
+                });
+            });
+
+
+        /*
+         * send('/Home/GetLogEjerciciosByUser', "post", null, function(data) {
+                var caminar = [];
+                var d = _.where(data, { deporte: "Caminar" });
+                var s = d.length;
+                var i = 0;
+                _.each(d, function(item, index) {
+                    caminar.push([new Date(item.fecha), item.pasos]);
+                    i++;
+                    if (i === s) {
+                    zg.model.chart("Caminar", caminar);
+                    zg.model.viewInicio.label = "Caminar";
+                    zg.model.viewInicio.data = caminar;
+                    }
+                });
+            });
+         */
     };
 
 
 };
 
-zg.Form = function() {
-    this.from = ko.observable(new Date());
-    this.to   = ko.observable(new Date());
-}
+
 zg.LogrosView       = function () {
     this.selected = ko.observable(false);
 };
@@ -528,7 +562,38 @@ zg.PageVM = function () {
                  borderColor: '#555'
              }
          });
-    }
+    };
+
+    function chart2(selector,data) {
+        $(selector).css({ 'width': '90%', 'min-height': '350px' });
+        var my_chart = $.plot(selector,
+            data,
+         {
+             hoverable: true,
+             shadowSize: 1,
+             series: {
+                 lines: { show: true },
+                 points: { show: true }
+             },
+             xaxis: {
+                 mode: "time",
+                 timeformat: "%Y/%m/%d",
+                 ticks: 4
+             },
+
+             //yaxis: {
+             //    ticks: 10,
+             //    min: 0,
+             //    max: 2,
+             //    tickDecimals: 3
+             //},
+             grid: {
+                 backgroundColor: { colors: ["#fff", "#fff"] },
+                 borderWidth: 1,
+                 borderColor: '#555'
+             }
+         });
+    };
 
  
     load();
@@ -554,8 +619,10 @@ zg.PageVM = function () {
         uevs: updateEstadisticasViewSelected,
         ulvs: updateLogrosViewSelected,
 
-        cmdr: consultaMaestroDetalleReto,
-        chart: chart
+        cmdr:   consultaMaestroDetalleReto,
+        chart:  chart,
+        chart2: chart2
+
     };
 
 
@@ -631,7 +698,7 @@ var registroUsuarioCHat = function () {
     }
     
 };
-var updateChatDate      =function()
+var updateChatDate      = function()
 {
     _.each(zg.model.viewInicio.mensajes(), function(elm) {
         elm.fecha.valueHasMutated();

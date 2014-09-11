@@ -18,9 +18,12 @@ namespace Zeitgeist.Appsco.Web.Controllers
         public JsonResult GetStatistics(string search)
         {
             Search se = JsonConvert.DeserializeObject<Search>(search);
-            List<LogEjercicio> lst=Manager.Instance.GetLogEjercicioByUserAndDates(User.Identity.Name, se.From, se.To);
-            var a =lst.Select(x => new {fecha = x.FechaHora, pasos = x.Conteo}).ToList();
-            return Json(new {a});
+            var lst   = Manager.Instance.GetLogEjercicioByUserAndDates(User.Identity.Name, se.From, se.To)
+                .Select(x => new {Fecha = x.FechaHora.ToString("yyyy-MM-dd"), Pasos = x.Conteo, Deporte = x.Deporte})
+                .OrderBy(x=>x.Fecha)
+                .GroupBy(x => new {x.Fecha,x.Deporte})
+                .Select(x => new { fecha = x.Key.Fecha, pasos = x.Sum(y=>y.Pasos), deporte = x.Key.Deporte });
+            return Json(lst);
         }
     }
 

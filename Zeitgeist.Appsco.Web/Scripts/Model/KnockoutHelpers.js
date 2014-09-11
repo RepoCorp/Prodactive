@@ -20,23 +20,25 @@
 };
 
 ko.bindingHandlers.moment = {
-    init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+    init: function (element, valueAccessor, allBindingsAccessor, viewModel,bindingContext) {
         var val = valueAccessor();
         var date = moment(ko.utils.unwrapObservable(val));
-
         var format = allBindingsAccessor().format || 'YYYY-MM-DD';
-
+        $(element).change(function () {
+            var value = valueAccessor();
+            value($(element).val());
+        });
         element.value = date.format(format);
+
         //element.innerText = ;
-    },
-    update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+    }
+    ,
+    update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var val = valueAccessor();
         var date = moment(ko.utils.unwrapObservable(val));
-
         var format = allBindingsAccessor().format || 'YYYY-MM-DD';
-
         element.value = date.format(format);
-        //element.innerText = date.format(format);
+
     }
 };
 
