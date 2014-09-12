@@ -154,3 +154,14 @@ var showDialog = function() {
 };
 
 
+function mostrarFecha(days) {
+    
+    var fecha = new Date();
+    //Obtenemos los milisegundos desde media noche del 1/1/1970
+    var tiempo = fecha.getTime();
+    //Calculamos los milisegundos sobre la fecha que hay que sumar o restar...
+    var milisegundos = parseInt(days * 24 * 60 * 60 * 1000);
+    //Modificamos la fecha actual
+    var total = fecha.setTime(tiempo + milisegundos);
+    return new Date(total);
+};

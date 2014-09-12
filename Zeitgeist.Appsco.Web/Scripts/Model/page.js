@@ -207,9 +207,11 @@ zg.DetalleMiembros   = function () {
         return "";
     }, this);
 };
-zg.Form              = function () {
-    this.from = ko.observable(new Date());
+zg.Form = function () {
+    
+    this.from = ko.observable(mostrarFecha(-5));
     this.to = ko.observable(new Date());
+
 }
 
 //------ VISTAS ---------//
@@ -262,6 +264,9 @@ zg.EstadisticasView = function () {
     this.find = function (elm) {
         if (elm.to !== undefined && elm.from !== undefined)
             zg.model.viewEstadistica.loadStatistics();
+    };
+    this.find2 = function () {
+        zg.model.viewEstadistica.loadStatistics();
     };
     this.loadStatistics = function() {
 
@@ -339,6 +344,7 @@ zg.Menu             = function (model) {
         zg.model.uevs();
         updateTitles("Estadisticas", "mi progreso personal", "Estadisticas", "");
         loadDatePicker();
+        //loadRangeDatePicker();
         zg.model.viewEstadistica.loadStatistics();
     };
     this.selectLogros = function() {
@@ -362,6 +368,26 @@ zg.Menu             = function (model) {
             yearRange: '2013:2014',
             dateFormat: 'yy-mm-dd'
         });
+    };
+
+    function loadRangeDatePicker() {
+        $('#range_date').dateRangeSlider(
+            {
+                bounds: {
+                    min: new Date(2014, 7, 15),
+                    max: new Date()
+                },
+                defaultValues: {
+                    min: new Date(2014, 8, 1),
+                    max: new Date()
+                },
+                step: {
+                    days: 1
+                }
+            }
+        );
+
+        var i = 0;
     };
 };
 zg.MenuSuperior     = function (model) {
@@ -565,7 +591,10 @@ zg.PageVM = function () {
     };
 
     function chart2(selector,data) {
-        $(selector).css({ 'width': '90%', 'min-height': '350px' });
+        //$(selector).css({ 'width': '90%', 'min-height': '350px' });
+        $(selector).css({
+            'width': '90%', 'min-height': '350px'
+        });
         var my_chart = $.plot(selector,
             data,
          {

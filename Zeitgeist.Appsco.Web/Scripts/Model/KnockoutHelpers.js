@@ -19,6 +19,52 @@
     return target;
 };
 
+ko.bindingHandlers.dateRange = {
+    init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        var val = valueAccessor();
+
+        var min = allBindingsAccessor.get("min"); //es un observable 
+        var max = allBindingsAccessor.get("max");
+        var update = allBindingsAccessor.get("update");
+        var isUpdating = false;
+        //$('#range_date').dateRangeSlider(
+        $(element).dateRangeSlider(
+        {
+            bounds: {
+                min: new Date(2014, 7, 15),
+                max: new Date()
+            },
+            defaultValues: {
+                //min: new Date(2014, 8, 1),
+                //max: new Date()
+                min: min(),
+                max: max()
+            },
+            step: {
+                days: 1
+            }
+        }
+        );
+        $(element).on("valuesChanging", function (e, data) {
+            if (!isUpdating) {
+                isUpdating = true;
+                min(data.values.min);
+                max(data.values.max);
+                update();
+                isUpdating = false;
+            }
+        });
+
+    }
+    ,
+    update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        var val = valueAccessor();
+        var date = moment(ko.utils.unwrapObservable(val));
+    }
+};
+
+
+
 ko.bindingHandlers.moment = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel,bindingContext) {
         var val = valueAccessor();
@@ -29,8 +75,6 @@ ko.bindingHandlers.moment = {
             value($(element).val());
         });
         element.value = date.format(format);
-
-        //element.innerText = ;
     }
     ,
     update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {

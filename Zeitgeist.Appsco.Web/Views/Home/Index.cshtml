@@ -306,7 +306,10 @@
 
 <div id="estadisticas_content">
     <!-- ko if: selected-->
-    @{ Html.RenderPartial("~/Views/Home/Estadisticas.cshtml"); }
+    <div class="row">
+    @{ Html.RenderPartial("~/Views/Home/Estadisticas.cshtml"); }    
+    </div>
+    
     <!-- /ko -->
 </div>
 
