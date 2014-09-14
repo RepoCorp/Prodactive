@@ -38,7 +38,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         public JsonResult Login(string dataSave, string returnUrl)
         {
             LoginModel model = JsonConvert.DeserializeObject<LoginModel>(dataSave);
-            returnUrl = model.ReturnUrl;
+            returnUrl        = model.ReturnUrl;
             if (String.IsNullOrEmpty(returnUrl))
                 returnUrl = this.Url.Action("Index", "Home", null, this.Request.Url.Scheme);
             
@@ -47,28 +47,6 @@ namespace Zeitgeist.Appsco.Web.Controllers
                 FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
                 Session.Add("UserId", model.UserName);
             
-                //if (System.Web.Security.Roles.IsUserInRole("administrator"))
-                //{
-                //    if (returnUrl != null)
-                //        return Json(new{success=true,redirect=returnUrl});
-
-
-                //    var fullUrl = this.Url.Action("Panel", "Manage",null, this.Request.Url.Scheme);
-                //    return Json(new { success = true, redirect = fullUrl });            
-                    
-                //}
-                //else
-                //{
-                //    if (System.Web.Security.Roles.IsUserInRole("coach"))
-                //    {
-                //        if (returnUrl != null)
-                //            return Json(new { success = true, redirect = returnUrl });
-
-                //        var fullUrl = this.Url.Action("Index", "Coach", new { id = 5 }, this.Request.Url.Scheme);
-                //        return Json(new { success = true, redirect = fullUrl });            
-                //    }
-                    
-                //}
                 return Json(new { success = true, redirect = returnUrl });
             }
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario

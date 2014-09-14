@@ -10,6 +10,8 @@ namespace MongoModels
 
         public string Tipo { get; set; }
 
+        public string Titulo { get; set; }
+
         public string Mensaje { get; set; }
 
         public string LinkImage { get; set; }

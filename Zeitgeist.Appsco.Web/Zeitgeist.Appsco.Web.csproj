@@ -1552,6 +1552,11 @@
     <Content Include="Views\Home\Logros.cshtml" />
     <Content Include="Views\Shared\_breadcrumbs.cshtml" />
     <Content Include="Views\Shared\_pagename.cshtml" />
+    <Content Include="Views\Home\Calendario.cshtml" />
+    <Content Include="Views\Home\Galeria.cshtml" />
+    <Content Include="Views\Home\TipDeporte.cshtml" />
+    <Content Include="Views\Home\TipSalud.cshtml" />
+    <Content Include="Views\Home\TipAlimentacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

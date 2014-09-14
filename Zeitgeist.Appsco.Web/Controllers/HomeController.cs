@@ -84,6 +84,29 @@ namespace Zeitgeist.Appsco.Web.Controllers
             return Json(lst);
         }
 
+        [HttpPost]
+        public JsonResult GetTipsDeporte()
+        {
+            List<Tips> lst = manager.GetTipsDeporte();
+            return Json(lst);
+        }
+
+        [HttpPost]
+        public JsonResult GetTipsSalud()
+        {
+            List<Tips> lst = manager.GetTipsSalud();
+            return Json(lst);
+        }
+
+        [HttpPost]
+        public JsonResult GetTipsAlimentacion()
+        {
+            List<Tips> lst = manager.GetTipsAlimentacion();
+            return Json(lst);
+        }
+
+
+
 
         private static void GetEmptyReto(ref List<DetalleReto> lst)
         {

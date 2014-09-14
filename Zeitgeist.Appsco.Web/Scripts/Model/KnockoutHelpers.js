@@ -27,7 +27,6 @@ ko.bindingHandlers.dateRange = {
         var max = allBindingsAccessor.get("max");
         var update = allBindingsAccessor.get("update");
         var isUpdating = false;
-        //$('#range_date').dateRangeSlider(
         $(element).dateRangeSlider(
         {
             bounds: {
@@ -35,8 +34,6 @@ ko.bindingHandlers.dateRange = {
                 max: new Date()
             },
             defaultValues: {
-                //min: new Date(2014, 8, 1),
-                //max: new Date()
                 min: min(),
                 max: max()
             },
@@ -46,13 +43,9 @@ ko.bindingHandlers.dateRange = {
         }
         );
         $(element).on("valuesChanging", function (e, data) {
-            if (!isUpdating) {
-                isUpdating = true;
                 min(data.values.min);
                 max(data.values.max);
                 update();
-                isUpdating = false;
-            }
         });
 
     }

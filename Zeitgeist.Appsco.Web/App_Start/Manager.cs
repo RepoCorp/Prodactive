@@ -459,10 +459,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
                                                                                              })).ToList();
             return l;
         }
-        public      List<Tips>         GetRandomTips()
-        {
-            return GetCollection<Tips>(Settings.Default.CollectionTips).AsQueryable().Take(6).ToList();
-        }
+        
         public      List<Equipo>       GetEquipos(ICollection<string> equipos)
         {
             return GetCollection<Equipo>(Settings.Default.CollectionEquipos).Find(Query.In("_id", new BsonArray(equipos.Select(x => new ObjectId(x)).ToList()))).ToList();
@@ -566,6 +563,25 @@ namespace Zeitgeist.Appsco.Web.App_Start
                 .OrderByDescending(x => x.Fecha)
                 .Take(5)
                 .ToList();
+        }
+
+        public List<Tips> GetRandomTips()
+        {
+            return GetCollection<Tips>(Settings.Default.CollectionTips).AsQueryable().Take(6).ToList();
+        }
+        public List<Tips> GetTipsDeporte()
+        {
+            return GetCollection<Tips>(Settings.Default.CollectionTips).AsQueryable().Where(x=>x.Tipo==TipoTips.Deporte).ToList();
+        }
+
+        public List<Tips> GetTipsSalud()
+        {
+            return GetCollection<Tips>(Settings.Default.CollectionTips).AsQueryable().Where(x => x.Tipo == TipoTips.Salud).ToList();
+        }
+
+        public List<Tips> GetTipsAlimentacion()
+        {
+            return GetCollection<Tips>(Settings.Default.CollectionTips).AsQueryable().Where(x => x.Tipo == TipoTips.Alimentacion).ToList();
         }
     }
 

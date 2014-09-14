@@ -56,6 +56,51 @@ function serializeMaestroReto(item) {
     return elm;
 }
 
+
+var registroUsuarioCHat = function () {
+    try {
+        zg.model.viewInicio.hub.server.registro(zg.model.menuSuperior.user(), zg.model.menuSuperior.liga.id());
+    } catch (e) {
+        console.log("Errro", e);
+    }
+
+};
+var updateChatDate = function () {
+    _.each(zg.model.viewInicio.mensajes(), function (elm) {
+        elm.fecha.valueHasMutated();
+    });
+};
+var showDialog = function (htmlMessage, title) {
+
+    $("#dialog-message-text").html(htmlMessage);
+
+    var dialog = $("#dialog-message").removeClass('hide').dialog({
+        modal: true,
+        //title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-info'></i>"+title+"</h4></div>",
+        title: title,
+        title_html: false,
+        buttons: [
+            {
+                text: "Cancel",
+                "class": "btn btn-xs",
+                click: function () {
+                    $(this).dialog("close");
+                }
+            },
+            {
+                text: "OK",
+                "class": "btn btn-primary btn-xs",
+                click: function () {
+                    //$("#dialog-message-text form")[0].submit();
+                    $(this).dialog("close");
+                }
+            }
+        ]
+    });
+};
+
+
+
 //modelos
 zg.DetalleReto       = function (id, name, total, equipo, reto, posicion) {
     this.idReto = ko.observable(id);
@@ -111,8 +156,9 @@ zg.Liga              = function (id, nombre, entrenador, propia, invitacionesDis
     this.propia = ko.observable(propia);
     this.invitacionesDisponibles = ko.observable(invitacionesDisponibles);
 };
-zg.Tips              = function (tipo, mensaje, imageurl) {
+zg.Tips              = function (tipo,titulo, mensaje, imageurl) {
     this.tipo = ko.observable(tipo);
+    this.titulo = ko.observable(titulo);
     this.mensaje = ko.observable(mensaje);
     this.linkImage = ko.observable(imageurl);
 };
@@ -207,17 +253,17 @@ zg.DetalleMiembros   = function () {
         return "";
     }, this);
 };
-zg.Form = function () {
-    
+zg.Form = function() {
+
     this.from = ko.observable(mostrarFecha(-5));
     this.to = ko.observable(new Date());
 
-}
+};
 
 //------ VISTAS ---------//
-
+//inicio
 zg.InicioView       = function (idLiga) {
-
+    this.viewName           = ko.observable("inicio");
     this.detallesRetos      = ko.observableArray();
     this.detallesEjercicios = ko.observableArray();
     this.tips               = ko.observableArray();
@@ -251,20 +297,24 @@ zg.InicioView       = function (idLiga) {
     //funciones descarga de la informacion
 
 };
-zg.RetoView         = function () {
+//reto
+zg.RetoView = function () {
+    this.viewName = ko.observable("reto");
     this.reto = ko.observable();
     this.selected    = ko.observable(false);
     this.maestroReto = ko.observable();
     this.equipoSelected = ko.observable();
 };
+//estadisticas
 zg.EstadisticasView = function () {
+    this.viewName = ko.observable("estadisticas");
     this.selected = ko.observable(false);
     this.data = [];
     this.form = new zg.Form();
-    this.find = function (elm) {
-        if (elm.to !== undefined && elm.from !== undefined)
-            zg.model.viewEstadistica.loadStatistics();
-    };
+    //this.find = function (elm) {
+    //    if (elm.to !== undefined && elm.from !== undefined)
+    //        zg.model.viewEstadistica.loadStatistics();
+    //};
     this.find2 = function () {
         zg.model.viewEstadistica.loadStatistics();
     };
@@ -311,11 +361,69 @@ zg.EstadisticasView = function () {
 
 
 };
-
-
-zg.LogrosView       = function () {
+//logros
+zg.LogrosView = function () {
+    this.viewName = ko.observable("logros");
     this.selected = ko.observable(false);
+    this.load = function() {
+        
+    };
 };
+//tipsSalud
+//tipsDeporte
+//tipsAlimentacion
+zg.TipsView = function (name) {
+    this.viewName = ko.observable(name);
+    this.tips = ko.observableArray();
+    this.selected = ko.observable(false);
+    var me = this;
+    this.loadSalud = function() {
+        send('/Home/GetTipsSalud', "POST", null, function (data) {
+            _.each(data, function (item) {
+                zg.model.viewTipsSalud.tips.push(new zg.Tips(item.Tipo, item.Titulo, item.Mensaje, item.LinkImage));
+                zg.model.viewTipsSalud.tips.valueHasMutated();
+            });
+
+        });
+    };
+    this.loadDeporte      = function() {
+        send('/Home/GetTipsDeporte', "POST", null, function (data) {
+            _.each(data, function (item) {
+                zg.model.viewTipsDeporte.tips.push(new zg.Tips(item.Tipo,item.Titulo, item.Mensaje, item.LinkImage));
+                zg.model.viewTipsDeporte.tips.valueHasMutated();
+            });
+
+        });
+    };
+    this.loadAlimentacion = function() {
+        send('/Home/GetTipsAlimentacion', "POST", null, function (data) {
+            _.each(data, function (item) {
+                zg.model.viewTipsAlimentacion.tips.push(new zg.Tips(item.Tipo, item.Titulo, item.Mensaje, item.LinkImage));
+                zg.model.viewTipsAlimentacion.tips.valueHasMutated();
+            });
+
+        });
+    };
+};
+//calendario
+zg.CalendarioView = function() {
+    this.viewName = ko.observable("calendario");
+    this.selected = ko.observable(false);
+
+    this.loadRetos = function() {
+
+    };
+
+};
+
+zg.Galeria = function() {
+    this.viewName = ko.observable("galeria");
+    this.selected = ko.observable(false);
+    this.loadGaleria = function() {
+        
+    };
+};
+
 
 zg.PageName         = function () {
     this.title       = ko.observable();
@@ -328,30 +436,62 @@ zg.Breadcrumbs      = function () {
 zg.Menu             = function (model) {
     this.reto = ko.observable().extend({ notify: 'always' });
     this.retos = ko.observableArray();
-    this.selectReto = function (elm) {
-        zg.model.urvs();
+
+    this.selectReto         = function (elm) {
+        //zg.model.urvs();
+        zg.model.updateView("reto");
         zg.model.urs(elm);
         zg.model.menu.reto(elm);
         //zg.model.viewReto.reto(elm);
         zg.model.cmdr(elm.id());
         updateTitles("Reto", "Resumen reto", "Reto", "");
     };
-    this.selectInicio = function () {
-        zg.model.uivs();
+    this.selectInicio       = function () {
+        //zg.model.uivs();
+        zg.model.updateView("inicio");
         updateTitles("Tablero", "Resumen General", "Home", "Dashboard");
     };
     this.selectEstadisticas = function() {
-        zg.model.uevs();
+        //zg.model.uevs();
+        zg.model.updateView("estadisticas");
         updateTitles("Estadisticas", "mi progreso personal", "Estadisticas", "");
         loadDatePicker();
         //loadRangeDatePicker();
         zg.model.viewEstadistica.loadStatistics();
     };
-    this.selectLogros = function() {
-        zg.model.ulvs();
+    this.selectLogros       = function() {
+        //zg.model.ulvs();
+        zg.model.updateView("logros");
         updateTitles("Logros", "Logros obtenidos", "Logros", "");
     };
+    //tips
+    this.selectCalendario = function() {
+        zg.model.updateView("calendario");
+        //zg.model.ucvs();
+        updateTitles("Calendario", "Retos Inscritos", "Calendario", "");
+        loadCalendario();
 
+    };
+    this.selectTipsSalud = function() {
+        zg.model.updateView("tipsSalud");
+        updateTitles("Tips", "Salud", "Tips Salud", "");
+        zg.model.viewTipsSalud.loadSalud();
+    };
+    this.selectTipsDeporte = function() {
+        zg.model.updateView("tipsDeporte");
+        updateTitles("Tips", "Deporte", "Tips Deporte", "");
+        zg.model.viewTipsSalud.loadDeporte();
+    };
+    this.selectTipsAlimentacion = function() {
+        zg.model.updateView("tipsAlimentacion");
+        updateTitles("Tips", "Alimentacion", "Tips Alimentacion", "");
+        zg.model.viewTipsSalud.loadAlimentacion();
+    };
+    this.selectGaleria = function () {
+        zg.model.updateView("galeria");
+        updateTitles("Galeria", "", "Galeria", "");
+
+    };
 
     function updateTitles(title,description,view,descriptionView) {
         zg.model.pageName.title(title);
@@ -370,26 +510,11 @@ zg.Menu             = function (model) {
         });
     };
 
-    function loadRangeDatePicker() {
-        $('#range_date').dateRangeSlider(
-            {
-                bounds: {
-                    min: new Date(2014, 7, 15),
-                    max: new Date()
-                },
-                defaultValues: {
-                    min: new Date(2014, 8, 1),
-                    max: new Date()
-                },
-                step: {
-                    days: 1
-                }
-            }
-        );
-
-        var i = 0;
+    function loadCalendario() {
+        $('#con_calendario').fullCalendar();
     };
 };
+
 zg.MenuSuperior     = function (model) {
     this.user = ko.observable();
     this.avatar = ko.observable();
@@ -426,14 +551,20 @@ zg.MenuSuperior     = function (model) {
 };
 
 zg.PageVM = function () {
-    var menuSuperior    = new zg.MenuSuperior(this),
-        menu            = new zg.Menu(this),
-        pageName        = new zg.PageName(),
+    var menuSuperior = new zg.MenuSuperior(this),
+        menu = new zg.Menu(this),
+        pageName = new zg.PageName(),
         breadcrumbs = new zg.Breadcrumbs(),
-        viewInicio      = new zg.InicioView(),
-        viewReto        = new zg.RetoView(),
+        viewInicio = new zg.InicioView(),
+        viewReto = new zg.RetoView(),
         viewEstadistica = new zg.EstadisticasView(),
-        viewLogros      = new zg.LogrosView();
+        viewLogros           = new zg.LogrosView(),
+        viewTipsSalud        = new zg.TipsView("tipsSalud"),
+        viewTipsDeporte = new zg.TipsView("tipsDeporte"),
+        viewTipsAlimentacion = new zg.TipsView("tipsAlimentacion"),
+        viewCalendario = new zg.CalendarioView(),
+        viewGaleria = new zg.Galeria();
+    ;
         
     //carga Inicial
     pageName.title("Tablero");
@@ -483,7 +614,7 @@ zg.PageVM = function () {
             (function() {
                 send('/Home/GetTips', "POST", null, function(data) {
                     _.each(data, function(item) {
-                        viewInicio.tips.push(new zg.Tips(item.Tipo, item.Mensaje, item.LinkImage));
+                        viewInicio.tips.push(new zg.Tips(item.Tipo,'', item.Mensaje, item.LinkImage));
                         viewInicio.tips.valueHasMutated();
                     });
 
@@ -530,18 +661,19 @@ zg.PageVM = function () {
         });
     };
 
+    /*
     var updateRetoViewSelected = function () {
         viewInicio.selected(false);
         viewEstadistica.selected(false);
         viewLogros.selected(false);
-
+        viewCalendario.selected(false);
         viewReto.selected(true);
     };
     var updateInicioViewSelected = function () {
         viewReto.selected(false);
         viewEstadistica.selected(false);
         viewLogros.selected(false);
-
+        viewCalendario.selected(false);
         viewInicio.selected(true);
         zg.model.chart(viewInicio.label, viewInicio.data);
     };
@@ -549,15 +681,33 @@ zg.PageVM = function () {
         viewInicio.selected(false);
         viewReto.selected(false);
         viewLogros.selected(false);
+        viewCalendario.selected(false);
         viewEstadistica.selected(true);
     };
     var updateLogrosViewSelected = function () {
         viewInicio.selected(false);
         viewReto.selected(false);
         viewEstadistica.selected(false);
+        viewCalendario.selected(false);
 
         viewLogros.selected(true);
     };
+
+    var updateCalendarioViewSelected = function () {
+        updateview("calendario");
+    };
+    */
+    var updateview = function(name) {
+        var list = [viewInicio, viewReto, viewEstadistica, viewLogros, viewTipsSalud, viewTipsDeporte, viewTipsAlimentacion, viewCalendario];
+        _.each(list, function(data) {
+            if (data.viewName() == name) {
+                data.selected(true);
+            } else {
+                data.selected(false);
+            }
+        });
+    };
+
 
     function chart(name, dato) {
         $("#sales-charts").css({ 'width': '90%', 'min-height': '350px' });
@@ -632,22 +782,28 @@ zg.PageVM = function () {
         menu: menu,
         menuSuperior: menuSuperior,
         pageName: pageName,
-        breadcrumbs:breadcrumbs,
+        breadcrumbs: breadcrumbs,
 
         viewInicio: viewInicio,
         viewReto: viewReto,
         viewEstadistica: viewEstadistica,
-        viewLogros:viewLogros,
+        viewLogros: viewLogros,
+        viewTipsSalud: viewTipsSalud,
+        viewTipsDeporte: viewTipsDeporte,
+        viewTipsAlimentacion: viewTipsAlimentacion,
+        viewCalendario: viewCalendario,
+        viewGaleria:viewGaleria,
 
         grbl: getRetosByLiga,
         gdrbl: getDetallesRetosByIdLiga,
         urs: updateRetoSelect,
 
-        urvs: updateRetoViewSelected,
+        updateView: updateview,
+        /*urvs: updateRetoViewSelected,
         uivs: updateInicioViewSelected,
         uevs: updateEstadisticasViewSelected,
         ulvs: updateLogrosViewSelected,
-
+        ucvs: updateCalendarioViewSelected,*/
         cmdr:   consultaMaestroDetalleReto,
         chart:  chart,
         chart2: chart2
@@ -668,8 +824,14 @@ $(function () {
     ko.applyBindings(zg.model.viewReto,         document.getElementById("reto_content"));
     ko.applyBindings(zg.model.viewEstadistica,  document.getElementById("estadisticas_content"));
     ko.applyBindings(zg.model.viewLogros,       document.getElementById("logros_content"));
+    ko.applyBindings(zg.model.viewTipsSalud,        document.getElementById("tipsSalud"));
+    ko.applyBindings(zg.model.viewTipsDeporte,      document.getElementById("tipsDeporte"));
+    ko.applyBindings(zg.model.viewTipsAlimentacion, document.getElementById("tipsAlimentacion"));
+    ko.applyBindings(zg.model.viewCalendario,   document.getElementById("calendario_content"));
 
-    ko.applyBindings(zg.model.pageName,         document.getElementById("page-header"));
+    ko.applyBindings(zg.model.viewGaleria, document.getElementById("galeria_content"));
+
+    ko.applyBindings(zg.model.pageName, document.getElementById("page-header"));
     ko.applyBindings(zg.model.breadcrumbs,      document.getElementById("breadcrumbs"));
     
 
@@ -718,50 +880,6 @@ $(function () {
 
     
 });
-
-var registroUsuarioCHat = function () {
-    try {
-        zg.model.viewInicio.hub.server.registro(zg.model.menuSuperior.user(), zg.model.menuSuperior.liga.id());
-    } catch (e) {
-        console.log("Errro", e);
-    }
-    
-};
-var updateChatDate      = function()
-{
-    _.each(zg.model.viewInicio.mensajes(), function(elm) {
-        elm.fecha.valueHasMutated();
-    });
-};
-var showDialog          = function (htmlMessage,title) {
-
-    $("#dialog-message-text").html(htmlMessage);
-
-    var dialog = $("#dialog-message").removeClass('hide').dialog({
-        modal: true,
-        //title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-info'></i>"+title+"</h4></div>",
-        title: title,
-        title_html: false,
-        buttons: [
-            {
-                text: "Cancel",
-                "class": "btn btn-xs",
-                click: function () {
-                    $(this).dialog("close");
-                }
-            },
-            {
-                text: "OK",
-                "class": "btn btn-primary btn-xs",
-                click: function () {
-                    //$("#dialog-message-text form")[0].submit();
-                    $(this).dialog("close");
-                }
-            }
-        ]
-    });
-};
-
 
 
 $.datepicker.regional['es'] = {

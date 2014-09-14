@@ -111,7 +111,7 @@ namespace console
             //le.Usuario   = "ddo88";
             //le.Velocidad = 4;
             //Database.GetCollection<LogEjercicio>("LogEjercicio").Save(le);
-            //IngresoTips();
+            IngresoTips();
             
             Console.WriteLine("Todo Good");
             Console.ReadLine();
@@ -127,28 +127,35 @@ namespace console
         private static void IngresoTips()
         {
             Tips t= new Tips();
+            t.Titulo = "Propiedades del Mango";
             t.Tipo = TipoTips.Alimentacion;
             t.Mensaje = "El mango y su vitamina A, aportan beneficios para nuestra piel, el cabello, la vista, los huesos y ademas, fortalece el sistema inmunologico. Asimismo por ser rica en vitamina C contribuye a la absorción de hierro y a la formación de glóbulos rojos.";
             Database.GetCollection<Tips>("Tips").Save(t);
 
             Tips t2 = new Tips();
+            t2.Titulo = "¡Alimentate bien!";
             t2.Tipo = TipoTips.Alimentacion;
             t2.Mensaje = "Come cada vez que tengas hambre. Estudios revelan que las personas comen as de lo que su cuerpo requiere cuando se limitan a 1 o 2 comidas diariamente. Ademas no comer, durante largos periodos de tiempo, cansa al cerebro.";
             Database.GetCollection<Tips>("Tips").Save(t2);
-                Tips t3 = new Tips();
+                
+            Tips t3 = new Tips();
+            t3.Titulo = "Beneficios de la montar bicicleta";
                 t3.Tipo = TipoTips.Deporte;
                 t3.Mensaje = "Andar en bicicleta es una excelente opción para cuidar todo tu cuerpo y ademas para contribuir con el bienestar del planeta.";
                 Database.GetCollection<Tips>("Tips").Save(t3);
                 Tips t4 = new Tips();
+            t4.Titulo = "Beneficios de Caminar";
                 t4.Tipo = TipoTips.Salud;
                 t4.Mensaje = "¡Hoy es el mejor día para caminar! Trae innumerables beneficios para tu salud, reducir el riesgo de padecer diabetes es uno de ellos.";
                 Database.GetCollection<Tips>("Tips").Save(t4);
 
                 Tips t5 = new Tips();
+            t5.Titulo = "Beneficios del Ejercicio";
                 t5.Tipo = TipoTips.Salud;
                 t5.Mensaje = "El ejercicio libera endorfinas, unas sustancias capaces de crear sensación de relajación y felicidad.";
                 Database.GetCollection<Tips>("Tips").Save(t5);
                 Tips t6 = new Tips();
+            t6.Titulo = "Más beneficios de montar en bicicleta";
                 t6.Tipo = TipoTips.Salud;
                 t6.Mensaje = "Andar en bicicleta reduce el riesgo de un infarto en un 50%. Cuando pedaleas el ritmo cardíaco máximo aumenta  la presión arterial disminuye, es decir, el corazón trabaja economizando.";
                 Database.GetCollection<Tips>("Tips").Save(t6);

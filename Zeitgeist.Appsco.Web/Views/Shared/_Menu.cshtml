@@ -84,23 +84,23 @@
 
                     <ul class="submenu">
                         <li class="">
-                            <a id="inicio"  data-url="/Liga/Index">
+                            <a id="inicio" data-bind="click:$root.selectTipsDeporte">
                                 <i class="menu-icon fa fa-caret-right"></i>
                                 Tips deporte
                             </a>
                             <b class="arrow"></b>
                         </li>
                         <li class="">
-                            <a id="division" data-url="/Liga/Division">
+                            <a id="division" data-bind="click:$root.selectTipsSalud">
                                 <i class="menu-icon fa fa-caret-right"></i>
                                 Tips salud
                             </a>
                             <b class="arrow"></b>
                         </li>
                         <li class="">
-                            <a id="reto" data-url="/Reto/Index">
+                            <a id="reto" data-bind="click:$root.selectTipsAlimentacion">
                                 <i class="menu-icon fa fa-caret-right"></i>
-                                Tips alimento
+                                Tips alimentación
                             </a>
                             <b class="arrow"></b>
                         </li>
@@ -109,14 +109,14 @@
 
             
             <li>
-                <a id="calendario" >
+                <a id="calendario" data-bind="click:$root.selectCalendario">
                     <i class="menu-icon fa fa-calendar"></i>
                     <span class="menu-text"> Calendario </span>
                 </a>
                 <b class="arrow"></b>
             </li>
             <li>
-                <a id="galeria" >
+                <a id="galeria" data-bind="click:$root.selectGaleria">
                     <i class="menu-icon fa fa-picture-o"></i>
                     <span class="menu-text"> Galeria </span>
                 </a>

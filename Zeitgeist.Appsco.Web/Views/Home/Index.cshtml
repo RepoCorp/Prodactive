@@ -319,3 +319,37 @@
     <!-- /ko -->
 </div>
 
+<div id="tips">
+    <div id="tipsSalud">
+        <!-- ko if: selected -->
+        @{ Html.RenderPartial("~/Views/Home/TipSalud.cshtml"); }
+        <!-- /ko -->
+    </div>
+    <div id="tipsDeporte">
+        <!-- ko if: selected -->
+        @{ Html.RenderPartial("~/Views/Home/TipDeporte.cshtml"); }
+        <!-- /ko -->
+    </div>
+    <div id="tipsAlimentacion">
+        <!-- ko if: selected -->
+        @{ Html.RenderPartial("~/Views/Home/TipAlimentacion.cshtml"); }
+        <!-- /ko -->
+    </div>
+
+</div>
+
+<div id="calendario_content">
+    <!-- ko if: selected -->
+    @{ Html.RenderPartial("~/Views/Home/Calendario.cshtml"); }
+    <!-- /ko -->
+</div>
+
+<div id="galeria_content">
+    <!-- ko if: selected -->
+    @{ Html.RenderPartial("~/Views/Home/Galeria.cshtml"); }
+    <!-- /ko -->
+</div>
+
+<div id="acercade_content"></div>
+
+<div id="Faq_content"></div>

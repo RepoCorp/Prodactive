@@ -20,7 +20,7 @@
     <!-- text fonts -->
     <link rel="stylesheet" href="~/Content/template/assets/css/ace-fonts.css" />
     <!-- ace styles -->
-
+    <link href="~/Content/template/assets/css/fullcalendar.css" rel="stylesheet" />
     <link id="main-ace-style" href="~/Content/template/assets/css/ace.min.css" rel="stylesheet" />
     <link href="~/Content/template/assets/css/ace-skins.min.css" rel="stylesheet" />
     <link href="~/Content/template/assets/css/ace-rtl.min.css" rel="stylesheet" />
@@ -146,7 +146,7 @@
                         Html.RenderPartial("~/Views/Shared/_pagename.cshtml");
                     }
                     @*@RenderSection("pagename", required: false)*@
-                    
+
                     <!-- BODY BEGIN -->
                     @RenderBody()
 
@@ -159,8 +159,8 @@
                 </div><!-- /.page-content-area -->
 
 
-        </div><!-- /.page-content -->
-    </div><!-- /.main-content -->
+            </div><!-- /.page-content -->
+        </div><!-- /.main-content -->
     </div><!-- /.main-container -->
     <footer class="footer">
         <div class="footer-inner">
@@ -202,7 +202,7 @@
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script src="~/Scripts/knockout-3.1.0.js"></script>
     <script src="~/Scripts/underscore-min.js"></script>
-
+    <script src="~/Scripts/moment.js"></script>
     <script src="~/Content/template/assets/js/bootstrap.min.js"></script>
     <script src="~/Content/template/assets/js/date-time/bootstrap-datepicker.min.js"></script>
     <script src="~/Scripts/site.js"></script>
@@ -212,6 +212,8 @@
     <script src="~/Content/template/assets/js/jquery.ui.touch-punch.min.js"></script>
     <script src="~/Content/template/assets/js/jquery.easypiechart.min.js"></script>
     <script src="~/Content/template/assets/js/jquery.sparkline.min.js"></script>
+    <script src="~/Content/template/assets/js/uncompressed/fullcalendar.js"></script>
+
     <script src="~/Scripts/ddSlick.js"></script>
     @*-- ace scripts --*@
     <script src="~/Content/template/assets/js/ace-elements.min.js"></script>
@@ -222,7 +224,7 @@
     <!-- /SignalR -->
 
 
-    <script src="~/Scripts/moment.js"></script>
+    
     <script src="~/Scripts/countdown.js"></script>
     <script src="~/Scripts/moment-countdown.js"></script>
 
@@ -235,7 +237,7 @@
     <script src="~/Scripts/knockout.mapping-latest.debug.js"></script>
     <script src="~/Scripts/site.js"></script>
     <script src="~/Scripts/Model/KnockoutHelpers.js"></script>
-    
+
     <script src="~/Scripts/Model/page.js"></script>
     <!--se añade modelo knockout desde aca -->
     @*  *@

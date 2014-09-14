@@ -10905,7 +10905,7 @@ td .lbl, th .lbl {
 }
 
 .progress-bar-success {
-    background-color: #70E500;/* #59a84b;*/
+    background-color: #59a84b; /* #70E500;*/
 }
 
 .progress-striped .progress-bar-success {
@@ -10915,7 +10915,7 @@ td .lbl, th .lbl {
 }
 
 .progress-bar-warning {
-    background-color:#FF7A00; /*#f2bb46;*/
+    background-color:#f2bb46; /* #FF7A00;*/
 }
 
 .progress-striped .progress-bar-warning {
