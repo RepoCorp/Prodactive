@@ -59,6 +59,9 @@ namespace MongoModels
         [BsonRepresentation(BsonType.Double)]
         public Double Estatura { get; set; }
 
+        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
+        public Dictionary<string, int> Logros { get; set; }
+
     }
 
     public enum TipoPersona

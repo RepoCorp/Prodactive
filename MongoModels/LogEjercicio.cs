@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -44,31 +45,63 @@ namespace MongoModels
 
     public static class Logros
     {
-        public static string PrimerParticipacionEnReto   = "1_participacion.png";
-        public static string PrimerRetoGrupalGanado      = "1_reto_grupal_ganado.png";
-        public static string PrimerRetoGrupalPerdido     = "1_reto_grupal_perdido.png";
+        public static string PrimerParticipacionEnReto = "Primera Participacion En Reto";
+        public static string PrimerRetoGrupalGanado = "Primer Reto Grupal Ganado";
+        public static string PrimerRetoGrupalPerdido = "Primer Reto Grupal Perdido";
 
-        public static string PrimerRetoIndividualGanado  = "1_reto_individual_ganado.png";
-        public static string PrimerRetoIndividualPerdido = "1_reto_individual_perdido.png";
+        public static string PrimerRetoIndividualGanado = "PrimerRetoIndividualGanado";
+        public static string PrimerRetoIndividualPerdido = "PrimerRetoIndividualPerdido";
 
-        public static string ConstanciaMesX1 = "constancia_mes_x1.png";
-        public static string ConstanciaMesX2 = "constancia_mes_x2.png";
-        public static string ConstanciaMesX3 = "constancia_mes_x3.png";
-        public static string ConstanciaSemX1 = "constancia_sem_x1.png";
-        public static string ConstanciaSemX2 = "constancia_sem_x2.png";
-        public static string ConstanciaSemX3 = "constancia_sem_x3.png";
-        
-        public static string LogroDiaX5 = "logro_dia_x5.png";
-        public static string LogroDiaX10 = "logro_dia_x10.png";
-        public static string LogroDiaX20 = "logro_dia_x20.png";
-        public static string LogroProdactivo = "prodactivo.png";
+        public static string ConstanciaMesX1 = "ConstanciaMesX1";
+        public static string ConstanciaMesX2 = "ConstanciaMesX2";
+        public static string ConstanciaMesX3 = "ConstanciaMesX3";
+        public static string ConstanciaSemX1 = "ConstanciaSemX1";
+        public static string ConstanciaSemX2 = "ConstanciaSemX2";
+        public static string ConstanciaSemX3 = "ConstanciaSemX3";
+
+        public static string LogroDiaX5 = "LogroDiaX5";
+        public static string LogroDiaX10 = "LogroDiaX10";
+        public static string LogroDiaX20 = "LogroDiaX20";
+        public static string LogroProdactivo = "LogroProdactivo";
 
 
-        public static string RetoGanadoX5 = "retos_x5.png";
-        public static string RetoGanadoX10 = "retos_x10.png";
-        public static string RetoGanadoX20 = "retos_x20.png";
-        public static string RetoGanadoX50 = "retos_x50.png";
-        
+        public static string RetoGanadoX5 = "RetoGanadoX5";
+        public static string RetoGanadoX10 = "RetoGanadoX10";
+        public static string RetoGanadoX20 = "RetoGanadoX20";
+        public static string RetoGanadoX50 = "RetoGanadoX50";
+
+
+        private static Dictionary<string, string> dictionary = new Dictionary<string, string>()
+        {
+            
+            {PrimerParticipacionEnReto   , "1_participacion.png"},
+            {PrimerRetoGrupalGanado      , "1_reto_grupal_ganado.png"},
+            {PrimerRetoGrupalPerdido     , "1_reto_grupal_perdido.png"},
+            {PrimerRetoIndividualGanado  , "1_reto_individual_ganado.png"},
+            {PrimerRetoIndividualPerdido , "1_reto_individual_perdido.png"},
+            //{ConstanciaMesX1 , "constancia_mes_x1.png"},
+            //{ConstanciaMesX2 , "constancia_mes_x2.png"},
+            //{ConstanciaMesX3 , "constancia_mes_x3.png"},
+            //{ConstanciaSemX1 , "constancia_sem_x1.png"},
+            //{ConstanciaSemX2 , "constancia_sem_x2.png"},
+            //{ConstanciaSemX3 , "constancia_sem_x3.png"},
+            {LogroDiaX5 , "logro_dia_x5.png"},
+            {LogroDiaX10 , "logro_dia_x10.png"},
+            {LogroDiaX20 , "logro_dia_x20.png"},
+            {LogroProdactivo , "prodactivo.png"},
+            {RetoGanadoX5 , "retos_x5.png"},
+            {RetoGanadoX10 , "retos_x10.png"},
+            {RetoGanadoX20 , "retos_x20.png"},
+            {RetoGanadoX50 , "retos_x50.png"},
+        };
+
+
+
+       
+        public static Dictionary<string,string> GetLogros()
+        {
+            return dictionary;
+        }
 
     }
     /*

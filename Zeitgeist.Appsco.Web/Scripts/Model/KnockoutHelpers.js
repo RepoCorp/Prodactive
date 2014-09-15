@@ -57,7 +57,6 @@ ko.bindingHandlers.dateRange = {
 };
 
 
-
 ko.bindingHandlers.moment = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel,bindingContext) {
         var val = valueAccessor();

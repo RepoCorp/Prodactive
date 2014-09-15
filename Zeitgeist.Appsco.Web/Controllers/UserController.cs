@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Web;
 using System.Web.Mvc;
 using MongoModels;
@@ -25,6 +26,43 @@ namespace Zeitgeist.Appsco.Web.Controllers
                 .Select(x => new { fecha = x.Key.Fecha, pasos = x.Sum(y=>y.Pasos), deporte = x.Key.Deporte });
             return Json(lst);
         }
+
+
+        public JsonResult GetLogros()
+        {
+            Dictionary<string,string> q=Logros.GetLogros();
+            Persona p = Manager.Instance.GetDatosUsuario(User.Identity.Name);
+            List<LogroJson> result= new List<LogroJson>();
+            
+            if (p.Logros != null && p.Logros.Count > 0)
+            {
+
+            }
+            else
+            {
+                foreach (var a in q)
+                {
+                    result.Add(new LogroJson()
+                    {
+                        Logro    = a.Key,
+                        Icon = q[a.Key],
+                        Cantidad = 0,
+                        Ganado   = false
+                    });
+                    
+                }    
+            }
+            
+            return Json(result);
+        }
+    }
+
+    public class LogroJson
+    {
+        public string Logro { get; set; }
+        public string Icon { get; set; }
+        public bool   Ganado { get; set; }
+        public int    Cantidad { get; set; }
     }
 
     public class Search

@@ -259,6 +259,20 @@ zg.Form = function() {
     this.to = ko.observable(new Date());
 
 };
+zg.Logro = function(logro,image,ganado,cantidad) {
+    this.logro    = ko.observable(logro);
+    this.image    = ko.observable(image);
+    this.ganado   = ko.observable(ganado);
+    this.cantidad = ko.observable(cantidad);
+    this.urlImage = ko.computed(function() {
+        if (this.ganado()) {
+            return "/Content/medallas/color/" + this.image();
+        } else {
+            return "/Content/medallas/bw/" + this.image();
+        }
+        
+    }, this);
+};
 
 //------ VISTAS ---------//
 //inicio
@@ -365,8 +379,14 @@ zg.EstadisticasView = function () {
 zg.LogrosView = function () {
     this.viewName = ko.observable("logros");
     this.selected = ko.observable(false);
+    this.logros = ko.observableArray();
     this.load = function() {
-        
+        send('/User/GetLogros', 'Post', null, function (data) {
+            _.each(data, function(item) {
+                zg.model.viewLogros.logros.push(new zg.Logro(item.Logro, item.Icon, item.Ganado, item.Cantidad));
+                zg.model.viewLogros.logros.valueHasMutated();
+            });
+        });
     };
 };
 //tipsSalud
@@ -508,6 +528,7 @@ zg.Menu             = function (model) {
     this.selectLogros       = function() {
         //zg.model.ulvs();
         zg.model.updateView("logros");
+        zg.model.viewLogros.load();
         updateTitles("Logros", "Logros obtenidos", "Logros", "");
     };
     //tips

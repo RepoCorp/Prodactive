@@ -1,1 +1,13 @@
 ﻿Logros
+<div class="row">
+    <div class="col-sm-12">
+        <!-- ko foreach: logros-->
+        <div>
+            <label data-bind="text:logro">
+            </label>
+            
+            <img data-bind="attr: { src: urlImage }" width="60" height="65" />
+        </div>
+        <!-- /ko -->
+    </div>
+</div>
