@@ -421,9 +421,55 @@ zg.Galeria = function() {
     this.selected = ko.observable(false);
     this.loadGaleria = function() {
         
+        // Load the classic theme
+        //Galleria.loadTheme('../Content/galeria/classic/galleria.classic.min.js');
+        // Initialize Galleria
+        //Galleria.run('#galleria');
+
+        galri();
+    };
+
+    var galri = function() {
+        var $overflow = '';
+        var colorbox_params = {
+            rel: 'colorbox',
+            reposition: true,
+            scalePhotos: true,
+            scrolling: false,
+            previous: '<i class="ace-icon fa fa-arrow-left"></i>',
+            next: '<i class="ace-icon fa fa-arrow-right"></i>',
+            close: '&times;',
+            current: '{current} of {total}',
+            maxWidth: '100%',
+            maxHeight: '100%',
+            onOpen: function () {
+                $overflow = document.body.style.overflow;
+                document.body.style.overflow = 'hidden';
+            },
+            onClosed: function () {
+                document.body.style.overflow = $overflow;
+            },
+            onComplete: function () {
+                $.colorbox.resize();
+            }
+        };
+
+        $('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
+        $("#cboxLoadingGraphic").html("<i class='ace-icon fa fa-spinner orange'></i>");//let's add a custom loading icon
     };
 };
 
+zg.FAQ = function() {
+    this.viewName = ko.observable("faq");
+    this.selected = ko.observable(false);
+
+};
+
+zg.AcercaDe = function () {
+    this.viewName = ko.observable("acercaDe");
+    this.selected = ko.observable(false);
+
+};
 
 zg.PageName         = function () {
     this.title       = ko.observable();
@@ -489,8 +535,17 @@ zg.Menu             = function (model) {
     };
     this.selectGaleria = function () {
         zg.model.updateView("galeria");
+        zg.model.viewGaleria.loadGaleria();
         updateTitles("Galeria", "", "Galeria", "");
 
+    };
+    this.selectFAQ = function() {
+        zg.model.updateView("faq");
+        updateTitles("Preguntas Frecuentes", "", "FAQ", "");
+    };
+    this.selectAcercaDe = function() {
+        zg.model.updateView("acercaDe");
+        updateTitles("Acerca de", "", "Acerca de", "");
     };
 
     function updateTitles(title,description,view,descriptionView) {
@@ -558,13 +613,15 @@ zg.PageVM = function () {
         viewInicio = new zg.InicioView(),
         viewReto = new zg.RetoView(),
         viewEstadistica = new zg.EstadisticasView(),
-        viewLogros           = new zg.LogrosView(),
-        viewTipsSalud        = new zg.TipsView("tipsSalud"),
+        viewLogros = new zg.LogrosView(),
+        viewTipsSalud = new zg.TipsView("tipsSalud"),
         viewTipsDeporte = new zg.TipsView("tipsDeporte"),
         viewTipsAlimentacion = new zg.TipsView("tipsAlimentacion"),
         viewCalendario = new zg.CalendarioView(),
-        viewGaleria = new zg.Galeria();
-    ;
+        viewGaleria = new zg.Galeria(),
+        viewFAQ = new zg.FAQ(),
+        viewAcercaDe = new zg.AcercaDe();
+    
         
     //carga Inicial
     pageName.title("Tablero");
@@ -698,7 +755,7 @@ zg.PageVM = function () {
     };
     */
     var updateview = function(name) {
-        var list = [viewInicio, viewReto, viewEstadistica, viewLogros, viewTipsSalud, viewTipsDeporte, viewTipsAlimentacion, viewCalendario];
+        var list = [viewInicio, viewReto, viewEstadistica, viewLogros, viewTipsSalud, viewTipsDeporte, viewTipsAlimentacion, viewCalendario, viewGaleria,viewFAQ,viewAcercaDe];
         _.each(list, function(data) {
             if (data.viewName() == name) {
                 data.selected(true);
@@ -792,7 +849,9 @@ zg.PageVM = function () {
         viewTipsDeporte: viewTipsDeporte,
         viewTipsAlimentacion: viewTipsAlimentacion,
         viewCalendario: viewCalendario,
-        viewGaleria:viewGaleria,
+        viewGaleria: viewGaleria,
+        viewFAQ: viewFAQ,
+        viewAcercaDe: viewAcercaDe,
 
         grbl: getRetosByLiga,
         gdrbl: getDetallesRetosByIdLiga,
@@ -830,6 +889,8 @@ $(function () {
     ko.applyBindings(zg.model.viewCalendario,   document.getElementById("calendario_content"));
 
     ko.applyBindings(zg.model.viewGaleria, document.getElementById("galeria_content"));
+    ko.applyBindings(zg.model.viewAcercaDe, document.getElementById("acercade_content"));
+    ko.applyBindings(zg.model.viewFAQ, document.getElementById("Faq_content"));
 
     ko.applyBindings(zg.model.pageName, document.getElementById("page-header"));
     ko.applyBindings(zg.model.breadcrumbs,      document.getElementById("breadcrumbs"));

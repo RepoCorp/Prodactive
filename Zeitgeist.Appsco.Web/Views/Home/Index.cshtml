@@ -350,6 +350,14 @@
     <!-- /ko -->
 </div>
 
-<div id="acercade_content"></div>
+<div id="acercade_content">
+    <!-- ko if: selected -->
+    @{ Html.RenderPartial("~/Views/Home/AcercaDe.cshtml"); }
+    <!-- /ko -->
+</div>
 
-<div id="Faq_content"></div>
+<div id="Faq_content">
+    <!-- ko if: selected -->
+    @{ Html.RenderPartial("~/Views/Home/FAQ.cshtml"); }
+    <!-- /ko -->
+</div>
