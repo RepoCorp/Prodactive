@@ -10981,12 +10981,13 @@ td .lbl, th .lbl {
 
 .infobox {
     display: inline-block;
-    width: 210px;
+    width: 250px;
+    /*width: 210px;*/
     height: 66px;
     color: #555;
     background-color: #FFF;
     box-shadow: none;
-    border-radius: 0;
+    border-radius: 5px;
     margin: -1px 0 0 -1px;
     padding: 8px 3px 6px 9px;
     border: 1px dotted;

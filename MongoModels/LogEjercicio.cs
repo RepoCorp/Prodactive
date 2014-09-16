@@ -45,30 +45,30 @@ namespace MongoModels
 
     public static class Logros
     {
-        public static string PrimerParticipacionEnReto = "Primera Participacion En Reto";
-        public static string PrimerRetoGrupalGanado = "Primer Reto Grupal Ganado";
-        public static string PrimerRetoGrupalPerdido = "Primer Reto Grupal Perdido";
+        public static string PrimerParticipacionEnReto = "1° Participacion En Reto";
+        public static string PrimerRetoGrupalGanado = "1° Reto Grupal Ganado";
+        public static string PrimerRetoGrupalPerdido = "1° Reto Grupal Perdido";
 
-        public static string PrimerRetoIndividualGanado = "PrimerRetoIndividualGanado";
-        public static string PrimerRetoIndividualPerdido = "PrimerRetoIndividualPerdido";
+        public static string PrimerRetoIndividualGanado = "1° Reto individual ganado";
+        public static string PrimerRetoIndividualPerdido = "1° Reto individual perdido";
 
-        public static string ConstanciaMesX1 = "ConstanciaMesX1";
-        public static string ConstanciaMesX2 = "ConstanciaMesX2";
-        public static string ConstanciaMesX3 = "ConstanciaMesX3";
-        public static string ConstanciaSemX1 = "ConstanciaSemX1";
-        public static string ConstanciaSemX2 = "ConstanciaSemX2";
-        public static string ConstanciaSemX3 = "ConstanciaSemX3";
+        public static string ConstanciaMesX1 = "Constancia Mes X1";
+        public static string ConstanciaMesX2 = "Constancia Mes X2";
+        public static string ConstanciaMesX3 = "Constancia Mes X3";
+        public static string ConstanciaSemX1 = "Constancia Sem X1";
+        public static string ConstanciaSemX2 = "Constancia Sem X2";
+        public static string ConstanciaSemX3 = "Constancia Sem X3";
 
-        public static string LogroDiaX5 = "LogroDiaX5";
-        public static string LogroDiaX10 = "LogroDiaX10";
-        public static string LogroDiaX20 = "LogroDiaX20";
-        public static string LogroProdactivo = "LogroProdactivo";
+        public static string LogroDiaX5 = "Logro Dia X5";
+        public static string LogroDiaX10 = "Logro Dia X10";
+        public static string LogroDiaX20 = "Logro Dia X20";
+        public static string LogroProdactivo = "Logro Prodactivo";
 
 
-        public static string RetoGanadoX5 = "RetoGanadoX5";
-        public static string RetoGanadoX10 = "RetoGanadoX10";
-        public static string RetoGanadoX20 = "RetoGanadoX20";
-        public static string RetoGanadoX50 = "RetoGanadoX50";
+        public static string RetoGanadoX5 = "Reto Ganado X5";
+        public static string RetoGanadoX10 = "Reto Ganado X10";
+        public static string RetoGanadoX20 = "Reto Ganado X20";
+        public static string RetoGanadoX50 = "Reto Ganado X50";
 
 
         private static Dictionary<string, string> dictionary = new Dictionary<string, string>()

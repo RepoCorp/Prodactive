@@ -28,7 +28,6 @@ function serializeLiga(item) {
 function logEjercicio(item) {
     return new zg.DetalleEjercicio(item.fecha, item.pasos, item.deporte);
 }
-
 function serializeDetalleMiembros(item) {
     var elm = new zg.DetalleMiembros();
     elm.usuario(item.Usuario);
@@ -65,12 +64,12 @@ var registroUsuarioCHat = function () {
     }
 
 };
-var updateChatDate = function () {
+var updateChatDate      = function () {
     _.each(zg.model.viewInicio.mensajes(), function (elm) {
         elm.fecha.valueHasMutated();
     });
 };
-var showDialog = function (htmlMessage, title) {
+var showDialog          = function (htmlMessage, title) {
 
     $("#dialog-message-text").html(htmlMessage);
 
@@ -98,7 +97,17 @@ var showDialog = function (htmlMessage, title) {
         ]
     });
 };
-
+var getRetosByLiga      = function (idLiga) {
+    send('/Home/GetRetosByIdLiga/' + idLiga, 'post', null, function (response) {
+        zg.model.menu.retos([]);
+        _.each(response, function (it, index) {
+            zg.model.menu.retos.push(serializeReto(it));
+            if (index === 0) {
+                zg.model.menu.reto(zg.model.menu.retos()[0]);
+            }
+        });
+    });
+};
 
 
 //modelos
@@ -183,7 +192,6 @@ zg.Mensaje           = function (usuario, mensaje, avatar, fecha) {
     }, this);
 
 };
-//modelo detalle reto
 zg.MaestroReto       = function () {
     this.name = ko.observable();
     this.descripcion = ko.observable();
@@ -253,13 +261,13 @@ zg.DetalleMiembros   = function () {
         return "";
     }, this);
 };
-zg.Form = function() {
+zg.Form              = function () {
 
     this.from = ko.observable(mostrarFecha(-5));
     this.to = ko.observable(new Date());
 
 };
-zg.Logro = function(logro,image,ganado,cantidad) {
+zg.Logro             = function (logro,image,ganado,cantidad) {
     this.logro    = ko.observable(logro);
     this.image    = ko.observable(image);
     this.ganado   = ko.observable(ganado);
@@ -275,8 +283,8 @@ zg.Logro = function(logro,image,ganado,cantidad) {
 };
 
 //------ VISTAS ---------//
-//inicio
-zg.InicioView       = function (idLiga) {
+zg.InicioView        = function () {
+    //propiedades
     this.viewName           = ko.observable("inicio");
     this.detallesRetos      = ko.observableArray();
     this.detallesEjercicios = ko.observableArray();
@@ -284,12 +292,11 @@ zg.InicioView       = function (idLiga) {
     this.selected           = ko.observable(true);
     this.label              = ko.observable();
     this.data               = [];
-
-    //chat
-    this.mensaje = new zg.Mensaje("", "", "", new Date());
-    this.mensajes = ko.observableArray();
-    this.hub      = undefined;
+    this.mensaje            = new zg.Mensaje("", "", "", new Date());
+    this.mensajes           = ko.observableArray();
+    this.hub                = undefined;
     
+    //metodos
     this.sendMessage = function (elm) {
         if(elm.mensaje()!=="")
         {
@@ -297,7 +304,6 @@ zg.InicioView       = function (idLiga) {
             elm.mensaje("");
         }
     };
-
     this.enterSend = function(elm, event) {
         if (event.keyCode == 13) {
             if (elm.mensaje() !== "") {
@@ -308,28 +314,71 @@ zg.InicioView       = function (idLiga) {
         }
         return true;
     };
-    //funciones descarga de la informacion
+    this.loadLogEjercicio = function() {
+        send('/Home/GetLogEjerciciosByUser', "post", null, function(data) {
+            var caminar = [];
+            var d = _.where(data, { deporte: "Caminar" });
+            var s = d.length;
+            var i = 0;
+            _.each(d, function(item, index) {
+                caminar.push([new Date(item.fecha), item.pasos]);
+                i++;
+                if (i === s) {
+                    zg.model.chart("Caminar", caminar);
+                    zg.model.viewInicio.label = "Caminar";
+                    zg.model.viewInicio.data = caminar;
+                }
+            });
+        });
+    };
+    this.loadTips = function() {
+        send('/Home/GetTips', "POST", null, function(data) {
+            _.each(data, function(item) {
+               zg.model.viewInicio.tips.push(new zg.Tips(item.Tipo, '', item.Mensaje, item.LinkImage));
+               zg.model.viewInicio.tips.valueHasMutated();
+            });
 
+        });
+    };
+    this.LoadDetallesRetosByIdLiga = function (idLiga) {
+        send('/Home/GetDetallesRetosByIdLiga/' + idLiga, "post", null, function (response) {
+            zg.model.viewInicio.detallesRetos.removeAll();
+            _.each(response, function (it) {
+                zg.model.viewInicio.detallesRetos.push(serializeDetalleReto(it));
+            });
+        });
+    };
 };
-//reto
-zg.RetoView = function () {
-    this.viewName = ko.observable("reto");
-    this.reto = ko.observable();
-    this.selected    = ko.observable(false);
-    this.maestroReto = ko.observable();
+zg.RetoView          = function () {
+    this.viewName       = ko.observable("reto");
+    this.reto           = ko.observable();
+    this.selected       = ko.observable(false);
+    this.maestroReto    = ko.observable();
     this.equipoSelected = ko.observable();
+
+    this.consultaMaestroDetalleReto = function (idReto) {
+        send('/Reto/MaestroDetalle2/' + idReto, 'post', null, function (data) {
+            try {
+                zg.model.viewReto.maestroReto(serializeMaestroReto(data));
+                $(".dds").ddslick({
+                    keepJSONItemsOnTop: true,
+                    imagePosition: "right",
+                    selectText: "Miembros del equipo"
+                });
+            } catch (e) {
+                var p = 0;
+            }
+
+        });
+    };
 };
-//estadisticas
-zg.EstadisticasView = function () {
+zg.EstadisticasView  = function () {
     this.viewName = ko.observable("estadisticas");
     this.selected = ko.observable(false);
-    this.data = [];
-    this.form = new zg.Form();
-    //this.find = function (elm) {
-    //    if (elm.to !== undefined && elm.from !== undefined)
-    //        zg.model.viewEstadistica.loadStatistics();
-    //};
-    this.find2 = function () {
+    this.data     = [];
+    this.form     = new zg.Form();
+
+    this.find           = function () {
         zg.model.viewEstadistica.loadStatistics();
     };
     this.loadStatistics = function() {
@@ -375,29 +424,33 @@ zg.EstadisticasView = function () {
 
 
 };
-//logros
-zg.LogrosView = function () {
+zg.LogrosView        = function () {
     this.viewName = ko.observable("logros");
     this.selected = ko.observable(false);
-    this.logros = ko.observableArray();
-    this.load = function() {
-        send('/User/GetLogros', 'Post', null, function (data) {
-            _.each(data, function(item) {
-                zg.model.viewLogros.logros.push(new zg.Logro(item.Logro, item.Icon, item.Ganado, item.Cantidad));
-                zg.model.viewLogros.logros.valueHasMutated();
+    this.logros   = ko.observableArray();
+    this.isLoaded = ko.observable(false);
+
+    this.load     = function() {
+
+        if (!zg.model.viewLogros.isLoaded())
+        {
+            send('/User/GetLogros', 'Post', null, function (data) {
+                _.each(data, function(item) {
+                    zg.model.viewLogros.logros.push(new zg.Logro(item.Logro, item.Icon, item.Ganado, item.Cantidad));
+                    zg.model.viewLogros.logros.valueHasMutated();
+                });
+                zg.model.viewLogros.isLoaded(true);
             });
-        });
+        }
     };
 };
-//tipsSalud
-//tipsDeporte
-//tipsAlimentacion
-zg.TipsView = function (name) {
+zg.TipsView          = function (name) {
     this.viewName = ko.observable(name);
     this.tips = ko.observableArray();
     this.selected = ko.observable(false);
     var me = this;
-    this.loadSalud = function() {
+
+    this.loadSalud        = function() {
         send('/Home/GetTipsSalud', "POST", null, function (data) {
             _.each(data, function (item) {
                 zg.model.viewTipsSalud.tips.push(new zg.Tips(item.Tipo, item.Titulo, item.Mensaje, item.LinkImage));
@@ -425,8 +478,7 @@ zg.TipsView = function (name) {
         });
     };
 };
-//calendario
-zg.CalendarioView = function() {
+zg.CalendarioView    = function () {
     this.viewName = ko.observable("calendario");
     this.selected = ko.observable(false);
 
@@ -435,8 +487,7 @@ zg.CalendarioView = function() {
     };
 
 };
-
-zg.Galeria = function() {
+zg.Galeria           = function () {
     this.viewName = ko.observable("galeria");
     this.selected = ko.observable(false);
     this.loadGaleria = function() {
@@ -478,14 +529,12 @@ zg.Galeria = function() {
         $("#cboxLoadingGraphic").html("<i class='ace-icon fa fa-spinner orange'></i>");//let's add a custom loading icon
     };
 };
-
-zg.FAQ = function() {
+zg.FAQ               = function () {
     this.viewName = ko.observable("faq");
     this.selected = ko.observable(false);
 
 };
-
-zg.AcercaDe = function () {
+zg.AcercaDe          = function () {
     this.viewName = ko.observable("acercaDe");
     this.selected = ko.observable(false);
 
@@ -499,11 +548,12 @@ zg.Breadcrumbs      = function () {
     this.view        = ko.observable();
     this.description = ko.observable();
 };
-zg.Menu             = function (model) {
-    this.reto = ko.observable().extend({ notify: 'always' });
-    this.retos = ko.observableArray();
+zg.Menu             = function () {
+    this.reto   = ko.observable().extend({ notify: 'always' });
+    this.retos  = ko.observableArray();
 
-    this.selectReto         = function (elm) {
+    //metodos Menu
+    this.selectReto             = function (elm) {
         //zg.model.urvs();
         zg.model.updateView("reto");
         zg.model.urs(elm);
@@ -512,12 +562,14 @@ zg.Menu             = function (model) {
         zg.model.cmdr(elm.id());
         updateTitles("Reto", "Resumen reto", "Reto", "");
     };
-    this.selectInicio       = function () {
+    this.selectInicio           = function () {
         //zg.model.uivs();
         zg.model.updateView("inicio");
         updateTitles("Tablero", "Resumen General", "Home", "Dashboard");
+         zg.model.chart("Caminar", zg.model.viewInicio.data);
+
     };
-    this.selectEstadisticas = function() {
+    this.selectEstadisticas     = function () {
         //zg.model.uevs();
         zg.model.updateView("estadisticas");
         updateTitles("Estadisticas", "mi progreso personal", "Estadisticas", "");
@@ -525,50 +577,49 @@ zg.Menu             = function (model) {
         //loadRangeDatePicker();
         zg.model.viewEstadistica.loadStatistics();
     };
-    this.selectLogros       = function() {
+    this.selectLogros           = function () {
         //zg.model.ulvs();
         zg.model.updateView("logros");
         zg.model.viewLogros.load();
         updateTitles("Logros", "Logros obtenidos", "Logros", "");
     };
-    //tips
-    this.selectCalendario = function() {
+    this.selectCalendario       = function () {
         zg.model.updateView("calendario");
         //zg.model.ucvs();
         updateTitles("Calendario", "Retos Inscritos", "Calendario", "");
         loadCalendario();
 
     };
-    this.selectTipsSalud = function() {
+    this.selectTipsSalud        = function () {
         zg.model.updateView("tipsSalud");
         updateTitles("Tips", "Salud", "Tips Salud", "");
         zg.model.viewTipsSalud.loadSalud();
     };
-    this.selectTipsDeporte = function() {
+    this.selectTipsDeporte      = function () {
         zg.model.updateView("tipsDeporte");
         updateTitles("Tips", "Deporte", "Tips Deporte", "");
         zg.model.viewTipsSalud.loadDeporte();
     };
-    this.selectTipsAlimentacion = function() {
+    this.selectTipsAlimentacion = function () {
         zg.model.updateView("tipsAlimentacion");
         updateTitles("Tips", "Alimentacion", "Tips Alimentacion", "");
         zg.model.viewTipsSalud.loadAlimentacion();
     };
-    this.selectGaleria = function () {
+    this.selectGaleria          = function () {
         zg.model.updateView("galeria");
         zg.model.viewGaleria.loadGaleria();
         updateTitles("Galeria", "", "Galeria", "");
 
     };
-    this.selectFAQ = function() {
+    this.selectFAQ              = function () {
         zg.model.updateView("faq");
         updateTitles("Preguntas Frecuentes", "", "FAQ", "");
     };
-    this.selectAcercaDe = function() {
+    this.selectAcercaDe         = function () {
         zg.model.updateView("acercaDe");
         updateTitles("Acerca de", "", "Acerca de", "");
     };
-
+    //helpers Menu
     function updateTitles(title,description,view,descriptionView) {
         zg.model.pageName.title(title);
         zg.model.pageName.description(description);
@@ -585,19 +636,22 @@ zg.Menu             = function (model) {
             dateFormat: 'yy-mm-dd'
         });
     };
-
     function loadCalendario() {
         $('#con_calendario').fullCalendar();
     };
 };
+zg.MenuSuperior     = function () {
 
-zg.MenuSuperior     = function (model) {
     this.user = ko.observable();
-    this.avatar = ko.observable();
+    this.avatar     = ko.observable();
+    this.liga       = ko.observable();
+    this.ligas      = ko.observableArray();
+    this.mensajes   = ko.observableArray();
+    this.urlAvatar  = ko.computed(function() {
+        return "/Content/template/assets/avatars/" + this.avatar();
+    }, this);
 
-    this.liga = ko.observable();
-    this.ligas = ko.observableArray();
-    this.selectLiga = function (elm) {
+    this.selectLiga          = function (elm) {
         if (zg.model.menuSuperior.liga.id() !== elm.id()) {
             zg.model.menuSuperior.liga = elm;
             zg.model.grbl(elm.id());
@@ -611,171 +665,73 @@ zg.MenuSuperior     = function (model) {
         $.ajax({
             url: "/Liga/EnvioInvitacion/" + elm.id(),
             type: "Get"
-        }).success(function(response) {
+        }).success(function (response) {
             $("#dialog-message-text").html(response);
             var title = "Envio Invitación";
             showDialog(response, title);
         });
 
-        
+
 
     };
-    this.urlAvatar = ko.computed(function() {
-        return "/Content/template/assets/avatars/" + this.avatar();
-    }, this);
-    this.mensajes = ko.observableArray();
-};
-
-zg.PageVM = function () {
-    var menuSuperior = new zg.MenuSuperior(this),
-        menu = new zg.Menu(this),
-        pageName = new zg.PageName(),
-        breadcrumbs = new zg.Breadcrumbs(),
-        viewInicio = new zg.InicioView(),
-        viewReto = new zg.RetoView(),
-        viewEstadistica = new zg.EstadisticasView(),
-        viewLogros = new zg.LogrosView(),
-        viewTipsSalud = new zg.TipsView("tipsSalud"),
-        viewTipsDeporte = new zg.TipsView("tipsDeporte"),
-        viewTipsAlimentacion = new zg.TipsView("tipsAlimentacion"),
-        viewCalendario = new zg.CalendarioView(),
-        viewGaleria = new zg.Galeria(),
-        viewFAQ = new zg.FAQ(),
-        viewAcercaDe = new zg.AcercaDe();
-    
-        
-    //carga Inicial
-    pageName.title("Tablero");
-    pageName.description("Resumen General");
-
-    breadcrumbs.view("Home");
-    breadcrumbs.description("Dashboard");
-        
-    var load = function () {
-        (function() {
-                send('/Home/GetLigas', 'post', null, function(data) {
-                    _.each(data, function(item, index) {
-                        menuSuperior.ligas.push(serializeLiga(item));
-                        if (index === 0) {
-                            var l = menuSuperior.ligas()[0];
-                            menuSuperior.liga = l;
-                            getRetosByLiga(l.id());
-                            getDetallesRetosByIdLiga(l.id());
-                        }
-                    });
-                });
-        })(),
-        (function () {
-            send('/Home/GetUserData', "POST", null, function (data) {
-                zg.model.menuSuperior.user(data.usuario);
-                zg.model.menuSuperior.avatar(data.avatar);
-                registroUsuarioCHat();
-            });
-        })(),
-        (function() {
-            send('/Home/GetLogEjerciciosByUser', "post", null, function(data) {
-                var caminar = [];
-                var d = _.where(data, { deporte: "Caminar" });
-                var s = d.length;
-                var i = 0;
-                _.each(d, function(item, index) {
-                    caminar.push([new Date(item.fecha), item.pasos]);
-                    i++;
-                    if (i === s) {
-                    zg.model.chart("Caminar", caminar);
-                    zg.model.viewInicio.label = "Caminar";
-                    zg.model.viewInicio.data = caminar;
-                    }
-                });
-            });
-            })(),
-            (function() {
-                send('/Home/GetTips', "POST", null, function(data) {
-                    _.each(data, function(item) {
-                        viewInicio.tips.push(new zg.Tips(item.Tipo,'', item.Mensaje, item.LinkImage));
-                        viewInicio.tips.valueHasMutated();
-                    });
-
-                });
-            })();
-        
-
-    };
-    var getRetosByLiga = function (idLiga) {
-        send('/Home/GetRetosByIdLiga/' + idLiga, 'post', null, function (response) {
-            menu.retos([]);
-            _.each(response, function (it, index) {
-                menu.retos.push(serializeReto(it));
+    this.loadLiga            = function() {
+        send('/Home/GetLigas', 'post', null, function(data) {
+            _.each(data, function(item, index) {
+                zg.model.menuSuperior.ligas.push(serializeLiga(item));
                 if (index === 0) {
-                    menu.reto(menu.retos()[0]);
+                    var l = zg.model.menuSuperior.ligas()[0];
+                    zg.model.menuSuperior.liga = l;
+                    getRetosByLiga(l.id());
+                    zg.model.viewInicio.LoadDetallesRetosByIdLiga(l.id());
                 }
             });
         });
     };
-    var getDetallesRetosByIdLiga = function (idLiga) {
-        send('/Home/GetDetallesRetosByIdLiga/' + idLiga, "post", null, function (response) {
-            viewInicio.detallesRetos.removeAll();
-            _.each(response, function (it) {
-                viewInicio.detallesRetos.push(serializeDetalleReto(it));
-            });
+    this.loadUserData        = function() {
+        send('/Home/GetUserData', "POST", null, function(data) {
+            zg.model.menuSuperior.user(data.usuario);
+            zg.model.menuSuperior.avatar(data.avatar);
+            registroUsuarioCHat();
         });
     };
-    var updateRetoSelect = function (item) {
+};
+
+zg.PageVM = function () {
+    //vistas
+    var menuSuperior         = new zg.MenuSuperior(),
+        menu                 = new zg.Menu(),
+        pageName             = new zg.PageName(),
+        breadcrumbs          = new zg.Breadcrumbs(),
+        viewInicio           = new zg.InicioView(),
+        viewReto             = new zg.RetoView(),
+        viewEstadistica      = new zg.EstadisticasView(),
+        viewLogros           = new zg.LogrosView(),
+        viewTipsSalud        = new zg.TipsView("tipsSalud"),
+        viewTipsDeporte      = new zg.TipsView("tipsDeporte"),
+        viewTipsAlimentacion = new zg.TipsView("tipsAlimentacion"),
+        viewCalendario       = new zg.CalendarioView(),
+        viewGaleria          = new zg.Galeria(),
+        viewFAQ              = new zg.FAQ(),
+        viewAcercaDe         = new zg.AcercaDe();
+    
+    //carga Inicial
+    pageName.title("Tablero");
+    pageName.description("Resumen General");
+    breadcrumbs.view("Home");
+    breadcrumbs.description("Dashboard");
+        
+    var load = function () {
+
+        menuSuperior.loadLiga        (),
+        menuSuperior.loadUserData    (),
+        viewInicio  .loadLogEjercicio(),
+        viewInicio  .loadTips        ();
+    };
+
+    function updateRetoSelect(item) {
         viewReto.reto(item);
     };
-    var consultaMaestroDetalleReto = function (idReto) {
-        send('/Reto/MaestroDetalle2/' + idReto, 'post', null, function (data) {
-            try {
-                viewReto.maestroReto(serializeMaestroReto(data));
-                $(".dds").ddslick({
-                    keepJSONItemsOnTop: true,
-                    imagePosition: "right",
-                    selectText: "Miembros del equipo"
-                });
-            } catch (e) {
-                var p = 0;
-            }
-            
-        });
-    };
-
-    /*
-    var updateRetoViewSelected = function () {
-        viewInicio.selected(false);
-        viewEstadistica.selected(false);
-        viewLogros.selected(false);
-        viewCalendario.selected(false);
-        viewReto.selected(true);
-    };
-    var updateInicioViewSelected = function () {
-        viewReto.selected(false);
-        viewEstadistica.selected(false);
-        viewLogros.selected(false);
-        viewCalendario.selected(false);
-        viewInicio.selected(true);
-        zg.model.chart(viewInicio.label, viewInicio.data);
-    };
-    var updateEstadisticasViewSelected = function() {
-        viewInicio.selected(false);
-        viewReto.selected(false);
-        viewLogros.selected(false);
-        viewCalendario.selected(false);
-        viewEstadistica.selected(true);
-    };
-    var updateLogrosViewSelected = function () {
-        viewInicio.selected(false);
-        viewReto.selected(false);
-        viewEstadistica.selected(false);
-        viewCalendario.selected(false);
-
-        viewLogros.selected(true);
-    };
-
-    var updateCalendarioViewSelected = function () {
-        updateview("calendario");
-    };
-    */
-    var updateview = function(name) {
+    function updateview      (name) {
         var list = [viewInicio, viewReto, viewEstadistica, viewLogros, viewTipsSalud, viewTipsDeporte, viewTipsAlimentacion, viewCalendario, viewGaleria,viewFAQ,viewAcercaDe];
         _.each(list, function(data) {
             if (data.viewName() == name) {
@@ -785,7 +741,6 @@ zg.PageVM = function () {
             }
         });
     };
-
 
     function chart(name, dato) {
         $("#sales-charts").css({ 'width': '90%', 'min-height': '350px' });
@@ -817,7 +772,6 @@ zg.PageVM = function () {
              }
          });
     };
-
     function chart2(selector,data) {
         //$(selector).css({ 'width': '90%', 'min-height': '350px' });
         $(selector).css({
@@ -851,42 +805,38 @@ zg.PageVM = function () {
              }
          });
     };
-
- 
+    
     load();
-
-
+    
     return {
-        menu: menu,
-        menuSuperior: menuSuperior,
-        pageName: pageName,
-        breadcrumbs: breadcrumbs,
 
-        viewInicio: viewInicio,
-        viewReto: viewReto,
-        viewEstadistica: viewEstadistica,
-        viewLogros: viewLogros,
-        viewTipsSalud: viewTipsSalud,
-        viewTipsDeporte: viewTipsDeporte,
+//componentes
+        menu:           menu,
+        menuSuperior:   menuSuperior,
+        pageName:       pageName,
+        breadcrumbs:    breadcrumbs,
+
+//vistas
+        viewInicio:           viewInicio,
+        viewReto:             viewReto,
+        viewEstadistica:      viewEstadistica,
+        viewLogros:           viewLogros,
+        viewTipsSalud:        viewTipsSalud,
+        viewTipsDeporte:      viewTipsDeporte,
         viewTipsAlimentacion: viewTipsAlimentacion,
-        viewCalendario: viewCalendario,
-        viewGaleria: viewGaleria,
-        viewFAQ: viewFAQ,
-        viewAcercaDe: viewAcercaDe,
+        viewCalendario:       viewCalendario,
+        viewGaleria:          viewGaleria,
+        viewFAQ:              viewFAQ,
+        viewAcercaDe:         viewAcercaDe,
 
-        grbl: getRetosByLiga,
-        gdrbl: getDetallesRetosByIdLiga,
-        urs: updateRetoSelect,
-
+//funciones
+        grbl:       getRetosByLiga,
+        gdrbl:      viewInicio.LoadDetallesRetosByIdLiga,
+        urs:        updateRetoSelect,
         updateView: updateview,
-        /*urvs: updateRetoViewSelected,
-        uivs: updateInicioViewSelected,
-        uevs: updateEstadisticasViewSelected,
-        ulvs: updateLogrosViewSelected,
-        ucvs: updateCalendarioViewSelected,*/
-        cmdr:   consultaMaestroDetalleReto,
-        chart:  chart,
-        chart2: chart2
+        cmdr:       viewReto.consultaMaestroDetalleReto,
+        chart:      chart,
+        chart2:     chart2
 
     };
 
@@ -896,28 +846,24 @@ zg.PageVM = function () {
 //se carga el modelo inicial
 $(function () {
     
-
     zg.model = new zg.PageVM();
-    ko.applyBindings(zg.model.menu,             document.getElementById("sidebar"));
-    ko.applyBindings(zg.model.menuSuperior,     document.getElementById("menuSuperior"));
-    ko.applyBindings(zg.model.viewInicio,       document.getElementById("home_content"));
-    ko.applyBindings(zg.model.viewReto,         document.getElementById("reto_content"));
-    ko.applyBindings(zg.model.viewEstadistica,  document.getElementById("estadisticas_content"));
-    ko.applyBindings(zg.model.viewLogros,       document.getElementById("logros_content"));
+    ko.applyBindings(zg.model.menu,                 document.getElementById("sidebar"));
+    ko.applyBindings(zg.model.menuSuperior,         document.getElementById("menuSuperior"));
+    ko.applyBindings(zg.model.pageName,             document.getElementById("page-header"));
+    ko.applyBindings(zg.model.breadcrumbs,          document.getElementById("breadcrumbs"));
+
+    ko.applyBindings(zg.model.viewInicio,           document.getElementById("home_content"));
+    ko.applyBindings(zg.model.viewReto,             document.getElementById("reto_content"));
+    ko.applyBindings(zg.model.viewEstadistica,      document.getElementById("estadisticas_content"));
+    ko.applyBindings(zg.model.viewLogros,           document.getElementById("logros_content"));
     ko.applyBindings(zg.model.viewTipsSalud,        document.getElementById("tipsSalud"));
     ko.applyBindings(zg.model.viewTipsDeporte,      document.getElementById("tipsDeporte"));
     ko.applyBindings(zg.model.viewTipsAlimentacion, document.getElementById("tipsAlimentacion"));
-    ko.applyBindings(zg.model.viewCalendario,   document.getElementById("calendario_content"));
-
-    ko.applyBindings(zg.model.viewGaleria, document.getElementById("galeria_content"));
-    ko.applyBindings(zg.model.viewAcercaDe, document.getElementById("acercade_content"));
-    ko.applyBindings(zg.model.viewFAQ, document.getElementById("Faq_content"));
-
-    ko.applyBindings(zg.model.pageName, document.getElementById("page-header"));
-    ko.applyBindings(zg.model.breadcrumbs,      document.getElementById("breadcrumbs"));
+    ko.applyBindings(zg.model.viewCalendario,       document.getElementById("calendario_content"));
+    ko.applyBindings(zg.model.viewGaleria,          document.getElementById("galeria_content"));
+    ko.applyBindings(zg.model.viewAcercaDe,         document.getElementById("acercade_content"));
+    ko.applyBindings(zg.model.viewFAQ,              document.getElementById("Faq_content"));
     
-
-
     //breadcrumbs
     //page-header
 
@@ -927,17 +873,15 @@ $(function () {
     zg.model.viewInicio.hub = chat;
     // Create a function that the hub can call to broadcast messages.
     
+    //eventos signalR
     chat.client.broadcastMessage = function (name, message, avatar,fecha) {
         zg.model.viewInicio.mensajes.unshift(new zg.Mensaje(name, message, avatar, new Date(fecha)));
         updateChatDate();
-
     };
 
     chat.disconnected = function() {
         console.log("se ha desconectado del servidor signalr");
     };
-
-
 
     // Get the user name and store it to prepend to messages.
     // Set initial focus to message input box.
@@ -952,13 +896,13 @@ $(function () {
 
     setInterval(updateChatDate, 15000);
 
-    $(".datepicker").datepicker({
-        changeMonth: true,
-        changeYear: true,
-        showButtonPanel: true,
-        yearRange: '2013:2014',
-        dateFormat: 'yy-mm-dd'
-    });
+    //$(".datepicker").datepicker({
+    //    changeMonth: true,
+    //    changeYear: true,
+    //    showButtonPanel: true,
+    //    yearRange: '2013:2014',
+    //    dateFormat: 'yy-mm-dd'
+    //});
 
     
 });
