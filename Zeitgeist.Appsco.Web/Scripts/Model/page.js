@@ -1,10 +1,10 @@
 ﻿var zg = zg || {};
 
 //serializadores
-function serializeDetalleReto(item) {
+function serializeDetalleReto    (item) {
     return new zg.DetalleReto(item.IdReto, item.Name, item.TotalUsuario, item.TotalEquipo, item.TotalReto, item.PosicionEquipo);
 }
-function serializeReto(item) {
+function serializeReto           (item) {
     var r = new zg.Reto();
     r.id(item.Id);
     r.name(item.Name);
@@ -22,10 +22,10 @@ function serializeReto(item) {
     r.equipos(item.Equipos);
     return r;
 }
-function serializeLiga(item) {
+function serializeLiga           (item) {
     return new zg.Liga(item.id, item.nombre, item.entrenador, item.propia, item.invitacionesDisponibles);
 }
-function logEjercicio(item) {
+function logEjercicio            (item) {
     return new zg.DetalleEjercicio(item.fecha, item.pasos, item.deporte);
 }
 function serializeDetalleMiembros(item) {
@@ -35,7 +35,7 @@ function serializeDetalleMiembros(item) {
     elm.posicion(item.Posicion);
     return elm;
 }
-function serializeDetalleEquipo(item) {
+function serializeDetalleEquipo  (item) {
 
     var arreglo = [];
     for (var i = 0; i < item.Detalles.length; i++)
@@ -44,7 +44,7 @@ function serializeDetalleEquipo(item) {
     var elm = new zg.DetalleEquipo(item.Equipo, item.PuntosTotales, item.Mejor,item.TotalMejor, item.MiEquipo,item.Posicion, item.PorcentajePuntosTotales,arreglo);
     return elm;
 }
-function serializeMaestroReto(item) {
+function serializeMaestroReto    (item) {
     var elm = new zg.MaestroReto();
     elm.name(item.name);
     elm.descripcion(item.descripcion);
@@ -482,8 +482,31 @@ zg.CalendarioView    = function () {
     this.viewName = ko.observable("calendario");
     this.selected = ko.observable(false);
 
-    this.loadRetos = function() {
+    this.loadRetos = function () {
+        
+        loadCalendario(zg.model.menu.retos);
+    };
 
+    var i = -1;
+    function getClassName() {
+        i++;
+        var s = ['label-success', 'label-yellow', 'label-important', 'label-danger', 'label-purple'];
+        var length = s.length;
+        if (i > length) {
+            i = 0;
+        }
+        return s[i];
+    };
+
+    function loadCalendario(retos) {
+
+        var r = [];
+        _.each(retos(), function(data) {
+            r.push({ title: data.name(), start: new Date(new moment(data.fechaInicio())), end: new Date(new moment(data.fechaFin())), className: getClassName() });
+        });
+        $('#con_calendario').fullCalendar({
+            events: r
+        });
     };
 
 };
@@ -587,8 +610,7 @@ zg.Menu             = function () {
         zg.model.updateView("calendario");
         //zg.model.ucvs();
         updateTitles("Calendario", "Retos Inscritos", "Calendario", "");
-        loadCalendario();
-
+        zg.model.viewCalendario.loadRetos();
     };
     this.selectTipsSalud        = function () {
         zg.model.updateView("tipsSalud");
@@ -636,9 +658,7 @@ zg.Menu             = function () {
             dateFormat: 'yy-mm-dd'
         });
     };
-    function loadCalendario() {
-        $('#con_calendario').fullCalendar();
-    };
+    
 };
 zg.MenuSuperior     = function () {
 
