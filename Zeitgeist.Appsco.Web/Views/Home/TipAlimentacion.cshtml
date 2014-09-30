@@ -1,7 +1,8 @@
 ﻿<div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-6">
         <!-- ko foreach: tips -->
-        <div class="col-xs-12 col-sm-6 widget-container-col">
+        <!--<div class="col-xs-12 col-sm-6 widget-container-col">-->
+        
             <div class="widget-box">
                 <div class="widget-header">
                     <h5 class="widget-title smaller" data-bind="text:titulo"></h5>
@@ -19,9 +20,13 @@
                     </div>
                 </div>
             </div>
-        </div>
+        <!--</div>-->
 
 
         <!-- /ko -->
+    </div>
+    <div class="col-sm-6">
+        <img data-bind="attr :{ src :$root.image }"
+              style="left:0" alt="" />
     </div>
 </div>

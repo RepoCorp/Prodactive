@@ -82,8 +82,9 @@
       <HintPath>..\packages\mongocsharpdriver.1.9.2\lib\net35\MongoDB.Driver.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MongoProviders">
-      <HintPath>E:\D\Documentos\Empresa\Proyectos\Librerias\MongoProviders\bin\Debug\MongoProviders.dll</HintPath>
+    <Reference Include="MongoProviders, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b66b4c7c9aa3b9e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dll\MongoProviders.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.5.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -1141,6 +1142,18 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\tips\alimentacion1.png" />
+    <Content Include="Content\tips\alimentacion2.png" />
+    <Content Include="Content\tips\alimentacion3.png" />
+    <Content Include="Content\tips\alimentacion4.png" />
+    <Content Include="Content\tips\deporte1.png" />
+    <Content Include="Content\tips\deporte2.png" />
+    <Content Include="Content\tips\deporte3.png" />
+    <Content Include="Content\tips\deporte4.png" />
+    <Content Include="Content\tips\salud1.png" />
+    <Content Include="Content\tips\salud2.png" />
+    <Content Include="Content\tips\salud3.png" />
+    <Content Include="dll\MongoProviders.dll" />
     <Content Include="exampleConfigs\Global.asax" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

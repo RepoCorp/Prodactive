@@ -9679,15 +9679,15 @@ td .lbl, th .lbl {
     padding-left: 12px;
 }
 
-    .widget-header:after, .widget-header:before {
-        content: "";
-        display: table;
-        line-height: 0;
-    }
+.widget-header:after, .widget-header:before {
+    content:     "";
+    display:     table;
+    line-height: 0;
+}
 
-    .widget-header:after {
-        clear: right;
-    }
+.widget-header:after {
+    clear: right;
+}
 
 .widget-box.collapsed > .widget-header {
     border-bottom-width: 0;
@@ -9723,7 +9723,7 @@ td .lbl, th .lbl {
     display: inline;
 }
 
-    .widget-header > .widget-title > .ace-icon {
+.widget-header > .widget-title > .ace-icon {
         margin-right: 5px;
         font-weight: 400;
         display: inline-block;

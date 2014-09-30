@@ -422,6 +422,32 @@ namespace Zeitgeist.Appsco.Web.App_Start
             }*/
             return lst;
         }
+        public      List<LogEjercicio> GetDatosRetoUsuario(Reto reto,string user)
+        {
+            List<LogEjercicio> lst = new List<LogEjercicio>();
+            var r = GetEquipos(reto.Equipos);
+            Parallel.ForEach(r, (e) =>
+            {
+                var l = GetCollection<LogEjercicio>(Settings.Default.CollectionLogEjercicio).Find(Query.And(new[]
+                                                                                            { Query.EQ("Usuario", user),
+                                                                                              Query.GTE("FechaHora", reto.FechaInicio),
+                                                                                              Query.LTE("FechaHora", reto.FechaFin)
+                                                                                             })).ToList();
+                lst.AddRange(l);
+            });
+
+
+            /*foreach (var e in r)
+            {
+                var l= GetCollection<LogEjercicio>(Settings.Default.CollectionLogEjercicio).Find(Query.And(new []
+                                                                                            { Query.In("Usuario", new BsonArray(e.Miembros)),
+                                                                                              Query.GTE("FechaHora", reto.FechaInicio),
+                                                                                              Query.LTE("FechaHora", reto.FechaFin)
+                                                                                             })).ToList();
+                lst.AddRange(l);
+            }*/
+            return lst;
+        }
         public List<LogEjercicio> GetDatosRetoEquipoByDay(Reto reto,DateTime fecha)
         {
             List<LogEjercicio> lst = new List<LogEjercicio>();

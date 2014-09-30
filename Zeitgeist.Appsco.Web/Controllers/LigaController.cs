@@ -1,13 +1,10 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using AjaxControlToolkit.HTMLEditor.Popups;
 using MongoModels;
-using ServiceStack.MiniProfiler;
 using Zeitgeist.Appsco.Web.App_Start;
 using Zeitgeist.Appsco.Web.Properties;
 using ZeitGeist.Tools;
@@ -193,18 +190,25 @@ namespace Zeitgeist.Appsco.Web.Controllers
 
         public ActionResult InvitacionProdactive()
         {
-         
-            return View();
+            Invitacion inv = new Invitacion()
+            {
+                Remitente = "usuario x",
+                LigaName = "liga pruebas",
+                Url = "www.prodactive.co"
+            };
+            return View(inv);
         }
 
 
         public ActionResult InvitacionLiga()
         {
-            
-            ViewData["Remitente"] = "usuario x";
-            ViewData["Liga"]      = "liga pruebas";
-            ViewData["Url"]       = "www.prodactive.co";
-            return View();
+            Invitacion inv = new Invitacion()
+            {
+                Remitente = "usuario x",
+                LigaName = "liga pruebas",
+                Url = "www.prodactive.co"
+            };
+            return View(inv);
         }
         //public ActionResult Division()
         //{

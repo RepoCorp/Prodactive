@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Web.Mvc;
 using MongoModels;
 using Zeitgeist.Appsco.Web.App_Start;
@@ -13,6 +16,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         // GET: /Reto/
         private readonly Manager manager = Manager.Instance;
 
+        /*
         public JsonResult MaestroDetalle(string id)
         {
 
@@ -73,8 +77,10 @@ namespace Zeitgeist.Appsco.Web.Controllers
             return Json(new { name = d.Name, descripcion=d.Descripcion , equipos = det });
 
         }
+        */
 
-        public JsonResult MaestroDetalle2(string id)
+        [HttpPost]
+        public JsonResult MaestroDetalle(string id)
         {
 
             List<RetoXEquipo> det = new List<RetoXEquipo>();
@@ -137,7 +143,40 @@ namespace Zeitgeist.Appsco.Web.Controllers
 
         }
 
+        [HttpPost]
+        public JsonResult DetalleUsuario(string id)
+        {
+            Reto r= manager.GetRetoById(id);
+            List<LogEjercicio> list = manager.GetDatosRetoUsuario(r, User.Identity.Name);
+            Stopwatch sw= new Stopwatch();
+            sw.Start();
+            var list2 = list.AsParallel().Select(x => new { fecha = x.FechaHora.ToString("yyyy-MM-dd"), conteo = x.Conteo }).GroupBy(x => x.fecha);
+            //var list2 = list.Select(x => new { fecha = x.FechaHora.ToString("yyyy-MM-dd"), conteo = x.Conteo }).GroupBy(x => x.fecha);
+            sw.Stop();
+            int i = -1;
+
+            List<otra> lst= new List<otra>();
+            foreach (var b in list2)
+            {
+                otra o= new otra();
+                o.Fecha = b.Key;
+                o.Pasos = b.ToList().AsParallel().Sum(x => x.conteo);
+                lst.Add(o);
+            }
+            //list.Distinct(x=>x.)
+            Console.WriteLine(i);
+            return Json(lst);
+        }
+
+
     }
+
+    public class otra
+    {
+        public string Fecha { get; set; }
+        public int      Pasos { get; set; }
+    }
+
     //nombrependiente de cambio
     public class RetoXEquipo
     {
