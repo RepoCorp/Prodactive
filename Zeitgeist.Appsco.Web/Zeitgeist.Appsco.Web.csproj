@@ -801,6 +801,7 @@
     <Content Include="Content\template\assets\js\date-time\moment.min.js" />
     <Content Include="Content\template\assets\js\dropzone.min.js" />
     <Content Include="Content\template\assets\js\excanvas.min.js" />
+    <Content Include="Content\template\assets\js\flot\jquery.flot.labels.js" />
     <Content Include="Content\template\assets\js\flot\jquery.flot.min.js" />
     <Content Include="Content\template\assets\js\flot\jquery.flot.pie.min.js" />
     <Content Include="Content\template\assets\js\flot\jquery.flot.resize.min.js" />

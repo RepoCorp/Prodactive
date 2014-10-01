@@ -352,6 +352,7 @@ zg.InicioView        = function () {
         });
     };
 };
+
 zg.RetoView          = function () {
     this.viewName       = ko.observable("reto");
     this.reto           = ko.observable();
@@ -360,7 +361,7 @@ zg.RetoView          = function () {
     this.equipoSelected = ko.observable();
     this.estadisticasDiarias = [];
 
-    function lo() {
+    function lo(ticks) {
         var options = {
             series: {
                 bars: {
@@ -369,7 +370,8 @@ zg.RetoView          = function () {
             },
             bars: {
                 align: "center",
-                barWidth: 0.8
+                barWidth: 24 * 60 * 60 * 600
+                //barWidth: 24//0.8
             }
             ,
             xaxis: {
@@ -378,9 +380,15 @@ zg.RetoView          = function () {
                 axisLabelFontSizePixels: 12,
                 axisLabelFontFamily: 'Verdana, Arial',
                 axisLabelPadding: 10,
-                //ticks: ticks,
                 mode: "time",
-                timeformat: "%m/%d"
+                tickSize: [1, "day"],
+                timeformat: "%m-%d"
+                //minTickSize: [1, "day"],
+                //min: (ticks[0][0]),
+                //max: (ticks[ticks.length-1][0]),
+                //minTickSize: [1, "day"],
+                
+                
                 //timeformat: "%Y/%m/%d"
             },
             yaxis: {
@@ -390,6 +398,7 @@ zg.RetoView          = function () {
                 axisLabelFontFamily: 'Verdana, Arial',
                 axisLabelPadding: 3
                 //,tickFormatter: function (v, axis) {return v + "°C";}
+               
             },
             legend: {
                 noColumns: 0,
@@ -405,6 +414,15 @@ zg.RetoView          = function () {
         //var a = [[1, 2], [2, 3], [3, 4]];
         var data = [zg.model.viewReto.estadisticasDiarias];
         $.plot($("#grafico_barras"), data, options);
+        $("#grafico_barras").UseTooltip();
+        /*
+         * 
+         */
+        var previousPoint = null, previousLabel = null;
+ 
+       
+
+        /**/
         //$.plot($("#grafico_barras"), zg.model.viewReto.estadisticasDiarias,options);
     };
 
@@ -426,7 +444,7 @@ zg.RetoView          = function () {
         //consulta detalles personales reto
         send('/Reto/DetalleUsuario/' + idReto, 'POST', null, function (data) {
             var i = data.length,j=0;
-
+            zg.model.viewReto.estadisticasDiarias = [];
             _.each(data, function(elm) {
                 //zg.model.viewReto.estadisticasDiarias.push(new zg.EstadisticasDiarias(elm.Fecha, elm.Pasos));
                 zg.model.viewReto.estadisticasDiarias.push([new Date(elm.Fecha), elm.Pasos]);
@@ -434,7 +452,7 @@ zg.RetoView          = function () {
                 if ((i - 1) == j) {
                     //cargar la grafica
                     //
-                    lo();
+                        lo(zg.model.viewReto.estadisticasDiarias);
                     //$.plot($("#flot-placeholder"), zg.model.viewReto.estadisticasDiarias, options);
                 }
 
@@ -855,19 +873,20 @@ zg.PageVM = function () {
     function chart(name, dato) {
         $("#sales-charts").css({ 'width': '90%', 'min-height': '350px' });
         var my_chart = $.plot("#sales-charts",
-            [{ label: name, data: dato }],
-         {
-             hoverable: true,
-             shadowSize: 1,
-             series: {
-                 lines: { show: true },
-                 points: { show: true }
-             },
-             xaxis: {
-                 mode: "time",
-                 timeformat: "%Y/%m/%d",
-                 ticks: 4
-             },
+        [{ label: name, data: dato }],
+        {
+            hoverable: true,
+            shadowSize: 1,
+            series: {
+                lines: { show: true },
+                points: { show: true }
+            },
+            xaxis: {
+                mode: "time",
+                timeformat: "%Y/%m/%d",
+                ticks:4
+                //,ticks: dato[0]
+    },
 
              //yaxis: {
              //    ticks: 10,
