@@ -806,6 +806,7 @@
     <Content Include="Content\template\assets\js\flot\jquery.flot.pie.min.js" />
     <Content Include="Content\template\assets\js\flot\jquery.flot.resize.min.js" />
     <Content Include="Content\template\assets\js\flot\jquery.flot.time.js" />
+    <Content Include="Content\template\assets\js\flot\jquery.flot.tooltip.js" />
     <Content Include="Content\template\assets\js\fuelux\data\fuelux.tree-sample-demo-data.js" />
     <Content Include="Content\template\assets\js\fuelux\fuelux.spinner.min.js" />
     <Content Include="Content\template\assets\js\fuelux\fuelux.tree.min.js" />

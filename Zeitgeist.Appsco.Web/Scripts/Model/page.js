@@ -409,16 +409,24 @@ zg.RetoView          = function () {
                 hoverable: true,
                 borderWidth: 2,
                 backgroundColor: { colors: ["#ffffff", "#EDF5FF"] }
+            },
+            tooltip: true,
+            tooltipOpts: {
+                 
+            content: '<b>%x</b><br/>N° Pasos: %y',
+            shifts: {
+                x: -60,
+                y: 25
             }
+        }
         };
         //var a = [[1, 2], [2, 3], [3, 4]];
         var data = [zg.model.viewReto.estadisticasDiarias];
         $.plot($("#grafico_barras"), data, options);
-        $("#grafico_barras").UseTooltip();
         /*
          * 
          */
-        var previousPoint = null, previousLabel = null;
+        
  
        
 
@@ -873,10 +881,8 @@ zg.PageVM = function () {
     function chart(name, dato) {
         $("#sales-charts").css({ 'width': '90%', 'min-height': '350px' });
         var my_chart = $.plot("#sales-charts",
-        [{ label: name, data: dato }],
-        {
-            hoverable: true,
-            shadowSize: 1,
+            [{ label: name, data: dato }],
+            {
             series: {
                 lines: { show: true },
                 points: { show: true }
@@ -884,9 +890,10 @@ zg.PageVM = function () {
             xaxis: {
                 mode: "time",
                 timeformat: "%Y/%m/%d",
-                ticks:4
+                tickSize: [1, "day"]
+                //,ticks:4
                 //,ticks: dato[0]
-    },
+            },
 
              //yaxis: {
              //    ticks: 10,
@@ -894,11 +901,24 @@ zg.PageVM = function () {
              //    max: 2,
              //    tickDecimals: 3
              //},
-             grid: {
+            grid: {
+                
+                 hoverable: true,
                  backgroundColor: { colors: ["#fff", "#fff"] },
                  borderWidth: 1,
-                 borderColor: '#555'
+                 borderColor: '#555',
+                 shadowSize: 1
+             },
+             tooltip: true,
+             tooltipOpts: {
+                 
+                 content: '<b>%x</b><br/>N° Pasos: %y',
+                 shifts: {
+                     x: -60,
+                     y: 25
+                 }
              }
+
          });
     };
     function chart2(selector,data) {
