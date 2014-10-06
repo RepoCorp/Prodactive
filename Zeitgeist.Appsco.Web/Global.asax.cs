@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -86,5 +87,16 @@ namespace Zeitgeist.Appsco.Web
             Application["OnlineUsers"] = (int)Application["OnlineUsers"] - 1;
             Application.UnLock();
         }
+
+        public override string GetVaryByCustomString(HttpContext context, string arg)
+        {
+            if (arg == "User")
+            {
+                return "User=" + context.User.Identity.Name;
+            }
+
+            return base.GetVaryByCustomString(context, arg);
+        }
+        
     }
 }

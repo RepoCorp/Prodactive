@@ -30,6 +30,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         private Manager manager = Manager.Instance;
         [HttpGet]
         //[OutputCache(Duration = 60)]
+        [OutputCache(Duration = 60, VaryByCustom = "User", Location = OutputCacheLocation.Server)]
         public ActionResult Index()
         {
             return View();
@@ -37,6 +38,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         
         [HttpPost]
         //[OutputCache(Location = OutputCacheLocation.Client, Duration = 60)]
+        [OutputCache(Duration = 600, VaryByParam = "*", VaryByCustom = "User", Location = OutputCacheLocation.Server)]
         public JsonResult GetLigas()
         {
             List<Liga> ligas = manager.GetLeagueUserRegistered(User.Identity.Name);
@@ -47,6 +49,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         }
 
         [HttpPost]
+        [OutputCache(Duration = 600, VaryByParam = "*", VaryByCustom = "User", Location = OutputCacheLocation.Server)]
         public ActionResult GetUserData()
         {
 
@@ -56,7 +59,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         }
 
         [HttpPost]
-        //[OutputCache(Location = OutputCacheLocation.Client, Duration = 60)]
+        [OutputCache(Duration = 600, VaryByParam = "id",Location = OutputCacheLocation.Server)]
         public JsonResult GetRetosByIdLiga(string id)
         {
             List<Reto> retos = manager.GetRetosByIdLiga(id);
@@ -64,7 +67,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         }
         
         [HttpPost]
-        //[OutputCache(Location = OutputCacheLocation.Client, Duration = 60)]
+        [OutputCache(Duration = 600, VaryByParam = "id", Location = OutputCacheLocation.Server)]
         public JsonResult GetDetallesRetosByIdLiga(string id)
         {
             //Stopwatch sw= new Stopwatch();
@@ -78,6 +81,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         }
         
         [HttpPost]
+        [OutputCache(Duration = 600, Location = OutputCacheLocation.Server)]
         public JsonResult GetTips()
         {
             List<Tips> lst = manager.GetRandomTips();
@@ -85,6 +89,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         }
 
         [HttpPost]
+        [OutputCache(Duration = 600, Location = OutputCacheLocation.Server)]
         public JsonResult GetTipsDeporte()
         {
             List<Tips> lst = manager.GetTipsDeporte();
@@ -92,6 +97,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         }
 
         [HttpPost]
+        [OutputCache(Duration = 600, Location = OutputCacheLocation.Server)]
         public JsonResult GetTipsSalud()
         {
             List<Tips> lst = manager.GetTipsSalud();
@@ -99,13 +105,46 @@ namespace Zeitgeist.Appsco.Web.Controllers
         }
 
         [HttpPost]
+        [OutputCache(Duration = 600, Location = OutputCacheLocation.Server)]
         public JsonResult GetTipsAlimentacion()
         {
             List<Tips> lst = manager.GetTipsAlimentacion();
             return Json(lst);
         }
 
+        [HttpPost]
+        [OutputCache(Duration = 600, VaryByParam = "*", VaryByCustom = "User", Location = OutputCacheLocation.Server)]
+        public JsonResult GetLogEjerciciosByUser()
+        {
+           var l = manager.GetLogEjercicioByUserAndDates(User.Identity.Name, DateTime.Now.AddDays(-5), DateTime.Now)
+                .Select(x => new {Fecha = x.FechaHora.ToString("yyyy-MM-dd"), Pasos = x.Conteo, Deporte = x.Deporte})
+                .OrderBy(x=>x.Fecha)
+                .GroupBy(x => new {x.Fecha,x.Deporte})
+                .Select(x => new { fecha = x.Key.Fecha, pasos = x.Sum(y=>y.Pasos), deporte = x.Key.Deporte });
 
+            return Json(l);
+        }
+
+        /*
+        public ActionResult Registro()
+        {
+            
+            return View();
+        }*/
+        
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your app description page.";
+
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
 
 
         private static void GetEmptyReto(ref List<DetalleReto> lst)
@@ -124,56 +163,6 @@ namespace Zeitgeist.Appsco.Web.Controllers
             }
         }
         
-        
-       //estadistica basica del usuario
-        [HttpPost]
-        public JsonResult GetLogEjerciciosByUser()
-        {
-           var l = manager.GetLogEjercicioByUserAndDates(User.Identity.Name, DateTime.Now.AddDays(-5), DateTime.Now)
-                .Select(x => new {Fecha = x.FechaHora.ToString("yyyy-MM-dd"), Pasos = x.Conteo, Deporte = x.Deporte})
-                .OrderBy(x=>x.Fecha)
-                .GroupBy(x => new {x.Fecha,x.Deporte})
-                .Select(x => new { fecha = x.Key.Fecha, pasos = x.Sum(y=>y.Pasos), deporte = x.Key.Deporte });
-
-            return Json(l);
-        }
-
-        public ActionResult Registro()
-        {
-            
-            return View();
-        }
-
-        //[HttpPost]
-        //public ActionResult Registro(string dataSave)
-        //{
-        //    var     q   = JsonConvert.DeserializeObject<ICollection<Registro>>(dataSave);
-        //    Reto    r   = manager.GetReto();
-        //    string  id  = User.Identity.Name;
-        //    foreach (var a in q)
-        //    {
-        //        a.User      = id;
-        //        a.retoId    = r.Id;
-        //        if (!manager.SaveRegistro(a))
-        //            break;
-        //    }
-
-        //    return Json(new {state = true, message = "ok"});
-        //}
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your app description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 
 

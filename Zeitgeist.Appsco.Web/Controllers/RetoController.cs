@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.UI;
 using MongoModels;
 using Zeitgeist.Appsco.Web.App_Start;
+using Zeitgeist.Appsco.Web.Models;
 
 namespace Zeitgeist.Appsco.Web.Controllers
 {
@@ -80,18 +82,24 @@ namespace Zeitgeist.Appsco.Web.Controllers
         */
 
         [HttpPost]
+        [OutputCache(Duration = 300, VaryByCustom = "User",VaryByParam = "id", Location = OutputCacheLocation.Server)]
         public JsonResult MaestroDetalle(string id)
         {
 
             List<RetoXEquipo> det = new List<RetoXEquipo>();
             Reto r = manager.GetRetoById(id);
+            var t1 = Task.Factory.StartNew(() =>
+            {
+                return manager.GetDivisionById(r.Division);
+            });
 
-            Division d = manager.GetDivisionById(r.Division);
             //con este obtengo lo de todos los equipos...
-            List<LogEjercicio> datos = manager.GetDatosRetoEquipo(r);
-
+            var t2 = Task.Factory.StartNew(() => { return manager.GetDatosRetoEquipo(r); });
+            
+            
 
             List<Equipo> equipos = manager.GetEquipos(r.Equipos);
+            List<LogEjercicio> datos = t2.Result;
             foreach (var equipo in equipos)
             {
                 RetoXEquipo de = new RetoXEquipo();
@@ -138,12 +146,14 @@ namespace Zeitgeist.Appsco.Web.Controllers
                 //    team.Detalles= new List<DetalleRetosXEquipo>();
                 //}
             }
+            Division d = t1.Result;
 
             return Json(new { name = d.Name, descripcion = d.Descripcion, equipos = det });
 
         }
 
         [HttpPost]
+        [OutputCache(Duration = 300, VaryByCustom = "User", VaryByParam = "id", Location = OutputCacheLocation.Server)]
         public JsonResult DetalleUsuario(string id)
         {
             Reto r= manager.GetRetoById(id);
@@ -155,10 +165,10 @@ namespace Zeitgeist.Appsco.Web.Controllers
             sw.Stop();
             int i = -1;
 
-            List<otra> lst= new List<otra>();
+            List<LogDetalleUsuario> lst= new List<LogDetalleUsuario>();
             foreach (var b in list2)
             {
-                otra o= new otra();
+                LogDetalleUsuario o= new LogDetalleUsuario();
                 o.Fecha = b.Key;
                 o.Pasos = b.ToList().AsParallel().Sum(x => x.conteo);
                 lst.Add(o);
@@ -167,41 +177,6 @@ namespace Zeitgeist.Appsco.Web.Controllers
             Console.WriteLine(i);
             return Json(lst);
         }
-
-
-    }
-
-    public class otra
-    {
-        public string Fecha { get; set; }
-        public int      Pasos { get; set; }
-    }
-
-    //nombrependiente de cambio
-    public class RetoXEquipo
-    {
-
-        public RetoXEquipo()
-        {
-            Detalles = new List<DetalleRetosXEquipo>();
-            TotalMejor = 0;
-        }
-
-        public string Equipo        { get; set; }
-        public int    PuntosTotales { get; set; }
-        public double PorcentajePuntosTotales { get; set; }
-        public string Mejor         { get; set; }
-        public int    TotalMejor    { get; set; }
-        public bool   MiEquipo      { get; set; }
-        public int    Posicion      { get; set; }
-        public List<DetalleRetosXEquipo> Detalles { get; set; }
-
-    }
-
-    public class DetalleRetosXEquipo
-    {
-        public string Usuario   { get; set; }
-        public int    Total     { get; set; }
-        public int    Posicion  { get; set; }
+        
     }
 }

@@ -181,8 +181,8 @@ zg.Mensaje           = function (usuario, mensaje, avatar, fecha) {
     this.fecha = ko.observable(fecha);
     this.fechaCountdown = ko.computed(function () {
         var result = countdown(this.fecha()).toString();
-        if (result === "")
-            result = countdown(new Date()).toString();
+        //if (result === "")
+          //  result = countdown(new Date()).toString();
         return result;
     }, this);
     this.url = ko.computed(function () {
@@ -300,14 +300,14 @@ zg.InicioView        = function () {
     this.hub                = undefined;
     
     //metodos
-    this.sendMessage = function (elm) {
+    this.sendMessage        = function (elm) {
         if(elm.mensaje()!=="")
         {
             zg.model.viewInicio.hub.server.send(zg.model.menuSuperior.user(), elm.mensaje(), zg.model.menuSuperior.avatar(),zg.model.menuSuperior.liga.id());
             elm.mensaje("");
         }
     };
-    this.enterSend = function(elm, event) {
+    this.enterSend          = function(elm, event) {
         if (event.keyCode == 13) {
             if (elm.mensaje() !== "") {
                 zg.model.viewInicio.hub.server.send(zg.model.menuSuperior.user(), elm.mensaje(), zg.model.menuSuperior.avatar(), zg.model.menuSuperior.liga.id());
@@ -317,7 +317,7 @@ zg.InicioView        = function () {
         }
         return true;
     };
-    this.loadLogEjercicio = function() {
+    this.loadLogEjercicio   = function() {
         send('/Home/GetLogEjerciciosByUser', "post", null, function(data) {
             var caminar = [];
             var d = _.where(data, { deporte: "Caminar" });
@@ -334,7 +334,7 @@ zg.InicioView        = function () {
             });
         });
     };
-    this.loadTips = function() {
+    this.loadTips           = function() {
         send('/Home/GetTips', "POST", null, function(data) {
             _.each(data, function(item) {
                zg.model.viewInicio.tips.push(new zg.Tips(item.Tipo, '', item.Mensaje, item.LinkImage));
@@ -349,6 +349,14 @@ zg.InicioView        = function () {
             _.each(response, function (it) {
                 zg.model.viewInicio.detallesRetos.push(serializeDetalleReto(it));
             });
+        });
+    };
+    this.loadChat = function() {
+        $.connection.hub.start().done(function () {
+            console.log("conexion exitosa");
+            // Call the Send method on the hub.
+            chat.server.registro(zg.model.menuSuperior.user(), zg.model.menuSuperior.liga.id());
+            //});
         });
     };
 };
@@ -573,12 +581,28 @@ zg.TipsView = function (name) {
         var url = getUrl(this.viewName());
 
         if (this.tips().length == 0) {
-            send(url, "POST", null, function (data) {
-                _.each(data, function (item) {
+            send(url, "POST", null, function(data) {
+                var i = 0;
+                _.each(data, function(item, index) {
+
                     me.tips.push(new zg.Tips(item.Tipo, item.Titulo, item.Mensaje, item.LinkImage));
                     me.tips.valueHasMutated();
+                    if (index == data.length - 1) {
+                        $(".carousel").jCarouselLite({
+                            btnNext: ".next",
+                            btnPrev: ".prev",
+                            vertical: true
+                        });
+                    }
                 });
             });
+        } else {
+            $(".carousel").jCarouselLite({
+                btnNext: ".next",
+                btnPrev: ".prev",
+                vertical: true
+            });
+
         }
     };
 
@@ -856,14 +880,13 @@ zg.PageVM = function () {
     breadcrumbs.view("Home");
     breadcrumbs.description("Dashboard");
         
-    var load = function () {
+    function load () {
 
         menuSuperior.loadLiga        (),
         menuSuperior.loadUserData    (),
         viewInicio  .loadLogEjercicio(),
-        viewInicio  .loadTips        ();
+        viewInicio.loadTips();
     };
-
     function updateRetoSelect(item) {
         viewReto.reto(item);
     };
@@ -877,7 +900,6 @@ zg.PageVM = function () {
             }
         });
     };
-
     function chart(name, dato) {
         $("#sales-charts").css({ 'width': '90%', 'min-height': '350px' });
         var my_chart = $.plot("#sales-charts",
@@ -948,9 +970,19 @@ zg.PageVM = function () {
              //    tickDecimals: 3
              //},
              grid: {
+                 hoverable: true,
                  backgroundColor: { colors: ["#fff", "#fff"] },
                  borderWidth: 1,
                  borderColor: '#555'
+             },
+             tooltip: true,
+             tooltipOpts: {
+
+                 content: '<b>%x</b><br/>N° Pasos: %y',
+                 shifts: {
+                     x: -60,
+                     y: 25
+                 }
              }
          });
     };
@@ -993,9 +1025,15 @@ zg.PageVM = function () {
 };
 
 //se carga el modelo inicial
+zg.model = new zg.PageVM();
+var chat = $.connection.Chat;
+
 $(function () {
     
-    zg.model = new zg.PageVM();
+    zg.model.viewInicio.hub = chat;
+
+    zg.model.viewInicio.loadChat();
+    
     ko.applyBindings(zg.model.menu,                 document.getElementById("sidebar"));
     ko.applyBindings(zg.model.menuSuperior,         document.getElementById("menuSuperior"));
     ko.applyBindings(zg.model.pageName,             document.getElementById("page-header"));
@@ -1018,13 +1056,12 @@ $(function () {
 
     //declaro la conexion con signal r
     // Declare a proxy to reference the hub.
-    var chat = $.connection.Chat;
-    zg.model.viewInicio.hub = chat;
+    
     // Create a function that the hub can call to broadcast messages.
     
     //eventos signalR
     chat.client.broadcastMessage = function (name, message, avatar,fecha) {
-        zg.model.viewInicio.mensajes.unshift(new zg.Mensaje(name, message, avatar, new Date(fecha)));
+        zg.model.viewInicio.mensajes.unshift(new zg.Mensaje(name, message, avatar, new Date(moment(fecha))));
         updateChatDate();
     };
 
@@ -1035,13 +1072,6 @@ $(function () {
     // Get the user name and store it to prepend to messages.
     // Set initial focus to message input box.
     // Start the connection.
-
-    $.connection.hub.start().done(function () {
-        console.log("conexion exitosa");
-        // Call the Send method on the hub.
-        //chat.server.registro(zg.model.menuSuperior.user(), zg.model.menuSuperior.liga.id());
-        //});
-    });
 
     setInterval(updateChatDate, 15000);
 
