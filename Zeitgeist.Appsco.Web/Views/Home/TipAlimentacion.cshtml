@@ -5,7 +5,15 @@
         
             <div class="widget-box">
                 <div class="widget-header">
+                    <table  style="background-color:#70E500;float:left;">
+                        <tr>
+                            <td style="width:50px;align-content:flex-end">
+                                <img src="~/Content/deportes/bicicleta_ico.png" style="width:25px;float:right;border-bottom-color:white;border-">
+                            </td>
+                        </tr>
+                    </table>
                     <h5 class="widget-title smaller" data-bind="text:titulo"></h5>
+                    
                     @*<div class="widget-toolbar">
                         <span class="label label-success">
                             16%
@@ -26,7 +34,7 @@
         <!-- /ko -->
     </div>
     <div class="col-sm-6">
-        <img data-bind="attr :{ src :$root.image }"
-              style="left:0" alt="" />
+        <img  data-bind="attr :{ src :$root.image }"
+              style="float:right" alt="" />
     </div>
 </div>
