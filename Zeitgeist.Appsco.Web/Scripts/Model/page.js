@@ -167,7 +167,15 @@ zg.Tips              = function (tipo,titulo, mensaje, imageurl) {
     this.tipo       = ko.observable(tipo);
     this.titulo     = ko.observable(titulo);
     this.mensaje    = ko.observable(mensaje);
-    this.linkImage  = ko.observable(imageurl);
+    this.image      = ko.observable(imageurl);
+    this.linkImage = ko.computed(function () {
+        if (this.image() === "") {
+            return "/Content/deportes/caminar_ico.png";
+        } else {
+            return "/Content/deportes/" + this.image();
+        }
+        
+    },this);
 };
 zg.DetalleEjercicio  = function (fecha, pasos, deporte) {
     this.fecha = ko.observable(fecha);
@@ -181,8 +189,8 @@ zg.Mensaje           = function (usuario, mensaje, avatar, fecha) {
     this.fecha = ko.observable(fecha);
     this.fechaCountdown = ko.computed(function () {
         var result = countdown(this.fecha()).toString();
-        if (result === "")
-            result = countdown(new Date()).toString();
+        //if (result === "")
+          //  result = countdown(new Date()).toString();
         return result;
     }, this);
     this.url = ko.computed(function () {
@@ -300,14 +308,14 @@ zg.InicioView        = function () {
     this.hub                = undefined;
     
     //metodos
-    this.sendMessage = function (elm) {
+    this.sendMessage        = function (elm) {
         if(elm.mensaje()!=="")
         {
             zg.model.viewInicio.hub.server.send(zg.model.menuSuperior.user(), elm.mensaje(), zg.model.menuSuperior.avatar(),zg.model.menuSuperior.liga.id());
             elm.mensaje("");
         }
     };
-    this.enterSend = function(elm, event) {
+    this.enterSend          = function(elm, event) {
         if (event.keyCode == 13) {
             if (elm.mensaje() !== "") {
                 zg.model.viewInicio.hub.server.send(zg.model.menuSuperior.user(), elm.mensaje(), zg.model.menuSuperior.avatar(), zg.model.menuSuperior.liga.id());
@@ -317,7 +325,7 @@ zg.InicioView        = function () {
         }
         return true;
     };
-    this.loadLogEjercicio = function() {
+    this.loadLogEjercicio   = function() {
         send('/Home/GetLogEjerciciosByUser', "post", null, function(data) {
             var caminar = [];
             var d = _.where(data, { deporte: "Caminar" });
@@ -334,7 +342,7 @@ zg.InicioView        = function () {
             });
         });
     };
-    this.loadTips = function() {
+    this.loadTips           = function() {
         send('/Home/GetTips', "POST", null, function(data) {
             _.each(data, function(item) {
                zg.model.viewInicio.tips.push(new zg.Tips(item.Tipo, '', item.Mensaje, item.LinkImage));
@@ -351,7 +359,16 @@ zg.InicioView        = function () {
             });
         });
     };
+    this.loadChat = function() {
+        $.connection.hub.start().done(function () {
+            console.log("conexion exitosa");
+            // Call the Send method on the hub.
+            chat.server.registro(zg.model.menuSuperior.user(), zg.model.menuSuperior.liga.id());
+            //});
+        });
+    };
 };
+
 zg.RetoView          = function () {
     this.viewName       = ko.observable("reto");
     this.reto           = ko.observable();
@@ -360,7 +377,7 @@ zg.RetoView          = function () {
     this.equipoSelected = ko.observable();
     this.estadisticasDiarias = [];
 
-    function lo() {
+    function lo(ticks) {
         var options = {
             series: {
                 bars: {
@@ -369,7 +386,8 @@ zg.RetoView          = function () {
             },
             bars: {
                 align: "center",
-                barWidth: 0.8
+                barWidth: 24 * 60 * 60 * 600
+                //barWidth: 24//0.8
             }
             ,
             xaxis: {
@@ -378,9 +396,15 @@ zg.RetoView          = function () {
                 axisLabelFontSizePixels: 12,
                 axisLabelFontFamily: 'Verdana, Arial',
                 axisLabelPadding: 10,
-                //ticks: ticks,
                 mode: "time",
-                timeformat: "%m/%d"
+                tickSize: [1, "day"],
+                timeformat: "%m-%d"
+                //minTickSize: [1, "day"],
+                //min: (ticks[0][0]),
+                //max: (ticks[ticks.length-1][0]),
+                //minTickSize: [1, "day"],
+                
+                
                 //timeformat: "%Y/%m/%d"
             },
             yaxis: {
@@ -390,6 +414,7 @@ zg.RetoView          = function () {
                 axisLabelFontFamily: 'Verdana, Arial',
                 axisLabelPadding: 3
                 //,tickFormatter: function (v, axis) {return v + "°C";}
+               
             },
             legend: {
                 noColumns: 0,
@@ -400,11 +425,28 @@ zg.RetoView          = function () {
                 hoverable: true,
                 borderWidth: 2,
                 backgroundColor: { colors: ["#ffffff", "#EDF5FF"] }
+            },
+            tooltip: true,
+            tooltipOpts: {
+                 
+            content: '<b>%x</b><br/>N° Pasos: %y',
+            shifts: {
+                x: -60,
+                y: 25
             }
+        }
         };
         //var a = [[1, 2], [2, 3], [3, 4]];
         var data = [zg.model.viewReto.estadisticasDiarias];
         $.plot($("#grafico_barras"), data, options);
+        /*
+         * 
+         */
+        
+ 
+       
+
+        /**/
         //$.plot($("#grafico_barras"), zg.model.viewReto.estadisticasDiarias,options);
     };
 
@@ -426,7 +468,7 @@ zg.RetoView          = function () {
         //consulta detalles personales reto
         send('/Reto/DetalleUsuario/' + idReto, 'POST', null, function (data) {
             var i = data.length,j=0;
-
+            zg.model.viewReto.estadisticasDiarias = [];
             _.each(data, function(elm) {
                 //zg.model.viewReto.estadisticasDiarias.push(new zg.EstadisticasDiarias(elm.Fecha, elm.Pasos));
                 zg.model.viewReto.estadisticasDiarias.push([new Date(elm.Fecha), elm.Pasos]);
@@ -434,7 +476,7 @@ zg.RetoView          = function () {
                 if ((i - 1) == j) {
                     //cargar la grafica
                     //
-                    lo();
+                        lo(zg.model.viewReto.estadisticasDiarias);
                     //$.plot($("#flot-placeholder"), zg.model.viewReto.estadisticasDiarias, options);
                 }
 
@@ -547,12 +589,28 @@ zg.TipsView = function (name) {
         var url = getUrl(this.viewName());
 
         if (this.tips().length == 0) {
-            send(url, "POST", null, function (data) {
-                _.each(data, function (item) {
+            send(url, "POST", null, function(data) {
+                var i = 0;
+                _.each(data, function(item, index) {
+
                     me.tips.push(new zg.Tips(item.Tipo, item.Titulo, item.Mensaje, item.LinkImage));
                     me.tips.valueHasMutated();
+                    if (index == data.length - 1) {
+                        $(".carousel").jCarouselLite({
+                            btnNext: ".next",
+                            btnPrev: ".prev",
+                            vertical: true
+                        });
+                    }
                 });
             });
+        } else {
+            $(".carousel").jCarouselLite({
+                btnNext: ".next",
+                btnPrev: ".prev",
+                vertical: true
+            });
+
         }
     };
 
@@ -830,14 +888,13 @@ zg.PageVM = function () {
     breadcrumbs.view("Home");
     breadcrumbs.description("Dashboard");
         
-    var load = function () {
+    function load () {
 
         menuSuperior.loadLiga        (),
         menuSuperior.loadUserData    (),
         viewInicio  .loadLogEjercicio(),
-        viewInicio  .loadTips        ();
+        viewInicio.loadTips();
     };
-
     function updateRetoSelect(item) {
         viewReto.reto(item);
     };
@@ -851,23 +908,22 @@ zg.PageVM = function () {
             }
         });
     };
-
     function chart(name, dato) {
         $("#sales-charts").css({ 'width': '90%', 'min-height': '350px' });
         var my_chart = $.plot("#sales-charts",
             [{ label: name, data: dato }],
-         {
-             hoverable: true,
-             shadowSize: 1,
-             series: {
-                 lines: { show: true },
-                 points: { show: true }
-             },
-             xaxis: {
-                 mode: "time",
-                 timeformat: "%Y/%m/%d",
-                 ticks: 4
-             },
+            {
+            series: {
+                lines: { show: true },
+                points: { show: true }
+            },
+            xaxis: {
+                mode: "time",
+                timeformat: "%Y/%m/%d",
+                tickSize: [1, "day"]
+                //,ticks:4
+                //,ticks: dato[0]
+            },
 
              //yaxis: {
              //    ticks: 10,
@@ -875,11 +931,24 @@ zg.PageVM = function () {
              //    max: 2,
              //    tickDecimals: 3
              //},
-             grid: {
+            grid: {
+                
+                 hoverable: true,
                  backgroundColor: { colors: ["#fff", "#fff"] },
                  borderWidth: 1,
-                 borderColor: '#555'
+                 borderColor: '#555',
+                 shadowSize: 1
+             },
+             tooltip: true,
+             tooltipOpts: {
+                 
+                 content: '<b>%x</b><br/>N° Pasos: %y',
+                 shifts: {
+                     x: -60,
+                     y: 25
+                 }
              }
+
          });
     };
     function chart2(selector,data) {
@@ -909,9 +978,19 @@ zg.PageVM = function () {
              //    tickDecimals: 3
              //},
              grid: {
+                 hoverable: true,
                  backgroundColor: { colors: ["#fff", "#fff"] },
                  borderWidth: 1,
                  borderColor: '#555'
+             },
+             tooltip: true,
+             tooltipOpts: {
+
+                 content: '<b>%x</b><br/>N° Pasos: %y',
+                 shifts: {
+                     x: -60,
+                     y: 25
+                 }
              }
          });
     };
@@ -954,9 +1033,15 @@ zg.PageVM = function () {
 };
 
 //se carga el modelo inicial
+zg.model = new zg.PageVM();
+var chat = $.connection.Chat;
+
 $(function () {
     
-    zg.model = new zg.PageVM();
+    zg.model.viewInicio.hub = chat;
+
+    zg.model.viewInicio.loadChat();
+    
     ko.applyBindings(zg.model.menu,                 document.getElementById("sidebar"));
     ko.applyBindings(zg.model.menuSuperior,         document.getElementById("menuSuperior"));
     ko.applyBindings(zg.model.pageName,             document.getElementById("page-header"));
@@ -979,13 +1064,12 @@ $(function () {
 
     //declaro la conexion con signal r
     // Declare a proxy to reference the hub.
-    var chat = $.connection.Chat;
-    zg.model.viewInicio.hub = chat;
+    
     // Create a function that the hub can call to broadcast messages.
     
     //eventos signalR
     chat.client.broadcastMessage = function (name, message, avatar,fecha) {
-        zg.model.viewInicio.mensajes.unshift(new zg.Mensaje(name, message, avatar, new Date(fecha)));
+        zg.model.viewInicio.mensajes.unshift(new zg.Mensaje(name, message, avatar, new Date(moment(fecha))));
         updateChatDate();
     };
 
@@ -996,13 +1080,6 @@ $(function () {
     // Get the user name and store it to prepend to messages.
     // Set initial focus to message input box.
     // Start the connection.
-
-    $.connection.hub.start().done(function () {
-        console.log("conexion exitosa");
-        // Call the Send method on the hub.
-        //chat.server.registro(zg.model.menuSuperior.user(), zg.model.menuSuperior.liga.id());
-        //});
-    });
 
     setInterval(updateChatDate, 15000);
 

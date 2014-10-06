@@ -11,6 +11,11 @@
         font-size: 16px;
     }
 
+.col-sm-6 {
+    width: 50%;
+    height: 400px !important;
+}
+
 .firstOfTeam {
     background-image: url()             
 }

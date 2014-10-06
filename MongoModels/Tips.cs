@@ -5,6 +5,10 @@ namespace MongoModels
 {
     public class Tips
     {
+        public Tips()
+        {
+            LinkImage = "";
+        }
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
@@ -13,7 +17,7 @@ namespace MongoModels
         public string Titulo { get; set; }
 
         public string Mensaje { get; set; }
-
+        [BsonDefaultValue("")]
         public string LinkImage { get; set; }
     }
 

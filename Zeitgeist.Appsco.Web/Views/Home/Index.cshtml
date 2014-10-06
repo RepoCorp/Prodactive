@@ -268,7 +268,8 @@
                                 <div class="body">
                                     <div class="time">
                                         <i class="ace-icon fa fa-clock-o"></i>
-                                        <span class="green" data-bind="text:fechaCountdown"></span>
+                                        <!--span class="green" data-bind="text:fechaCountdown"></span-->
+                                        <span class="green" data-bind="timeAgo:fecha"></span>
                                     </div>
 
                                     <div class="name">
@@ -322,17 +323,17 @@
 <div id="tips">
     <div id="tipsSalud">
         <!-- ko if: selected -->
-        @{ Html.RenderPartial("~/Views/Home/TipSalud.cshtml"); }
+        @{ Html.RenderPartial("~/Views/Home/Tips.cshtml"); }
         <!-- /ko -->
     </div>
     <div id="tipsDeporte">
         <!-- ko if: selected -->
-        @{ Html.RenderPartial("~/Views/Home/TipDeporte.cshtml"); }
+        @{ Html.RenderPartial("~/Views/Home/Tips.cshtml"); }
         <!-- /ko -->
     </div>
     <div id="tipsAlimentacion">
         <!-- ko if: selected -->
-        @{ Html.RenderPartial("~/Views/Home/TipAlimentacion.cshtml"); }
+        @{ Html.RenderPartial("~/Views/Home/Tips.cshtml"); }
         <!-- /ko -->
     </div>
 
