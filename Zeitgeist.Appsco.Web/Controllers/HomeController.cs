@@ -30,7 +30,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         private Manager manager = Manager.Instance;
         [HttpGet]
         //[OutputCache(Duration = 60)]
-        [OutputCache(Duration = 60, VaryByCustom = "User", Location = OutputCacheLocation.Server)]
+        [OutputCache(Duration = 600, VaryByCustom = "User", Location = OutputCacheLocation.Server)]
         public ActionResult Index()
         {
             return View();
@@ -81,7 +81,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         }
         
         [HttpPost]
-        [OutputCache(Duration = 600, Location = OutputCacheLocation.Server)]
+        [OutputCache(Duration = 3600, Location = OutputCacheLocation.Server)]
         public JsonResult GetTips()
         {
             List<Tips> lst = manager.GetRandomTips();
@@ -89,7 +89,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         }
 
         [HttpPost]
-        [OutputCache(Duration = 600, Location = OutputCacheLocation.Server)]
+        [OutputCache(Duration = 3600, Location = OutputCacheLocation.Server)]
         public JsonResult GetTipsDeporte()
         {
             List<Tips> lst = manager.GetTipsDeporte();
@@ -97,7 +97,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         }
 
         [HttpPost]
-        [OutputCache(Duration = 600, Location = OutputCacheLocation.Server)]
+        [OutputCache(Duration = 3600, Location = OutputCacheLocation.Server)]
         public JsonResult GetTipsSalud()
         {
             List<Tips> lst = manager.GetTipsSalud();
@@ -105,7 +105,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         }
 
         [HttpPost]
-        [OutputCache(Duration = 600, Location = OutputCacheLocation.Server)]
+        [OutputCache(Duration = 3600, Location = OutputCacheLocation.Server)]
         public JsonResult GetTipsAlimentacion()
         {
             List<Tips> lst = manager.GetTipsAlimentacion();

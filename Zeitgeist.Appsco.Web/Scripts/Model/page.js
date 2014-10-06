@@ -167,7 +167,15 @@ zg.Tips              = function (tipo,titulo, mensaje, imageurl) {
     this.tipo       = ko.observable(tipo);
     this.titulo     = ko.observable(titulo);
     this.mensaje    = ko.observable(mensaje);
-    this.linkImage  = ko.observable(imageurl);
+    this.image      = ko.observable(imageurl);
+    this.linkImage = ko.computed(function () {
+        if (this.image() === "") {
+            return "/Content/deportes/caminar_ico.png";
+        } else {
+            return "/Content/deportes/" + this.image();
+        }
+        
+    },this);
 };
 zg.DetalleEjercicio  = function (fecha, pasos, deporte) {
     this.fecha = ko.observable(fecha);
