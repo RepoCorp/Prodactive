@@ -163,12 +163,13 @@ zg.Liga              = function (id, nombre, entrenador, propia, invitacionesDis
     this.propia = ko.observable(propia);
     this.invitacionesDisponibles = ko.observable(invitacionesDisponibles);
 };
-zg.Tips              = function (tipo,titulo, mensaje, imageurl) {
+zg.Tips = function (id,tipo, titulo, mensaje, imageurl) {
+    this.id         = ko.observable(id);
     this.tipo       = ko.observable(tipo);
     this.titulo     = ko.observable(titulo);
     this.mensaje    = ko.observable(mensaje);
     this.image      = ko.observable(imageurl);
-    this.linkImage = ko.computed(function () {
+    this.linkImage  = ko.computed(function () {
         if (this.image() === "") {
             return "/Content/deportes/caminar_ico.png";
         } else {
@@ -345,7 +346,7 @@ zg.InicioView        = function () {
     this.loadTips           = function() {
         send('/Home/GetTips', "POST", null, function(data) {
             _.each(data, function(item) {
-               zg.model.viewInicio.tips.push(new zg.Tips(item.Tipo, '', item.Mensaje, item.LinkImage));
+               zg.model.viewInicio.tips.push(new zg.Tips(0,item.Tipo, '', item.Mensaje, item.LinkImage));
                zg.model.viewInicio.tips.valueHasMutated();
             });
 
@@ -484,7 +485,8 @@ zg.RetoView          = function () {
         });
     };
 };
-zg.EstadisticasView  = function () {
+zg.EstadisticasView = function () {
+    this.xhr =null;
     this.viewName = ko.observable("estadisticas");
     this.selected = ko.observable(false);
     this.data     = [];
@@ -496,8 +498,12 @@ zg.EstadisticasView  = function () {
     this.loadStatistics = function() {
 
         if (zg.model.viewEstadistica.form.from() !== undefined && zg.model.viewEstadistica.form.to() != undefined)
-            send("/User/GetStatistics", "Post", { Search: ko.toJSON(zg.model.viewEstadistica.form) }, function (data) {
-                zg.model.viewEstadistica.data = [];
+            if (zg.model.viewEstadistica.xhr !== null)
+                zg.model.viewEstadistica.xhr.abort();
+
+        zg.model.viewEstadistica.xhr = send("/User/GetStatistics", "Post", { Search: ko.toJSON(zg.model.viewEstadistica.form) }, function (data) {
+            zg.model.viewEstadistica.xhr  = null;
+            zg.model.viewEstadistica.data = [];
                 var caminar = [];
                 var d = _.where(data, { deporte: "Caminar" });
                 var s = d.length;
@@ -593,7 +599,7 @@ zg.TipsView = function (name) {
                 var i = 0;
                 _.each(data, function(item, index) {
 
-                    me.tips.push(new zg.Tips(item.Tipo, item.Titulo, item.Mensaje, item.LinkImage));
+                    me.tips.push(new zg.Tips(i++,item.Tipo, item.Titulo, item.Mensaje, item.LinkImage));
                     me.tips.valueHasMutated();
                     if (index == data.length - 1) {
                         $(".carousel").jCarouselLite({

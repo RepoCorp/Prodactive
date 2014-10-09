@@ -14,6 +14,7 @@ using Zeitgeist.Appsco.Web.Models;
 namespace Zeitgeist.Appsco.Web.Controllers
 {
     [Authorize]
+    [CompressContent]
     public class HomeController : Controller
     {
         private Orquestrator orquestrator;
@@ -38,7 +39,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         
         [HttpPost]
         //[OutputCache(Location = OutputCacheLocation.Client, Duration = 60)]
-        [OutputCache(Duration = 600, VaryByParam = "*", VaryByCustom = "User", Location = OutputCacheLocation.Server)]
+        [OutputCache(Duration = 600, VaryByCustom = "User", Location = OutputCacheLocation.Server)]
         public JsonResult GetLigas()
         {
             List<Liga> ligas = manager.GetLeagueUserRegistered(User.Identity.Name);
@@ -49,12 +50,12 @@ namespace Zeitgeist.Appsco.Web.Controllers
         }
 
         [HttpPost]
-        [OutputCache(Duration = 600, VaryByParam = "*", VaryByCustom = "User", Location = OutputCacheLocation.Server)]
+        [OutputCache(Duration = 600, VaryByCustom = "User", Location = OutputCacheLocation.Server)]
         public ActionResult GetUserData()
         {
 
-           List<Equipo> l=manager.GetEquiposByUser(User.Identity.Name);
-           l.Select(x => new {id = x.Id, equipo = x.Name});
+           //List<Equipo> l=manager.GetEquiposByUser(User.Identity.Name);
+           //l.Select(x => new {id = x.Id, equipo = x.Name});
            return Json(new { usuario = User.Identity.Name, avatar = "avatar2.png" });
         }
 
@@ -67,7 +68,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         }
         
         [HttpPost]
-        [OutputCache(Duration = 600, VaryByParam = "id", Location = OutputCacheLocation.Server)]
+        [OutputCache(Duration = 600, VaryByParam = "id", VaryByCustom = "User", Location = OutputCacheLocation.Server)]
         public JsonResult GetDetallesRetosByIdLiga(string id)
         {
             //Stopwatch sw= new Stopwatch();

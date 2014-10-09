@@ -10,11 +10,9 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic' rel='stylesheet' type='text/css'>
     <!-- bootstrap & fontawesome -->
 
-    @*<link href="~/Content/template/assets/css/bootstrap.min.css" rel="stylesheet" />*@
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/iThing.css" rel="stylesheet" />
-    @*<link rel="stylesheet" href="../assets/css/bootstrap.min.css" />*@
-
+    
     <link rel="stylesheet" href="~/Content/template/assets/css/font-awesome.min.css" />
     <!-- page specific plugin styles -->
     <!-- text fonts -->
@@ -205,7 +203,6 @@
     <script src="~/Scripts/moment.js"></script>
     <script src="~/Content/template/assets/js/bootstrap.min.js"></script>
     <script src="~/Content/template/assets/js/date-time/bootstrap-datepicker.min.js"></script>
-    @*<script src="~/Scripts/site.js"></script>*@
     <script src="~/Scripts/galleria-1.4.js"></script>
     @*-- page specific plugin scripts --*@
     <script src="~/Content/template/assets/js/jquery-ui.min.js"></script>
@@ -225,8 +222,6 @@
     <script src="~/signalr/hubs"></script>
     <!-- /SignalR -->
 
-
-
     <script src="~/Scripts/countdown.js"></script>
     <script src="~/Scripts/moment-countdown.js"></script>
 
@@ -236,25 +231,16 @@
     <script src="~/Content/template/assets/js/flot/jquery.flot.time.js"></script>
     <script src="~/Content/template/assets/js/flot/jquery.flot.labels.js"></script>
     <script src="~/Content/template/assets/js/flot/jquery.flot.tooltip.js"></script>
-
     <script src="~/Scripts/jQDateRangeSlider-min.js"></script>
     <script src="~/Scripts/numeral/numeral.js"></script>
     <script src="~/Scripts/knockout.mapping-latest.debug.js"></script>
     <script src="~/Scripts/site.js"></script>
     <script src="~/Scripts/Model/KnockoutHelpers.js"></script>
-
     <script src="~/Scripts/Model/page.js"></script>
     <!--se añade modelo knockout desde aca -->
-    @*  *@
     <script type="text/javascript">
         if ('ontouchstart' in document.documentElement) document.write("<script src='~/Content/template/assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
     </script>
-
-
-
     @RenderSection("scripts", required: false)
-
-
 </body>
-
 </html>

@@ -111,7 +111,10 @@ namespace console
             //le.Usuario   = "ddo88";
             //le.Velocidad = 4;
             //Database.GetCollection<LogEjercicio>("LogEjercicio").Save(le);
-            IngresoTips();
+            
+            
+            //IngresoTips();
+            //IngresoTips2();
             
             Console.WriteLine("Todo Good");
             Console.ReadLine();
@@ -121,6 +124,136 @@ namespace console
         private static void IngresoLogros()
         {
             
+        }
+
+
+        private static void IngresoTips2()
+        {
+            Tips t1 = new Tips();
+            t1.Titulo = "Toma té verde";
+            t1.Tipo = TipoTips.Alimentacion;
+            t1.Mensaje = "Tome té verde. Es anticancerígeno, ayuda a controlar la diabetes y es bueno para el corazón. También previene la hipertensión y fortalece el sistema inmunológico.";
+
+            Tips t2 = new Tips();
+            t2.Titulo = "Come manzana";
+            t2.Tipo = TipoTips.Alimentacion;
+            t2.Mensaje = "Una dieta que incluya manzanas y cereales le ayudará a regular el ritmo intestinal,  evitando casos de diarrea o estreñimiento.";
+
+            Tips t3 = new Tips();
+            t3.Titulo = "Cambia el café por una manzana";
+            t3.Tipo = TipoTips.Alimentacion;
+            t3.Mensaje = "Las manzanas, y no la cafeína, son más eficientes para despertarte en la mañana. También se podría tomar infusiones de manzanilla, hierbabuena o cualquier otro té suave.";
+
+            Tips t4 = new Tips();
+            t4.Titulo = "Prepara tus alimentos con aceite de oliva";
+            t4.Tipo = TipoTips.Alimentacion;
+            t4.Mensaje = "El aceite de oliva ayuda a prevenir enfermedades cardiovasculares y mantiene nivelado el colesterol, bajando las tasas de LDL, colesterol malo,  e incrementando las de HDL, el bueno. También tiene propiedades que previenen el cáncer.";
+
+
+            Tips t5 = new Tips();
+            t5.Titulo = "Come banano";
+            t5.Tipo = TipoTips.Alimentacion;
+            t5.Mensaje = "En vez de comer chocolate para ganar energía, coma un banano. Otra fruta beneficiosa es el aguacate, el cual es bajo en azúcar y rico en grasa vegetal saludable.";
+
+            Tips t6 = new Tips();
+            t6.Titulo = "El brócoli reduce el riesgo de cáncer";
+            t6.Tipo = TipoTips.Alimentacion;
+            t6.Mensaje = "El brócoli reduce el riesgo de cáncer  y evita que la enfermedad detectada sea más agresiva.  Al vapor aumenta en un 30% sus cualidades curativas.  Es rico en antioxidantes que previenen de tumores y enfermedades cardíacas.";
+
+            Tips t7 = new Tips();
+            t7.Titulo = "El vino tinto ayuda a bloquear la absorción de grasas";
+            t7.Tipo = TipoTips.Alimentacion;
+            t7.Mensaje = "Polifenoles, encontrado en el vino tinto, té, cerveza, chocolates, tienen un efecto antioxidante y pueden reducir el riesgo de contraer enfermedades cardiovasculares y cáncer. Asimismo reducen la absorción de grasa en el cuerpo.";
+
+            Tips t8 = new Tips();
+            t8.Titulo = "Beneficios de la Natación";
+            t8.Tipo = TipoTips.Deporte;
+            t8.Mensaje = "Tu calidad de vida mejora. La natación te permite retrasar la etapa del envejecimiento; tu capacidad motriz aumenta, al igual que tu memoria, ya que se requiere mayor concentración y coordinación.";
+
+            Tips t9 = new Tips();
+            t9.Titulo = "Derperta haz deporte";
+            t9.Tipo = TipoTips.Deporte;
+            t9.Mensaje = "Hacer deporte hace que estés más alerta, con más equilibrio y que tengas un tiempo de reacción complejo más eficiente y rápido; las heridas tardan menos en sanar.";
+
+            Tips t10 = new Tips();
+            t10.Titulo = "Suda Mojado!";
+            t10.Tipo = TipoTips.Deporte;
+            t10.Mensaje = "En el agua tus músculos trabajan de cinco a seis veces más que en tierra firme y quemas mayor número de calorías.";
+
+            Tips t11 = new Tips();
+            t11.Titulo = "Beneficio de patinar";
+            t11.Tipo = TipoTips.Deporte;
+            t11.LinkImage = "patinar_ico.png";
+            t11.Mensaje = "Patinar te ayuda a bajar de peso y a mantenerte en tu peso ideal por más tiempo, ya que te permite quemar muchas calorías. Si patinas por media hora, a una velocidad estable y moderada, llegas a quemar hasta 300 calorías.";
+
+            Tips t12 = new Tips();
+            t12.Titulo = "Piernas hermosas";
+            t12.Tipo = TipoTips.Deporte;
+            t12.LinkImage = "patinar_ico.png";
+            t12.Mensaje = "Luce unas piernas hermosas, Patinar te proporciona tonicidad y firmeza, y es una actividad “sin impacto” muy buena opción si tienes problemas de celulitis.";
+
+            //salud
+            Tips t13 = new Tips();
+            t13.Titulo = "Mastica bien tu comida";
+            t13.Tipo = TipoTips.Salud;
+            t13.Mensaje = "Si masticamos los alimentos sin prisas ayudaremos a nuestro cuerpo a asimilar mejor los nutrientes, facilitando la digestión con menor esfuerzo. Tomar líquidos es recomendable para ingerir mejor la comida.";
+
+            Tips t14 = new Tips();
+            t14.Titulo = "Manten tu mente activa resolviendo rompecabezas";
+            t14.Tipo = TipoTips.Salud;
+            t14.Mensaje = "Resuelva rompecabezas o problemas sencillos. Memorice nombres, teléfonos, fechas, canciones, suma o multiplica sin calculadora, lea algo interesante. Todo para mantener la mente activa.";
+
+            Tips t15 = new Tips();
+            t15.Titulo = "Sal con tus amigos";
+            t15.Tipo = TipoTips.Salud;
+            t15.Mensaje = "Sal con tus amigos al menos una vez por semana, levantate 15 minutos más temprano, sea menos exigente y haga una cosa a la vez esto ayudará a disminuir el nivel de estrés. Esto le permitirá tener una mejor y más duradera vida.";
+
+            Tips t16 = new Tips();
+            t16.Titulo = "Si siente náuseas, consuma un poco de jengibre";
+            t16.Tipo = TipoTips.Salud;
+            t16.Mensaje = "Al sentir náuseas, se recomienda consumir alimentos blandos como gelatina, sopa y galletas saladas  para relajar el estómago.  Se aconseja también probar jugos ligeros, bebidas de jengibre y caldo de pollo.";
+
+            Tips t17 = new Tips();
+            t17.Titulo = "Es mejor ejercitarse en la mañana";
+            t17.Tipo = TipoTips.Salud;
+            t17.Mensaje = "Es mejor hacer ejercicio en la mañana, concentra su mente y no le mantendrá despierto a altas horas de la noche. Además tendrá más energías para hacer sus rutinas y le dará mayor voluntad para seguir con su día.";
+
+            Tips t18 = new Tips();
+            t18.Titulo = "Dormir bien disminuye el riesgo de padecer cáncer de mama";
+            t18.Tipo = TipoTips.Salud;
+            t18.Mensaje = "Dormir bien disminuye el riesgo de padecer cáncer de mama. También hace que la piel se vea sana y las células se regeneran con más facilidad. Cuando el cuerpo no descansa lo suficiente presenta una tendencia a acumular grasas y es más difícil quemarlas.";
+
+            Tips t19 = new Tips();
+            t19.Titulo = "No pases hambre";
+            t19.Tipo = TipoTips.Salud;
+            t19.Mensaje = "Saltarse un tiempo de comida hace que el cuerpo pida alimentos, almacene grasas y gaste más energía. Es mejor 5 pequeñas comidas diarias, así el cuerpo no trabaja de más y la sensación de apetito no existe.";
+
+            Tips t20 = new Tips();
+            t20.Titulo = "Ejercítate por una hora";
+            t20.Tipo = TipoTips.Salud;
+            t20.Mensaje = "Ejercitar hasta sudar por una hora a la semana no solo mejora la musculatura, también disminuye la tensión, reduce el riesgo de un ataque al corazón, baja el colesterol y beneficia la función cardiovascular.";
+
+            Database.GetCollection<Tips>("Tips").Save(t1);
+            Database.GetCollection<Tips>("Tips").Save(t2);
+            Database.GetCollection<Tips>("Tips").Save(t3);
+            Database.GetCollection<Tips>("Tips").Save(t4);
+            Database.GetCollection<Tips>("Tips").Save(t5);
+            Database.GetCollection<Tips>("Tips").Save(t6);
+            Database.GetCollection<Tips>("Tips").Save(t7);
+            Database.GetCollection<Tips>("Tips").Save(t8);
+            Database.GetCollection<Tips>("Tips").Save(t9);
+            Database.GetCollection<Tips>("Tips").Save(t10);
+            Database.GetCollection<Tips>("Tips").Save(t11);
+            Database.GetCollection<Tips>("Tips").Save(t12);
+            Database.GetCollection<Tips>("Tips").Save(t13);
+            Database.GetCollection<Tips>("Tips").Save(t14);
+            Database.GetCollection<Tips>("Tips").Save(t15);
+            Database.GetCollection<Tips>("Tips").Save(t16);
+            Database.GetCollection<Tips>("Tips").Save(t17);
+            Database.GetCollection<Tips>("Tips").Save(t18);
+            Database.GetCollection<Tips>("Tips").Save(t19);
+            Database.GetCollection<Tips>("Tips").Save(t10);
+
         }
 
 
