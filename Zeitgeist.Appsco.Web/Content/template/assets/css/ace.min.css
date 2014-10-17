@@ -90,6 +90,7 @@ body {
 
 a:active, a:focus {
     text-decoration: none;
+    align-content:center;
 }
 
 h1 {
@@ -4995,6 +4996,7 @@ body.mob-safari .sidebar.sidebar-fixed {
     padding: 8px;
     line-height: 36px;
     border-top: 3px double #E5E5E5;
+    
 }
 
 .footer.footer-fixed .footer-inner {
@@ -9677,6 +9679,10 @@ td .lbl, th .lbl {
     color: #669fc7;
     border-bottom: 1px solid #DDD;
     padding-left: 12px;
+    
+  
+    
+    
 }
 
 .widget-header:after, .widget-header:before {
@@ -9687,6 +9693,7 @@ td .lbl, th .lbl {
 
 .widget-header:after {
     clear: right;
+    float:left;
 }
 
 .widget-box.collapsed > .widget-header {
@@ -9719,8 +9726,9 @@ td .lbl, th .lbl {
 .widget-header > .widget-title {
     line-height: 36px;
     padding: 0;
-    margin: 0;
+    margin: 5px;
     display: inline;
+    margin-left:5px;
 }
 
 .widget-header > .widget-title > .ace-icon {

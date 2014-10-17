@@ -1,15 +1,22 @@
 ﻿
 <div class="row">
     <div class="col-sm-6">
-        <a class="prev" href="#">‹</a>
-        <div class="carousel" style=" height: 400px !important;overflow: hidden;">
+        <a class="prev" href="#"><img src="~/Content/icons-classic/prev.png" width="15" /></a>
+        <div class="carousel" style=" height: 550px !important;overflow: hidden;">
+           
             <ul>
+
                 <!-- ko foreach: tips -->
                 <!--<div class="col-xs-12 col-sm-6 widget-container-col">-->
                 <li>
                     <div class="widget-box">
                         <div class="widget-header">
-                            <img alt="logo tip" data-bind="attr: { src: linkImage } " />
+                            <div class="decotip1">
+                                <div class="decotip2">
+                                    <img style="float:right;top:50%;left:50%;margin-top:2px;border-bottom-color:white;border:medium" alt="logo tip " width="25" data-bind="attr: { src: linkImage }" />
+                                </div>                               
+                            </div>
+                           
                             <h5 class="widget-title smaller" data-bind="text:titulo">
                             </h5>
                             @*<div class="widget-toolbar">
@@ -32,10 +39,10 @@
             </ul>
         </div>
 
-        <a class="next" href="#">‹</a>
+        <a class="next" href="#"><img src="~/Content/icons-classic/next.png" width="15" /></a>
     </div>
     <div class="col-sm-6">
         <img data-bind="attr :{ src :$root.image }"
-             style="left:0" alt="" />
+             style="float:right" alt="" />
     </div>
 </div>
