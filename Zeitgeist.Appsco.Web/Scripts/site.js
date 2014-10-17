@@ -23,7 +23,7 @@ function loadPartialView(selector, divToload) {
 
 var send = function (url, type, data, callback) {
     if (data === undefined || data ===null) {
-        $.ajax({
+       return $.ajax({
             url: url,
             type: type,
             dataType: 'json',
@@ -31,7 +31,7 @@ var send = function (url, type, data, callback) {
         });
     }
     else {
-        $.ajax({
+       return $.ajax({
             url: url,
             type: type,
             //data: { dataSave: data },

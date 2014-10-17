@@ -11,7 +11,10 @@ using Zeitgeist.Appsco.Web.Models;
 
 namespace Zeitgeist.Appsco.Web.Controllers
 {
+
+    
     [Authorize]
+    [CompressContent]
     public class RetoController : Controller
     {
         //
