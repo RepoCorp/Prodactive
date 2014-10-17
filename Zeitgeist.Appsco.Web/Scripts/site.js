@@ -82,6 +82,7 @@ var sendsubmit = function(selector, url, jsonData) {
 
                 // In case of success, we redirect to the provided URL or the same page.
                 if (json.success) {
+                    //$form.submit();
                     window.location = json.redirect || location.href;
                 } else if (json.errors) {
                     displayErrors($form, json.errors);
@@ -92,6 +93,40 @@ var sendsubmit = function(selector, url, jsonData) {
             });
     }
 };
+
+var sendForm = function (form, selector, url, jsonData) {
+
+    $form = form;
+    // We check if jQuery.validator exists on the form
+    if (!$form.valid || $form.valid()) {
+        //$.post($form.attr('action'), $form.serializeArray())
+
+        //$.post(url, { dataSave: jsonData })
+        var headers = {};
+        headers['__RequestVerificationToken'] = $(selector + ' input[name="__RequestVerificationToken"]').val();
+        $.ajax({
+            url: url,
+            data: { dataSave: jsonData },
+            type: "POST",
+            headers: headers,
+            cache: false
+        })
+            .done(function (json) {
+                json = json || {};
+
+                // In case of success, we redirect to the provided URL or the same page.
+                if (json.success) {
+                    window.location = json.redirect || location.href;
+                } else if (json.errors) {
+                    displayErrors($form, json.errors);
+                }
+            })
+            .error(function () {
+                displayErrors($form, ['An unknown error happened.']);
+            });
+    }
+};
+
 
 
 

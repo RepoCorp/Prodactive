@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Zeitgeist.Appsco.Web.Models.LoginModel
+@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -78,35 +79,44 @@
                                             </p>
                                         </div><!-- #dialog-message -->
                                         <!-- ko with: login -->
-                                        <form id="loginform">
+                                        
+                                    <!-- data-bind="submit:$root.submit"-->
+                                        <form id="loginform" action="/Account/Login" autocomplete="on" method="POST">
                                             @Html.AntiForgeryToken()
+                                            @Html.ValidationSummary(true)
                                             <fieldset>
-                                                <input id="returnUrl" type="hidden" value="@ViewBag.ReturnUrl"/>
+                                                <input name="returnUrl" id="returnUrl" type="hidden" value="@ViewBag.ReturnUrl" autocomplete="off" />
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="text" class="form-control" required placeholder="Usuario" data-bind="value:userName,text:userName,valueUpdate:'afterkeydown'" autofocus="autofocus" />
-                                                        <span data-bind='visible: userName.hasError, text: userName.validationMessage'> </span>
+                                                        <!-- data-bind="valueWithInit:userName,valueUpdate:'afterkeydown'"-->
+                                                        @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", placeholder = "Usuario", autofocus = "autofocus" })
+                                                        
+                                                        <!--<input name="user" type="text" class="form-control" required placeholder="Usuario"  autofocus="autofocus" />-->
+                                                        <!--<span data-bind='visible: userName.hasError, text: userName.validationMessage'> </span>-->
                                                         <i class="ace-icon fa fa-user"></i>
                                                     </span>
                                                 </label>
 
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input id="login_pass" type="password" class="form-control" required placeholder="Contraseña" data-bind="value:password,text:password,valueUpdate:'afterkeydown'" />
-                                                        <span data-bind='visible: password.hasError, text: password.validationMessage'> </span>
+                                                        <!-- data-bind="valueWithInit:password,valueUpdate:'afterkeydown'"-->
+                                                        <!--<input name="password" id="login_pass" type="password" class="form-control" required placeholder="Contraseña"  />-->
+                                                        @Html.PasswordFor(x=>x.Password,new {@class="form-control",placeholder="Contraseña"})
+                                                        <!-- <span>data-bind='visible: password.hasError, text: password.validationMessage'> </span>-->
                                                         <i class="ace-icon fa fa-lock"></i>
                                                     </span>
                                                 </label>
-
+                                                @Html.ValidationMessageFor(x => x.UserName, "", new { @class = "text-danger" })
                                                 <div class="space"></div>
 
                                                 <div class="clearfix">
                                                     <label class="inline">
-                                                        <input type="checkbox" data-bind="checked: rememberMe" class="ace" />
+                                                        <!-- data-bind="checked: rememberMe" -->
+                                                        <input name="remember" type="checkbox"  class="ace" />
                                                         <span class="lbl">Recordar mis datos</span>
                                                     </label>
 
-                                                    <button id="login-btn" type="button" class="width-35 pull-right btn btn-sm btn-primary" data-bind="click: $root.submit">
+                                                    <button id="login-btn" type="submit" class="width-35 pull-right btn btn-sm btn-primary" data-bind="submit:$root.submit">
                                                         <i class="ace-icon fa fa-key"></i>
                                                         <span class="bigger-110">Ingresar</span>
                                                     </button>
@@ -119,14 +129,15 @@
                                     </div><!-- /.widget-main -->
 
                                     <div class="toolbar clearfix">
-                                        <!-- <div>
-                                                 <a href="#" data-target="#forgot-box" class="forgot-password-link">
-                                                     <i class="ace-icon fa fa-arrow-left"></i>
-                                                     Olvide mi contraseña
-                                                 </a>
-                                            
+                                        
+                                        <div>
+                                            <a href="#" data-target="#forgot-box" class="forgot-password-link">
+                                                <i class="ace-icon fa fa-arrow-left"></i>
+                                                Olvide mi contraseña
+                                            </a>
+
                                         </div>
-                                            -->
+                                            
                                         <div>
                                             <a href="#" data-target="#signup-box" class="user-signup-link">
                                                 Quiero registrarme
@@ -139,43 +150,9 @@
 
                             <div id="forgot-box" class="forgot-box widget-box no-border">
                                 <div class="widget-body">
-                                    <!-- Pilas esto es el proceso para recordar contraseña-->
-                                    <div class="widget-main">
-                                        <h4 class="header red lighter bigger">
-                                            <i class="ace-icon fa fa-key"></i>
-                                            Retrieve Password
-                                        </h4>
-
-                                        <div class="space-6"></div>
-                                        <p>
-                                            Enter your email and to receive instructions
-                                        </p>
-
-                                        <form>
-                                            <fieldset>
-                                                <label class="block clearfix">
-                                                    <span class="block input-icon input-icon-right">
-                                                        <input type="email" class="form-control" placeholder="Email" />
-                                                        <i class="ace-icon fa fa-envelope"></i>
-                                                    </span>
-                                                </label>
-
-                                                <div class="clearfix">
-                                                    <button type="button" class="width-35 pull-right btn btn-sm btn-danger">
-                                                        <i class="ace-icon fa fa-lightbulb-o"></i>
-                                                        <span class="bigger-110">Send Me!</span>
-                                                    </button>
-                                                </div>
-                                            </fieldset>
-                                        </form>
-                                    </div><!-- /.widget-main -->
-
-                                    <div class="toolbar center">
-                                        <a href="#" data-target="#login-box" class="back-to-login-link">
-                                            Back to login
-                                            <i class="ace-icon fa fa-arrow-right"></i>
-                                        </a>
-                                    </div>
+                                 
+                                              @{ Html.RenderPartial("~/Views/Account/ForgotPassword.cshtml"); }
+                                 
                                 </div><!-- /.widget-body -->
                             </div><!-- /.forgot-box -->
 
@@ -191,7 +168,7 @@
                                         <div class="space-6"></div>
                                         <p> Ingresa tus datos de cuenta: </p>
                                         <!-- ko with: register -->
-                                        <form id="register-form">
+                                        <form id="register-form" autocomplete="off">
                                             <fieldset>
                                                 @Html.AntiForgeryToken()
                                                 <label class="block clearfix">
@@ -323,6 +300,7 @@
                                     </div>
                                     <!-- Fin Formulario de Registro -->
                                     <div class="toolbar center">
+                                       
                                         <a href="#" data-target="#login-box" class="back-to-login-link">
                                             <i class="ace-icon fa fa-arrow-left"></i>
                                             Volver a inicio de sesion
@@ -332,22 +310,7 @@
                             </div><!-- /.signup-box -->
                         </div><!-- /.position-relative -->
 
-                        @*<div class="navbar-fixed-top align-right">
-                            <br />
-                            &nbsp;
-                            <a id="btn-login-dark" href="#">Dark</a>
-                            &nbsp;
-                            <span class="blue">/</span>
-                            &nbsp;
-                            <a id="btn-login-blur" href="#">Blur</a>
-                            &nbsp;
-                            <span class="blue">/</span>
-                            &nbsp;
-                            <a id="btn-login-light" href="#">Light</a>
-                            &nbsp; &nbsp; &nbsp;
-                        </div>*@
-                        
-
+                   
                     </div>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -404,7 +367,7 @@
         //});
 
 
-        jQuery(function ($) {
+        $(function () {
             $(document).on('click', '.toolbar a[data-target]', function (e) {
                 e.preventDefault();
                 var target = $(this).data('target');
@@ -431,34 +394,6 @@
             
             //
         });
-
-
-
-        //you don't need this, just used for changing background
-        //jQuery(function ($) {
-        //    $('#btn-login-dark').on('click', function (e) {
-        //        $('body').attr('class', 'login-layout');
-        //        $('#id-text2').attr('class', 'white');
-        //        $('#id-company-text').attr('class', 'blue');
-
-        //        e.preventDefault();
-        //    });
-        //    $('#btn-login-light').on('click', function (e) {
-        //        $('body').attr('class', 'login-layout light-login');
-        //        $('#id-text2').attr('class', 'grey');
-        //        $('#id-company-text').attr('class', 'blue');
-
-        //        e.preventDefault();
-        //    });
-        //    $('#btn-login-blur').on('click', function (e) {
-        //        $('body').attr('class', 'login-layout blur-login');
-        //        $('#id-text2').attr('class', 'white');
-        //        $('#id-company-text').attr('class', 'light-blue');
-
-        //        e.preventDefault();
-        //    });
-
-        //});
     </script>
 </body>
 </html>

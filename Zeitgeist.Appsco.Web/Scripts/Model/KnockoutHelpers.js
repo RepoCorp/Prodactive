@@ -193,6 +193,17 @@ ko.bindingHandlers.countdown = {
     }
 }
 
+ko.bindingHandlers.valueWithInit = {
+    init: function (element, valueAccessor, allBindingsAccessor, context) {
+        var observable = valueAccessor();
+        var value = $(element).val();
+
+        observable(value);
+
+        ko.bindingHandlers.value.init(element, valueAccessor, allBindingsAccessor, context);
+    },
+    update: ko.bindingHandlers.value.update
+};
 
 ko.bindingHandlers.timeAgo = {
     init: function (element, valueAccessor) {

@@ -67,8 +67,11 @@ zg.Register = function() {
 zg.loginVM = function () {
     var login = new zg.Login(),
         submit = function (elm) {
-            login.returnUrl($("#returnUrl").val());
-            sendsubmit("#loginform", '/Account/Login', ko.toJSON(login));
+            if (!elm.valid || elm.valid()) {
+                elm.submit();
+            }
+            // login.returnUrl($("#returnUrl").val());
+           // sendForm(elm, "#loginform", '/Account/Login', ko.toJSON(login));
         };
 
     return {

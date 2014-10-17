@@ -1,5 +1,6 @@
 ﻿using MongoModels;
 using Zeitgeist.Appsco.Web.Api;
+using Zeitgeist.Appsco.Web.Api.Model;
 
 namespace Zeitgeist.Appsco.Web.Helpers
 {

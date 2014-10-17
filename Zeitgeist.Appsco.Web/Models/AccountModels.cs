@@ -54,8 +54,9 @@ namespace Zeitgeist.Appsco.Web.Models
 
     public class LoginModel
     {
-        [Required]
+        [Required(ErrorMessage = "Usuario o contraseña incorrecta")]
         [Display(Name = "Nombre de usuario")]
+        
         public string UserName { get; set; }
 
         [Required]

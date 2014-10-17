@@ -10,7 +10,6 @@ using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 using ServiceStack.WebHost.Endpoints;
 using Zeitgeist.Appsco.Web.Api;
-using Zeitgeist.Appsco.Web.Helpers;
 
 
 namespace Zeitgeist.Appsco.Web
@@ -18,7 +17,7 @@ namespace Zeitgeist.Appsco.Web
     // Nota: para obtener instrucciones sobre cómo habilitar el modo clásico de IIS6 o IIS7, 
     // visite http://go.microsoft.com/?LinkId=9394801
 
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(MvcApplication));
