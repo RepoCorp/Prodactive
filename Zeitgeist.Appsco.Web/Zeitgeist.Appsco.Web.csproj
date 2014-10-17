@@ -502,6 +502,8 @@
     <Content Include="Content\galeria\classic\galleria.classic.js" />
     <Content Include="Content\galeria\classic\galleria.classic.min.js" />
     <Content Include="Content\icons-classic\label.png" />
+    <Content Include="Content\icons-classic\next.png" />
+    <Content Include="Content\icons-classic\prev.png" />
     <Content Include="Content\icons-classic\resultset_next.png" />
     <Content Include="Content\icons-classic\resultset_previous.png" />
     <Content Include="Content\invitaciones\Inv_liga.png" />
