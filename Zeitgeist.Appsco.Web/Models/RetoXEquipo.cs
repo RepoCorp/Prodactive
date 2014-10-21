@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MongoDB.Bson;
 
 namespace Zeitgeist.Appsco.Web.Models
 {

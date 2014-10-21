@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using MongoModels;
 using Newtonsoft.Json;
+using ServiceStack.Common.Extensions;
 using Zeitgeist.Appsco.Web.App_Start;
 using Zeitgeist.Appsco.Web.Models;
 
@@ -31,34 +32,149 @@ namespace Zeitgeist.Appsco.Web.Controllers
         //
         // POST: /Account/Login
 
+    //    [HttpPost]
+    //    [AllowAnonymous]
+    //    [ValidateJsonAntiForgeryToken]
+    //    //[ValidateAntiForgeryToken]
+    //    public JsonResult Login(string dataSave, string returnUrl)
+    //    {
+    //        LoginModel model = JsonConvert.DeserializeObject<LoginModel>(dataSave);
+    //        returnUrl        = model.ReturnUrl;
+    //        if (String.IsNullOrEmpty(returnUrl))
+    //            returnUrl = this.Url.Action("Index", "Home", null, this.Request.Url.Scheme);
+            
+    //        if (ModelState.IsValid && Membership.ValidateUser(model.UserName, model.Password))
+    //        {
+    //            FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                
+    //            /*
+    //             * //create the authentication ticket
+    //var authTicket = new FormsAuthenticationTicket(
+    //  1,
+    //  userId,  //user id
+    //  DateTime.Now,
+    //  DateTime.Now.AddMinutes(2000),  // expiry in minutes
+    //  rememberMe,  //true to remember if it is checked
+    //  "", //roles 
+    //  "/"
+    //);
+
+    ////encrypt the ticket and add it to a cookie
+    //HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName,   FormsAuthentication.Encrypt(authTicket));
+    //Response.Cookies.Add(cookie);
+    //             */
+    //            Session.Add("UserId", model.UserName);
+            
+    //            return Json(new { success = true, redirect = returnUrl });
+    //        }
+    //        // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
+    //        ModelState.AddModelError("", "El nombre de usuario o la contraseña especificados son incorrectos.");
+    //        return Json(new { errors = GetErrorsFromModelState() });
+            
+            
+    //    }
         [HttpPost]
         [AllowAnonymous]
-        [ValidateJsonAntiForgeryToken]
-        //[ValidateAntiForgeryToken]
-        public JsonResult Login(string dataSave, string returnUrl)
+        public ActionResult Login(LoginModel model, string returnUrl)
         {
-            LoginModel model = JsonConvert.DeserializeObject<LoginModel>(dataSave);
-            returnUrl        = model.ReturnUrl;
+            returnUrl = model.ReturnUrl;
             if (String.IsNullOrEmpty(returnUrl))
                 returnUrl = this.Url.Action("Index", "Home", null, this.Request.Url.Scheme);
-            
             if (ModelState.IsValid && Membership.ValidateUser(model.UserName, model.Password))
             {
                 FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
                 Session.Add("UserId", model.UserName);
-            
-                return Json(new { success = true, redirect = returnUrl });
+
+                return RedirectToAction("Index", "Home");
+                //    return Json(new { success = true, redirect = returnUrl });
             }
-            // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
-            ModelState.AddModelError("", "El nombre de usuario o la contraseña especificados son incorrectos.");
-            return Json(new { errors = GetErrorsFromModelState() });
-            
-            
+            //// Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
+            ModelState.AddModelError("UserName", "El nombre de usuario o la contraseña especificados son incorrectos.");
+            return View(model);
+
         }
 
         private IEnumerable<string> GetErrorsFromModelState()
         {
             return ModelState.SelectMany(x => x.Value.Errors.Select(error => error.ErrorMessage));
+        }
+
+        [AllowAnonymous]
+        public ActionResult ResetPassword(string id)
+        {
+            var datos=Membership.FindUsersByEmail(id);
+            MembershipUser m=datos[Membership.GetUserNameByEmail(id)];
+            
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult RecoverPassword(string id)
+        {
+            if (String.IsNullOrEmpty(id))
+            {
+            }
+            var datos = Membership.FindUsersByEmail(id);
+
+            ViewBag.Mail     = id;
+            ViewBag.Question = datos[Membership.GetUserNameByEmail(id)].PasswordQuestion;
+            return View();
+            
+        }
+
+        
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult RecoverPassword(FormCollection form,string id)
+        {
+
+            var datos = Membership.FindUsersByEmail(form["id"]);
+            MembershipUser user = datos[Membership.GetUserNameByEmail(id)];
+            string pass =user.GetPassword(form["answer"]);
+            
+
+            
+            string body = "<h3>Contraseña Prodactive:</h3> " + pass +
+                "</br> Recuerda cambiar tu contraseña desde el panel de administración.";
+
+            manager.SendMail(id, "Prodactive: Recuperacion de contraseña", body);
+
+            return RedirectToAction("RecoverSend");
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult SendRecoverPassword(FormCollection form)
+        {
+
+            if (!String.IsNullOrEmpty(form["email"]))
+            {
+
+
+                string url = "http://localhost:58640/Account/RecoverPassword/" + form["email"];
+                string message =
+                    @"<a href='"+url+@"' target='_blank'>
+                                    Generar nueva contraseña
+                                </a>";
+                
+
+                manager.SendMail(form["email"], "Recuperacion Contraseña Prodactive", message);
+                return RedirectToAction("RecoverSend"); 
+            }
+            else
+            {
+                //Rev: revisar esta parte
+                return RedirectToAction("Error");
+            }
+
+        }
+
+
+        //mensaje de Recuperación de contraseña enviada
+        [AllowAnonymous]
+        public ActionResult RecoverSend()
+        {
+            return View();
         }
 
         //
@@ -69,7 +185,6 @@ namespace Zeitgeist.Appsco.Web.Controllers
         public ActionResult LogOff()
         {
             //WebSecurity.Logout();
-
             //return RedirectToAction("Index", "Home");
 
             FormsAuthentication.SignOut();
@@ -231,7 +346,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Questions()
+        public JsonResult Questions()
         {
             List<string> elm = new List<string>()
             {

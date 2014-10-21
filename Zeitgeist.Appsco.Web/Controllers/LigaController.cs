@@ -150,7 +150,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         public ActionResult EnvioInvitacion(Invitacion invitacion)
         {
             
-            MailClass mc = new MailClass(Settings.Default.mail, Settings.Default.pass, "smtp.gmail.com", 587);
+            
             invitacion.Remitente = User.Identity.Name;
             invitacion.LigaName  = manager.GetLigaById(invitacion.LigaId).Nombre;
             invitacion.Url       = "http://prodactive.co/Account/Login?ReturnUrl=%2fLiga%2fAceptarInvitacionLiga%2f" + invitacion.LigaId;
@@ -160,7 +160,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
                 log.Info("Html invitacion");
                 log.Info(body);
                 //string message = "<b>soy una invitacion</b><a href=\"http://localhost:58640/Account/Login?ReturnUrl=%2fLiga%2fAceptarInvitacionLiga%2f" + invitacion.LigaId + "\">prodactive</a>";
-                mc.Send(invitacion.Mail, "Te han invitado a pertenecer a una liga", body);
+                manager.SendMail(invitacion.Mail, "Te han invitado a pertenecer a una liga", body);
                 TempData["MessageInvitacion"] = "El usuario ya existe en la plataforma, se ha enviado un correo de invitación para pertencer a la liga.";
 
             }
@@ -176,7 +176,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
                         log.Info(body);
                 
                         //string message = "<b>soy una invitacion</b><a href=\"http://localhost:58640/Account/Login?ReturnUrl=%2fLiga%2fAceptarInvitacionLiga%2f" + invitacion.LigaId + "\">prodactive</a>";
-                        mc.Send(invitacion.Mail, "Invitacion Prodactive", body);
+                        manager.SendMail(invitacion.Mail, "Invitacion Prodactive", body);
                         TempData["MessageInvitacion"] = "El usuario no existe en la plataforma, se enviado un correo de invitacion para ingresar en la plataforma.";
                        
                     }

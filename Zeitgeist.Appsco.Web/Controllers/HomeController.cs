@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.UI;
 using MongoModels;
 using Zeitgeist.Appsco.Web.App_Start;
 using Zeitgeist.Appsco.Web.Manage;
-using Zeitgeist.Appsco.Web.Models;
 
 namespace Zeitgeist.Appsco.Web.Controllers
 {
@@ -30,15 +27,13 @@ namespace Zeitgeist.Appsco.Web.Controllers
 
         private Manager manager = Manager.Instance;
         [HttpGet]
-        //[OutputCache(Duration = 60)]
-        [OutputCache(Duration = 600, VaryByCustom = "User", Location = OutputCacheLocation.Server)]
+        //[OutputCache(Duration = 600, VaryByCustom = "User", Location = OutputCacheLocation.Server)]
         public ActionResult Index()
         {
             return View();
         }
         
         [HttpPost]
-        //[OutputCache(Location = OutputCacheLocation.Client, Duration = 60)]
         [OutputCache(Duration = 600, VaryByCustom = "User", Location = OutputCacheLocation.Server)]
         public JsonResult GetLigas()
         {
@@ -114,7 +109,7 @@ namespace Zeitgeist.Appsco.Web.Controllers
         }
 
         [HttpPost]
-        [OutputCache(Duration = 600, VaryByParam = "*", VaryByCustom = "User", Location = OutputCacheLocation.Server)]
+        [OutputCache(Duration = 300, VaryByParam = "*", VaryByCustom = "User", Location = OutputCacheLocation.Server)]
         public JsonResult GetLogEjerciciosByUser()
         {
            var l = manager.GetLogEjercicioByUserAndDates(User.Identity.Name, DateTime.Now.AddDays(-5), DateTime.Now)

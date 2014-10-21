@@ -44,7 +44,7 @@ namespace Zeitgeist.Appsco.Web.Hubs
             map.Add(user,connection);
 
             List<Equipo> lst = manager.GetEquiposByUser(usuario);
-            List<Reto> retos= manager.GetRetosActivosByLiga(liga);
+            List<Reto> retos = manager.GetRetosActivosByLiga(liga);
             log.Info(" "+lst.Count +" " +retos.Count );
             //Groups.Add()
             List<ChatElement> messages = manager.GetLastMessages(liga);

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -97,12 +95,14 @@ namespace Zeitgeist.Appsco.Web.Controllers
             });
 
             //con este obtengo lo de todos los equipos...
-            var t2 = Task.Factory.StartNew(() => { return manager.GetDatosRetoEquipo(r); });
-            
-            
-
+            var t2 = Task.Factory.StartNew(() =>
+            {
+                //return manager.GetDatosRetoEquipo(r);
+                return manager.GetDatosRetoEquipo2(r);
+            });
+        
             List<Equipo> equipos = manager.GetEquipos(r.Equipos);
-            List<LogEjercicio> datos = t2.Result;
+            List<LogDetalleUsuario> datos = t2.Result;
             foreach (var equipo in equipos)
             {
                 RetoXEquipo de = new RetoXEquipo();
@@ -116,11 +116,11 @@ namespace Zeitgeist.Appsco.Web.Controllers
                     {
                         de.MiEquipo = true;
                     }
-                    List<LogEjercicio> detalleMiembro = datos.Where(x => x.Usuario == user).ToList(); // manager.GetLogEjercicioByIdReto(r.Id, user);
+                    List<LogDetalleUsuario> detalleMiembro = datos.Where(x => x.Usuario == user).ToList(); // manager.GetLogEjercicioByIdReto(r.Id, user);
 
                     DetalleRetosXEquipo dre = new DetalleRetosXEquipo();
                     dre.Usuario = user;
-                    de.PuntosTotales += dre.Total = detalleMiembro.Sum(x => x.Conteo);
+                    de.PuntosTotales += dre.Total = detalleMiembro.Sum(x => x.Pasos);
 
                     if (dre.Total > de.TotalMejor)
                     {
@@ -160,11 +160,16 @@ namespace Zeitgeist.Appsco.Web.Controllers
         public JsonResult DetalleUsuario(string id)
         {
             Reto r= manager.GetRetoById(id);
+            var lst = manager.GetDatosRetoUsuario2(r, User.Identity.Name);
+
+
+            /*
             List<LogEjercicio> list = manager.GetDatosRetoUsuario(r, User.Identity.Name);
             Stopwatch sw= new Stopwatch();
             sw.Start();
-            var list2 = list.AsParallel().Select(x => new { fecha = x.FechaHora.ToString("yyyy-MM-dd"), conteo = x.Conteo }).GroupBy(x => x.fecha);
+            //var list2 = list.AsParallel().Select(x => new { fecha = x.FechaHora.ToString("yyyy-MM-dd"), conteo = x.Conteo }).GroupBy(x => x.fecha);
             //var list2 = list.Select(x => new { fecha = x.FechaHora.ToString("yyyy-MM-dd"), conteo = x.Conteo }).GroupBy(x => x.fecha);
+            var list2 = list.Select(x => new { fecha =x.FechaHora, conteo = x.Conteo }).GroupBy(x => x.fecha);
             sw.Stop();
             int i = -1;
 
@@ -172,13 +177,17 @@ namespace Zeitgeist.Appsco.Web.Controllers
             foreach (var b in list2)
             {
                 LogDetalleUsuario o= new LogDetalleUsuario();
-                o.Fecha = b.Key;
+                o.FechaHora = b.Key;
                 o.Pasos = b.ToList().AsParallel().Sum(x => x.conteo);
+                var j = b.ToList().Sum(x => x.conteo);
+                Console.WriteLine(j);
                 lst.Add(o);
             }
             //list.Distinct(x=>x.)
             Console.WriteLine(i);
-            return Json(lst);
+
+            */
+            return Json(lst.Select(x=> new {x.Fecha,x.Pasos}));
         }
         
     }

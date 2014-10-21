@@ -164,10 +164,15 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\Model\Login.cs" />
+    <Compile Include="Api\Model\RequestLogEjercicio.cs" />
+    <Compile Include="Api\Model\ResponseService.cs" />
+    <Compile Include="Api\Model\ServiceStatus.cs" />
     <Compile Include="Api\TestService.cs" />
     <Compile Include="App_Start\Atrributes.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\CompressContentAttribute.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\Manager.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -1548,14 +1553,14 @@
     <Content Include="Users\UserControls\adminUserNavLinks.ascx" />
     <Content Include="Users\UserControls\adminUserStats.ascx" />
     <Content Include="Users\Verification.aspx" />
-    <Content Include="Web.config">
+    <Content Include="Web2.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
+    <Content Include="Web2.Debug.config">
+      <DependentUpon>Web2.config</DependentUpon>
     </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
+    <Content Include="Web2.Release.config">
+      <DependentUpon>Web2.config</DependentUpon>
     </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
@@ -1604,6 +1609,7 @@
     <Content Include="Views\Shared\_Layoutt.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Scripts\LICENSE" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
     <None Include="Views\Account\Loginscshtml" />
     <Content Include="Views\Liga\Create.cshtml" />
     <Content Include="Views\Liga\Index.cshtml" />
@@ -1631,6 +1637,19 @@
     <Content Include="Views\Home\Galeria.cshtml" />
     <Content Include="Views\Home\FAQ.cshtml" />
     <Content Include="Views\Home\Tips.cshtml" />
+    <Content Include="Views\Account\RecoverSend.cshtml" />
+    <Content Include="Views\Account\RecoverPassword.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\PasswordSend.cshtml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

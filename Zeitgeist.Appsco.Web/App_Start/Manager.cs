@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Caching;
 using FluentMongo.Linq;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoModels;
 using Zeitgeist.Appsco.Web.Api;
+using Zeitgeist.Appsco.Web.Api.Model;
 using Zeitgeist.Appsco.Web.Helpers;
 using Zeitgeist.Appsco.Web.Models;
 using Zeitgeist.Appsco.Web.Properties;
+using MailClass = ZeitGeist.Tools.MailClass;
 
 namespace Zeitgeist.Appsco.Web.App_Start
 {
@@ -59,6 +61,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
                 insert(collection,a);
                 return a;
             }
+            
             return HttpRuntime.Cache[collection] as MongoCollection<T>;
 
         }
@@ -132,9 +135,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
 
             return false;
         }
-
-
-
+        
         public bool DeleteLiga(Liga liga)
         {
             WriteConcernResult wr = GetCollection<Liga>(Settings.Default.ColeccionLiga).Remove(Query.EQ("_id", new ObjectId(liga.Id)));
@@ -215,13 +216,7 @@ namespace Zeitgeist.Appsco.Web.App_Start
                 return true;
             return false;
         }
-
-
-        //public bool SaveRegistro(Registro registro)
-        //{
-        //    return Save(registro, Settings.Default.ColeccionRegistro);
-        //}
-
+        
         public Persona  GetDatosUsuario(string user)
         {
             Persona p= new Persona();
@@ -363,7 +358,9 @@ namespace Zeitgeist.Appsco.Web.App_Start
             }
             catch (Exception ex)
             {
-                throw ex;
+
+                log.Error("GetLeagueUserRegistered", ex);
+                throw;
             }
         }
         public      List<Reto>         GetRetosByIdLiga(string id)
@@ -374,7 +371,8 @@ namespace Zeitgeist.Appsco.Web.App_Start
             }
             catch (Exception ex)
             {
-                throw ex;
+                log.Error("GetRetosByIdLiga", ex);
+                throw;
             }
         }
         public      List<LogEjercicio> GetDatosRetoEquipo(ICollection<string> equipos, string usuario,Reto reto)
@@ -396,6 +394,8 @@ namespace Zeitgeist.Appsco.Web.App_Start
                 }
             return new List<LogEjercicio>();
         }
+
+        //REV: para eliminar este metodo
         public      List<LogEjercicio> GetDatosRetoEquipo(Reto reto)
         {
             List<LogEjercicio> lst = new List<LogEjercicio>();
@@ -410,18 +410,10 @@ namespace Zeitgeist.Appsco.Web.App_Start
                 lst.AddRange(l);
             });
 
-
-            /*foreach (var e in r)
-            {
-                var l= GetCollection<LogEjercicio>(Settings.Default.CollectionLogEjercicio).Find(Query.And(new []
-                                                                                            { Query.In("Usuario", new BsonArray(e.Miembros)),
-                                                                                              Query.GTE("FechaHora", reto.FechaInicio),
-                                                                                              Query.LTE("FechaHora", reto.FechaFin)
-                                                                                             })).ToList();
-                lst.AddRange(l);
-            }*/
+            
             return lst;
         }
+        
         public      List<LogEjercicio> GetDatosRetoUsuario(Reto reto,string user)
         {
             List<LogEjercicio> lst = new List<LogEjercicio>();
@@ -436,18 +428,69 @@ namespace Zeitgeist.Appsco.Web.App_Start
                 lst.AddRange(l);
             });
 
-
-            /*foreach (var e in r)
-            {
-                var l= GetCollection<LogEjercicio>(Settings.Default.CollectionLogEjercicio).Find(Query.And(new []
-                                                                                            { Query.In("Usuario", new BsonArray(e.Miembros)),
-                                                                                              Query.GTE("FechaHora", reto.FechaInicio),
-                                                                                              Query.LTE("FechaHora", reto.FechaFin)
-                                                                                             })).ToList();
-                lst.AddRange(l);
-            }*/
             return lst;
         }
+
+        public List<LogDetalleUsuario> GetDatosRetoEquipo2(Reto reto)
+        {
+            List<LogDetalleUsuario> lst = new List<LogDetalleUsuario>();
+            var r = GetEquipos(reto.Equipos);
+           
+            Parallel.ForEach(r, (e) =>
+            {
+
+                IMongoGroupBy group = new GroupByBuilder(new[] { "FechaHora","Usuario" });
+                var key = "FechaHora, Usuario";
+                var initial = new BsonDocument("SumConteo", 0);
+                var reduce = @"function(obj, prev) { prev.SumConteo = prev.SumConteo + obj.Conteo - 0; }";
+                var query = Query.And(new[]
+                {
+                    Query.In("Usuario", new BsonArray(e.Miembros)),
+                    Query.GTE("FechaHora", reto.FechaInicio),
+                    Query.LTE("FechaHora", reto.FechaFin)
+                });
+                var l = GetCollection<LogEjercicio>(Settings.Default.CollectionLogEjercicio)
+                    .Group(query, group, initial, reduce, null)
+                    .ToList();
+
+                foreach (var a in l)
+                {
+                    lst.Add(BsonSerializer.Deserialize<LogDetalleUsuario>(a));
+                    Console.WriteLine("{0}",a.ToString());    
+                }
+            });
+
+            return lst;
+
+        }
+        public List<LogDetalleUsuario> GetDatosRetoUsuario2(Reto reto, string user)
+        {
+
+            List<LogDetalleUsuario> lst = new List<LogDetalleUsuario>();
+
+            var key     = "FechaHora";
+            var initial = new BsonDocument("SumConteo", 0);
+            var reduce  = @"function(obj, prev) { prev.SumConteo = prev.SumConteo + obj.Conteo - 0; }";
+            var query   = Query.And(new[]
+                    {
+                        Query.EQ("Usuario", user),
+                        Query.GTE("FechaHora", reto.FechaInicio),
+                        Query.LTE("FechaHora", reto.FechaFin)
+                    });
+            var l =  GetCollection<LogEjercicio>(Settings.Default.CollectionLogEjercicio)
+                    .Group(query, key, initial, reduce, null)
+                    .ToList();
+            
+            
+            foreach (var a in l)
+            {
+                lst.Add(BsonSerializer.Deserialize<LogDetalleUsuario>(a));
+            }
+            
+            return lst;
+        }
+
+
         public List<LogEjercicio> GetDatosRetoEquipoByDay(Reto reto,DateTime fecha)
         {
             List<LogEjercicio> lst = new List<LogEjercicio>();
@@ -569,7 +612,10 @@ namespace Zeitgeist.Appsco.Web.App_Start
 
         public List<Equipo> GetEquiposByUser(string user)
         {
-            return GetCollection<Equipo>(Settings.Default.CollectionEquipos).Find(Query.EQ("Miembros", user)).ToList();
+            if(!String.IsNullOrEmpty(user))
+                return GetCollection<Equipo>(Settings.Default.CollectionEquipos).Find(Query.EQ("Miembros", user)).ToList();
+
+            return new List<Equipo>();
         }
 
         public bool SaveLogLogrosDiarios(LogLogrosDiarios ld)
@@ -608,6 +654,14 @@ namespace Zeitgeist.Appsco.Web.App_Start
         public List<Tips> GetTipsAlimentacion()
         {
             return GetCollection<Tips>(Settings.Default.CollectionTips).AsQueryable().Where(x => x.Tipo == TipoTips.Alimentacion).ToList();
+        }
+
+
+        public bool SendMail(string destino,string asunto, string htmlBody)
+        {
+            //ZeitGeist.Tools.MailClass mc = new MailClass(Settings.Default.mail, Settings.Default.pass, "smtp.gmail.com", 587);
+            ZeitGeist.Tools.MailClass mc = new MailClass("livingdeathD@gmail.com", "p3p1t0c0", "smtp.gmail.com", 587);
+            return mc.Send(destino, asunto, htmlBody);
         }
     }
 
