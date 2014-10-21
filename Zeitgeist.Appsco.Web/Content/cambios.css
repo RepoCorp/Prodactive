@@ -15,6 +15,8 @@ h5.biggers {
     width: 50%;
     height: 400px !important;
 }
+    
+}
 
 .firstOfTeam {
     background-image: url()             
@@ -46,4 +48,17 @@ h5.biggers {
     left:50%;
     margin-top:4px;
     border-radius:3px 0px 0px 3px;
+}
+.tid {
+    color:white;
+    font-size:22px;
+    margin-left:9px;
+    vertical-align:middle;
+}
+.logrim {
+    float:right;  
+    margin-bottom:-50px;
+    opacity:0.3;
+    width:650px;
+
 }

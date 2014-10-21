@@ -601,6 +601,7 @@
     <Content Include="Content\medallas\color\retos_x20.png" />
     <Content Include="Content\medallas\color\retos_x5.png" />
     <Content Include="Content\medallas\color\retos_x50.png" />
+    <Content Include="Content\medallas\trofeos.png" />
     <Content Include="Content\template\assets\avatars\avatar.png" />
     <Content Include="Content\template\assets\avatars\avatar1.png" />
     <Content Include="Content\template\assets\avatars\avatar2.png" />
