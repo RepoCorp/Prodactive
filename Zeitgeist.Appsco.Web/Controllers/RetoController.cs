@@ -136,7 +136,11 @@ namespace Zeitgeist.Appsco.Web.Controllers
                 }
 
                 de.Detalles = de.Detalles.OrderBy(x => x.Posicion).ToList();
-                de.PorcentajePuntosTotales = ((double)de.PuntosTotales * 100) / (double)r.Meta;
+                if (de.PuntosTotales > r.Meta)
+                    de.PorcentajePuntosTotales = 100;
+                else
+                    de.PorcentajePuntosTotales = ((double)de.PuntosTotales * 100) / (double)r.Meta;
+                
                 det.Add(de);
                 
             }

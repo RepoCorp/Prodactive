@@ -43,9 +43,9 @@ namespace Zeitgeist.Appsco.Web.Hubs
             string connection = Context.ConnectionId;
             map.Add(user,connection);
 
-            List<Equipo> lst = manager.GetEquiposByUser(usuario);
-            List<Reto> retos = manager.GetRetosActivosByLiga(liga);
-            log.Info(" "+lst.Count +" " +retos.Count );
+            //List<Equipo> lst = manager.GetEquiposByUser(usuario);
+            //List<Reto> retos = manager.GetRetosActivosByLiga(liga);
+            //log.Info(" "+lst.Count +" " +retos.Count );
             //Groups.Add()
             List<ChatElement> messages = manager.GetLastMessages(liga);
             if (messages.Count > 0)
@@ -58,6 +58,49 @@ namespace Zeitgeist.Appsco.Web.Hubs
             }
             
             //Clients.All.broadcastMessage(usuario, "se ha registrado el usuario", "", DateTime.Now);
+        }
+
+        //logica del chat de retos
+        public void RegistroChatReto(string usuario, string reto)
+        {
+
+            string user = Context.User.Identity.Name;
+            string connection = Context.ConnectionId;
+            map.Add(user, connection);
+
+            //Cargar chat de reto.... crear grupos?
+            /*
+            List<ChatElement> messages = manager.GetLastMessages(liga);
+            if (messages.Count > 0)
+            {
+                messages = messages.OrderBy(x => x.Fecha).ToList();
+                foreach (var elm in messages)
+                {
+                    Clients.Client(connection).broadcastMessage(elm.User, elm.Message, elm.Avatar, elm.Fecha.ToString("yyyy-MM-dd HH:mm:ss"));
+                }
+            }*/
+        }
+
+        public void SendChatReto(string usuario, string mensaje, string avatar, string reto)
+        {
+            /*
+            Task.Factory.StartNew(() =>
+            {
+                ChatElement c = new ChatElement()
+                {
+                    User = usuario,
+                    Message = mensaje,
+                    Avatar = avatar,
+                    Fecha = DateTime.Now,
+                    Liga = liga
+                };
+                if (manager.SaveChat(c))
+                {
+                }
+            });
+
+            Clients.All.broadcastMessage(usuario, mensaje, avatar, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            */
         }
     }
 

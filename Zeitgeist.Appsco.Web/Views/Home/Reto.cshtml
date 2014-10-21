@@ -123,14 +123,14 @@
                     <td><span data-bind="text:equipo"></span></td>
                     <td>
                         <div class="progress">
-                            <div data-bind="style: {width: cssPuntosUsuario()}, numeraltext:puntosTotales" class="progress-bar progress-bar-success"></div>
+                            <div data-bind="style: {width: cssPuntosUsuario()}, text:puntosUsuarioText" class="progress-bar progress-bar-success"></div>
                             <div data-bind="style: {width: cssPuntosTotales() },text:puntosTotales" class="progress-bar progress-bar-warning"></div>
                             <div style="width:100%;" class="progress-bar progress-bar-grey"></div>
                         </div>
                     </td>
                     <td>
                         <!--<select data-bind="options: equipos,optionsText: function(item) { return item.equipo }, value:$parent.equipoSelected, optionsCaption: 'Seleccione el equipo...'"></select> -->
-                        <select class="dds">
+                        <select data-bind="css: cssEquipoClass">
                             <!-- ko foreach: detalles-->
                             <option data-bind="text:usuario,attr:{ 'data-imagesrc': posicionIcon}"></option>
                             <!-- /ko -->
@@ -148,7 +148,10 @@
 
 </div>
 <div class="row">
-    <div id="grafico_barras" style="width:800px;height:300px">
-        
+    <div class="col-sm-12">
+        <div id="grafico_barras" style="width:1000px;height:300px">
+
+        </div>
     </div>
+    
 </div>
