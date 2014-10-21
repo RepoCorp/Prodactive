@@ -6,6 +6,7 @@ using System.Web.Security;
 using MongoModels;
 using Newtonsoft.Json;
 using ServiceStack.Common.Extensions;
+using ServiceStack.Common.Web;
 using Zeitgeist.Appsco.Web.App_Start;
 using Zeitgeist.Appsco.Web.Models;
 
@@ -98,6 +99,58 @@ namespace Zeitgeist.Appsco.Web.Controllers
         {
             return ModelState.SelectMany(x => x.Value.Errors.Select(error => error.ErrorMessage));
         }
+
+        [AllowAnonymous]
+        public ActionResult ResetAccount()
+        {
+            var list =
+                GetQuestions().Select(x => new SelectListItem() {Value = x.ToString(), Text = x.ToString()}).ToList();
+            SelectList sl = new SelectList(list,"Value","Text");
+            ViewBag.Questions = sl;
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult ResetAccount(FormCollection form)
+        {
+            try
+            {
+            
+            string user     = form["usuario"];
+            string pass     = form["password"];
+            string email    = form["email"];
+            string question = form["pregunta"];
+            string answer   = form["answer"];
+
+            Membership.DeleteUser(user);
+            MembershipCreateStatus status;
+            Membership.CreateUser(user, pass, email, question, answer, true, out status);
+                if (status == MembershipCreateStatus.Success)
+                {
+                    string htmlBody = "<h5>Usuario creado correctamente en prodactive</h5>";
+                    manager.SendMail(email, "Usuario creado en Prodactive", htmlBody);
+                    return RedirectToAction("Login");
+            
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("Reset Password",ex);
+            }
+
+            var list =
+             GetQuestions().Select(x => new SelectListItem() { Value = x.ToString(), Text = x.ToString() }).ToList();
+            SelectList sl = new SelectList(list, "Value", "Text");
+            ViewBag.Questions = sl;
+            ViewBag.Error = true;
+            ViewBag.Mensaje = "Verifique los datos ingresados";
+            return View();
+        }
+
+
+
+
 
         [AllowAnonymous]
         public ActionResult ResetPassword(string id)
@@ -348,6 +401,13 @@ namespace Zeitgeist.Appsco.Web.Controllers
         [AllowAnonymous]
         public JsonResult Questions()
         {
+            var elm = GetQuestions();
+
+            return Json(elm, JsonRequestBehavior.AllowGet);
+        }
+
+        private static List<string> GetQuestions()
+        {
             List<string> elm = new List<string>()
             {
                 "Nombre de tu primera Mascota",
@@ -356,11 +416,10 @@ namespace Zeitgeist.Appsco.Web.Controllers
                 "Nombre de tu Madre",
                 "Mes de Nacimiento de tu hijo/hija"
             };
-            
-            return Json(elm, JsonRequestBehavior.AllowGet);
+            return elm;
         }
 
-       
+
         //
         // GET: /Account/Manage
 

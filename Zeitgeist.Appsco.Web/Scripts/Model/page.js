@@ -35,13 +35,13 @@ function serializeDetalleMiembros(item) {
     elm.posicion(item.Posicion);
     return elm;
 }
-function serializeDetalleEquipo  (item) {
+function serializeDetalleEquipo  (item,index) {
 
     var arreglo = [];
     for (var i = 0; i < item.Detalles.length; i++)
         arreglo.push(serializeDetalleMiembros(item.Detalles[i]));
     
-    var elm = new zg.DetalleEquipo(item.Equipo, item.PuntosTotales, item.Mejor,item.TotalMejor, item.MiEquipo,item.Posicion, item.PorcentajePuntosTotales,arreglo);
+    var elm = new zg.DetalleEquipo(index,item.Equipo, item.PuntosTotales, item.Mejor,item.TotalMejor, item.MiEquipo,item.Posicion, item.PorcentajePuntosTotales,arreglo);
     return elm;
 }
 function serializeMaestroReto    (item) {
@@ -50,7 +50,7 @@ function serializeMaestroReto    (item) {
     elm.descripcion(item.descripcion);
     
     for (var i = 0; i < item.equipos.length; i++) {
-        elm.equipos.push(serializeDetalleEquipo(item.equipos[i]));
+        elm.equipos.push(serializeDetalleEquipo(item.equipos[i],i));
     }
     return elm;
 }
@@ -136,9 +136,17 @@ zg.DetalleReto       = function (id, name, total, equipo, reto, posicion) {
         return ((this.totalUsuario() / this.totalReto()) * 100) + "%";
     }, this);
     this.porcentajeTotalEquipo = ko.computed(function () {
+        if (this.totalEquipo() > this.totalReto()) {
+            return ((1 - (this.totalUsuario() / this.totalReto())) * 100) + "%";
+        }
         return (((this.totalEquipo() / this.totalReto()) - (this.totalUsuario() / this.totalReto())) * 100) + "%";
     }, this);
-    this.porcentajeTotalReto = ko.computed(function () { return (100 - ((this.totalEquipo() / this.totalReto()) - (this.totalUsuario() / this.totalReto()))) * "%"; }, this);
+    this.porcentajeTotalReto = ko.computed(function () {
+        if (this.totalEquipo() > this.totalReto()) {
+            return (100 - (1 - (this.totalUsuario() / this.totalReto()))) * "%";
+        }
+        return (100 - ((this.totalEquipo() / this.totalReto()) - (this.totalUsuario() / this.totalReto()))) * "%";
+    }, this);
 };
 zg.Reto              = function () {
     this.id = ko.observable();
@@ -205,7 +213,8 @@ zg.MaestroReto       = function () {
     this.equipos = ko.observableArray([]);
     this.equipoSelected = ko.observable();
 };
-zg.DetalleEquipo     = function (equipo,puntosTotales,mejor,totalMejor,miEquipo,posicion,porcentajePuntosTotales,detalles) {
+zg.DetalleEquipo = function (id,equipo, puntosTotales, mejor, totalMejor, miEquipo, posicion, porcentajePuntosTotales, detalles) {
+    this.id = ko.observable(id);
     this.equipo = ko.observable(equipo);
     this.puntosTotales = ko.observable(puntosTotales);
     this.mejor = ko.observable(mejor);
@@ -215,11 +224,13 @@ zg.DetalleEquipo     = function (equipo,puntosTotales,mejor,totalMejor,miEquipo,
     this.porcentajePuntosTotales = ko.observable(porcentajePuntosTotales);
     this.detalles = ko.observableArray(detalles);
     this.puntosUsuario = ko.observable(0);
+    this.puntosUsuarioText = ko.observable('');
     this.cssPuntosUsuario = ko.computed(function () {
         if (this.miEquipo() == true) {
             var r = _.find(this.detalles(), function (e) { return e.usuario() == zg.model.menuSuperior.user(); });
             if (r !== undefined) {
                 this.puntosUsuario = ko.observable((r.total() * 100 / zg.model.menu.reto().meta()));
+                this.puntosUsuarioText(r.total());
                 return this.puntosUsuario() + "%";
             }
             
@@ -245,6 +256,9 @@ zg.DetalleEquipo     = function (equipo,puntosTotales,mejor,totalMejor,miEquipo,
                 return "label label-inverse arrowed";
         }
         return "";
+    }, this);
+    this.cssEquipoClass = ko.computed(function() {
+        return "equipo" + this.id();
     }, this);
 };
 zg.DetalleMiembros   = function () {
@@ -377,6 +391,8 @@ zg.RetoView          = function () {
     this.maestroReto    = ko.observable();
     this.equipoSelected = ko.observable();
     this.estadisticasDiarias = [];
+    this.mensajes = ko.observableArray();
+    this.mensaje = new zg.Mensaje("", "", "", new Date());
 
     function lo(ticks) {
         var options = {
@@ -450,22 +466,35 @@ zg.RetoView          = function () {
         /**/
         //$.plot($("#grafico_barras"), zg.model.viewReto.estadisticasDiarias,options);
     };
+    function loadChat () {
+        $.connection.hub.start().done(function () {
+            console.log("conexion exitosa");
+            // Call the Send method on the hub.
+            chat.server.registro(zg.model.menuSuperior.user(), zg.model.menuSuperior.liga.id());
+            //});
+        });
+    };
 
     this.consultaMaestroDetalleReto = function (idReto) {
         //consulta maestro detalle
-        send('/Reto/MaestroDetalle/' + idReto, 'post', null, function (data) {
-            try {
-                zg.model.viewReto.maestroReto(serializeMaestroReto(data));
-                $(".dds").ddslick({
-                    keepJSONItemsOnTop: true,
-                    imagePosition: "right",
-                    selectText: "Miembros del equipo"
-                });
-            } catch (e) {
-                var p = 0;
-            }
+            send('/Reto/MaestroDetalle/' + idReto, 'post', null, function (data) {
+                try {
+                    zg.model.viewReto.maestroReto(serializeMaestroReto(data));
+                    _.each(zg.model.viewReto.maestroReto().equipos(), function(team) {
+                        $("."+team.cssEquipoClass()).ddslick({
+                            //keepJSONItemsOnTop: true,
+                            imagePosition: "left",
+                            selectText: "Miembros del equipo"
+                        });
+                    });
+                    
+                } catch (e) {
+                    var p = 0;
+                }
 
-        });
+            });
+        
+        
         //consulta detalles personales reto
         send('/Reto/DetalleUsuario/' + idReto, 'POST', null, function (data) {
             var i = data.length,j=0;
@@ -605,7 +634,8 @@ zg.TipsView = function (name) {
                         $(".carousel").jCarouselLite({
                             btnNext: ".next",
                             btnPrev: ".prev",
-                            vertical: true
+                            vertical: true,
+                            visible:3
                         });
                     }
                 });
@@ -614,7 +644,8 @@ zg.TipsView = function (name) {
             $(".carousel").jCarouselLite({
                 btnNext: ".next",
                 btnPrev: ".prev",
-                vertical: true
+                vertical: true,
+                visible:3
             });
 
         }
